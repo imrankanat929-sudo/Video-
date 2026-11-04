@@ -71,8 +71,29 @@ def to_lmap(f):
 
 
 # ---------- персонажи ----------
-def person(img, x, yf, h, facing=-1, phase=None, kind="generic", col=SIL):
-    """Силуэт человека в профиль. yf — уровень ступней, h — рост в пикселях."""
+# Приглушённые ночные цвета одежды (BGR)
+TOPS = [(70, 44, 30), (40, 52, 78), (58, 58, 62), (36, 92, 112), (42, 70, 50), (96, 112, 128),
+        (82, 64, 50), (30, 30, 34), (64, 40, 70), (50, 78, 96), (88, 88, 92), (80, 70, 40)]
+PANTS = [(60, 40, 28), (26, 26, 30), (46, 46, 50), (40, 50, 64), (72, 54, 40), (34, 40, 36)]
+HAIRS = [(18, 18, 20), (24, 38, 58), (40, 52, 70), (90, 92, 96), (30, 30, 34)]
+HATS = [None, None, None, (90, 60, 40), (70, 60, 50), (30, 30, 32), (60, 90, 100)]
+# ночью цвета приглушены; рыжего и красного нет — это цвет Веры
+DIM = 0.42
+TOPS, PANTS, HAIRS = ([tuple(int(c * DIM) for c in col) for col in pal] for pal in (TOPS, PANTS, HAIRS))
+HATS = [None if h is None else tuple(int(c * DIM) for c in h) for h in HATS]
+
+
+def outfit(rng):
+    """Случайный комплект одежды: верх, низ, волосы, шапка (или None), длинное пальто."""
+    return (TOPS[rng.integers(len(TOPS))], PANTS[rng.integers(len(PANTS))],
+            HAIRS[rng.integers(len(HAIRS))], HATS[rng.integers(len(HATS))], rng.random() < 0.3)
+
+
+def person(img, x, yf, h, facing=-1, phase=None, kind="generic", col=SIL, wear=None):
+    """Силуэт человека в профиль. yf — уровень ступней, h — рост в пикселях.
+    wear — комплект одежды из outfit(); без него рисуется тёмный силуэт."""
+    if kind == "generic" and wear is not None:
+        return dressed(img, x, yf, h, facing, phase, wear)
     x, yf, h = float(x), float(yf), float(h)
     r = h * 0.075
     hy = yf - h + r
@@ -112,6 +133,30 @@ def person(img, x, yf, h, facing=-1, phase=None, kind="generic", col=SIL):
         cv2.circle(img, (int(x), int(hy)), max(1, int(r)), col, -1, AA)
         if kind == "robe":  # бледное лицо
             cv2.circle(img, (int(x + facing * r * 0.35), int(hy + r * 0.1)), max(1, int(r * 0.7)), (80, 86, 100), -1, AA)
+
+
+def dressed(img, x, yf, h, facing, phase, wear):
+    top, pants, hair, hat, coat = wear
+    x, yf, h = float(x), float(yf), float(h)
+    r = h * 0.075
+    hy = yf - h + r
+    sh_y, hip_y = yf - h * 0.80, yf - h * 0.47
+    step = 0.0 if phase is None else math.sin(phase)
+    lw = max(1, int(h * 0.06))
+    for s in (-1, 1):
+        fx = x + facing * s * step * h * 0.09
+        cv2.line(img, (int(x + s * h * 0.025), int(hip_y)), (int(fx), int(yf)), pants, lw, AA)
+        cv2.line(img, (int(fx), int(yf)), (int(fx + facing * h * 0.04), int(yf)), (14, 14, 16), max(1, lw), AA)
+    bottom = yf - h * 0.22 if coat else hip_y + h * 0.04
+    pts = [(x - h * 0.10, sh_y), (x + h * 0.10, sh_y), (x + h * (0.10 if coat else 0.08), bottom), (x - h * (0.10 if coat else 0.08), bottom)]
+    cv2.fillPoly(img, [np.int32(pts)], top, AA)
+    sleeve = tuple(int(c * 0.8) for c in top)
+    cv2.line(img, (int(x), int(sh_y + h * 0.02)), (int(x + facing * h * 0.015), int(hip_y + h * 0.05)), sleeve, lw, AA)
+    cv2.line(img, (int(x), int(sh_y)), (int(x + facing * h * 0.01), int(hy + r)), (30, 33, 40), lw, AA)
+    cv2.circle(img, (int(x), int(hy)), max(1, int(r)), hair, -1, AA)
+    cv2.circle(img, (int(x + facing * r * 0.4), int(hy + r * 0.15)), max(1, int(r * 0.65)), (36, 40, 50), -1, AA)
+    if hat is not None:
+        cv2.ellipse(img, (int(x), int(hy - r * 0.2)), (max(1, int(r * 1.05)), max(1, int(r * 0.8))), 0, 180, 360, hat, -1, AA)
 
 
 def draw_head(img, cx, cy, s, u, mouth=0.0, glow=0.0):
@@ -244,6 +289,9 @@ class Yard:
     def __init__(self, seed, lit_p):
         rng = np.random.default_rng(seed)
         self.bld = Building(rng, -40, -200, W + 40, GROUND_Y, 9, 18, lit_p)
+        # над входом в подъезд (дверь, козырёк, лампа) окон нет
+        self.bld.wins = [w for w in self.bld.wins
+                         if not any(w[0][2] > dx - 100 and w[0][0] < dx + 100 and w[0][3] > GROUND_Y - 215 for dx in DOORS)]
         img = np.zeros((H, W, 3), np.uint8)
         img[:] = FACADE
         self.bld.draw_facade(img)
@@ -410,7 +458,7 @@ class Balcony(Shot):
                 for c in range(24):
                     x = 470 + c * 42 + (r % 2) * 18 + rng.normal(0, 2)
                     y = 480 + r * 30
-                    self.crowd.append((x, y, 30 + r * 1.5))
+                    self.crowd.append((x, y, 30 + r * 1.5, outfit(rng)))
         self.bg = img
         rail = np.zeros((H, W), np.uint8)
         cv2.rectangle(rail, (0, 760), (W, 790), 255, -1)
@@ -421,8 +469,8 @@ class Balcony(Shot):
 
     def frame(self, t):
         img = self.bg.copy()
-        for x, y, h in self.crowd:
-            person(img, x, y, h, facing=-1, col=(10, 10, 12))
+        for x, y, h, wear in self.crowd:
+            person(img, x, y, h, facing=-1, wear=wear)
             cv2.circle(img, (int(x), int(y - h * 0.93)), max(2, int(h * 0.08)), (52, 54, 62), -1, AA)
         img = apply_light(img, self.lmap)
         img = cv2.subtract(img, self.rail)
@@ -474,9 +522,9 @@ class CrowdGathers(Shot):
             door = DOORS[min(2, int(x / (W / 3)))]
             t_out = t0 + 0.3 + rng.random() * 7.6
             dur = math.hypot(x - door, y - GROUND_Y) / 160
-            self.people.append(dict(x=x, y=y, door=door, t_out=t_out, dur=dur, kind="generic"))
+            self.people.append(dict(x=x, y=y, door=door, t_out=t_out, dur=dur, kind="generic", wear=outfit(rng)))
         # соседка уже стоит впереди
-        self.people.append(dict(x=W * 0.33, y=760, door=DOORS[2], t_out=-99, dur=1, kind="robe"))
+        self.people.append(dict(x=W * 0.33, y=760, door=DOORS[2], t_out=-99, dur=1, kind="robe", wear=None))
 
     def placed(self, p, t):
         k = (t - p["t_out"]) / p["dur"]
@@ -494,9 +542,9 @@ class CrowdGathers(Shot):
         for p in self.people:
             s = self.placed(p, t)
             if s:
-                live.append((s[1], s[0], s[2], p["kind"]))
-        for y, x, ph, kind in sorted(live):
-            person(img, x, y, figure_h(y), facing=-1, phase=ph, kind=kind)
+                live.append((s[1], s[0], s[2], p["kind"], p["wear"]))
+        for y, x, ph, kind, wear in sorted(live, key=lambda a: a[0]):
+            person(img, x, y, figure_h(y), facing=-1, phase=ph, kind=kind, wear=wear)
         img = apply_light(img, self.y.lmap, self.y.glow)
         k = ease(self.k(t))
         return camera(img, lerp(1.0, 1.08, k), W / 2, H / 2 + 20)
@@ -512,7 +560,9 @@ class VeraEnters(Shot):
         self.cam = cam
         pts = crowd_grid()
         tx, ty = self.target
-        self.crowd = [(x, y, h) for (x, y, h, r, c) in pts if math.hypot(x - tx, (y - ty) * 2.5) > 45]
+        rng = np.random.default_rng(17)
+        self.crowd = [(x, y, h, outfit(rng)) for (x, y, h, r, c) in pts if math.hypot(x - tx, (y - ty) * 2.5) > 45]
+        self.fg = [outfit(rng), outfit(rng)]
         self.static = self.y.base.copy()
         lm = self.y.lmap.astype(np.float32) / 128
         lm += blob(H, W, tx, ty - 60, 120, 160, (0.6, 0.8, 1.1))
@@ -530,12 +580,12 @@ class VeraEnters(Shot):
     def frame(self, t):
         img = self.static.copy()
         vx, vy, ph = self.vera(t)
-        items = [(y, x, None, "generic") for (x, y, h) in self.crowd] + [(vy, vx, ph, "vera")]
-        for y, x, p, kind in sorted(items, key=lambda a: a[0]):
-            person(img, x, y, figure_h(y), facing=-1, phase=p, kind=kind)
-        if self.cam == "push":  # крупные силуэты на переднем плане
-            for x in (vx - 330, vx + 300):
-                person(img, x, 1150, 520, facing=-1)
+        items = [(y, x, None, "generic", w) for (x, y, h, w) in self.crowd] + [(vy, vx, ph, "vera", None)]
+        for y, x, p, kind, w in sorted(items, key=lambda a: a[0]):
+            person(img, x, y, figure_h(y), facing=-1, phase=p, kind=kind, wear=w)
+        if self.cam == "push":  # крупные фигуры на переднем плане
+            for x, w in zip((vx - 330, vx + 300), self.fg):
+                person(img, x, 1150, 520, facing=-1, wear=w)
         img = apply_light(img, self.lmap, self.y.glow)
         k = ease(self.k(t))
         if self.cam == "wide":

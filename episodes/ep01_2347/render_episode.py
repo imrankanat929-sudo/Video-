@@ -139,7 +139,7 @@ def render_chunk(args):
     env, _ = audio_env(audio)
     shots = shot_list(dur, env)
     built = {}
-    end_card = S.EndCard(dur, dur + TAIL, text_card([("23:47", 150, 210, 380, False), ("NOXARGENT · СЕРИЯ 1", 34, 120, 600, True)]))
+    end_card = S.EndCard(dur, dur + TAIL, text_card([("23:47", 150, 210, 440, False)]))
     post = Post()
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
            "-c:v", "libx264", "-preset", "medium", "-crf", "21", "-maxrate", "9M", "-bufsize", "18M", "-pix_fmt", "yuv420p", str(out)]
@@ -218,8 +218,8 @@ def write_srt(chunks, path):
 def write_ass(chunks, path, t0, t1, header):
     style = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\nWrapStyle: 0\n\n[V4+ Styles]\n"
              "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-             "Style: Sub,Inter SemiBold,64,&H00F2F2F2,&H000000FF,&H00101010,&H64000000,0,0,0,0,100,100,0,0,1,4,1,2,80,80,520,1\n"
-             "Style: Head,Inter SemiBold,40,&H00C8C8C8,&H000000FF,&H00101010,&H64000000,0,0,0,0,100,100,2,0,1,3,0,8,60,60,180,1\n\n"
+             "Style: Sub,Inter ExtraBold,76,&H00FFFFFF,&H000000FF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,7,3,2,70,70,520,1\n"
+             "Style: Head,Inter ExtraBold,42,&H00C8C8C8,&H000000FF,&H00101010,&H64000000,0,0,0,0,100,100,2,0,1,3,0,8,60,60,180,1\n\n"
              "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
     with open(path, "w", encoding="utf-8") as fh:
         fh.write(style)
