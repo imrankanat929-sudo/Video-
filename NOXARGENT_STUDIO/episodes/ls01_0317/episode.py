@@ -181,10 +181,10 @@ class TVClose(Shot):
         super().__init__(t0, t1)
         self.mode = mode
         img = gradient(H, W, (24, 22, 22), (14, 13, 13))
-        cv2.rectangle(img, (230, 110), (1690, 950), (9, 9, 10), -1)
-        cv2.rectangle(img, (180, 950), (1740, H), (20, 22, 28), -1)
+        cv2.rectangle(img, (262, 52), (1658, 862), (9, 9, 10), -1)
+        cv2.rectangle(img, (200, 862), (1720, H), (20, 22, 28), -1)
         self.bg = img
-        self.scr = (260, 140, 1660, 928)
+        self.scr = (290, 80, 1630, 834)  # экран выше субтитров: бегущая строка не перекрывается
         self.spill = blob(H, W, 960, 540, 1100, 700, (1.0, 0.8, 0.6))
 
     def screen(self, t):
@@ -210,14 +210,9 @@ class TVClose(Shot):
         img[y0:y1, x0:x1] = cv2.resize(s, (x1 - x0, y1 - y0))
         lvl = float(s.mean()) / 90
         img = apply_light(img, to_lmap(0.6 + self.spill * lvl * 0.5))
-        z = 1.0 + 0.08 * ease(self.k(t))
-        if self.mode == "news":
-            z = 1.0 + 0.10 * ease(self.k(t))
-        if self.mode in ("glitch", "warning"):
-            z = 1.1 + 0.12 * ease(self.k(t))
-        if self.mode == "off":
-            z = 1.22
-        return camera(img, z, 960, 534)
+        z = {"news": 1.0 + 0.04 * ease(self.k(t)), "glitch": 1.04 + 0.04 * ease(self.k(t)),
+             "warning": 1.08 + 0.04 * ease(self.k(t)), "off": 1.12}[self.mode]
+        return camera(img, z, 960, 470)
 
 
 class Blackout(Shot):
@@ -453,7 +448,8 @@ class DoorOpens(Shot):
         if t >= T["last"]:
             return np.zeros((H, W, 3), np.uint8)
         img = self.base.copy()
-        k = ramp(t, T["opening"], T["last"]) * 0.42
+        k = ((t - T["opening"]) / (T["last"] - T["opening"])) if t > T["opening"] else 0.0
+        k = min(1.0, k) ** 1.6  # медленно трогается, потом чуть быстрее
         cv2.rectangle(img, (AP.DOOR["x0"], AP.DOOR["y0"]), (AP.DOOR["x1"], AP.DOOR["y1"]), (30, 28, 28), -1)
         AP.door_panel(img, k)
         img = apply_light(img, self.lm)

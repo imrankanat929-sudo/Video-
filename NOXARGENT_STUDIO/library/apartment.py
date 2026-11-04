@@ -158,7 +158,7 @@ def door_panel(img, open_k, gap_col=(3, 3, 4)):
     x0, y0, x1, y1 = d["x0"], d["y0"], d["x1"], d["y1"]
     if open_k > 0:
         cv2.rectangle(img, (x0, y0), (x1, y1), gap_col, -1)
-    a = math.radians(35 * open_k)
+    a = math.radians(48 * open_k)
     wdt = (x1 - x0) * math.cos(a)
     shrink = 1 - 0.18 * math.sin(a)  # дальний край уходит вглубь
     ex = x0 + wdt

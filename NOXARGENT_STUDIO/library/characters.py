@@ -94,7 +94,7 @@ def arman_sitting(img, hip_x, hip_y, h, k, glow=None, cfg=ARMAN):
     if glow is not None:  # отсвет экрана телефона по лицевой стороне
         fx0, fy0 = sx + nx * wdt * 1.0, sy + ny * wdt * 1.0  # передний край корпуса у плеча
         fx1, fy1 = lerp_pt(fx0, hip_x + nx * wdt, 0.45), lerp_pt(fy0, hip_y + ny * wdt, 0.45)
-        cv2.line(img, (int(fx0), int(fy0)), (int(fx1), int(fy1)), glow, max(2, int(h * 0.008)), AA)
+        cv2.line(img, (int(fx0), int(fy0)), (int(fx1), int(fy1)), tuple(int(c * 0.45) for c in glow), max(2, int(h * 0.02)), AA)
         cv2.ellipse(img, (int(hx + h * 0.05), int(hy)), (int(h * 0.02), int(h * 0.05)), 0, -60, 60, glow, max(2, int(h * 0.008)), AA)
 
 
