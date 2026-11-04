@@ -71,8 +71,8 @@ def horizontal():
     img[H - 380:] = (img[H - 380:] * (1 - 0.75 * bot)).astype(np.uint8)
     t, sh = texts((W, H), [
         (860, 655, CAPTION, 46, (235, 52, 46, 255), "bold", 1000, "center"),
-        (70, 800, "ПОСЛЕДНИЙ СИГНАЛ", 120, (255, 255, 255, 255), "bold", None, "left"),
-        (76, 950, "СЕРИЯ 2 · ЗА ДВЕРЬЮ", 52, (215, 215, 220, 255), "bold", None, "left"),
+        (70, 800, "ФОТО ИЗ ЗАВТРА", 132, (255, 255, 255, 255), "bold", None, "left"),
+        (76, 960, "ПОСЛЕДНИЙ СИГНАЛ · СЕРИЯ 2", 46, (215, 215, 220, 255), "bold", None, "left"),
     ])
     paste_rgba(img, sh, 4, 6, 0.9)
     paste_rgba(img, t, 0, 0)
@@ -97,9 +97,9 @@ def vertical():
     img = np.clip(img.astype(np.float32) + g[..., None], 0, 255).astype(np.uint8)
     t, sh = texts((VW, VH), [
         (40, 110, CAPTION, 46, (235, 52, 46, 255), "bold", 1000, "center"),
-        (0, 1490, "ПОСЛЕДНИЙ", 118, (255, 255, 255, 255), "bold", VW, "center"),
-        (0, 1620, "СИГНАЛ", 118, (255, 255, 255, 255), "bold", VW, "center"),
-        (0, 1785, "СЕРИЯ 2 · ЗА ДВЕРЬЮ", 46, (215, 215, 220, 255), "bold", VW, "center"),
+        (0, 1490, "ФОТО", 128, (255, 255, 255, 255), "bold", VW, "center"),
+        (0, 1625, "ИЗ ЗАВТРА", 128, (255, 255, 255, 255), "bold", VW, "center"),
+        (0, 1795, "ПОСЛЕДНИЙ СИГНАЛ · СЕРИЯ 2", 42, (215, 215, 220, 255), "bold", VW, "center"),
     ])
     bot = np.linspace(0, 1, 560, dtype=np.float32)[:, None, None]
     img[VH - 560:] = (img[VH - 560:] * (1 - 0.8 * bot)).astype(np.uint8)
