@@ -604,8 +604,7 @@ class Stairs(Shot):
         cy = lerp(H * 0.45, H * (self.FLOORS - 0.55), k)
         shake = math.sin(t * 15) * 8
         z = 1.1
-        hh = H / (2 * z)
-        cy = min(max(cy, hh), self.img.shape[0] - hh)
+        cy = min(max(cy, H / 2), self.img.shape[0] - H / 2)
         crop = self.img[int(cy - H / 2): int(cy - H / 2) + H]
         return camera(crop, z, W / 2 + shake, H / 2 + abs(math.sin(t * 7.5)) * 10)
 
