@@ -74,5 +74,5 @@ def date_stamp(img, text="ЗАВТРА · 23:41"):
     from PIL import Image
     from core import draw_text
     im = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    draw_text(im, (W - 620, H - 120), text, 62, (255, 150, 60), "bold")
+    draw_text(im, (W - 540, H - 230), text, 62, (255, 150, 60), "bold")  # отступ от краёв: не режется зумом
     return cv2.cvtColor(np.array(im), cv2.COLOR_RGB2BGR)

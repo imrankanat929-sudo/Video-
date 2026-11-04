@@ -447,7 +447,7 @@ class Call(Shot):
         if t >= T["name"]:
             paste_rgba(img, self.name, 0, 0, ramp(t, T["name"], T["name"] + 0.5))
         sec = int(t - T["noise"])
-        cv2.putText(img, f"00:{sec:02d}", (W // 2 - 70, 1000), cv2.FONT_HERSHEY_SIMPLEX, 1.4, (140, 140, 146), 3, AA)
+        cv2.putText(img, f"00:{sec:02d}", (W // 2 - 70, 400), cv2.FONT_HERSHEY_SIMPLEX, 1.4, (140, 140, 146), 3, AA)
         g = 0.2
         if T["seven"] <= t < T["seven"] + 0.25:
             g = 1.0
@@ -470,7 +470,7 @@ class RadioPhoto(Shot):
             self.ph = PhoneHands(t0, t1, living_dark(), lambda t: sprite("radio_msg", lambda: PH.screen_chat(UNKNOWN, [("photo", self.plain)])),
                                  zoom=lambda t: (1.0 + 0.2 * ease(self.k(t)), -30))
         im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        draw_text(im, (0, 905), CAPTION, 64, (235, 50, 44, 255), "bold", max_w=W, align="center")
+        draw_text(im, (0, 760), CAPTION, 64, (235, 50, 44, 255), "bold", max_w=W, align="center")  # выше субтитров
         self.cap = pil_to_bgra(im)
 
     def frame(self, t):
@@ -484,18 +484,18 @@ class RadioPhoto(Shot):
             k_sign = ramp(t, T["sign"], T["sign"] + 1.2)
             k_wide = ramp(t, T["radio"], T["radio"] + 1.0) * (1 - k_sign)
             z = lerp(1.25, 1.0, k_wide) if k_sign == 0 else lerp(1.0, 2.6, k_sign)
-            cx = lerp(980, 960, k_wide) if k_sign == 0 else lerp(960, 950, k_sign)
+            cx = lerp(1110, 960, k_wide) if k_sign == 0 else lerp(960, 950, k_sign)
             cy = lerp(700, 540, k_wide) if k_sign == 0 else lerp(540, 500, k_sign)
             return camera(src, z, cx, cy)
         if self.mode == "date":
             k = ramp(t, self.t0, T["tomorrow"] + 0.3)
             if t < T["caption"]:
-                return camera(self.hl, lerp(1.0, 2.6, k), lerp(960, W - 330, k), lerp(540, H - 90, k))
+                return camera(self.hl, lerp(1.0, 2.4, k), lerp(960, W - 320, k), lerp(540, H - 200, k))
             # фото карточкой сверху, под ним красная подпись
             kk = ramp(t, T["caption"], T["caption"] + 0.6)
             img = np.zeros((H, W, 3), np.uint8)
-            card = cv2.resize(self.hl, (int(W * 0.74), int(H * 0.74)))
-            y0 = int(lerp(-200, 60, kk))
+            card = cv2.resize(self.hl, (int(W * 0.6), int(H * 0.6)))
+            y0 = int(lerp(-200, 50, kk))
             x0 = (W - card.shape[1]) // 2
             img[max(0, y0):y0 + card.shape[0], x0:x0 + card.shape[1]] = card[max(0, -y0):]
             paste_rgba(img, self.cap, 0, 0, kk)
@@ -617,6 +617,31 @@ def make_ep():
 
 
 # ======================= ЗВУК =======================
+def build_score():
+    """Жуткая музыка местами: пэд, шкатулка, пианино, сердцебиение. Всегда тише голоса."""
+    import music as M
+    sc = SND.Track(DUR)
+    sc.add(0.5, M.pad(19.5, ("A2", "C3", "Eb3")), -34)                 # голос за спиной
+    sc.add(T["turned"], M.piano_hit(), -26)                              # обернулся — пусто
+    sc.add(12.6, M.piano_hit(("A1", "Bb1")), -28)                        # замок закрыт
+    sc.add(34.0, M.music_box(M.LULLABY, 0.7), -31)                       # чужой телефон
+    sc.add(49.5, M.pad(33.0, ("D2", "F2", "Ab2", "C3")), -33)            # запись
+    sc.add(66.5, M.heartbeat(16.1, 58, 92), -28)                         # он смотрит в камеру
+    sc.add(T["dont"], M.piano_hit(("E1", "F1", "B1")), -22)              # НЕ ПЕРЕМАТЫВАЙ
+    sc.add(96.0, M.pad(14.0, ("A2", "Bb2", "E3")), -36)                  # переписка
+    sc.add(110.3, M.music_box(M.LULLABY_SLOW, 0.95, 0.03), -30)          # фото окна
+    sc.add(T["was_me"], M.piano_hit(), -24)                              # «был я»
+    sc.add(139.5, M.pad(37.0, ("A2", "C3", "E3")), -40)                  # звонок — очень тихо
+    sc.add(T["new_msg"], M.pad(37.0, ("D2", "Eb2", "A2", "C3"), 4.5), -31)  # фото из будущего
+    sc.add(T["amina2"], M.piano_hit(("A1", "C2", "Eb2")), -25)
+    sc.add(T["tomorrow"], M.piano_hit(("F1", "Gb1", "C2")), -24)
+    sc.add(T["caption"], M.music_box(["E5", "D#5", "E5", "D#5", "B4"], 0.5), -28)
+    sc.add(T["another"], M.piano_hit(("E1", "F1", "Bb1")), -22)          # второй Арман
+    sc.add(222.1, M.heartbeat(T["last"] - 222.1, 70, 120), -24)          # перед стуком
+    sc.x[int(T["last"] * SND.SR):] = 0                                   # резкий обрыв на «Амине»
+    return sc.x
+
+
 def build_audio(out_wav):
     tr = SND.Track(DUR)
     music = SND.Track(DUR)
@@ -667,6 +692,8 @@ def build_audio(out_wav):
     tr.add(T["knock"], SND.knock(), -6)
     tr.add(T["last"], SND.low_hit(), -10)
     cut = int((T["last"] + 1.6) * SND.SR)
+    tr.x[cut:] = 0
+    tr.x[:len(score := build_score())] += score[:len(tr.x)]
     tr.x[cut:] = 0
     tr.write(out_wav.with_suffix(".fx.wav"))
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(VOICE), "-i", str(out_wav.with_suffix(".fx.wav")),
