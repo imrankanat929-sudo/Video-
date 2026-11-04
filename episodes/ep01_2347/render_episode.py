@@ -25,12 +25,23 @@ W, H, FPS = S.W, S.H, S.FPS
 HERE = Path(__file__).resolve().parent
 TAIL = 3.4  # чёрный хвост с титром после последней фразы
 
-# Нарезки TikTok: границы по сюжетным битам (секунды аудио)
-TIKTOK_CUTS = [
-    (0.0, 60.0, "Часть 1 · Двор ждёт"),
-    (60.0, 95.5, "Часть 2 · Вера"),
-    (95.5, None, "Часть 3 · Мой голос"),
-]
+# Нарезки TikTok: аудио делится на N равных частей, каждый разрез
+# сдвигается в самую длинную паузу между фразами в пределах ±2.5 с.
+TIKTOK_PARTS = 3
+
+
+def tiktok_cuts(segments, dur, parts=TIKTOK_PARTS, window=2.5, shot_starts=()):
+    gaps = [(a["end"], b["start"]) for a, b in zip(segments, segments[1:])]
+    cuts = [0.0]
+    for i in range(1, parts):
+        target = dur * i / parts
+        near = [g for g in gaps if abs((g[0] + g[1]) / 2 - target) <= window] or \
+            [min(gaps, key=lambda g: abs((g[0] + g[1]) / 2 - target))]
+        g = max(near, key=lambda g: g[1] - g[0])
+        inside = [t for t in shot_starts if g[0] <= t <= g[1]]  # склейка плана внутри паузы — режем по ней
+        cuts.append(round(inside[0] if inside else (g[0] + g[1]) / 2, 2))
+    cuts.append(None)
+    return [(cuts[i], cuts[i + 1], f"Часть {i + 1}/{parts}") for i in range(parts)]
 
 
 def desktop() -> Path:
@@ -248,8 +259,15 @@ def main():
         segs, _ = WhisperModel("medium", device="cpu", compute_type="int8").transcribe(a, language="ru", vad_filter=True, word_timestamps=True)
         js = [dict(start=s.start, end=s.end, text=s.text.strip(), words=[(w.start, w.end, w.word) for w in s.words]) for s in segs]
         seg_path.write_text(json.dumps(js, ensure_ascii=False, indent=1), encoding="utf-8")
-    chunks = subtitle_chunks(json.loads(seg_path.read_text(encoding="utf-8")))
+    segments = json.loads(seg_path.read_text(encoding="utf-8"))
+    chunks = subtitle_chunks(segments)
+    cuts = tiktok_cuts(segments, dur, shot_starts=[sh[1] for sh in shot_list(dur, env)])
     write_srt(chunks, out_dir / "ep01_2347.srt")
+
+    final = out_dir / "ep01_2347.mp4"
+    if "--tiktok-only" in sys.argv and final.exists():
+        make_tiktok(final, out_dir / "tiktok", chunks, cuts, dur, env)
+        return
 
     title = text_card([("23:47", 170, 225, 360, False), ("БИБИРЕВО", 30, 150, 590, True)])
     n = max(1, min(os.cpu_count() or 2, 8))
@@ -270,21 +288,29 @@ def main():
                     f"[1:a]lowpass=f=110,volume=0.05,afade=t=in:d=2,afade=t=out:st={dur - 1:.2f}:d=2.5,aresample=48000[d];"
                     f"[v][d]amix=inputs=2:duration=shortest:normalize=0[a]",
                     "-map", "[a]", "-t", f"{dur + TAIL:.2f}", "-c:a", "aac", "-b:a", "192k", str(mix)], check=True)
-    final = out_dir / "ep01_2347.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-i", str(mix), "-c", "copy", "-shortest",
                     "-movflags", "+faststart", str(final)], check=True)
     t_ep = time.perf_counter() - t_start
     print(f"Серия готова за {t_ep:.0f} с: {final}")
 
-    # Нарезки 9:16: кадрируем по фокусу каждого плана, жжём субтитры
+    make_tiktok(final, tt, chunks, cuts, dur, env)
+    shutil.rmtree(tmp, ignore_errors=True)
+    print(f"Всё готово за {time.perf_counter() - t_start:.0f} с")
+
+
+def make_tiktok(final, tt, chunks, cuts, dur, env):
+    """Нарезки 9:16: кадрируем по фокусу каждого плана, жжём субтитры."""
+    tt.mkdir(parents=True, exist_ok=True)
+    for old in tt.glob("*"):
+        old.unlink()
     shots = shot_list(dur, env)
     crop_w = int(H * 9 / 16) // 2 * 2
     expr = "+".join(f"{int(min(max(fx * W - crop_w / 2, 0), W - crop_w))}*between(t+OFF,{t0},{t1 if i < len(shots) - 1 else dur + TAIL + 1})"
                     for i, (_, t0, t1, _, fx) in enumerate(shots))
-    for i, (a, b, name) in enumerate(TIKTOK_CUTS, 1):
+    for i, (a, b, name) in enumerate(cuts, 1):
         b = b if b is not None else dur + TAIL
         ass = tt / f"part{i}.ass"
-        write_ass(chunks, ass, a, b if i < len(TIKTOK_CUTS) else None, name)
+        write_ass(chunks, ass, a, b if i < len(cuts) else None, name)
         x = expr.replace("OFF", f"{a:.3f}")
         vf = (f"crop={crop_w}:{H}:x='min({W - crop_w},{x})':y=0,scale=1080:1920:flags=lanczos,"
               f"subtitles='{ass.as_posix().replace(':', chr(92) + ':')}'")
@@ -293,8 +319,6 @@ def main():
                         "-vf", vf, "-c:v", "libx264", "-preset", "medium", "-crf", "21", "-maxrate", "8M", "-bufsize", "16M",
                         "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(out)], check=True)
         print(f"TikTok {i}: {a:.1f}–{b:.1f} с → {out.name}")
-    shutil.rmtree(tmp, ignore_errors=True)
-    print(f"Всё готово за {time.perf_counter() - t_start:.0f} с")
 
 
 if __name__ == "__main__":
