@@ -80,7 +80,8 @@ def bedroom_lmap(screen_on=1.0):
 
 
 # ---------- гостиная ----------
-LIV = dict(tv=(330, 300, 1090, 730), cabinet=(290, 730, 1130, 830), window=(1330, 170, 1830, 690), floor_y=840)
+LIV = dict(tv=(330, 300, 1090, 730), cabinet=(290, 730, 1130, 830), window=(1330, 170, 1830, 690), floor_y=840,
+           table=(1420, 1780, 720), sofa=(0, 1010, 900))
 
 
 def living_base(city_lit=True, seed=21):
@@ -105,6 +106,16 @@ def living_base(city_lit=True, seed=21):
     cv2.rectangle(img, (x0, y0), (x1, y1), (14, 14, 16), 14)
     cv2.line(img, ((x0 + x1) // 2, y0), ((x0 + x1) // 2, y1), (14, 14, 16), 12)
     cv2.rectangle(img, (x0 - 30, y1), (x1 + 30, y1 + 18), (26, 24, 24), -1)
+    # занавеска слева от окна
+    cv2.rectangle(img, (x0 - 70, y0 - 40), (x0 + 110, fy - 30), (34, 30, 36), -1)
+    for k in range(x0 - 60, x0 + 110, 30):
+        cv2.line(img, (k, y0 - 30), (k, fy - 40), (26, 22, 28), 3)
+    cv2.rectangle(img, (x0 - 100, y0 - 56), (x1 + 60, y0 - 44), (20, 18, 18), -1)
+    # стол у окна
+    tx0, tx1, ty = LIV["table"]
+    cv2.rectangle(img, (tx0, ty), (tx1, ty + 18), (30, 34, 42), -1)
+    for lx in (tx0 + 14, tx1 - 30):
+        cv2.rectangle(img, (lx, ty + 18), (lx + 16, fy + 30), (22, 24, 30), -1)
     # тумба и ТВ
     c = LIV["cabinet"]
     cv2.rectangle(img, (c[0], c[1]), (c[2], c[3]), (24, 26, 32), -1)
@@ -181,6 +192,17 @@ def door_panel(img, open_k, gap_col=(3, 3, 4)):
     px, py = at(0.5, d["peep"][1])
     cv2.circle(img, (px, py), 8, (70, 70, 74), -1, AA)
     cv2.circle(img, (px, py), 4, (12, 12, 14), -1, AA)
+    door_chain(img, x1, d["lock"][1] - 40)
+
+
+def door_chain(img, frame_x, y, scale=1.0):
+    """Цепочка: планка на косяке справа, цепочка свободно висит (не накинута)."""
+    s = scale
+    cv2.rectangle(img, (int(frame_x + 4 * s), int(y - 22 * s)), (int(frame_x + 18 * s), int(y + 22 * s)), (70, 68, 70), -1)
+    for i in range(7):  # звенья петлёй вниз
+        cy = y + 14 * s + i * 11 * s
+        cx = frame_x + 11 * s - math.sin(i / 6 * math.pi) * 14 * s
+        cv2.ellipse(img, (int(cx), int(cy)), (max(1, int(4 * s)), max(1, int(7 * s))), 0, 0, 360, (96, 94, 96), max(1, int(2 * s)), AA)
 
 
 def hallway_lmap(flash=None, side=0.25):
@@ -210,6 +232,7 @@ class LockClose:
         cv2.circle(img, (910, 700), 46, (84, 82, 84), -1, AA)            # ручка
         poly(img, [(890, 680), (540, 690), (530, 740), (890, 730)], (100, 98, 100))
         cv2.ellipse(img, (910, 830), (14, 30), 0, 0, 360, (12, 12, 12), -1, AA)  # скважина
+        door_chain(img, 1500, 300, 3.2)  # цепочка висит на косяке
         self.base = img
         self.light = to_lmap(np.full((H, W, 3), 0.35, np.float32) + blob(H, W, 920, 420, 520, 420, (1.4, 1.5, 1.6)))
 
@@ -258,3 +281,51 @@ class Peephole:
     def frame(self, t):
         fl = 0.6 + 0.4 * (0.5 + 0.5 * math.sin(t * 23) * math.sin(t * 3.1))
         return cv2.add(self.img, cv2.convertScaleAbs(self.lamp, alpha=fl))
+
+
+class Landing:
+    """Лестничная площадка за входной дверью (мир 2600×1080 для панорамы за лучом).
+    Лампа под потолком мигает через равные промежутки."""
+    WIDTH = 2600
+    LAMP = (1500, 150)
+
+    def __init__(self):
+        Wd = self.WIDTH
+        img = np.zeros((H, Wd, 3), np.uint8)
+        img[:] = (46, 52, 50)
+        img[560:860] = (34, 56, 44)                # крашеная панель снизу
+        cv2.line(img, (0, 560), (Wd, 560), (24, 36, 30), 4)
+        img[860:] = gradient(H - 860, Wd, (40, 42, 46), (26, 26, 30))
+        for x in (250, 1900):                      # двери соседей
+            cv2.rectangle(img, (x, 300), (x + 260, 860), (30, 28, 32), -1)
+            cv2.rectangle(img, (x + 20, 320), (x + 240, 860), (36, 34, 38), -1)
+            cv2.circle(img, (x + 220, 600), 9, (70, 70, 74), -1, AA)
+        # пролёт вниз справа
+        for i in range(10):
+            cv2.rectangle(img, (2250 + i * 40, 860 + i * 24), (Wd, 884 + i * 24), (28, 28, 32), -1)
+        cv2.line(img, (2230, 700), (Wd, 940), (18, 18, 20), 8, AA)
+        cv2.rectangle(img, (1000, 120), (1700, 300), (40, 46, 46), -1)  # почтовые ящики/щиток
+        for k in range(1020, 1690, 70):
+            cv2.rectangle(img, (k, 140), (k + 60, 280), (34, 40, 40), -1)
+        lx, ly = self.LAMP
+        cv2.line(img, (lx, 0), (lx, ly - 14), (20, 20, 22), 4)
+        self.base = img
+        self.lm_on = to_lmap(np.full((H, Wd, 3), 0.35, np.float32) + blob(H, Wd, lx, ly + 200, 700, 600, (0.9, 1.1, 1.2)))
+        self.lm_off = to_lmap(np.full((H, Wd, 3), 0.22, np.float32))
+        self.bulb = u8(blob(H, Wd, lx, ly, 60, 50, (120, 170, 200)))
+
+    def lamp(self, t, period=1.0):
+        """Ровное мигание: горит 0.6 периода, гаснет 0.4."""
+        return 1.0 if (t % period) < period * 0.6 else 0.0
+
+    def frame(self, t, flash=None):
+        on = self.lamp(t)
+        lm = self.lm_on if on else self.lm_off
+        if flash is not None:
+            fx, fy, r = flash
+            lm = cv2.add(lm, to_lmap(blob(H, self.WIDTH, fx, fy, r, r * 0.8, (1.6, 1.8, 2.0))))
+        img = cv2.multiply(self.base, lm, scale=1 / 128)
+        if on:
+            img = cv2.add(img, self.bulb)
+        cv2.circle(img, self.LAMP, 14, (200, 230, 245) if on else (40, 44, 46), -1, AA)
+        return img

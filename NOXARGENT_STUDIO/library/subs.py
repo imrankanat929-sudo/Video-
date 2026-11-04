@@ -101,13 +101,13 @@ def write_srt(evts, path):
             fh.write(f"{i}\n{_ts(a)} --> {_ts(b)}\n" + "\n".join(two_lines(txt)) + "\n\n")
 
 
-def write_ass(evts, path, res=(1920, 1080), size=46, margin_v=56):
+def write_ass(evts, path, res=(1920, 1080), size=46, margin_v=56, line=LINE, outline=1.6, margin_lr=120):
     head = (f"[Script Info]\nScriptType: v4.00+\nPlayResX: {res[0]}\nPlayResY: {res[1]}\nWrapStyle: 2\n\n[V4+ Styles]\n"
             "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-            f"Style: Sub,Montserrat SemiBold,{size},&H00FFFFFF,&H000000FF,&H00141414,&H00000000,0,0,0,0,100,100,0,0,1,1.6,0,2,120,120,{margin_v},1\n\n"
+            f"Style: Sub,Montserrat SemiBold,{size},&H00FFFFFF,&H000000FF,&H00141414,&H00000000,0,0,0,0,100,100,0,0,1,{outline},0,2,{margin_lr},{margin_lr},{margin_v},1\n\n"
             "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
     with open(path, "w", encoding="utf-8") as fh:
         fh.write(head)
         for a, b, txt in evts:
-            body = "\\N".join(two_lines(txt))
+            body = "\\N".join(two_lines(txt, line))
             fh.write(f"Dialogue: 0,{_ts(a, True)},{_ts(b, True)},Sub,,0,0,0,,{body}\n")

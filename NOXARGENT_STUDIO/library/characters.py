@@ -120,3 +120,28 @@ def hands_holding(img, cx, cy, pw, ph, cfg=ARMAN):
         cv2.ellipse(img, (int(ex + s * pw * 0.06), int(cy + ph * 0.24)), (int(pw * 0.11), int(ph * 0.10)), s * 15, 0, 360, sk, -1, AA)
         for i in range(3):  # пальцы заходят на край корпуса
             cv2.ellipse(img, (int(ex - s * pw * 0.005), int(cy + ph * 0.05 + i * ph * 0.055)), (int(pw * 0.045), int(ph * 0.02)), 0, 0, 360, sk, -1, AA)
+
+
+# ---------- Амина: физически не появляется, только силуэт на фотографии ----------
+AMINA = {
+    "name": "Амина",
+    "coat": (44, 38, 34),        # длинное тёмно-серое пальто
+    "hair": (16, 18, 24),        # тёмные волосы ниже плеч
+    "legs": (26, 24, 26),
+    "height": 0.93,
+}
+
+
+def amina_back(img, x, yf, h, cfg=AMINA):
+    """Амина со спины: длинное пальто, волосы ниже плеч, руки в карманах."""
+    x, yf, h = float(x), float(yf), float(h) * cfg["height"]
+    sh_y = yf - h * 0.81
+    for s in (-1, 1):
+        poly(img, [(x + s * h * 0.02, yf - h * 0.3), (x + s * h * 0.08, yf - h * 0.3), (x + s * h * 0.07, yf), (x + s * h * 0.035, yf)], cfg["legs"])
+    poly(img, [(x - h * 0.13, sh_y + h * 0.05), (x - h * 0.09, sh_y), (x + h * 0.09, sh_y), (x + h * 0.13, sh_y + h * 0.05),
+               (x + h * 0.15, yf - h * 0.27), (x - h * 0.15, yf - h * 0.27)], cfg["coat"])
+    for s in (-1, 1):
+        cv2.circle(img, (int(x + s * h * 0.1), int(sh_y + h * 0.045)), int(h * 0.04), cfg["coat"], -1, AA)
+    hy = yf - h * 0.92
+    poly(img, [(x - h * 0.07, hy), (x + h * 0.07, hy), (x + h * 0.085, sh_y + h * 0.12), (x - h * 0.085, sh_y + h * 0.12)], cfg["hair"])
+    cv2.ellipse(img, (int(x), int(hy)), (int(h * 0.068), int(h * 0.078)), 0, 0, 360, cfg["hair"], -1, AA)

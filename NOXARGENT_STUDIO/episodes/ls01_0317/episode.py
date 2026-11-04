@@ -558,6 +558,37 @@ def build_audio(out_wav):
                     "-map", "[a]", "-t", f"{DUR:.3f}", "-ac", "2", str(out_wav)], check=True)
 
 
+# вертикальная раскладка по планам: crop вокруг главного объекта или fit целиком
+FIT = {"Clock", "TVClose", "Blackout", "EndCard"}
+FOCUS = {"BedSit": 700, "LockShot": 910}
+
+
+def tiktok_layout():
+    shots = Ep().shots()
+
+    def layout(t):
+        cls = next((s[0] for s in shots if s[1] <= t < s[2]), shots[-1][0])
+        name = cls.__name__
+        if name in FIT:
+            return ("fit",)
+        return ("crop", FOCUS.get(name, 960))
+    return layout
+
+
+def make_tiktok(work, wav):
+    from vertical import make_vertical
+    clean = work / "clean.mp4"
+    if not clean.exists():
+        sec = render(make_ep, DUR, clean, wav, None, work / "_chunks")
+        print(f"Чистый рендер (без субтитров) за {sec:.0f} с")
+    evts = SUB.events(SEG, FIXES, max_chars=56)
+    ass = work / "subs_vertical.ass"
+    SUB.write_ass(evts, ass, res=(1080, 1920), size=62, margin_v=430, line=28, outline=2.2, margin_lr=70)
+    out = desktop() / f"СЕРИЯ_{NUM}_TikTok.mp4"
+    make_vertical(clean, wav, tiktok_layout(), ass, out, HERE.parent.parent / "library" / "fonts")
+    print(f"TikTok-версия: {out}")
+
+
 def main():
     test = "--test" in sys.argv
     work = HERE
@@ -569,6 +600,9 @@ def main():
     SUB.write_srt(evts, work / f"СЕРИЯ_{NUM}.srt")
     ass = work / "subs.ass"
     SUB.write_ass(evts, ass)
+    if "--tiktok" in sys.argv:
+        make_tiktok(work, wav)
+        return
     if test:
         out = work / "test_10s.mp4"
         sec = render(make_ep, DUR, out, wav, ass, work / "_chunks", 0.0, 10.0)

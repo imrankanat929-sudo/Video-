@@ -216,3 +216,66 @@ class Track:
             w.setsampwidth(2)
             w.setframerate(SR)
             w.writeframes(pcm.tobytes())
+
+
+# ---------- серия 2 ----------
+def ringtone(dur):
+    """Тихий телефонный звонок: двухтональные трели с паузами."""
+    t = t_axis(dur)
+    tone = np.sin(2 * np.pi * 880 * t) * 0.5 + np.sin(2 * np.pi * 1320 * t) * 0.5
+    trill = (np.sin(2 * np.pi * 16 * t) > 0).astype(np.float32)
+    gate = ((t % 3.0) < 1.2).astype(np.float32)
+    return norm((tone * trill * gate).astype(np.float32) * env_adsr(len(t), 0.02, 0.3))
+
+
+def key_click():
+    t = t_axis(0.04)
+    x = fft_filter(noise(0.04), 2000, 8000) * np.exp(-t * 200)
+    return norm(x.astype(np.float32))
+
+
+def rewind(dur):
+    """Цифровая перемотка: высокое «жужжание» с треском."""
+    t = t_axis(dur)
+    f = 300 + 900 * (t / dur)
+    x = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * 0.3 + fft_filter(noise(dur), 1500, 7000) * 0.4
+    return norm(x.astype(np.float32) * env_adsr(len(t), 0.05, 0.1))
+
+
+def busy_beeps(n=3):
+    out = []
+    for _ in range(n):
+        t = t_axis(0.35)
+        out.append(np.sin(2 * np.pi * 425 * t) * env_adsr(len(t), 0.005, 0.02))
+        out.append(np.zeros(int(0.35 * SR)))
+    return norm(np.concatenate(out).astype(np.float32))
+
+
+def soft_thud():
+    t = t_axis(0.4)
+    x = np.sin(2 * np.pi * 70 * t) * np.exp(-t * 25) + fft_filter(noise(0.4), 60, 600) * np.exp(-t * 40) * 0.5
+    return norm(x.astype(np.float32))
+
+
+def lamp_click():
+    t = t_axis(0.06)
+    x = fft_filter(noise(0.06), 800, 6000) * np.exp(-t * 120) + np.sin(2 * np.pi * 100 * t) * np.exp(-t * 60) * 0.5
+    return norm(x.astype(np.float32))
+
+
+def line_hiss(dur):
+    t = t_axis(dur)
+    x = fft_filter(noise(dur), 300, 3400) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.3 * t))
+    return norm(x.astype(np.float32) * env_adsr(len(t), 0.3, 0.3))
+
+
+def ping():
+    t = t_axis(0.5)
+    x = (np.sin(2 * np.pi * 1046.5 * t) + 0.4 * np.sin(2 * np.pi * 2093 * t)) * np.exp(-t * 7)
+    return norm(x.astype(np.float32))
+
+
+def long_tone(dur):
+    t = t_axis(dur)
+    x = np.sin(2 * np.pi * 73.4 * t) + 0.5 * np.sin(2 * np.pi * 110 * t + 1) + 0.15 * np.sin(2 * np.pi * 146.8 * t)
+    return norm(x.astype(np.float32) * env_adsr(len(t), 3.0, 1.5))
