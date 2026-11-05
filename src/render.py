@@ -33,6 +33,7 @@ def main():
     ap.add_argument("--end", type=float, default=None)
     ap.add_argument("--jobs", type=int, default=os.cpu_count())
     ap.add_argument("--bitrate", default="2600k")
+    ap.add_argument("--reuse", action="store_true", help="не перерендеривать готовые куски build/part_*.mp4")
     a = ap.parse_args()
     c = C()
     OUT.mkdir(exist_ok=True); BUILD.mkdir(exist_ok=True)
@@ -47,10 +48,9 @@ def main():
     from .audio import build as build_audio
     from .subtitles import build as build_subs
     build_subs()
-    if not (BUILD / "mix.wav").exists():
-        build_audio()
+    build_audio()
     t0 = time.time()
-    queue = list(range(chunks))
+    queue = [i for i in range(chunks) if not (a.reuse and os.path.exists(parts[i]))]
     running = []
     while queue or running:
         while queue and len(running) < n:

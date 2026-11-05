@@ -311,13 +311,33 @@ def build():
     END = c["END"]
     A1, E2, A2, C3, E3 = 55.0, 82.41, 110.0, 130.81, 164.81
 
-    # ---- 0 HOOK
-    mus.add(0.0, drone(A1, c["day"] + 0.5, 300), 0.5)
-    sfx.add(0.3, reverb(boom(4, 36, 1.4), 3, 1.0, 0.4), 0.9)
-    mus.add(1.0, cluster(9.0), 0.08)
-    amb.add(0.0, filt(noise(11), "low", 120) * env(int(11 * SR), 1, 1.5), 0.25)  # ветер
-    sfx.add(7.0, riser(3.4), 0.35)
-    sfx.add(10.45, reverb(boom(2, 42, 0.5), 2, 0.8, 0.4), 0.5)
+    # ---- 0 HOOK: тревога → вспышка → отсчёт → флешфорварды → удар титра
+    hb, hs, hw, ha = c["hook_bomb"], c["hook_secs"], c["hook_worst"], c["hook_after"]
+    title_t = ha - 0.15
+    amb.add(0.0, siren(hb, 280, 720, 5.0) * env(int(hb * SR), 0.3, 0.05), 0.22)  # воздушная тревога
+    mus.add(0.0, heartbeat(hb, 92), 0.55)
+    mus.add(0.0, drone(A1, hb, 260) * env(int(hb * SR), 0.5, 0.05), 0.45)
+    sfx.add(hb - 0.6, whoosh(0.6, 300, 9000), 0.5)
+    sfx.add(hb - 0.08, reverb(boom(5, 30, 1.6, 0.4), 4, 1.5, 0.5), 1.6)  # вспышка/удар
+    sfx.add(hb - 0.08, filt(noise(1.2), "low", 3000) * expdec(1.2, 0.25), 0.6)
+    sfx.add(hb, tinnitus(3.0), 0.06)
+    tick_n = int(hw - hs)
+    for k in range(tick_n + 1):  # писк таймера каждую секунду
+        tt = (hw - 0.05) - k
+        if tt >= hs:
+            sfx.add(tt, tone(1250, 0.12, harm=(1, 0.3)) * env(int(0.12 * SR), 0.002, 0.04), 0.18)
+    mus.add(hs, heartbeat(hw - hs, 120), 0.6)
+    sfx.add(hs, riser(hw - hs), 0.5)
+    ff = 3
+    seg = (title_t - hw) / ff
+    for k in range(ff):  # сбои + удары на каждом флешфорварде
+        tt = hw + k * seg
+        sfx.add(tt, static(0.18) * 3 * env(int(0.18 * SR), 0.002, 0.05), 0.35)
+        sfx.add(tt, reverb(boom(1.2, 50 - k * 5, 0.25, 0.6), 1.5, 0.6, 0.4), 0.9)
+    sfx.add(title_t - 0.5, whoosh(0.5, 200, 6000), 0.4)
+    sfx.add(title_t, reverb(boom(4, 34, 1.3, 0.5), 3.5, 1.4, 0.5), 1.5)  # удар титра
+    sfx.add(title_t, static(0.25) * 3 * env(int(0.25 * SR), 0.002, 0.1), 0.3)
+    mus.add(title_t, drone(A1, c["day"] - title_t + 0.6, 220) * env(int((c["day"] - title_t + 0.6) * SR), 0.1, 0.8), 0.4)
 
     # ---- 1 ОБЫЧНЫЙ ДЕНЬ
     d0, em = c["day"], c["emergency"]

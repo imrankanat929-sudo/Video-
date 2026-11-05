@@ -103,36 +103,152 @@ class Black(Shot):
         return grade(self.draw(t), t, grain=0.03)
 
 
-# ================================================================ 0. HOOK
+# ================================================================ 0. HOOK (захват внимания)
+def glitch(img, amt, seed):
+    """Цифровой сбой: сдвиг RGB-каналов, смещённые полосы, сканлайны."""
+    if amt <= 0:
+        return img
+    out = img.copy()
+    d = int(4 + 26 * amt)
+    out[:, d:, 0] = img[:, :-d, 0]
+    out[:, :-d, 2] = img[:, d:, 2]
+    r = np.random.default_rng(seed)
+    for _ in range(int(3 + 10 * amt)):
+        y0 = int(r.uniform(0, H - 10)); hh = int(r.uniform(6, 90 * amt + 8))
+        sh = int(r.uniform(-120, 120) * amt)
+        out[y0:y0 + hh] = np.roll(out[y0:y0 + hh], sh, axis=1)
+    out[::3] *= 1 - 0.25 * amt
+    return out
+
+
 class Hook(Shot):
+    """0:00–0:11 — тизер: тревога над ночным городом → вспышка на «бомба» → обратный отсчёт
+    на «несколько секунд» → быстрые флешфорварды на «самое страшное» → удар титра."""
     grade_kw = dict(warmth=0.3, desat=0.15, red_shadow=1.0, grain=0.06)
 
     def __init__(self, *a, **k):
         super().__init__(*a, **k)
         self.ash = Particles(140, seed=2, color=(255, 150, 80), size=(1, 2.6), speed=(8, 30), k=0.5)
+        self._ff = None
+
+    def ff(self):
+        if self._ff is None:  # кадры «из будущего» — те же сцены, что и в фильме
+            self._ff = [(Hall(c["silence"], c["man_door"], "turn"), c["silence"] + 1.2),
+                        (LongCorridor(c["choice_now"], c["phone3"]), knock_times()[1] + 0.02),
+                        (Handle(c["handle"], c["handle_end"]), c["handle_end"] - 0.35)]
+        return self._ff
 
     @staticmethod
     @lru_cache(None)
-    def titles():
-        t1 = text_layer([("А ЧТО, ЕСЛИ…?", W / 2, H * 0.40)], FONT_TITLE, 150, color=(238, 230, 218), glow=18,
-                        glow_color=(200, 40, 20))
-        t2 = text_layer([("СЕРИЯ №1  ·  АТОМНАЯ БОМБА", W / 2, H * 0.53)], FONT_BOLD, 40, color=(214, 120, 70))
-        return t1, t2
+    def texts():
+        t1 = text_layer([("А ЧТО, ЕСЛИ…?", W / 2, H * 0.44)], FONT_TITLE, 170, color=(242, 234, 222), glow=22,
+                        glow_color=(210, 30, 15))
+        t2 = text_layer([("СЕРИЯ №1  ·  АТОМНАЯ БОМБА", W / 2, H * 0.58)], FONT_BOLD, 42, color=(226, 110, 64))
+        from .gfx import Pen
+        p = Pen(W, H, ss=2)
+        p.rect(0, 46, W, 112, (150, 16, 12, 215))
+        S._warn_tri(p, 96, 80, 20, (255, 214, 70))
+        p.text(140, 80, "ЭКСТРЕННОЕ ОПОВЕЩЕНИЕ  ·  ВОЗДУШНАЯ ТРЕВОГА  ·  НЕМЕДЛЕННО ПРОЙДИТЕ В УКРЫТИЕ",
+               FONT_BOLD, 30, (255, 238, 228), anchor="lm")
+        return t1, t2, p.arr()
+
+    def city(self, t, push):
+        s = S.city_set("hook")
+        cam = Cam(1.02 + push, 0, -30)
+        breathe(cam, t, 3)
+        img = compose([s["sky"], (s["glow"], 0.5), s["b0"], (s["w0"], 0.6), s["b1"], (s["w1"], 0.7), s["b2"],
+                       (s["w2"], 0.8)], cam)
+        return img, cam
+
+    def frame(self, t):
+        hb, hs, hw, ha = c["hook_bomb"], c["hook_secs"], c["hook_worst"], c["hook_after"]
+        t1, t2, hud = self.texts()
+        title_t = ha - 0.15
+        # --- 1) тревога над ночным городом
+        if t < hb - 0.08:
+            img, cam = self.city(t, 0.22 * ease_io(t / hb))
+            for i, ph in enumerate((0.0, 2.1)):  # прожекторы ПВО
+                ang = -1.57 + 0.45 * math.sin(t * 0.7 + ph)
+                img += sl_cone(W * (0.3 + 0.4 * i), H * 1.02, ang, 0.06, 1500, k=0.22, soft=0.2)[..., None] * \
+                    rgb((200, 190, 170))
+            strobe = 0.5 + 0.5 * math.sin(t * 2 * math.pi * 1.2)
+            img += sl_radial(W / 2, H * 0.62, 1300, power=2, k=0.35 * strobe)[..., None] * rgb((255, 30, 20))
+            img = self.ash.draw(img, t)
+            ha_ = (0.55 + 0.45 * (1 if (t * 2.4) % 1 < 0.6 else 0)) * smooth(0.1, 0.3, t)
+            img = hud[..., :3] * ha_ + img * (1 - hud[..., 3:4] * ha_)
+            img = glitch(img, 0.5 * smooth(hb - 0.35, hb - 0.08, t), int(t * 24))
+            return grade(img, t, warmth=0.3, desat=0.15, red_shadow=1.0, grain=0.06)
+        # --- 2) вспышка на «бомба»
+        if t < hs:
+            img, cam = self.city(t, 0.22 + 0.06 * ease_io((t - hb) / 0.5))
+            k = 1 - smooth(hb + 0.25, hs, t)
+            img += sl_radial(W * 0.55, H * 0.62, 400 + 1200 * k, power=2.0, k=1.3 * k)[..., None] * rgb((255, 220, 180))
+            cam.shake(t, 0, 1)
+            sh = 22 * (1 - smooth(hb, hs, t))
+            M = np.float32([[1, 0, (fbm(t * 25, 3) - 0.5) * sh * 2], [0, 1, (fbm(t * 25, 4) - 0.5) * sh * 2]])
+            img = cv2.warpAffine(img, M, (W, H), borderMode=cv2.BORDER_REFLECT)
+            white = smooth(hb - 0.08, hb, t) * (1 - smooth(hb + 0.12, hb + 0.4, t))
+            img = img * (1 - white) + 1.8 * white
+            return grade(img, t, warmth=0.6, desat=0.1, red_shadow=1.0, grain=0.06, exposure=1.2)
+        # --- 3) «несколько секунд»: обратный отсчёт
+        if t < hw:
+            sub = WINDOW_FOR_HOOK()
+            bt = c["flash"] - 1.6 + (t - hs) * 0.25
+            img = sub.draw(bt) * 0.38
+            img = cv2.GaussianBlur(img, (0, 0), 3)
+            rem = max(0.0, (hw - 0.05) - t)
+            sec = int(rem); cs = int((rem - sec) * 100)
+            beat = 1 - ((hw - 0.05 - t) % 1.0)
+            img += sl_radial(W / 2, H / 2, 1400, power=1.5, k=0.25 * beat ** 3)[..., None] * rgb((255, 20, 10))
+            tl = countdown_layer(sec, cs)
+            pulse = 1.0 + 0.04 * beat ** 4
+            M = np.float32([[pulse, 0, W / 2 * (1 - pulse)], [0, pulse, H / 2 * (1 - pulse)]])
+            tl = cv2.warpAffine(tl, M, (W, H))
+            img = tl[..., :3] + img * (1 - tl[..., 3:4])
+            img = glitch(img, 0.6 * (1 - smooth(hs, hs + 0.15, t)), int(t * 24))
+            return grade(img, t, warmth=0.2, desat=0.2, red_shadow=1.2, grain=0.07)
+        # --- 4) «самое страшное…»: флешфорварды со сбоями
+        if t < title_t:
+            ff = self.ff()
+            seg = (title_t - hw) / len(ff)
+            i = min(len(ff) - 1, int((t - hw) / seg))
+            shot, tt = ff[i]
+            loc = (t - hw) - i * seg
+            img = shot.draw(tt + loc * 0.6)
+            g = max(1 - loc / 0.12, smooth(seg - 0.1, seg, loc))
+            img = grade(glitch(img, g, int(t * 24) + i), t, **shot.gkw(tt))
+            return img
+        # --- 5) удар титра
+        img = np.zeros((H, W, 3), np.float32)
+        img += sl_radial(W / 2, H * 0.5, 1100, power=2, k=0.2)[..., None] * rgb((150, 20, 10))
+        img = self.ash.draw(img, t, 0.8)
+        k = ease_io((t - title_t) / 0.35)
+        sc = 1.18 - 0.18 * k
+        M = np.float32([[sc, 0, W / 2 * (1 - sc)], [0, sc, H * 0.44 * (1 - sc)]])
+        L1 = cv2.warpAffine(t1, M, (W, H))
+        a1 = min(1.0, (t - title_t) / 0.08)
+        img = L1[..., :3] * a1 + img * (1 - L1[..., 3:4] * a1)
+        a2 = smooth(title_t + 0.4, title_t + 0.8, t)
+        img = t2[..., :3] * a2 + img * (1 - t2[..., 3:4] * a2)
+        img = glitch(img, 0.8 * (1 - smooth(title_t, title_t + 0.3, t)), int(t * 24))
+        img *= 1 - smooth(self.t1 - 0.3, self.t1, t)
+        return grade(img, t, warmth=0.2, desat=0.1, red_shadow=0.8, grain=0.06)
 
     def draw(self, t):
-        s = S.city_set("hook")
-        pr = self.p(t)
-        cam = breathe(Cam(1.02 + 0.12 * ease_io(pr), 0, -40 + 40 * pr), t)
-        pulse = 0.6 + 0.4 * smooth(7.6, 8.6, t) * (1 - smooth(9.0, 10.8, t))
-        img = compose([s["sky"], (s["glow"], pulse), s["b0"], (s["w0"], 0.6), s["b1"], (s["w1"], 0.7), s["b2"],
-                       (s["w2"], 0.8)], cam)
-        img = self.ash.draw(img, t)
-        t1, t2 = self.titles()
-        a1 = smooth(0.4, 2.0, t) * (1 - smooth(8.2, 9.6, t)) * (0.92 + 0.08 * flicker(t, 4, depth=0.3, dropout=0.03))
-        a2 = smooth(2.0, 3.2, t) * (1 - smooth(8.0, 9.4, t))
-        img = t1[..., :3] * a1 + img * (1 - t1[..., 3:4] * a1)
-        img = t2[..., :3] * a2 + img * (1 - t2[..., 3:4] * a2)
-        return img
+        return self.frame(t)
+
+
+@lru_cache(64)
+def countdown_layer(sec, cs):
+    t = text_layer([(f"00:0{sec}.{cs:02d}", W / 2, H * 0.5)], S.FONT_MONO, 210, color=(255, 46, 34), glow=24,
+                   glow_color=(255, 20, 10))
+    lab = text_layer([("ДО УДАРА", W / 2, H * 0.33)], FONT_BOLD, 52, color=(240, 220, 210))
+    return lab + t * (1 - lab[..., 3:4])
+
+
+@lru_cache(None)
+def WINDOW_FOR_HOOK():
+    return WindowShot(c["window2"], c["rumble"], "day2", 1.12, 1.2)
 
 
 # ================================================================ 1-3. WINDOW (day → flash → aftermath)
@@ -794,7 +910,7 @@ class Final(Shot):
 def build_timeline():
     T = []
     T.append(Hook(0.0, c["day"]))
-    T.append(WindowShot(c["day"], c["phone_vibrate"], "day", 1.0, 1.10, tin="black", din=1.4))
+    T.append(WindowShot(c["day"], c["phone_vibrate"], "day", 1.0, 1.10, tin="fadein", din=1.0))
     T.append(PhoneTable(c["phone_vibrate"], c["window2"]))
     T.append(WindowShot(c["window2"], c["rumble"], "day2", 1.12, 1.2, tin="fade", din=0.6))
     T.append(WindowShot(c["rumble"], c["signal_lost"], "after", 1.18, 1.26, tin="fade", din=1.2))
