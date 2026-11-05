@@ -10,6 +10,8 @@
 | `what_if_ep1_atomic_nosubs.mp4` | То же видео без субтитров |
 | `subtitles.srt` | Субтитры отдельным слоем (для YouTube/VK) |
 | `thumbnail.png`, `thumbnail_1280.jpg` | Превью-обложка 16:9 |
+| `what_if_ep1_atomic_tiktok_9x16.mp4` | Вертикальная версия 1080×1920 (9:16) для TikTok / Reels / Shorts: заголовок сверху, кадр по центру, крупные субтитры над кнопками TikTok |
+| `thumbnail_tiktok_9x16.jpg` | Вертикальная обложка 9:16 |
 
 Длительность ≈ 4:05: озвучка 3:39 + финальный выбор А/Б держится на экране ~26 с.
 
@@ -43,7 +45,8 @@
 pip install -r requirements.txt     # + ffmpeg в системе
 python -m src.audio                  # звук: SFX + музыка + озвучка -> build/mix.wav
 python -m src.thumbnail              # превью
-python -m src.render                 # видео (все ядра CPU), ~20–30 мин
+python -m src.render                 # видео 16:9 (все ядра CPU), ~20–30 мин
+python -m src.vertical               # версия 9:16 для TikTok + обложка (после render)
 python -m src.preview 37.4 120       # быстрые кадры для проверки -> build/
 ```
 

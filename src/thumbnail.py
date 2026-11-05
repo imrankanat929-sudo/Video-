@@ -7,8 +7,8 @@ from . import sets as S
 from .shots import timur_back_spr, sprite, WindowShot
 
 
-def build():
-    OUT.mkdir(exist_ok=True)
+def base_image():
+    """Картинка обложки без текста (float RGB)."""
     city = S.city_set("hook")
     room = S.room_window_set("after")
     cam = Cam(1.22, (S.WIN_RECT[0] + S.WIN_RECT[2]) / 2 - S.LW / 2 - 60, -60)
@@ -22,7 +22,12 @@ def build():
     img = compose([(room["room"], 1, 1.4), (room["spill"], 1.5), (room["shelf"], 1, 1.2), (tl, 1, 0.8),
                    (room["curtain"], 1, 1.2)], cam, base=img)
     img = Particles(160, seed=4, color=(255, 160, 90), size=(1, 3), k=0.6).draw(img, 3.0)
-    img = grade(img, 0.37, warmth=0.6, desat=0.1, grain=0.04, red_shadow=1.0, vignette=1.3, exposure=1.0)
+    return grade(img, 0.37, warmth=0.6, desat=0.1, grain=0.04, red_shadow=1.0, vignette=1.3, exposure=1.0)
+
+
+def build():
+    OUT.mkdir(exist_ok=True)
+    img = base_image()
     # тёмная плашка слева под текст
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
     shade = np.clip(1 - xx / (W * 0.62), 0, 1)[..., None] ** 1.3 * 0.82
