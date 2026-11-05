@@ -5,7 +5,7 @@ from functools import lru_cache
 import numpy as np
 import cv2
 from ..gfx import Pen, vgrad, solid, radial, rgb, over, Layer, font_
-from ..config import W, H, FONT_TITLE, FONT_BOLD, FONT_SEMI, FONT_MONO
+from ..config import W, H, FONT_TITLE, FONT_BOLD, FONT_SEMI, FONT_MONO, L
 from ..sets import textured, _noise_tex
 
 LW, LH = int(W * 1.2), int(H * 1.2)      # 1296 x 2304
@@ -255,7 +255,7 @@ def shopwindow_set():
             p.rect(x, yy - bh, x + bw, yy, c)
             x += bw + r.uniform(6, 20)
     p.rect(gx0, gy0, gx1, gy0 + 90, (40, 34, 30))
-    p.text(w / 2, gy0 + 46, "П Р О Д У К Т Ы", FONT_BOLD, 52, (150, 130, 100), anchor="mm")
+    p.text(w / 2, gy0 + 46, L("П Р О Д У К Т Ы", "G R O C E R Y"), FONT_BOLD, 52, (150, 130, 100), anchor="mm")
     interior = p.arr()
     # рама витрины и стена
     fr = Pen(w, h, ss=2)
@@ -386,13 +386,13 @@ def lit_street_set(view="arrive"):
         p.rect(sx0 + 50, yy, sx1 - 50, yy + 10, (120, 116, 106))
     p.rect(sx0 + 250, sy0 + 130, sx0 + 330, gy - 10, (150, 148, 136))       # дверь
     p.rect(sx0 + 10, sy0 + 10, sx1 - 10, sy0 + 90, (150, 30, 26))
-    p.text((sx0 + sx1) / 2, sy0 + 52, "24 ЧАСА", FONT_TITLE, 58, (255, 236, 220), anchor="mm")
+    p.text((sx0 + sx1) / 2, sy0 + 52, L("24 ЧАСА", "OPEN 24/7"), FONT_TITLE, 58, (255, 236, 220), anchor="mm")
     # парковка справа: будка охраны, шлагбаум, сетка
     bx0, bx1 = 820, 1060
     p.rect(bx0, gy - 260, bx1, gy, (40, 42, 46))
     p.rect(bx0 + 30, gy - 220, bx1 - 30, gy - 120, (170, 160, 120))
     p.rect(bx0 - 10, gy - 280, bx1 + 10, gy - 260, (24, 24, 28))
-    p.text((bx0 + bx1) / 2, gy - 300, "ОХРАНЯЕМАЯ ПАРКОВКА", FONT_BOLD, 26, (150, 150, 150), anchor="mm")
+    p.text((bx0 + bx1) / 2, gy - 300, L("ОХРАНЯЕМАЯ ПАРКОВКА", "SECURED PARKING"), FONT_BOLD, 26, (150, 150, 150), anchor="mm")
     p.rect(1060, gy - 100, 1296, gy - 86, (150, 120, 40))  # шлагбаум
     for xx in range(1080, 1296, 40):
         p.line([(xx, gy - 180), (xx, gy)], (30, 32, 36), 3)
@@ -431,43 +431,44 @@ def phone_screen(state, t=0.0, extra=None):
     p = Pen(PHW, PHH, ss=2)
     sw, sh = PHW, PHH
     p.rect(0, 0, sw, sh, (10, 12, 18))
-    p.text(36, 34, "23:18" if state != "wrong" else "23:31", FONT_SEMI, 26, (225, 228, 235))
+    p.text(36, 34, L("23:18", "11:18") if state != "wrong" else L("23:31", "11:31"), FONT_SEMI, 26, (225, 228, 235))
     for i in range(4):
         p.rect(sw - 128 + i * 12, 52 - i * 6, sw - 120 + i * 12, 58, (225, 228, 235))
     p.rrect(sw - 74, 38, sw - 34, 58, 4, (225, 228, 235))
     if state == "missed":
         n = extra or 3
-        p.text(sw / 2, 200, "23:18", FONT_TITLE, 120, (232, 234, 240), anchor="mm")
-        msgs = [("Макс", "Ты дошёл?"), ("Макс", "Ответь, пожалуйста"), ("Макс", "Перезвони мне СРОЧНО")]
+        p.text(sw / 2, 200, L("23:18", "11:18"), FONT_TITLE, 120, (232, 234, 240), anchor="mm")
+        msgs = L([("Макс", "Ты дошёл?"), ("Макс", "Ответь, пожалуйста"), ("Макс", "Перезвони мне СРОЧНО")],
+               [("Max", "Did you get home?"), ("Max", "Answer me please"), ("Max", "Call me back NOW")])
         for i, (a, b) in enumerate(msgs[:n]):
             y = 330 + i * 150
             p.rrect(24, y, sw - 24, y + 130, 26, (34, 38, 50, 235))
             p.ellipse(78, y + 64, 34, 34, (60, 110, 200))
-            p.text(78, y + 64, "М", FONT_BOLD, 34, (240, 244, 250), anchor="mm")
+            p.text(78, y + 64, L("М", "M"), FONT_BOLD, 34, (240, 244, 250), anchor="mm")
             p.text(130, y + 42, a, FONT_BOLD, 28, (240, 242, 246), anchor="lm")
             p.text(130, y + 88, b, FONT_SEMI, 26, (200, 204, 214), anchor="lm")
-            p.text(sw - 44, y + 42, "сейчас", FONT_SEMI, 20, (150, 154, 164), anchor="rm")
+            p.text(sw - 44, y + 42, L("сейчас", "now"), FONT_SEMI, 20, (150, 154, 164), anchor="rm")
     if state in ("unknown", "wrong"):
         p.rect(0, 80, sw, 200, (20, 22, 30))
         p.ellipse(70, 140, 38, 38, (60, 62, 70))
         p.text(70, 140, "?", FONT_BOLD, 40, (220, 220, 225), anchor="mm")
-        p.text(124, 120, "Неизвестный номер", FONT_BOLD, 28, (235, 236, 240), anchor="lm")
-        p.text(124, 160, "+7 ••• ••• •• ••", FONT_SEMI, 24, (150, 152, 160), anchor="lm")
+        p.text(124, 120, L("Неизвестный номер", "Unknown number"), FONT_BOLD, 28, (235, 236, 240), anchor="lm")
+        p.text(124, 160, L("+7 ••• ••• •• ••", "+1 ••• ••• ••••"), FONT_SEMI, 24, (150, 152, 160), anchor="lm")
         vis = 1.0 if extra is None else extra
         if vis > 0:
             if state == "unknown":
-                lines = ["НЕ", "ОБОРАЧИВАЙСЯ.", "БЕГИ."]
+                lines = L(["НЕ", "ОБОРАЧИВАЙСЯ.", "БЕГИ."], ["DON'T", "TURN AROUND.", "RUN."])
             else:
-                lines = ["ТЫ ВЫБРАЛ", "НЕ ТО", "МЕСТО."]
+                lines = L(["ТЫ ВЫБРАЛ", "НЕ ТО", "МЕСТО."], ["YOU CHOSE", "THE WRONG", "PLACE."])
             by = 300
             p.rrect(30, by, sw - 30, by + 60 + 76 * len(lines), 34, (52, 54, 64, int(255 * vis)))
             for i, s in enumerate(lines):
                 p.text(58, by + 68 + i * 76, s, FONT_TITLE, 52, tuple(int(v * vis) for v in (250, 250, 252)),
                        anchor="lm")
-            p.text(sw - 50, by + 92 + 76 * len(lines), "23:" + ("24" if state == "unknown" else "31"), FONT_SEMI, 20,
+            p.text(sw - 50, by + 92 + 76 * len(lines), L("23:", "11:") + ("24" if state == "unknown" else "31"), FONT_SEMI, 20,
                    (150, 152, 160), anchor="rm")
     if state == "dial":
-        p.text(sw / 2, 260, "1 1 2", FONT_TITLE, 96, (235, 236, 240), anchor="mm")
+        p.text(sw / 2, 260, L("1 1 2", "9 1 1"), FONT_TITLE, 96, (235, 236, 240), anchor="mm")
         for i in range(9):
             cx_, cy_ = 120 + (i % 3) * 160, 440 + (i // 3) * 160
             p.ellipse(cx_, cy_, 62, 62, (40, 42, 50))

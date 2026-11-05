@@ -1,5 +1,5 @@
 """Субтитры 9:16: крупный шрифт, над интерфейсом TikTok/Shorts. Скрываются, когда тот же текст уже на экране."""
-from ..config import OUT, BUILD, W, H
+from ..config import OUT, BUILD, W, H, LANG
 from ..cues import C
 from .. import subtitles as SUB
 
@@ -16,7 +16,7 @@ def build():
 ScriptType: v4.00+
 PlayResX: {W}
 PlayResY: {H}
-WrapStyle: 2
+WrapStyle: {0 if LANG == "en" else 2}
 ScaledBorderAndShadow: yes
 
 [V4+ Styles]
@@ -29,7 +29,7 @@ Style: Main,Inter ExtraBold,66,&H00F4F6FA,&H000000FF,&H00000000,&H9A000000,0,0,0
             if any(x <= a + 0.1 < y for x, y in hide):
                 continue
             f.write(f"Dialogue: 0,{SUB.ts_ass(a)},{SUB.ts_ass(b)},Main,,0,0,0,,{{\\fad(90,90)}}" +
-                    "\\N".join(SUB.wrap(t, 24)) + "\n")
+                    "\\N".join(SUB.wrap(t, 26 if LANG == "en" else 24)) + "\n")
     return OUT / "subtitles.srt", BUILD / "subtitles.ass"
 
 

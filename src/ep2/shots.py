@@ -3,7 +3,7 @@ import math
 from functools import lru_cache
 import numpy as np
 import cv2
-from ..config import W, H, FPS, FONT_TITLE, FONT_BOLD, FONT_SEMI
+from ..config import W, H, FPS, FONT_TITLE, FONT_BOLD, FONT_SEMI, L as TR
 from ..cues import C
 from ..gfx import (Cam, Layer, compose, grade, smooth, ease_io, lerp, clamp01, flicker, fbm, hash1, rim, paste,
                    text_layer, sl_radial, sl_cone, rgb, Pen, radial, solid, vgrad)
@@ -186,7 +186,8 @@ class Title:
     @staticmethod
     @lru_cache(None)
     def layers():
-        t1 = text_layer([("ЗА МНОЙ", W / 2, 300), ("КТО-ТО ИДЁТ", W / 2, 430)], FONT_TITLE, 128, color=(240, 238, 232),
+        t1 = text_layer([(TR("ЗА МНОЙ", "SOMEONE IS"), W / 2, 300), (TR("КТО-ТО ИДЁТ", "FOLLOWING YOU"), W / 2, TR(430, 410))],
+                        FONT_TITLE, TR(128, 104), color=(240, 238, 232),
                         glow=20, glow_color=(255, 190, 90))
         return t1
 
@@ -660,8 +661,8 @@ def photo_image(kind):
 def photo_screen(kind):
     p = Pen(S.PHW, S.PHH, ss=2)
     p.rect(0, 0, S.PHW, S.PHH, (6, 6, 8))
-    p.text(S.PHW / 2, 64, "Фото", FONT_BOLD, 30, (230, 232, 238), anchor="mm")
-    p.text(S.PHW / 2, S.PHH - 110, "Сегодня, " + ("23:02" if kind == "shop" else "23:30"), FONT_SEMI, 26,
+    p.text(S.PHW / 2, 64, TR("Фото", "Photo"), FONT_BOLD, 30, (230, 232, 238), anchor="mm")
+    p.text(S.PHW / 2, S.PHH - 110, TR("Сегодня, ", "Today, ") + TR(("23:02" if kind == "shop" else "23:30"), ("11:02 PM" if kind == "shop" else "11:30 PM")), FONT_SEMI, 26,
            (170, 172, 180), anchor="mm")
     a = p.arr()
     img = photo_image(kind)
@@ -863,15 +864,17 @@ class Choice(LitStreet):
             p = Pen(W, H, ss=2)
             p.rrect(70, y, W - 70, y + 300, 22, (10, 12, 18, 225))
             p.rrect(70, y, 84, y + 300, 4, (255, 190, 90))
-            p.text(120, y + 70, "ВАРИАНТ " + letter, FONT_TITLE, 66, (255, 196, 110), anchor="lm")
+            p.text(120, y + 70, TR("ВАРИАНТ ", "OPTION ") + letter, FONT_TITLE, 66, (255, 196, 110), anchor="lm")
             for i, s in enumerate(lines):
                 p.text(120, y + 150 + i * 56, s, FONT_SEMI, 44, (236, 236, 240), anchor="lm")
             return p.arr()
-        a = card(330, "А", ["Зайти в магазин и попросить", "вызвать полицию."])
-        b = card(670, "Б", ["Обратиться к охраннику", "на парковке."])
-        q_ = text_layer([("КАКОЙ ВАРИАНТ", W / 2, 150), ("ВЫБЕРЕШЬ ТЫ?", W / 2, 245)], FONT_TITLE, 84,
+        a = card(330, TR("А", "A"), TR(["Зайти в магазин и попросить", "вызвать полицию."],
+                                         ["Go into the store and ask", "the shopkeeper to call the police."]))
+        b = card(670, TR("Б", "B"), TR(["Обратиться к охраннику", "на парковке."],
+                                         ["Ask the security guard at", "the parking lot for help."]))
+        q_ = text_layer([(TR("КАКОЙ ВАРИАНТ", "WHAT WOULD"), W / 2, 150), (TR("ВЫБЕРЕШЬ ТЫ?", "YOU CHOOSE?"), W / 2, 245)], FONT_TITLE, 84,
                         color=(244, 240, 232), glow=16, glow_color=(255, 170, 80))
-        cm = text_layer([("Напиши  А  или  Б  в комментариях", W / 2, 1060)], FONT_BOLD, 48, color=(236, 230, 220))
+        cm = text_layer([(TR("Напиши  А  или  Б  в комментариях", "Comment  A  or  B  below"), W / 2, 1060)], FONT_BOLD, 48, color=(236, 230, 220))
         return q_, a, b, cm
 
     def frame(self, t):

@@ -11,7 +11,7 @@ raw = subprocess.run(["ffmpeg", "-v", "quiet", "-i", str(src), "-f", "s16le", "-
                      capture_output=True).stdout
 audio = np.frombuffer(raw, np.int16).astype(np.float32) / 32768
 model = WhisperModel("medium", device="cpu", compute_type="int8")
-segs, _ = model.transcribe(audio, language="ru", word_timestamps=True, vad_filter=True)
+segs, _ = model.transcribe(audio, language=(sys.argv[3] if len(sys.argv) > 3 else "ru"), word_timestamps=True, vad_filter=True)
 out = []
 for s in segs:
     out.append({"start": round(s.start, 2), "end": round(s.end, 2), "text": s.text.strip(),

@@ -3,7 +3,7 @@ import sys, time
 from PIL import Image
 from .config import BUILD
 from .config import EP
-if EP == "ep2":
+if EP.startswith("ep2"):
     from .ep2.shots import render_frame
 else:
     from .shots import render_frame

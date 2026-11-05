@@ -1,4 +1,4 @@
-"""Профили эпизодов. EP=ep1 (по умолчанию, 16:9) или EP=ep2 (9:16, 30 fps)."""
+"""Профили эпизодов. EP=ep1 (по умолчанию, 16:9) или EP=ep2 (9:16, 30 fps), EP=ep2en (то же, английская версия)."""
 import os
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
@@ -9,14 +9,20 @@ FONT_BOLD = "/usr/share/fonts/opentype/inter/Inter-Bold.otf"
 FONT_SEMI = "/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"
 FONT_MONO = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Bold.ttf"
 
-if EP == "ep2":
+LANG = "en" if EP.endswith("en") else "ru"
+
+def L(ru, en):
+    """Текст на нужном языке (EP=ep2en -> английский)."""
+    return en if LANG == "en" else ru
+
+if EP in ("ep2", "ep2en"):
     W, H = 1080, 1920
     FPS = 30
-    VOICE = ROOT / "ep2" / "assets" / "voiceover.mp3"
-    TRANSCRIPT = ROOT / "ep2" / "sync" / "transcript.json"
-    CUES = ROOT / "ep2" / "sync" / "cues.json"
-    OUT = ROOT / "ep2" / "out"
-    BUILD = ROOT / "build" / "ep2"
+    VOICE = ROOT / EP / "assets" / "voiceover.mp3"
+    TRANSCRIPT = ROOT / EP / "sync" / "transcript.json"
+    CUES = ROOT / EP / "sync" / "cues.json"
+    OUT = ROOT / EP / "out"
+    BUILD = ROOT / "build" / EP
 else:
     W, H = 1920, 1080
     FPS = 24

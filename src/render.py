@@ -7,7 +7,7 @@ from .cues import C
 
 
 def worker(idx, f0, f1, path, scale):
-    if EP == "ep2":
+    if EP.startswith("ep2"):
         from .ep2.shots import render_frame
     else:
         from .shots import render_frame
@@ -48,10 +48,11 @@ def main():
     bounds = [F0 + (F1 - F0) * i // chunks for i in range(chunks + 1)]
     parts = [str(BUILD / f"part_{i:03d}.mp4") for i in range(chunks)]
     scale = 0.5 if a.fast else 1.0
-    if EP == "ep2":
+    if EP.startswith("ep2"):
         from .ep2.audio import build as build_audio
         from .ep2.subs import build as build_subs
-        names = ("za_mnoy_kto_to_idet_9x16.mp4", "za_mnoy_kto_to_idet_9x16_nosubs.mp4")
+        names = (("someone_is_following_you_9x16.mp4", "someone_is_following_you_9x16_nosubs.mp4") if EP == "ep2en"
+                 else ("za_mnoy_kto_to_idet_9x16.mp4", "za_mnoy_kto_to_idet_9x16_nosubs.mp4"))
     else:
         from .audio import build as build_audio
         from .subtitles import build as build_subs

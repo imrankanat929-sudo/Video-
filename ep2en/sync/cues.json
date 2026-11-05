@@ -1,0 +1,609 @@
+{
+ "_comment": "Sync anchors for the English 'Someone is following you'. Same cue names as ep2.",
+ "cues": [
+  [
+   "same_man",
+   "someone is walking behind",
+   "start",
+   0.0
+  ],
+  [
+   "turn_right",
+   "you turn right",
+   "start",
+   0.0
+  ],
+  [
+   "he_too",
+   "he turns right",
+   "start",
+   0.0
+  ],
+  [
+   "cross",
+   "you cross the street",
+   "start",
+   0.0
+  ],
+  [
+   "same",
+   "he crosses the street",
+   "start",
+   0.0
+  ],
+  [
+   "window",
+   "you stop in front",
+   "start",
+   0.0
+  ],
+  [
+   "reflection",
+   "and in the reflection",
+   "start",
+   0.0
+  ],
+  [
+   "tall",
+   "a tall man wearing",
+   "start",
+   0.0
+  ],
+  [
+   "looks",
+   "and he is looking",
+   "start",
+   0.0
+  ],
+  [
+   "coinc",
+   "you tell yourself",
+   "start",
+   0.0
+  ],
+  [
+   "approach",
+   "but then he starts",
+   "start",
+   0.0
+  ],
+  [
+   "phone_out",
+   "and when you take out",
+   "start",
+   0.0
+  ],
+  [
+   "his_phone",
+   "he takes out his",
+   "start",
+   0.0
+  ],
+  [
+   "flashback",
+   "but this story actually",
+   "start",
+   0.0
+  ],
+  [
+   "friend",
+   "you were walking home",
+   "start",
+   0.0
+  ],
+  [
+   "bus",
+   "there were almost no buses",
+   "start",
+   0.0
+  ],
+  [
+   "walk",
+   "so you decided to walk",
+   "start",
+   0.0
+  ],
+  [
+   "familiar",
+   "you knew this neighborhood",
+   "start",
+   0.0
+  ],
+  [
+   "nightmare",
+   "nothing had ever happened before",
+   "end",
+   0.0
+  ],
+  [
+   "steps",
+   "at first you heard",
+   "start",
+   0.0
+  ],
+  [
+   "not_vanish",
+   "but after a few minutes",
+   "start",
+   0.0
+  ],
+  [
+   "speed",
+   "you walked faster",
+   "start",
+   0.0
+  ],
+  [
+   "he_speed",
+   "he walked faster too",
+   "start",
+   0.0
+  ],
+  [
+   "shop",
+   "you stopped near a shop",
+   "start",
+   0.0
+  ],
+  [
+   "fake_read",
+   "and checked your phone",
+   "start",
+   0.0
+  ],
+  [
+   "refl2",
+   "through the reflection",
+   "start",
+   0.0
+  ],
+  [
+   "ten_m",
+   "he was standing about",
+   "start",
+   0.0
+  ],
+  [
+   "sure",
+   "now you were sure",
+   "start",
+   0.0
+  ],
+  [
+   "decide",
+   "you decided to take",
+   "start",
+   0.0
+  ],
+  [
+   "alley",
+   "you turned into a narrow",
+   "start",
+   0.0
+  ],
+  [
+   "hope",
+   "hoping he would",
+   "start",
+   0.0
+  ],
+  [
+   "steps_back",
+   "but a few seconds later",
+   "start",
+   0.0
+  ],
+  [
+   "followed",
+   "he had followed you",
+   "start",
+   0.0
+  ],
+  [
+   "dark_alley",
+   "the alley was much darker",
+   "start",
+   0.0
+  ],
+  [
+   "garages",
+   "old garages stood",
+   "start",
+   0.0
+  ],
+  [
+   "lamps",
+   "the streetlights barely",
+   "start",
+   0.0
+  ],
+  [
+   "phone_a",
+   "you took out your phone",
+   "start",
+   0.0
+  ],
+  [
+   "missed",
+   "you wanted to call",
+   "start",
+   0.0
+  ],
+  [
+   "voice",
+   "you heard a voice",
+   "start",
+   0.0
+  ],
+  [
+   "hey",
+   "hey wait",
+   "start",
+   0.0
+  ],
+  [
+   "addressing",
+   "i'm talking to you",
+   "start",
+   0.0
+  ],
+  [
+   "faster",
+   "you started walking faster",
+   "start",
+   0.0
+  ],
+  [
+   "heart",
+   "faster",
+   "end",
+   0.0
+  ],
+  [
+   "exit_near",
+   "the exit was just",
+   "start",
+   0.0
+  ],
+  [
+   "light_ahead",
+   "you could already see",
+   "start",
+   0.0
+  ],
+  [
+   "vibr",
+   "then your phone vibrated",
+   "start",
+   0.0
+  ],
+  [
+   "unknown",
+   "a message appeared from",
+   "start",
+   0.0
+  ],
+  [
+   "three",
+   "it said",
+   "start",
+   0.0
+  ],
+  [
+   "dont",
+   "don't turn around",
+   "start",
+   0.0
+  ],
+  [
+   "stop",
+   "you froze",
+   "start",
+   0.0
+  ],
+  [
+   "who",
+   "who sent that",
+   "start",
+   0.0
+  ],
+  [
+   "turned",
+   "you slowly turned around",
+   "start",
+   0.0
+  ],
+  [
+   "close",
+   "the man was standing only",
+   "start",
+   0.0
+  ],
+  [
+   "look_better",
+   "few steps away",
+   "end",
+   0.0
+  ],
+  [
+   "tall2",
+   "he was tall",
+   "start",
+   0.0
+  ],
+  [
+   "no_face",
+   "his face was hidden",
+   "start",
+   0.0
+  ],
+  [
+   "finally",
+   "finally stopped",
+   "start",
+   0.0
+  ],
+  [
+   "ask",
+   "you asked him",
+   "start",
+   0.0
+  ],
+  [
+   "silent",
+   "he didn't answer",
+   "start",
+   0.0
+  ],
+  [
+   "his_phone2",
+   "instead he took out",
+   "start",
+   0.0
+  ],
+  [
+   "shows",
+   "and showed you the screen",
+   "start",
+   0.0
+  ],
+  [
+   "photo",
+   "there was a photograph",
+   "start",
+   0.0
+  ],
+  [
+   "tonight",
+   "it had been taken",
+   "start",
+   0.0
+  ],
+  [
+   "where",
+   "where did you get",
+   "start",
+   0.0
+  ],
+  [
+   "puts_away",
+   "the man slowly put",
+   "start",
+   0.0
+  ],
+  [
+   "better",
+   "you'd better stop",
+   "start",
+   0.0
+  ],
+  [
+   "movement",
+   "suddenly you noticed movement",
+   "start",
+   0.0
+  ],
+  [
+   "second",
+   "another person was standing",
+   "start",
+   0.0
+  ],
+  [
+   "between",
+   "now there were two",
+   "start",
+   0.0
+  ],
+  [
+   "step_back",
+   "you stepped backward",
+   "start",
+   0.0
+  ],
+  [
+   "step_fwd",
+   "the first man stepped",
+   "start",
+   0.0
+  ],
+  [
+   "loud",
+   "then suddenly a loud",
+   "start",
+   0.0
+  ],
+  [
+   "door",
+   "a door slammed",
+   "start",
+   0.0
+  ],
+  [
+   "headlights",
+   "lit up the entire",
+   "start",
+   0.0
+  ],
+  [
+   "seize",
+   "you used that moment",
+   "start",
+   0.0
+  ],
+  [
+   "not_grab",
+   "the strangers didn't grab",
+   "start",
+   0.0
+  ],
+  [
+   "main_st",
+   "when you finally reached",
+   "start",
+   0.0
+  ],
+  [
+   "shop24",
+   "you saw a 24",
+   "start",
+   0.0
+  ],
+  [
+   "seller",
+   "there was a shopkeeper",
+   "start",
+   0.0
+  ],
+  [
+   "parking",
+   "next to it was",
+   "start",
+   0.0
+  ],
+  [
+   "guard",
+   "with a security guard",
+   "start",
+   0.0
+  ],
+  [
+   "call",
+   "you quickly took out",
+   "start",
+   0.0
+  ],
+  [
+   "another",
+   "another message appeared",
+   "start",
+   0.0
+  ],
+  [
+   "wrong",
+   "you chose the wrong",
+   "start",
+   0.0
+  ],
+  [
+   "head_up",
+   "you looked up",
+   "start",
+   0.0
+  ],
+  [
+   "across",
+   "across the street stood",
+   "start",
+   0.0
+  ],
+  [
+   "smiled",
+   "he smiled",
+   "start",
+   0.0
+  ],
+  [
+   "photo2",
+   "on the screen was another",
+   "start",
+   0.0
+  ],
+  [
+   "someone",
+   "but this time someone",
+   "start",
+   0.0
+  ],
+  [
+   "around",
+   "you looked around",
+   "start",
+   0.0
+  ],
+  [
+   "nobody",
+   "there was nobody",
+   "start",
+   0.0
+  ],
+  [
+   "understood",
+   "and that's when",
+   "start",
+   0.0
+  ],
+  [
+   "danger",
+   "maybe the danger",
+   "start",
+   0.0
+  ],
+  [
+   "two_opts",
+   "now you have two",
+   "start",
+   0.0
+  ],
+  [
+   "optA",
+   "option a enter",
+   "start",
+   0.0
+  ],
+  [
+   "optB",
+   "option b go",
+   "start",
+   0.0
+  ],
+  [
+   "which",
+   "what would you choose",
+   "start",
+   0.0
+  ],
+  [
+   "comment",
+   "comment a or b",
+   "start",
+   0.0
+  ],
+  [
+   "next",
+   "your choice will decide",
+   "start",
+   0.0
+  ]
+ ],
+ "final_hold_seconds": 6.0,
+ "subtitle_fixes": {
+  "It said, don't turn around, run.": "It said: \"Don't turn around. Run.\"",
+  "Finally stopped, he said quietly.": "\"Finally stopped,\" he said quietly.",
+  "Hey, wait.": "\"Hey, wait.\"",
+  "I'm talking to you.": "\"I'm talking to you.\"",
+  "You'd better stop asking questions.": "\"You'd better stop asking questions.\"",
+  "Where did you get that?": "\"Where did you get that?\"",
+  "You chose the wrong place.": "\"You chose the wrong place.\""
+ }
+}
