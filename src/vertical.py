@@ -116,8 +116,9 @@ def build_video(bitrate="2700k"):
     return out
 
 
-def build_cover():
-    """Обложка 9:16 из той же картинки, что и горизонтальное превью."""
+def build_cover(lang="ru"):
+    """Обложка 9:16 из той же картинки, что и горизонтальное превью. lang: ru | en."""
+    en = lang == "en"
     from .thumbnail import base_image
     base = base_image()  # float RGB 1920x1080, без текста
     cx = 1180
@@ -128,20 +129,21 @@ def build_cover():
     yy = np.linspace(0, 1, VH, dtype=np.float32)[:, None, None]
     img = img * (1 - 0.75 * np.clip(1 - yy / 0.45, 0, 1) ** 1.5)  # затемнение сверху под текст
     p = Pen(VW, VH, ss=2)
-    p.text(VW / 2, 300, "А ЧТО,", FONT_TITLE, 170, (246, 240, 230), anchor="mm")
-    p.text(VW / 2, 470, "ЕСЛИ…", FONT_TITLE, 170, (246, 240, 230), anchor="mm")
+    p.text(VW / 2, 300, "WHAT" if en else "А ЧТО,", FONT_TITLE, 170, (246, 240, 230), anchor="mm")
+    p.text(VW / 2, 470, "IF…" if en else "ЕСЛИ…", FONT_TITLE, 170, (246, 240, 230), anchor="mm")
     p.rrect(110, 580, VW - 110, 790, 16, (196, 30, 22))
-    p.text(VW / 2, 640, "УПАДЁТ", FONT_TITLE, 82, (255, 240, 228), anchor="mm")
-    p.text(VW / 2, 730, "АТОМНАЯ БОМБА?", FONT_TITLE, 82, (255, 240, 228), anchor="mm")
+    p.text(VW / 2, 640, "AN ATOMIC" if en else "УПАДЁТ", FONT_TITLE, 82, (255, 240, 228), anchor="mm")
+    p.text(VW / 2, 730, "BOMB FALLS?" if en else "АТОМНАЯ БОМБА?", FONT_TITLE, 82, (255, 240, 228), anchor="mm")
     p.rrect(VW / 2 - 130, 830, VW / 2 + 130, 900, 10, (20, 16, 16, 230))
-    p.text(VW / 2, 865, "СЕРИЯ №1", FONT_BOLD, 38, (232, 120, 70), anchor="mm")
+    p.text(VW / 2, 865, "EPISODE 1" if en else "СЕРИЯ №1", FONT_BOLD, 38, (232, 120, 70), anchor="mm")
     t = p.arr()
     g = cv2.GaussianBlur(t, (0, 0), 20)
     g[..., :3] = g[..., 3:4] * np.array([0.6, 0.06, 0.03], np.float32)
     t = t + g * 0.8 * (1 - t[..., 3:4])
     img = t[..., :3] + img * (1 - t[..., 3:4])
-    Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8)).save(OUT / "thumbnail_tiktok_9x16.jpg", quality=93)
-    return OUT / "thumbnail_tiktok_9x16.jpg"
+    dst = OUT / ("thumbnail_tiktok_9x16_en.jpg" if en else "thumbnail_tiktok_9x16.jpg")
+    Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8)).save(dst, quality=93)
+    return dst
 
 
 if __name__ == "__main__":
