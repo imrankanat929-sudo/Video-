@@ -6,7 +6,7 @@ from faster_whisper import WhisperModel
 
 ROOT = Path(__file__).resolve().parent.parent
 src = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "assets" / "voiceover.mp3"
-dst = ROOT / "sync" / "transcript.json"
+dst = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "sync" / "transcript.json"
 raw = subprocess.run(["ffmpeg", "-v", "quiet", "-i", str(src), "-f", "s16le", "-ac", "1", "-ar", "16000", "-"],
                      capture_output=True).stdout
 audio = np.frombuffer(raw, np.int16).astype(np.float32) / 32768

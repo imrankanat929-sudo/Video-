@@ -2,12 +2,15 @@
 python -m src.render [--fast] [--start S --end E]"""
 import argparse, os, subprocess, time
 from multiprocessing import Process
-from .config import W, H, FPS, OUT, BUILD
+from .config import W, H, FPS, OUT, BUILD, EP
 from .cues import C
 
 
 def worker(idx, f0, f1, path, scale):
-    from .shots import render_frame
+    if EP == "ep2":
+        from .ep2.shots import render_frame
+    else:
+        from .shots import render_frame
     from .gfx import to_u8
     import cv2
     w, h = int(W * scale) // 2 * 2, int(H * scale) // 2 * 2
@@ -36,7 +39,7 @@ def main():
     ap.add_argument("--reuse", action="store_true", help="не перерендеривать готовые куски build/part_*.mp4")
     a = ap.parse_args()
     c = C()
-    OUT.mkdir(exist_ok=True); BUILD.mkdir(exist_ok=True)
+    OUT.mkdir(parents=True, exist_ok=True); BUILD.mkdir(parents=True, exist_ok=True)
     end = a.end or c["END"]
     F0, F1 = int(a.start * FPS), int(end * FPS)
     n = a.jobs
@@ -45,8 +48,14 @@ def main():
     bounds = [F0 + (F1 - F0) * i // chunks for i in range(chunks + 1)]
     parts = [str(BUILD / f"part_{i:03d}.mp4") for i in range(chunks)]
     scale = 0.5 if a.fast else 1.0
-    from .audio import build as build_audio
-    from .subtitles import build as build_subs
+    if EP == "ep2":
+        from .ep2.audio import build as build_audio
+        from .ep2.subs import build as build_subs
+        names = ("za_mnoy_kto_to_idet_9x16.mp4", "za_mnoy_kto_to_idet_9x16_nosubs.mp4")
+    else:
+        from .audio import build as build_audio
+        from .subtitles import build as build_subs
+        names = ("what_if_ep1_atomic.mp4", "what_if_ep1_atomic_nosubs.mp4")
     build_subs()
     build_audio()
     t0 = time.time()
@@ -73,7 +82,7 @@ def main():
     enc = ["-c:v", "libx264", "-preset", "slow", "-b:v", a.bitrate, "-maxrate", "5000k", "-bufsize", "8000k",
            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart"]
     # 1) с субтитрами, 2) без субтитров (субтитры — отдельным файлом .srt)
-    for name, vf in ((f"what_if_ep1_atomic{tag}.mp4", f"ass={ass}"), (f"what_if_ep1_atomic_nosubs{tag}.mp4", None)):
+    for name, vf in ((names[0].replace(".mp4", tag + ".mp4"), f"ass={ass}"), (names[1].replace(".mp4", tag + ".mp4"), None)):
         cmd = ["ffmpeg", "-y", "-v", "error", "-i", str(clean)] + ss + ["-i", str(BUILD / "mix.wav")]
         if vf:
             cmd += ["-vf", vf if not a.fast else vf + ":original_size=1920x1080"]

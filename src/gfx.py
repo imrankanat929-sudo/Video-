@@ -3,7 +3,7 @@ import math
 import numpy as np
 import cv2
 from PIL import Image, ImageDraw, ImageFont
-from .config import W, H
+from .config import W, H, FPS
 
 # ---------------------------------------------------------------- palette
 BLACK = (8, 8, 10)
@@ -353,14 +353,14 @@ def grade(img, t, exposure=1.0, warmth=0.0, grain=0.05, vignette=1.0, desat=0.25
     if vignette:
         x = x * (1 - (1 - _VIG) * vignette)
     if grain:
-        fi = int(t * 24)
+        fi = int(t * FPS)
         n = _GRAIN[fi % len(_GRAIN)]
         ox, oy = int(hash1(fi, 3) * 16), int(hash1(fi, 4) * 16)
         n = n[oy:oy + H, ox:ox + W, None]
         amp = grain * (0.55 + 0.9 * np.sqrt(np.clip(1 - lum, 0, 1)))
         x = x + n * amp * 0.5
     # пыль/царапины плёнки (редко)
-    fi = int(t * 24)
+    fi = int(t * FPS)
     if hash1(fi, 21) < 0.05:
         px, py = int(hash1(fi, 22) * W), int(hash1(fi, 23) * H)
         r = 1 + int(hash1(fi, 24) * 3)
