@@ -35,16 +35,19 @@ def save_rgba(a, path):
 
 
 def end_card(path):
+    bg = Pen(W, H, ss=1)
+    bg.rect(0, 0, W, H, (4, 5, 8, 215))
     p = Pen(W, H, ss=2)
-    p.rect(0, 0, W, H, (4, 5, 8, 205))
     p.text(W / 2, H * 0.40, L("ПРОДОЛЖЕНИЕ", "TO BE"), FONT_TITLE, 120, (244, 240, 232), anchor="mm")
     p.text(W / 2, H * 0.40 + 135, L("СЛЕДУЕТ…", "CONTINUED…"), FONT_TITLE, 120, (244, 240, 232), anchor="mm")
     p.rrect(170, H * 0.40 + 250, W - 170, H * 0.40 + 360, 16, (232, 168, 60))
     p.text(W / 2, H * 0.40 + 305, L("ЧАСТЬ 2 — В СЛЕДУЮЩЕМ ВИДЕО", "PART 2 — NEXT VIDEO"), FONT_TITLE,
-           L(44, 52), (16, 14, 12), anchor="mm")
+           L(38, 52), (16, 14, 12), anchor="mm")
     p.text(W / 2, H * 0.40 + 450, L("Подпишись, чтобы не пропустить", "Follow so you don't miss it"), FONT_BOLD, 46,
            (220, 216, 208), anchor="mm")
-    save_rgba(glow_text(p), path)
+    t = glow_text(p)
+    b = bg.arr()
+    save_rgba(t + b * (1 - t[..., 3:4]), path)
 
 
 def part2_badge(path):
@@ -78,6 +81,8 @@ def main():
     # часть 2: от cut до конца, плашка «Часть 2» первые 3 с
     fc2 = (f"[1:v]format=rgba,fade=in:st=0:d=0.3:alpha=1,fade=out:st=2.6:d=0.4:alpha=1[b];"
            f"[0:v][b]overlay=0:0:enable='lt(t,3)'[vo];[0:a]afade=in:st=0:d=0.3[ao]")
+    if "--part1" in sys.argv:
+        return
     run(["-ss", str(cut), "-to", str(end), "-i", str(SRC), "-loop", "1", "-t", "3", "-i", str(badge),
          "-filter_complex", fc2, "-map", "[vo]", "-map", "[ao]"] + ENC + [str(p2)])
     for p in (p1, p2):
