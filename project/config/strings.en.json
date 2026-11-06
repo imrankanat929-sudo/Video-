@@ -105,5 +105,15 @@
   "thumb_2": "STOLEN",
   "thumb_3": "WHAT WOULD YOU DO?",
   "thumb_a": "KEEP IT",
-  "thumb_b": "POLICE"
+  "thumb_b": "POLICE",
+  "money_or_safety": "MONEY OR SAFETY?",
+  "final_a_short": "KEEP THE 10 BTC",
+  "final_b_short": "CALL THE POLICE",
+  "final_c_short": "WRITE “A” OR “B” IN THE COMMENTS",
+  "subscribe": "SUBSCRIBE",
+  "subscribed": "SUBSCRIBED",
+  "part2_badge": "PART 2 — COMING SOON",
+  "part2_line1": "THE OPTION WITH THE MOST VOTES",
+  "part2_line2": "WILL HAPPEN IN PART 2",
+  "thumb_tag": "KEEP IT?"
 }

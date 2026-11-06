@@ -1,7 +1,7 @@
 // Core engine: canvas, math helpers, camera, post-processing, timeline.
 'use strict';
 
-const W = 1920, H = 1080;
+let W = 1920, H = 1080;
 const PAL = {
   black: '#05060a',
   night: '#0a0f1a',
@@ -147,7 +147,7 @@ function initFX() {
 }
 function postFX(ctx, t, frame, opts = {}) {
   // vignette
-  ctx.drawImage(FX.vignette, 0, 0);
+  ctx.save(); if (opts.flat) ctx.globalAlpha = 0.45; ctx.drawImage(FX.vignette, 0, 0); ctx.restore();
   // film grain (changes every frame)
   const tile = FX.grain[frame % FX.grain.length];
   const r = mulberry32(frame * 13 + 5);

@@ -1,0 +1,2056 @@
+{
+ "_comment": "Вертикальная (9:16) плоская версия для Shorts, <= 3:00. Генерируется tools/make_timeline_ru_v.py.",
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "duration": 179.6,
+ "flat": true,
+ "voice": "assets/audio/voice_ru.mp3",
+ "voiceOffset": 0.3,
+ "strings": "config/strings.ru.json",
+ "transcriptFile": "config/transcript_ru.json",
+ "overlay": {
+  "stages": [
+   {
+    "t": 0.0,
+    "name": "ПЕРЕВОД"
+   },
+   {
+    "t": 54.2,
+    "name": "КРАЖА"
+   },
+   {
+    "t": 78.8,
+    "name": "УГРОЗЫ"
+   },
+   {
+    "t": 140.4,
+    "name": "ВЫБОР"
+   }
+  ]
+ },
+ "shots": [
+  {
+   "id": "01",
+   "type": "f_room",
+   "start": 0.0,
+   "end": 3.7,
+   "inDur": 0.5,
+   "morning": true,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     600,
+     1000,
+     1.18
+    ]
+   ],
+   "phoneOnAt": 3.2,
+   "vibAt": 3.2,
+   "exprAt": [
+    3.3,
+    "shock"
+   ],
+   "tag": {
+    "text": "ОДНАЖДЫ УТРОМ",
+    "color": "yellow",
+    "rot": 0
+   },
+   "in": "black"
+  },
+  {
+   "id": "02",
+   "type": "f_phone",
+   "start": 3.7,
+   "end": 6.2,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     700,
+     1.25
+    ],
+    [
+     540,
+     660,
+     1.4
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "count": 4.58
+   },
+   "face": "neutral",
+   "faceAt": 4.6,
+   "faceSeq": [
+    [
+     4.9,
+     "shock"
+    ]
+   ],
+   "tag": {
+    "text": "+10 BTC",
+    "color": "green",
+    "rot": 0,
+    "at": 4.7
+   }
+  },
+  {
+   "id": "03",
+   "type": "f_face",
+   "start": 6.2,
+   "end": 7.6,
+   "clock": "morning_clock",
+   "expr": "rich",
+   "coins": true,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     920,
+     1.1
+    ]
+   ],
+   "tag": {
+    "text": "≈ $1 000 000",
+    "color": "green",
+    "rot": 0
+   }
+  },
+  {
+   "id": "04",
+   "type": "f_dream",
+   "start": 7.6,
+   "end": 12.8,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     960,
+     1.06
+    ]
+   ],
+   "carAt": 8.48,
+   "homeAt": 9.24,
+   "freeAt": 10.62,
+   "tag": {
+    "text": "МЕЧТЫ",
+    "color": "blue",
+    "rot": 0
+   }
+  },
+  {
+   "id": "05",
+   "type": "f_face",
+   "start": 12.8,
+   "end": 14.9,
+   "inDur": 0.2,
+   "expr": "worry",
+   "red": 12.98,
+   "question": 13.92,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     940,
+     1.12
+    ]
+   ],
+   "tag": {
+    "text": "ОДНА ПРОБЛЕМА",
+    "color": "red",
+    "rot": 0,
+    "at": 13.92
+   },
+   "in": "flash"
+  },
+  {
+   "id": "06",
+   "type": "f_phone",
+   "start": 14.9,
+   "end": 17.2,
+   "clock": "clock_night",
+   "cam": [
+    [
+     540,
+     780,
+     1.0
+    ],
+    [
+     540,
+     700,
+     1.1
+    ]
+   ],
+   "snap": {
+    "at": 15.78,
+    "to": [
+     540,
+     600,
+     1.5
+    ]
+   },
+   "stampAt": 15.78,
+   "redFlash": 15.78,
+   "red": 15.78,
+   "screen": {
+    "kind": "news"
+   },
+   "tag": {
+    "text": "ЭТИ БИТКОИНЫ УКРАДЕНЫ",
+    "color": "red",
+    "rot": -0.03,
+    "at": 15.78
+   }
+  },
+  {
+   "id": "07",
+   "type": "f_window",
+   "start": 17.2,
+   "end": 20.5,
+   "inDur": 0.3,
+   "eyes": 17.9,
+   "red": 17.9,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     900,
+     1.12
+    ]
+   ],
+   "tag": {
+    "text": "КТО-ТО ЗНАЕТ",
+    "color": "red",
+    "rot": 0,
+    "at": 17.9
+   },
+   "in": "fade"
+  },
+  {
+   "id": "08",
+   "type": "f_rewind",
+   "start": 20.5,
+   "end": 22.7,
+   "inDur": 0.2,
+   "tag": {
+    "text": "ВСЁ НАЧАЛОСЬ РАНЬШЕ",
+    "color": "yellow",
+    "rot": 0
+   },
+   "dots": true,
+   "in": "flash"
+  },
+  {
+   "id": "09",
+   "type": "f_room",
+   "start": 22.7,
+   "end": 26.0,
+   "inDur": 0.4,
+   "morning": true,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     960,
+     1.05
+    ],
+    [
+     520,
+     1000,
+     1.15
+    ]
+   ],
+   "handAt": 25.12,
+   "phoneOn": 0.8,
+   "tag": {
+    "text": "ОБЫЧНОЕ УТРО",
+    "color": "blue",
+    "rot": 0
+   },
+   "in": "black"
+  },
+  {
+   "id": "10",
+   "type": "f_phone",
+   "start": 26.0,
+   "end": 31.3,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     26.0,
+     540,
+     700,
+     1.15
+    ],
+    [
+     28.6,
+     540,
+     680,
+     1.25
+    ],
+    [
+     28.8,
+     540,
+     600,
+     1.15
+    ],
+    [
+     31.3,
+     540,
+     580,
+     1.25
+    ]
+   ],
+   "face": "neutral",
+   "faceAt": 26.9,
+   "faceSeq": [
+    [
+     28.9,
+     "skeptic"
+    ]
+   ],
+   "screen": [
+    {
+     "kind": "lock",
+     "notifs": [
+      {
+       "at": 26.68,
+       "kind": "msg",
+       "app": "msg_app",
+       "title": "unknown",
+       "body": "m_lucky",
+       "big": true
+      }
+     ]
+    },
+    {
+     "from": 28.7,
+     "kind": "chat",
+     "msgs": [
+      {
+       "key": "m_lucky",
+       "at": 28.8
+      }
+     ]
+    }
+   ],
+   "tag": {
+    "text": "НЕИЗВЕСТНЫЙ ОТПРАВИТЕЛЬ",
+    "color": "red",
+    "rot": 0,
+    "at": 26.7
+   }
+  },
+  {
+   "id": "11",
+   "type": "f_face",
+   "start": 31.3,
+   "end": 34.0,
+   "clock": "morning_clock",
+   "expr": "skeptic",
+   "lookX": 0.6,
+   "cam": [
+    [
+     540,
+     960,
+     1.05
+    ],
+    [
+     540,
+     960,
+     1.0
+    ]
+   ],
+   "tag": {
+    "text": "СПАМ?",
+    "color": "blue",
+    "rot": 0
+   }
+  },
+  {
+   "id": "12",
+   "type": "f_phone",
+   "start": 34.0,
+   "end": 37.6,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     34.0,
+     540,
+     780,
+     1.0
+    ],
+    [
+     36.7,
+     540,
+     600,
+     1.45
+    ],
+    [
+     37.6,
+     540,
+     598,
+     1.46
+    ]
+   ],
+   "face": "neutral",
+   "faceAt": 34.5,
+   "faceSeq": [
+    [
+     36.68,
+     "shock"
+    ]
+   ],
+   "screen": [
+    {
+     "kind": "chat",
+     "msgs": [
+      {
+       "key": "m_lucky",
+       "at": 0.3
+      }
+     ]
+    },
+    {
+     "from": 34.8,
+     "kind": "splash"
+    },
+    {
+     "from": 35.6,
+     "kind": "wallet",
+     "count": 35.7
+    }
+   ]
+  },
+  {
+   "id": "13",
+   "type": "f_face",
+   "start": 37.6,
+   "end": 40.6,
+   "clock": "morning_clock",
+   "expr": "shock",
+   "sweat": true,
+   "cam": [
+    [
+     540,
+     960,
+     1.1
+    ],
+    [
+     540,
+     900,
+     1.3
+    ]
+   ],
+   "tag": {
+    "text": "10 BTC НА БАЛАНСЕ",
+    "color": "yellow",
+    "rot": 0
+   }
+  },
+  {
+   "id": "14",
+   "type": "f_phone",
+   "start": 40.6,
+   "end": 44.6,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     780,
+     1.0
+    ],
+    [
+     540,
+     640,
+     1.3
+    ]
+   ],
+   "face": "worry",
+   "faceAt": 40.8,
+   "screen": {
+    "kind": "wallet",
+    "refresh": [
+     42.98,
+     43.75
+    ]
+   },
+   "tag": {
+    "text": "ПРОВЕРЯЕШЬ ЕЩЁ РАЗ",
+    "color": "blue",
+    "rot": 0,
+    "at": 42.9
+   }
+  },
+  {
+   "id": "15",
+   "type": "f_phone",
+   "start": 44.6,
+   "end": 48.9,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     760,
+     1.05
+    ],
+    [
+     540,
+     640,
+     1.3
+    ]
+   ],
+   "face": "worry",
+   "faceSeq": [
+    [
+     46.7,
+     "shock"
+    ]
+   ],
+   "screen": [
+    {
+     "kind": "wallet"
+    },
+    {
+     "from": 44.8,
+     "kind": "off"
+    },
+    {
+     "from": 45.2,
+     "kind": "splash"
+    },
+    {
+     "from": 46.6,
+     "kind": "wallet",
+     "pulse": 1
+    }
+   ],
+   "tag": {
+    "text": "ПЕРЕЗАПУСК",
+    "color": "blue",
+    "rot": 0,
+    "at": 44.8
+   }
+  },
+  {
+   "id": "16",
+   "type": "f_face",
+   "start": 48.9,
+   "end": 54.2,
+   "inDur": 0.3,
+   "clock": "morning_clock",
+   "expr": "happy",
+   "exprSeq": [
+    [
+     50.2,
+     "rich"
+    ]
+   ],
+   "coins": true,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     920,
+     1.12
+    ]
+   ],
+   "tag": {
+    "text": "ТЫ РАЗБОГАТЕЛ?",
+    "color": "green",
+    "rot": 0,
+    "at": 49.9
+   },
+   "in": "fade"
+  },
+  {
+   "id": "17",
+   "type": "f_monitor",
+   "start": 54.2,
+   "end": 57.4,
+   "inDur": 0.3,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     480,
+     820,
+     1.05
+    ],
+    [
+     600,
+     800,
+     1.2
+    ]
+   ],
+   "monitor": {
+    "kind": "desktop",
+    "redRow": 56.48
+   },
+   "tag": {
+    "text": "ОТКУДА ПЕРЕВОД?",
+    "color": "yellow",
+    "rot": 0
+   },
+   "in": "fade"
+  },
+  {
+   "id": "18",
+   "type": "f_phone",
+   "start": 57.4,
+   "end": 61.0,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     780,
+     1.05
+    ],
+    [
+     540,
+     700,
+     1.2
+    ]
+   ],
+   "face": "neutral",
+   "faceSeq": [
+    [
+     59.3,
+     "shock"
+    ]
+   ],
+   "screen": {
+    "kind": "news",
+    "scroll": [
+     58.3,
+     60.8
+    ],
+    "scrollBy": 160
+   },
+   "tag": {
+    "text": "НОВОСТЬ",
+    "color": "red",
+    "rot": 0,
+    "at": 59.3
+   }
+  },
+  {
+   "id": "19",
+   "type": "f_graph",
+   "start": 61.0,
+   "end": 65.6,
+   "cam": [
+    [
+     540,
+     1100,
+     1.0
+    ],
+    [
+     540,
+     1000,
+     1.05
+    ]
+   ],
+   "reveal": [
+    61.2,
+    64.3
+   ],
+   "tag": {
+    "text": "НЕСКОЛЬКО ДНЕЙ НАЗАД",
+    "color": "blue",
+    "rot": 0
+   }
+  },
+  {
+   "id": "20",
+   "type": "f_graph",
+   "start": 65.6,
+   "end": 72.2,
+   "cam": [
+    [
+     65.6,
+     540,
+     1000,
+     1.05
+    ],
+    [
+     69.1,
+     760,
+     740,
+     1.4
+    ],
+    [
+     72.2,
+     860,
+     600,
+     1.7
+    ]
+   ],
+   "focus": 69.16,
+   "crossAt": 66.7,
+   "tag": {
+    "text": "АДРЕС СОВПАДАЕТ",
+    "color": "red",
+    "rot": 0,
+    "at": 69.16
+   }
+  },
+  {
+   "id": "21",
+   "type": "f_face",
+   "start": 72.2,
+   "end": 74.7,
+   "expr": "scared",
+   "red": true,
+   "sweat": true,
+   "cam": [
+    [
+     540,
+     960,
+     1.1
+    ],
+    [
+     540,
+     900,
+     1.25
+    ]
+   ],
+   "darkAt": 73.5,
+   "caption": {
+    "at": 73.7,
+    "text": "ЭТО НЕ ПОДАРОК"
+   }
+  },
+  {
+   "id": "22",
+   "type": "f_phone",
+   "start": 74.7,
+   "end": 76.9,
+   "inDur": 0.3,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     1000,
+     1.6
+    ],
+    [
+     540,
+     990,
+     1.7
+    ]
+   ],
+   "face": "worry",
+   "screen": {
+    "kind": "wallet",
+    "txRed": 75.14
+   },
+   "tag": {
+    "text": "КТО-ТО ИСПОЛЬЗОВАЛ КОШЕЛЁК",
+    "color": "red",
+    "rot": 0,
+    "at": 74.9
+   },
+   "in": "black"
+  },
+  {
+   "id": "23",
+   "type": "f_room",
+   "start": 76.9,
+   "end": 78.8,
+   "cam": [
+    [
+     540,
+     960,
+     1.15
+    ],
+    [
+     560,
+     980,
+     1.1
+    ]
+   ],
+   "phoneOn": 1,
+   "phoneOffAt": 78.1,
+   "expr": "determined",
+   "tag": {
+    "text": "НИЧЕГО НЕ ТРОГАТЬ",
+    "color": "blue",
+    "rot": 0
+   }
+  },
+  {
+   "id": "24",
+   "type": "f_room",
+   "start": 78.8,
+   "end": 81.0,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     620,
+     1020,
+     1.25
+    ]
+   ],
+   "vibAt": 79.6,
+   "phoneOnAt": 79.6,
+   "exprAt": [
+    79.9,
+    "shock"
+   ],
+   "tag": {
+    "text": "ВИБРАЦИЯ",
+    "color": "red",
+    "rot": 0,
+    "at": 79.6
+   }
+  },
+  {
+   "id": "25",
+   "type": "f_phone",
+   "start": 81.0,
+   "end": 85.6,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     540,
+     700,
+     1.1
+    ],
+    [
+     540,
+     760,
+     1.25
+    ]
+   ],
+   "face": "worry",
+   "sweat": true,
+   "screen": {
+    "kind": "chat",
+    "msgs": [
+     {
+      "key": "m_lucky",
+      "at": 0.3
+     },
+     {
+      "key": "m_dont",
+      "at": 81.2,
+      "red": true
+     },
+     {
+      "key": "m_keep_short",
+      "at": 84.36,
+      "red": true
+     }
+    ],
+    "typing": [
+     83.0,
+     84.3
+    ]
+   },
+   "tag": {
+    "text": "НОВОЕ СООБЩЕНИЕ",
+    "color": "red",
+    "rot": 0,
+    "at": 81.1
+   }
+  },
+  {
+   "id": "26",
+   "type": "f_face",
+   "start": 85.6,
+   "end": 91.0,
+   "inDur": 0.3,
+   "expr": "scared",
+   "sweat": true,
+   "shake": 6,
+   "question": 87.76,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     920,
+     1.15
+    ]
+   ],
+   "tag": {
+    "text": "ОТКУДА ОН ЗНАЕТ?",
+    "color": "red",
+    "rot": 0,
+    "at": 87.7
+   },
+   "in": "fade"
+  },
+  {
+   "id": "27",
+   "type": "f_phone",
+   "start": 91.0,
+   "end": 96.6,
+   "clock": "morning_clock",
+   "vibAt": 92.9,
+   "cam": [
+    [
+     91.0,
+     540,
+     800,
+     1.0
+    ],
+    [
+     94.6,
+     540,
+     640,
+     1.35
+    ],
+    [
+     94.8,
+     540,
+     600,
+     1.6
+    ],
+    [
+     96.6,
+     540,
+     600,
+     1.65
+    ]
+   ],
+   "onAt": 92.9,
+   "red": 94.6,
+   "screen": {
+    "kind": "lock",
+    "flash": 93.2,
+    "notifs": [
+     {
+      "at": 93.2,
+      "kind": "msg",
+      "app": "msg_app",
+      "title": "unknown",
+      "body": "m_know",
+      "big": true,
+      "red": true
+     }
+    ]
+   },
+   "tag": {
+    "text": "МЫ ЗНАЕМ, КТО ТЫ",
+    "color": "red",
+    "rot": -0.04,
+    "at": 94.6
+   }
+  },
+  {
+   "id": "28",
+   "type": "f_window",
+   "start": 96.6,
+   "end": 100.6,
+   "inDur": 0.4,
+   "eyes": 96.8,
+   "red": 96.8,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     880,
+     1.15
+    ]
+   ],
+   "tag": {
+    "text": "ВСЁ СЕРЬЁЗНЕЕ",
+    "color": "red",
+    "rot": 0
+   },
+   "in": "fade"
+  },
+  {
+   "id": "29",
+   "type": "f_phone",
+   "start": 100.6,
+   "end": 104.0,
+   "inDur": 0.3,
+   "clock": "evening_clock",
+   "vibAt": [
+    100.9,
+    102.3,
+    103.6
+   ],
+   "cam": [
+    [
+     540,
+     800,
+     1.0
+    ],
+    [
+     540,
+     740,
+     1.15
+    ]
+   ],
+   "face": "scared",
+   "faceAt": 101.3,
+   "screen": {
+    "kind": "incoming"
+   },
+   "tag": {
+    "text": "СКРЫТЫЙ НОМЕР",
+    "color": "red",
+    "rot": 0
+   },
+   "in": "black"
+  },
+  {
+   "id": "30",
+   "type": "f_call",
+   "start": 104.0,
+   "end": 113.6,
+   "clock": "evening_clock",
+   "jolt": 104.2,
+   "answerAt": 104.2,
+   "cam": [
+    [
+     104.0,
+     540,
+     960,
+     1.0
+    ],
+    [
+     110.3,
+     520,
+     900,
+     1.12
+    ],
+    [
+     113.6,
+     500,
+     860,
+     1.25
+    ]
+   ],
+   "voice": [
+    [
+     110.52,
+     116.46
+    ]
+   ],
+   "bubbles": [
+    {
+     "at": 105.5,
+     "to": 107.7,
+     "text": "…"
+    },
+    {
+     "at": 110.52,
+     "to": 113.6,
+     "text": "У тебя есть то, что нам принадлежит.",
+     "red": true
+    }
+   ],
+   "tag": {
+    "text": "ТИШИНА",
+    "color": "blue",
+    "rot": 0,
+    "at": 105.5
+   }
+  },
+  {
+   "id": "31",
+   "type": "f_big",
+   "start": 113.6,
+   "end": 115.6,
+   "inDur": 0.2,
+   "clock": "countdown_clock",
+   "sym": "24",
+   "col": "red",
+   "label": "ЧАСА",
+   "box": "У ТЕБЯ 24 ЧАСА",
+   "ill": "countdown",
+   "at": 113.6,
+   "in": "flash"
+  },
+  {
+   "id": "32",
+   "type": "f_phone",
+   "start": 115.6,
+   "end": 117.8,
+   "clock": "evening_clock",
+   "cam": [
+    [
+     540,
+     760,
+     1.1
+    ],
+    [
+     540,
+     760,
+     1.15
+    ]
+   ],
+   "face": "scared",
+   "screen": {
+    "kind": "ended"
+   },
+   "fadeOut": [
+    117.1,
+    117.8
+   ],
+   "tag": {
+    "text": "ЗВОНОК ОБРЫВАЕТСЯ",
+    "color": "red",
+    "rot": 0
+   }
+  },
+  {
+   "id": "33",
+   "type": "f_monitor",
+   "start": 117.8,
+   "end": 121.3,
+   "inDur": 0.3,
+   "clock": "evening_clock",
+   "cam": [
+    [
+     540,
+     900,
+     1.05
+    ],
+    [
+     540,
+     820,
+     1.2
+    ]
+   ],
+   "monitor": {
+    "kind": "docs",
+    "from": 119.9
+   },
+   "tag": {
+    "text": "СОХРАНЯЕШЬ ПЕРЕПИСКУ",
+    "color": "blue",
+    "rot": 0,
+    "at": 119.9
+   },
+   "in": "fade"
+  },
+  {
+   "id": "34",
+   "type": "f_phone",
+   "start": 121.3,
+   "end": 124.6,
+   "clock": "evening_clock",
+   "cam": [
+    [
+     540,
+     800,
+     1.0
+    ],
+    [
+     540,
+     720,
+     1.2
+    ]
+   ],
+   "face": "determined",
+   "screen": {
+    "kind": "call"
+   },
+   "tag": {
+    "text": "ПОЛИЦИЯ",
+    "color": "blue",
+    "rot": 0,
+    "at": 123.6
+   }
+  },
+  {
+   "id": "35",
+   "type": "f_room",
+   "start": 124.6,
+   "end": 128.2,
+   "inDur": 0.3,
+   "red": true,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     600,
+     1020,
+     1.2
+    ]
+   ],
+   "phoneOnAt": 126.9,
+   "vibAt": 126.9,
+   "exprAt": [
+    127.1,
+    "shock"
+   ],
+   "monitor": {
+    "kind": "docs"
+   },
+   "tag": {
+    "text": "ПОСЛЕДНЕЕ СООБЩЕНИЕ",
+    "color": "red",
+    "rot": 0,
+    "at": 126.2
+   },
+   "in": "fade"
+  },
+  {
+   "id": "36",
+   "type": "f_phone",
+   "start": 128.2,
+   "end": 132.2,
+   "clock": "evening_clock",
+   "vibAt": 128.2,
+   "onAt": 128.2,
+   "red": 128.4,
+   "cam": [
+    [
+     540,
+     820,
+     1.0
+    ],
+    [
+     540,
+     620,
+     1.5
+    ]
+   ],
+   "screen": {
+    "kind": "lock",
+    "flash": 128.4,
+    "notifs": [
+     {
+      "at": 128.4,
+      "kind": "msg",
+      "app": "msg_app",
+      "title": "unknown",
+      "body": "m_keep2",
+      "big": true,
+      "red": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "37",
+   "type": "f_face",
+   "start": 132.2,
+   "end": 133.9,
+   "inDur": 0.3,
+   "expr": "worry",
+   "phoneLight": 0.8,
+   "lookY": 0.8,
+   "cam": [
+    [
+     540,
+     960,
+     1.15
+    ],
+    [
+     540,
+     960,
+     1.25
+    ]
+   ],
+   "in": "fade"
+  },
+  {
+   "id": "38",
+   "type": "f_phone",
+   "start": 133.9,
+   "end": 136.4,
+   "clock": "evening_clock",
+   "cam": [
+    [
+     540,
+     680,
+     1.3
+    ],
+    [
+     540,
+     660,
+     1.45
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "pulse": 1
+   },
+   "tag": {
+    "text": "10 BTC",
+    "color": "yellow",
+    "rot": 0
+   }
+  },
+  {
+   "id": "39",
+   "type": "f_face",
+   "start": 136.4,
+   "end": 140.4,
+   "inDur": 0.3,
+   "expr": "rich",
+   "coins": true,
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     920,
+     1.1
+    ]
+   ],
+   "tag": {
+    "text": "ВСЯ ЖИЗНЬ ИЗМЕНИТСЯ",
+    "color": "green",
+    "rot": 0
+   },
+   "in": "fade"
+  },
+  {
+   "id": "40",
+   "type": "f_split",
+   "start": 140.4,
+   "end": 143.5,
+   "inDur": 0.2,
+   "dots": true,
+   "tag": {
+    "text": "ДВА ВАРИАНТА",
+    "color": "yellow",
+    "rot": 0
+   },
+   "in": "flash"
+  },
+  {
+   "id": "41",
+   "type": "f_big",
+   "start": 143.5,
+   "end": 148.4,
+   "inDur": 0.2,
+   "sym": "A",
+   "col": "yellow",
+   "label": "ВАРИАНТ",
+   "box": "ОСТАВИТЬ ДЕНЬГИ СЕБЕ",
+   "ill": "wallet",
+   "at": 143.66,
+   "millionAt": 147.56,
+   "in": "flash"
+  },
+  {
+   "id": "42",
+   "type": "f_monitor",
+   "start": 148.4,
+   "end": 153.9,
+   "inDur": 0.3,
+   "cam": [
+    [
+     480,
+     820,
+     1.05
+    ],
+    [
+     620,
+     800,
+     1.2
+    ]
+   ],
+   "redAt": 150.78,
+   "monitor": {
+    "kind": "warning",
+    "docs": 148.6,
+    "warn": 150.78,
+    "prog": [
+     150.9,
+     153.8
+    ]
+   },
+   "tag": {
+    "text": "ПРИДЁТСЯ ЖИТЬ С РИСКОМ",
+    "color": "red",
+    "rot": 0,
+    "at": 148.9
+   },
+   "in": "fade"
+  },
+  {
+   "id": "43",
+   "type": "f_big",
+   "start": 153.9,
+   "end": 160.5,
+   "inDur": 0.2,
+   "sym": "B",
+   "col": "red",
+   "label": "ВАРИАНТ",
+   "box": "ПОЗВОНИТЬ В ПОЛИЦИЮ",
+   "ill": "call",
+   "at": 154.12,
+   "callingAt": 155.8,
+   "strikeAt": 158.38,
+   "in": "flash"
+  },
+  {
+   "id": "44",
+   "type": "f_face",
+   "start": 160.5,
+   "end": 164.3,
+   "inDur": 0.3,
+   "expr": "determined",
+   "cam": [
+    [
+     540,
+     960,
+     1.0
+    ],
+    [
+     540,
+     900,
+     1.2
+    ]
+   ],
+   "tag": {
+    "text": "ТЫ НА МОЁМ МЕСТЕ",
+    "color": "yellow",
+    "rot": 0
+   },
+   "in": "black"
+  },
+  {
+   "id": "45",
+   "type": "f_final",
+   "start": 164.3,
+   "end": 179.6,
+   "inDur": 0.3,
+   "subs": false,
+   "q": 164.54,
+   "a": 166.06,
+   "b": 168.46,
+   "c": 172.12,
+   "part2": 174.28,
+   "sub": 175.9,
+   "in": "black"
+  }
+ ],
+ "cues": {
+  "silence_start": 95.9,
+  "keep_msg": 97.5,
+  "camera_freeze": 178.4,
+  "hard_black": 179.4
+ },
+ "audio": {
+  "voiceGainDb": 0,
+  "musicGainDb": -13,
+  "events": [
+   {
+    "t": 0.0,
+    "type": "roomtone",
+    "until": 179.4
+   },
+   {
+    "t": 3.2,
+    "type": "vibrate",
+    "n": 2
+   },
+   {
+    "t": 4.58,
+    "type": "hit",
+    "gain": -4
+   },
+   {
+    "t": 4.6,
+    "type": "ping"
+   },
+   {
+    "t": 6.96,
+    "type": "shimmer"
+   },
+   {
+    "t": 8.48,
+    "type": "tick"
+   },
+   {
+    "t": 9.24,
+    "type": "tick"
+   },
+   {
+    "t": 10.62,
+    "type": "tick"
+   },
+   {
+    "t": 12.7,
+    "type": "whoosh",
+    "gain": -8
+   },
+   {
+    "t": 15.6,
+    "type": "whoosh",
+    "gain": -4
+   },
+   {
+    "t": 15.78,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 20.2,
+    "type": "whoosh",
+    "gain": -6
+   },
+   {
+    "t": 20.55,
+    "type": "rewind"
+   },
+   {
+    "t": 26.68,
+    "type": "vibrate",
+    "n": 1
+   },
+   {
+    "t": 26.75,
+    "type": "ping"
+   },
+   {
+    "t": 28.7,
+    "type": "click"
+   },
+   {
+    "t": 34.8,
+    "type": "click"
+   },
+   {
+    "t": 36.68,
+    "type": "hit",
+    "gain": -8
+   },
+   {
+    "t": 42.98,
+    "type": "refresh"
+   },
+   {
+    "t": 43.75,
+    "type": "refresh"
+   },
+   {
+    "t": 44.8,
+    "type": "click"
+   },
+   {
+    "t": 46.6,
+    "type": "ui"
+   },
+   {
+    "t": 54.8,
+    "type": "keyboard",
+    "dur": 2.2
+   },
+   {
+    "t": 56.48,
+    "type": "ui"
+   },
+   {
+    "t": 58.3,
+    "type": "refresh"
+   },
+   {
+    "t": 61.2,
+    "type": "ui"
+   },
+   {
+    "t": 69.16,
+    "type": "alarm"
+   },
+   {
+    "t": 69.16,
+    "type": "hit",
+    "gain": -6
+   },
+   {
+    "t": 73.6,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 75.14,
+    "type": "ui"
+   },
+   {
+    "t": 78.1,
+    "type": "click"
+   },
+   {
+    "t": 79.6,
+    "type": "vibrate",
+    "n": 3
+   },
+   {
+    "t": 81.2,
+    "type": "ping"
+   },
+   {
+    "t": 84.36,
+    "type": "ping"
+   },
+   {
+    "t": 92.9,
+    "type": "vibrate",
+    "n": 2
+   },
+   {
+    "t": 93.2,
+    "type": "ping"
+   },
+   {
+    "t": 94.6,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 100.8,
+    "type": "ringtone",
+    "dur": 3.4
+   },
+   {
+    "t": 100.9,
+    "type": "vibrate",
+    "n": 5
+   },
+   {
+    "t": 104.2,
+    "type": "click"
+   },
+   {
+    "t": 113.6,
+    "type": "hit",
+    "gain": 0
+   },
+   {
+    "t": 113.6,
+    "type": "clock",
+    "dur": 2.0
+   },
+   {
+    "t": 116.46,
+    "type": "hangup"
+   },
+   {
+    "t": 118.5,
+    "type": "keyboard",
+    "dur": 2.6
+   },
+   {
+    "t": 120.14,
+    "type": "click"
+   },
+   {
+    "t": 122.3,
+    "type": "ui"
+   },
+   {
+    "t": 126.9,
+    "type": "vibrate",
+    "n": 2
+   },
+   {
+    "t": 128.4,
+    "type": "hit",
+    "gain": -3
+   },
+   {
+    "t": 128.45,
+    "type": "ping"
+   },
+   {
+    "t": 134.6,
+    "type": "shimmer"
+   },
+   {
+    "t": 140.4,
+    "type": "whoosh",
+    "gain": -8
+   },
+   {
+    "t": 143.66,
+    "type": "hit",
+    "gain": -4
+   },
+   {
+    "t": 147.56,
+    "type": "shimmer"
+   },
+   {
+    "t": 150.78,
+    "type": "alarm"
+   },
+   {
+    "t": 154.12,
+    "type": "hit",
+    "gain": -4
+   },
+   {
+    "t": 155.8,
+    "type": "ringback",
+    "dur": 4.6
+   },
+   {
+    "t": 158.38,
+    "type": "ui"
+   },
+   {
+    "t": 164.54,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 166.06,
+    "type": "tick"
+   },
+   {
+    "t": 168.46,
+    "type": "tick"
+   },
+   {
+    "t": 172.12,
+    "type": "tick"
+   }
+  ],
+  "music": [
+   {
+    "t": 0.3,
+    "level": 0.3
+   },
+   {
+    "t": 4.6,
+    "level": 0.55
+   },
+   {
+    "t": 7.6,
+    "level": 0.7
+   },
+   {
+    "t": 12.7,
+    "level": 0.3
+   },
+   {
+    "t": 14.9,
+    "level": 0.8
+   },
+   {
+    "t": 20.5,
+    "level": 0.3
+   },
+   {
+    "t": 22.7,
+    "level": 0.25
+   },
+   {
+    "t": 36.3,
+    "level": 0.45
+   },
+   {
+    "t": 48.9,
+    "level": 0.6
+   },
+   {
+    "t": 54.2,
+    "level": 0.55
+   },
+   {
+    "t": 65.6,
+    "level": 0.8
+   },
+   {
+    "t": 73.3,
+    "level": 0.9
+   },
+   {
+    "t": 76.9,
+    "level": 0.4
+   },
+   {
+    "t": 78.8,
+    "level": 0.6
+   },
+   {
+    "t": 91.0,
+    "level": 0.75
+   },
+   {
+    "t": 95.9,
+    "level": 0.0
+   },
+   {
+    "t": 96.9,
+    "level": 0.0
+   },
+   {
+    "t": 97.5,
+    "level": 0.65
+   },
+   {
+    "t": 100.6,
+    "level": 0.6
+   },
+   {
+    "t": 104.1,
+    "level": 0.0
+   },
+   {
+    "t": 110.3,
+    "level": 0.0
+   },
+   {
+    "t": 110.6,
+    "level": 0.6
+   },
+   {
+    "t": 113.6,
+    "level": 0.9
+   },
+   {
+    "t": 116.5,
+    "level": 0.4
+   },
+   {
+    "t": 124.6,
+    "level": 0.6
+   },
+   {
+    "t": 128.1,
+    "level": 0.1
+   },
+   {
+    "t": 128.4,
+    "level": 0.8
+   },
+   {
+    "t": 140.4,
+    "level": 0.6
+   },
+   {
+    "t": 143.5,
+    "level": 0.8
+   },
+   {
+    "t": 160.5,
+    "level": 0.5
+   },
+   {
+    "t": 164.3,
+    "level": 0.4
+   },
+   {
+    "t": 172.3,
+    "level": 0.2
+   },
+   {
+    "t": 174.3,
+    "level": 0.35
+   },
+   {
+    "t": 178.5,
+    "level": 0.0
+   }
+  ],
+  "chords": [
+   [
+    -0.2,
+    13.2,
+    [
+     38,
+     45,
+     53
+    ]
+   ],
+   [
+    12.6,
+    20.9,
+    [
+     38,
+     46,
+     52,
+     57
+    ]
+   ],
+   [
+    20.5,
+    36.9,
+    [
+     38,
+     45,
+     52,
+     53
+    ]
+   ],
+   [
+    36.3,
+    54.2,
+    [
+     34,
+     41,
+     50,
+     53
+    ]
+   ],
+   [
+    53.8,
+    79.2,
+    [
+     38,
+     46,
+     52,
+     57
+    ]
+   ],
+   [
+    78.6,
+    101.0,
+    [
+     31,
+     38,
+     46,
+     50
+    ]
+   ],
+   [
+    100.3,
+    125.0,
+    [
+     33,
+     40,
+     49,
+     52
+    ]
+   ],
+   [
+    124.3,
+    143.9,
+    [
+     38,
+     46,
+     52,
+     57
+    ]
+   ],
+   [
+    143.3,
+    154.2,
+    [
+     34,
+     41,
+     50,
+     53
+    ]
+   ],
+   [
+    153.7,
+    164.7,
+    [
+     31,
+     38,
+     46,
+     50
+    ]
+   ],
+   [
+    164.1,
+    179.3,
+    [
+     38,
+     45,
+     50,
+     53
+    ]
+   ],
+   [
+    178.9,
+    179.5,
+    [
+     33,
+     40,
+     45,
+     52
+    ]
+   ]
+  ],
+  "heart": [
+   [
+    14.9,
+    20.5,
+    70
+   ],
+   [
+    65.6,
+    78.6,
+    72
+   ],
+   [
+    91.0,
+    95.9,
+    80
+   ],
+   [
+    100.6,
+    117.6,
+    84
+   ],
+   [
+    124.6,
+    140.3,
+    70
+   ],
+   [
+    160.5,
+    175.3,
+    60
+   ]
+  ],
+  "eerie": [
+   [
+    78.8,
+    22.0
+   ],
+   [
+    124.6,
+    16.0
+   ]
+  ]
+ }
+}

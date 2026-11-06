@@ -14,8 +14,8 @@
   @font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/JetBrainsMono-Regular.ttf); font-weight: 400 500; }
   @font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/JetBrainsMono-Bold.ttf); font-weight: 600 900; }
   html, body { margin: 0; background: #000; color: #ccd; font: 14px Inter, sans-serif; }
-  canvas { display: block; width: 100%; max-width: 1920px; aspect-ratio: 16/9; margin: 0 auto; background: #000; }
-  .render canvas { width: 1920px; height: 1080px; max-width: none; }
+  canvas { display: block; width: 100%; max-width: 1920px; max-height: 92vh; object-fit: contain; margin: 0 auto; background: #000; }
+  .render canvas { width: auto; height: auto; max-width: none; max-height: none; }
   #ui { display: flex; gap: 12px; align-items: center; padding: 10px 16px; }
   #ui input { flex: 1; }
   .render #ui { display: none; }
@@ -29,6 +29,7 @@
 <script src="src/ui.js"></script>
 <script src="src/scenes.js"></script>
 <script src="src/shots.js"></script>
+<script src="src/flat.js"></script>
 <script src="src/main.js"></script>
 <script>
   const q = new URLSearchParams(location.search);

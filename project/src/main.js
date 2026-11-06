@@ -6,9 +6,11 @@ let MAIN = null, BUF = null, READY = false;
 async function boot(lang = 'ru') {
   TL = await (await fetch(`config/timeline.${lang}.json`)).json();
   STR = await (await fetch(TL.strings)).json();
+  if (TL.transcriptFile) TL.transcript = await (await fetch(TL.transcriptFile)).json();
   await document.fonts.load('900 40px "Inter"'); for (const w of [500, 700, 800]) await document.fonts.load(`${w} 40px "JetBrains Mono"`);
   for (const w of [300, 500, 600, 700, 800]) await document.fonts.load(`${w} 40px "Inter"`);
-  MAIN = document.getElementById('c');
+  W = TL.width || 1920; H = TL.height || 1080;
+  MAIN = document.getElementById('c'); MAIN.width = W; MAIN.height = H;
   BUF = makeCanvas(W, H);
   initFX(); initArt(); initUI(); initScenes();
   READY = true;
@@ -24,7 +26,7 @@ function drawShot(ctx, i, T) {
   STR.clock = STR[s.clock || 'clock_night'] || STR.clock;
   ctx.save();
   ctx.fillStyle = PAL.black; ctx.fillRect(0, 0, W, H);
-  if (s.type) GEN[s.type](ctx, T, s); else SHOTS[s.id](ctx, T, T - s.start, s.end - s.start);
+  if (s.type && FLAT[s.type]) FLAT[s.type](ctx, T, s); else if (s.type) GEN[s.type](ctx, T, s); else SHOTS[s.id](ctx, T, T - s.start, s.end - s.start);
   ctx.restore();
 }
 function renderAt(T, frame) {
@@ -46,7 +48,8 @@ function renderAt(T, frame) {
   } else if (i === 0 && lt < dur) {
     ctx.fillStyle = `rgba(0,0,0,${1 - ease.inOutSine(lt / dur)})`; ctx.fillRect(0, 0, W, H);
   }
-  if (T < TL.cues.hard_black) postFX(ctx, T, frame);
+  if (TL.flat && T < TL.cues.hard_black) flatOverlay(ctx, T, TL.shots[i]);
+  if (T < TL.cues.hard_black) postFX(ctx, T, frame, { grain: TL.flat ? 0.07 : 0.16, flat: TL.flat });
   else { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
 }
 window.renderFrame = (frame) => { renderAt(frame / TL.fps, frame); return true; };

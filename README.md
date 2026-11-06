@@ -10,6 +10,13 @@
 - `output/WhatIf_EP01_ru_short.mp4`: короткая версия, 72 секунды (первая озвучка)
 - `output/thumbnail_ru.png`: превью 1280×720 (`thumbnail_ru_1080.png` — 1920×1080, `thumbnail_ru_9x16.png` — вертикальное 1080×1920)
 
+### Вертикальная версия для Shorts (плоский стиль)
+
+- `output/WhatIf_EP01_ru_shorts.mp4`: 1080×1920, 2:59,6 (укладывается в лимит Shorts 3:00)
+- `output/thumbnail_ru_v_9x16.png`: превью для неё
+- монтаж: `config/timeline.ru_v.json` (генератор `tools/make_timeline_ru_v.py`), графика: `src/flat.js`
+- сборка: `python3 tools/audio.py ru_v && node tools/render.js ru_v 3 && node tools/thumbnail.js ru_v`
+
 ## Структура
 
 ```
