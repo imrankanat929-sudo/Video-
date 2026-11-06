@@ -1,0 +1,413 @@
+{
+  "_comment": "Монтажные настройки. Все времена в секундах видео. Озвучка начинается с voiceOffset. Ключевые точки (cues) привязаны к словам озвучки (см. transcript_ru.json, время слова + voiceOffset).",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "duration": 72.0,
+  "voice": "assets/audio/voice_ru.mp3",
+  "voiceOffset": 0.5,
+  "strings": "config/strings.ru.json",
+  "shots": [
+    {
+      "id": "s01_room",
+      "start": 0.0,
+      "end": 4.4,
+      "in": "black",
+      "inDur": 0.8,
+      "scene": "ДЕСЯТЬ БИТКОИНОВ — общий план комнаты"
+    },
+    {
+      "id": "s02_notify",
+      "start": 4.4,
+      "end": 6.25,
+      "in": "cut",
+      "scene": "Уведомление +10 BTC"
+    },
+    {
+      "id": "s03_wallet",
+      "start": 6.25,
+      "end": 9.85,
+      "in": "fade",
+      "inDur": 0.35,
+      "scene": "ПРОВЕРКА БАЛАНСА"
+    },
+    {
+      "id": "s04_news",
+      "start": 9.85,
+      "end": 12.85,
+      "in": "fade",
+      "inDur": 0.3,
+      "scene": "КРАЖА — новость, резкий зум на «украдены»"
+    },
+    {
+      "id": "s05_graph",
+      "start": 12.85,
+      "end": 14.4,
+      "in": "cut",
+      "scene": "КРАЖА — схема транзакций, совпадение адреса"
+    },
+    {
+      "id": "s06_sender",
+      "start": 14.4,
+      "end": 16.4,
+      "in": "fade",
+      "inDur": 0.3,
+      "scene": "НЕИЗВЕСТНЫЙ ОТПРАВИТЕЛЬ — чат и пустой профиль"
+    },
+    {
+      "id": "s07_dark",
+      "start": 16.4,
+      "end": 19.0,
+      "in": "fade",
+      "inDur": 0.4,
+      "scene": "ПЕРВОЕ ПРЕДУПРЕЖДЕНИЕ — герой в темноте, вибрация"
+    },
+    {
+      "id": "s08_threats",
+      "start": 19.0,
+      "end": 22.85,
+      "in": "cut",
+      "scene": "Угрозы в чате, пропущенный звонок"
+    },
+    {
+      "id": "s09_lastmsg",
+      "start": 22.85,
+      "end": 26.05,
+      "in": "cut",
+      "scene": "ПОСЛЕДНЕЕ СООБЩЕНИЕ"
+    },
+    {
+      "id": "s10_window",
+      "start": 26.05,
+      "end": 27.75,
+      "in": "fade",
+      "inDur": 0.45,
+      "scene": "Силуэт героя на фоне окна"
+    },
+    {
+      "id": "s11_two",
+      "start": 27.75,
+      "end": 29.05,
+      "in": "fade",
+      "inDur": 0.35,
+      "scene": "Телефон на столе, кошелёк 10 BTC"
+    },
+    {
+      "id": "s12_optA",
+      "start": 29.05,
+      "end": 34.65,
+      "in": "flash",
+      "inDur": 0.25,
+      "scene": "OPTION A — оставить биткоины"
+    },
+    {
+      "id": "s13_invest",
+      "start": 34.65,
+      "end": 40.25,
+      "in": "fade",
+      "inDur": 0.4,
+      "scene": "ПОСЛЕДСТВИЯ — проверка транзакции, документы"
+    },
+    {
+      "id": "s14_optB",
+      "start": 40.25,
+      "end": 46.85,
+      "in": "flash",
+      "inDur": 0.25,
+      "scene": "OPTION B — позвонить в полицию"
+    },
+    {
+      "id": "s15_desk",
+      "start": 46.85,
+      "end": 48.95,
+      "in": "black",
+      "inDur": 0.5,
+      "scene": "Телефон лежит перед тобой"
+    },
+    {
+      "id": "s16_split",
+      "start": 48.95,
+      "end": 54.65,
+      "in": "fade",
+      "inDur": 0.4,
+      "scene": "Разделённый экран: кошелёк / экстренный вызов"
+    },
+    {
+      "id": "s17_decide",
+      "start": 54.65,
+      "end": 57.0,
+      "in": "fade",
+      "inDur": 0.5,
+      "scene": "Решение зависит только от тебя"
+    },
+    {
+      "id": "s18_final",
+      "start": 57.0,
+      "end": 72.0,
+      "in": "black",
+      "inDur": 0.3,
+      "scene": "ВЫБОР ЗРИТЕЛЯ — финальный текст"
+    }
+  ],
+  "cues": {
+    "phone_vibrate_1": 3.55,
+    "btc_word": 4.54,
+    "refresh_1": 7.3,
+    "refresh_2": 8.55,
+    "stolen_word": 11.84,
+    "graph_match": 13.7,
+    "lucky_msg": 14.55,
+    "profile_open": 15.4,
+    "vibrate_2": 17.3,
+    "new_msg": 19.06,
+    "chance_msg": 20.6,
+    "silence_start": 22.3,
+    "keep_msg": 22.88,
+    "two_options": 27.86,
+    "optA": 29.1,
+    "millionaire": 33.62,
+    "investigation": 34.76,
+    "optB": 40.3,
+    "police_word": 41.66,
+    "refuse_word": 43.92,
+    "split": 49.0,
+    "wallet_word": 51.32,
+    "emergency_word": 53.06,
+    "decide_word": 54.74,
+    "final_q": 57.04,
+    "final_a": 59.16,
+    "final_b": 62.12,
+    "final_c": 65.78,
+    "camera_freeze": 67.6,
+    "hard_black": 71.6
+  },
+  "audio": {
+    "voiceGainDb": 0,
+    "musicGainDb": -13,
+    "events": [
+      {
+        "t": 0.0,
+        "type": "roomtone",
+        "until": 71.6
+      },
+      {
+        "t": 3.55,
+        "type": "vibrate",
+        "n": 2
+      },
+      {
+        "t": 4.54,
+        "type": "hit",
+        "gain": -4
+      },
+      {
+        "t": 4.56,
+        "type": "ping"
+      },
+      {
+        "t": 6.9,
+        "type": "click"
+      },
+      {
+        "t": 7.3,
+        "type": "refresh"
+      },
+      {
+        "t": 8.55,
+        "type": "refresh"
+      },
+      {
+        "t": 9.85,
+        "type": "whoosh",
+        "gain": -10
+      },
+      {
+        "t": 11.7,
+        "type": "whoosh",
+        "gain": -4
+      },
+      {
+        "t": 11.84,
+        "type": "hit",
+        "gain": -3
+      },
+      {
+        "t": 12.85,
+        "type": "ui"
+      },
+      {
+        "t": 13.7,
+        "type": "alarm"
+      },
+      {
+        "t": 14.55,
+        "type": "ping"
+      },
+      {
+        "t": 15.4,
+        "type": "click"
+      },
+      {
+        "t": 17.3,
+        "type": "vibrate",
+        "n": 3
+      },
+      {
+        "t": 19.06,
+        "type": "ping"
+      },
+      {
+        "t": 19.8,
+        "type": "ping",
+        "gain": -6
+      },
+      {
+        "t": 20.6,
+        "type": "ping"
+      },
+      {
+        "t": 22.6,
+        "type": "vibrate",
+        "n": 1
+      },
+      {
+        "t": 22.88,
+        "type": "hit",
+        "gain": -2
+      },
+      {
+        "t": 29.1,
+        "type": "hit",
+        "gain": -4
+      },
+      {
+        "t": 33.62,
+        "type": "shimmer"
+      },
+      {
+        "t": 34.76,
+        "type": "keyboard",
+        "dur": 3.2
+      },
+      {
+        "t": 36.2,
+        "type": "alarm"
+      },
+      {
+        "t": 40.3,
+        "type": "hit",
+        "gain": -4
+      },
+      {
+        "t": 41.66,
+        "type": "ringback",
+        "dur": 4.9
+      },
+      {
+        "t": 43.92,
+        "type": "ui"
+      },
+      {
+        "t": 49.0,
+        "type": "whoosh",
+        "gain": -8
+      },
+      {
+        "t": 51.32,
+        "type": "ui"
+      },
+      {
+        "t": 53.06,
+        "type": "ui"
+      },
+      {
+        "t": 57.04,
+        "type": "hit",
+        "gain": -2
+      },
+      {
+        "t": 59.16,
+        "type": "tick"
+      },
+      {
+        "t": 62.12,
+        "type": "tick"
+      },
+      {
+        "t": 65.78,
+        "type": "tick"
+      },
+      {
+        "t": 14.4,
+        "type": "whoosh",
+        "gain": -12
+      }
+    ],
+    "music": [
+      {
+        "t": 0.0,
+        "level": 0.25
+      },
+      {
+        "t": 4.5,
+        "level": 0.55
+      },
+      {
+        "t": 9.8,
+        "level": 0.75
+      },
+      {
+        "t": 12.9,
+        "level": 0.9
+      },
+      {
+        "t": 16.4,
+        "level": 0.5
+      },
+      {
+        "t": 21.5,
+        "level": 0.2
+      },
+      {
+        "t": 22.3,
+        "level": 0.0
+      },
+      {
+        "t": 22.88,
+        "level": 0.0
+      },
+      {
+        "t": 23.2,
+        "level": 0.7
+      },
+      {
+        "t": 29.0,
+        "level": 0.8
+      },
+      {
+        "t": 40.2,
+        "level": 0.8
+      },
+      {
+        "t": 47.0,
+        "level": 0.6
+      },
+      {
+        "t": 54.6,
+        "level": 0.45
+      },
+      {
+        "t": 57.0,
+        "level": 0.35
+      },
+      {
+        "t": 64.0,
+        "level": 0.15
+      },
+      {
+        "t": 67.4,
+        "level": 0.0
+      }
+    ]
+  }
+}

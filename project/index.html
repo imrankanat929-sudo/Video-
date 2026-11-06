@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WHAT IF…? — Episode 01</title>
+<style>
+  @font-face { font-family: "Inter"; src: url(assets/fonts/Inter-Light.otf); font-weight: 300; }
+  @font-face { font-family: "Inter"; src: url(assets/fonts/Inter-Regular.otf); font-weight: 400; }
+  @font-face { font-family: "Inter"; src: url(assets/fonts/Inter-Medium.otf); font-weight: 500; }
+  @font-face { font-family: "Inter"; src: url(assets/fonts/Inter-SemiBold.otf); font-weight: 600; }
+  @font-face { font-family: "Inter"; src: url(assets/fonts/Inter-Bold.otf); font-weight: 700; }
+  @font-face { font-family: "Inter"; src: url(assets/fonts/Inter-Black.otf); font-weight: 800 900; }
+  @font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/JetBrainsMono-Regular.ttf); font-weight: 400 500; }
+  @font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/JetBrainsMono-Bold.ttf); font-weight: 600 900; }
+  html, body { margin: 0; background: #000; color: #ccd; font: 14px Inter, sans-serif; }
+  canvas { display: block; width: 100%; max-width: 1920px; aspect-ratio: 16/9; margin: 0 auto; background: #000; }
+  .render canvas { width: 1920px; height: 1080px; max-width: none; }
+  #ui { display: flex; gap: 12px; align-items: center; padding: 10px 16px; }
+  #ui input { flex: 1; }
+  .render #ui { display: none; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div id="ui"><button id="play">▶</button><input id="seek" type="range" min="0" max="72" step="0.01" value="0"><span id="tc">0.00</span></div>
+<script src="src/core.js"></script>
+<script src="src/art.js"></script>
+<script src="src/ui.js"></script>
+<script src="src/scenes.js"></script>
+<script src="src/main.js"></script>
+<script>
+  const q = new URLSearchParams(location.search);
+  const lang = q.get('lang') || 'ru';
+  if (q.has('render')) document.body.classList.add('render');
+  window.bootDone = boot(lang).then(() => {
+    if (q.has('render')) return;
+    // preview player: mixed soundtrack if present, else voice only
+    const audio = new Audio(`assets/audio/mix_${lang}.wav`);
+    audio.onerror = () => { audio.src = TL.voice; };
+    const seek = document.getElementById('seek'), tc = document.getElementById('tc');
+    seek.max = TL.duration;
+    let playing = false, t0 = 0;
+    document.getElementById('play').onclick = () => {
+      playing = !playing;
+      if (playing) { audio.currentTime = +seek.value; audio.play(); } else audio.pause();
+    };
+    seek.oninput = () => { audio.currentTime = +seek.value; };
+    (function loop() {
+      const T = playing ? audio.currentTime : +seek.value;
+      if (playing) seek.value = T;
+      tc.textContent = T.toFixed(2);
+      renderAt(T, Math.floor(T * TL.fps));
+      requestAnimationFrame(loop);
+    })();
+  });
+</script>
+</body>
+</html>

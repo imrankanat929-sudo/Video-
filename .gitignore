@@ -1,0 +1,4 @@
+output/.tmp_*/
+output/*.log
+node_modules/
+__pycache__/
