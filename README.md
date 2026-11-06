@@ -6,9 +6,9 @@
 
 ## Готовое видео
 
-- `output/WhatIf_EP01_ru.mp4`: полная русская версия, 3:04 (H.265)
+- `output/WhatIf_EP01_ru.mp4`: полная русская версия, 3:04 (H.264)
 - `output/WhatIf_EP01_ru_short.mp4`: короткая версия, 72 секунды (первая озвучка)
-- `output/thumbnail_ru.png`: превью 1280×720 (`thumbnail_ru_1080.png` — 1920×1080)
+- `output/thumbnail_ru.png`: превью 1280×720 (`thumbnail_ru_1080.png` — 1920×1080, `thumbnail_ru_9x16.png` — вертикальное 1080×1920)
 
 ## Структура
 

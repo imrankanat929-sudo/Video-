@@ -11,5 +11,7 @@ const serve = require('./server');
   const big = path.join(out, `thumbnail_${lang}_1080.png`);
   fs.writeFileSync(big, Buffer.from(url.split(',')[1], 'base64'));
   execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-i', big, '-vf', 'scale=1280:720:flags=lanczos', path.join(out, `thumbnail_${lang}.png`)]);
+  const v = await p.evaluate(() => window.renderThumbV());
+  fs.writeFileSync(path.join(out, `thumbnail_${lang}_9x16.png`), Buffer.from(v.split(',')[1], 'base64'));
   console.log('ok'); await b.close(); srv.close();
 })();
