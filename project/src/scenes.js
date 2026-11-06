@@ -25,6 +25,7 @@ function initScenes() {
 function roomWide(ctx, T, cam, o = {}) {
   const mon = o.monitor || monDesktop(T, o.monState || {});
   withCam(ctx, cam, 0.78, () => drawRoomBack(ctx, T, o));
+  if (o.morning) { ctx.fillStyle = 'rgba(120,135,160,0.06)'; ctx.fillRect(0, 0, W, H); }
   withCam(ctx, cam, 0.78, () => monitorLight(ctx, (o.monLight ?? 0.8), o.monTint));
   withCam(ctx, cam, 1, () => {
     drawRoomDesk(ctx, T, { monitor: mon, phoneOn: o.phoneOn ?? 0, phoneX: o.phoneX, phoneY: o.phoneY, monBright: o.monBright });

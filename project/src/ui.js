@@ -362,3 +362,78 @@ function monWarning(t, s = {}) {
   }
   return SCR.mon;
 }
+
+// --- incoming / active / ended call ---
+function scrIncoming(t, s = {}) {
+  const g = SCR.phone.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, PHONE.sh);
+  gr.addColorStop(0, '#121826'); gr.addColorStop(1, '#05070c');
+  g.fillStyle = gr; g.fillRect(0, 0, PHONE.sw, PHONE.sh);
+  statusBar(g);
+  const mode = s.mode || 'incoming';
+  avatarEmpty(g, 278, 330, 90);
+  if (mode === 'incoming') {
+    for (let i = 0; i < 3; i++) { const p = (t * 0.7 + i / 3) % 1; g.strokeStyle = `rgba(200,215,240,${(1 - p) * 0.35})`; g.lineWidth = 3; g.beginPath(); g.arc(278, 330, 95 + p * 110, 0, 7); g.stroke(); }
+  }
+  text(g, S('hidden_num'), 278, 500, { font: font(700, 40), align: 'center' });
+  const sub = mode === 'incoming' ? S('incoming') : mode === 'ended' ? S('call_ended') : timer(t - (s.from || t));
+  text(g, sub, 278, 550, { font: font(500, 26), align: 'center', color: mode === 'ended' ? '#e5a5a9' : PAL.mist });
+  if (mode === 'active') {
+    // voice waveform: flat line during silence, moving when the voice speaks
+    const amp = s.voice || 0;
+    g.strokeStyle = amp > 0.05 ? PAL.white : '#3b475c'; g.lineWidth = 4; g.beginPath();
+    for (let x = 0; x <= 400; x += 6) { const y = 690 + Math.sin(x * 0.09 + t * 14) * Math.sin(x * 0.013 + t * 3) * 50 * amp * (0.6 + 0.4 * noise1(x * 0.05 + t * 6)); x ? g.lineTo(78 + x, y) : g.moveTo(78 + x, y); }
+    g.stroke();
+    [S('k_mute'), S('k_pad'), S('k_speaker')].forEach((k, i) => { g.fillStyle = 'rgba(255,255,255,0.07)'; g.beginPath(); g.arc(118 + i * 160, 830, 56, 0, 7); g.fill(); text(g, k, 118 + i * 160, 925, { font: font(500, 18), align: 'center', color: '#8f9bb0' }); });
+    g.fillStyle = PAL.red; g.beginPath(); g.arc(278, 1040, 64, 0, 7); g.fill();
+    text(g, '✆', 278, 1062, { font: font(700, 58), align: 'center', color: '#fff' });
+  } else if (mode === 'incoming') {
+    g.fillStyle = PAL.red; g.beginPath(); g.arc(140, 1010, 64, 0, 7); g.fill();
+    text(g, '✆', 140, 1032, { font: font(700, 58), align: 'center', color: '#fff' });
+    const bob = Math.sin(t * 7) * 8;
+    g.fillStyle = '#2f8f5b'; g.beginPath(); g.arc(416, 1010 + bob, 64, 0, 7); g.fill();
+    text(g, '✆', 416, 1032 + bob, { font: font(700, 58), align: 'center', color: '#fff' });
+    text(g, S('decline'), 140, 1110, { font: font(500, 20), align: 'center', color: '#8f9bb0' });
+    text(g, S('accept'), 416, 1110, { font: font(500, 20), align: 'center', color: '#8f9bb0' });
+  }
+  return SCR.phone;
+}
+function timer(sec) { sec = Math.max(0, Math.floor(sec)); return `00:${String(sec).padStart(2, '0')}`; }
+
+function scrSplash(t, s = {}) {
+  const g = SCR.phone.getContext('2d');
+  g.fillStyle = '#080b12'; g.fillRect(0, 0, PHONE.sw, PHONE.sh);
+  statusBar(g);
+  appIcon(g, 278, 520, 70, 'btc');
+  text(g, S('wallet_title'), 278, 650, { font: font(700, 30), align: 'center' });
+  g.save(); g.translate(278, 780); g.rotate(t * 8); g.strokeStyle = PAL.mist; g.lineWidth = 5; g.lineCap = 'round';
+  g.beginPath(); g.arc(0, 0, 24, 0, 4.4); g.stroke(); g.restore();
+  return SCR.phone;
+}
+
+// saved chat screenshots on the monitor
+function monDocs(t, s = {}) {
+  const g = SCR.mon.getContext('2d');
+  monDesktop(t, {});
+  g.fillStyle = 'rgba(4,6,10,0.65)'; g.fillRect(0, 0, 1600, 900);
+  const lines = [S('m_lucky'), S('m_dont'), S('m_keep2'), S('m_know')];
+  for (let i = 0; i < 4; i++) {
+    const a = clamp((s.p ?? 1) * 4.5 - i);
+    if (a <= 0) continue;
+    g.save(); g.globalAlpha = a; g.translate(120 + i * 360, 170 + (i % 2) * 40 + (1 - ease.out(a)) * 40);
+    g.fillStyle = '#0b0f17'; rr(g, 0, 0, 320, 560, 22); g.fill();
+    g.strokeStyle = 'rgba(200,215,240,0.25)'; g.lineWidth = 2; g.stroke();
+    avatarEmpty(g, 46, 46, 22);
+    text(g, S('unknown'), 80, 54, { font: font(700, 20) });
+    g.font = font(500, 20);
+    const ls = wrap(g, lines[i], 230);
+    g.fillStyle = i ? '#3a1418' : '#1a2131'; rr(g, 20, 110, 270, ls.length * 30 + 30, 18); g.fill();
+    ls.forEach((l, k) => text(g, l, 36, 142 + k * 30, { font: font(500, 20), color: PAL.white }));
+    text(g, S('screenshot') + ' ' + (i + 1) + '.png', 160, 530, { font: font(500, 16, 'mono'), align: 'center', color: '#7d889a' });
+    g.restore();
+  }
+  // folder label
+  g.fillStyle = '#16203a'; rr(g, 120, 790, 560, 60, 12); g.fill();
+  text(g, '▣  ' + S('folder'), 150, 830, { font: font(600, 24, 'mono'), color: '#c3cbd8' });
+  return SCR.mon;
+}

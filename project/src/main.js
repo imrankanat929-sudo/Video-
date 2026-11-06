@@ -21,9 +21,10 @@ function shotAt(T) {
 }
 function drawShot(ctx, i, T) {
   const s = TL.shots[i];
+  STR.clock = STR[s.clock || 'clock_night'] || STR.clock;
   ctx.save();
   ctx.fillStyle = PAL.black; ctx.fillRect(0, 0, W, H);
-  SHOTS[s.id](ctx, T, T - s.start, s.end - s.start);
+  if (s.type) GEN[s.type](ctx, T, s); else SHOTS[s.id](ctx, T, T - s.start, s.end - s.start);
   ctx.restore();
 }
 function renderAt(T, frame) {
@@ -67,3 +68,39 @@ window.renderPlate = (name) => {
   return MAIN.toDataURL('image/png');
 };
 window.plateNames = () => Object.keys(PLATES);
+
+// YouTube thumbnail (1920x1080, export also as 1280x720)
+window.renderThumb = () => {
+  const ctx = MAIN.getContext('2d'), T = 30;
+  STR.clock = STR.clock_night;
+  ctx.save();
+  ctx.fillStyle = '#05060a'; ctx.fillRect(0, 0, W, H);
+  // background: room, hero from behind lit red by the monitor
+  roomWide(ctx, T, { x: 1060, y: 560, z: 1.25 }, { monitor: monWarning(T, { warn: 1, docs: 1, prog: 0.8 }), monTint: 'rgba(220,60,70,0.55)', monLight: 1.1, rimCol: 'rgba(235,110,120,0.95)', phoneOn: 0, tilt: -0.08 });
+  ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fillRect(0, 0, W, H);
+  const g = ctx.createLinearGradient(0, 0, W * 0.65, 0); g.addColorStop(0, 'rgba(3,4,8,0.95)'); g.addColorStop(1, 'rgba(3,4,8,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // phone with balance + stamp
+  const scr = scrWallet(T, { refresh: -1, pulse: 0.8 });
+  const sg = scr.getContext('2d');
+  sg.save(); sg.translate(278, 420); sg.rotate(-0.16);
+  sg.strokeStyle = PAL.red; sg.lineWidth = 9; rr(sg, -230, -66, 460, 132, 14); sg.stroke();
+  text(sg, S('stolen'), 0, 28, { font: font(900, 74), align: 'center', color: PAL.red, ls: 6 });
+  sg.restore();
+  glow(ctx, 1500, 560, 700, 'rgba(160,190,255,0.5)', 0.9);
+  drawPhone(ctx, 1500, 600, 0.78, 0.1, scr, { on: 1 });
+  // headline
+  text(ctx, 'WHAT IF…?', 110, 170, { font: font(900, 44), color: PAL.mist, ls: 10 });
+  text(ctx, S('thumb_1'), 100, 430, { font: font(900, 250), color: '#ffffff', ls: -4, shadow: 'rgba(0,0,0,0.9)', blur: 40 });
+  text(ctx, S('thumb_2'), 108, 620, { font: font(900, 150), color: '#e2343e', ls: 2, shadow: 'rgba(0,0,0,0.9)', blur: 40 });
+  text(ctx, S('thumb_3'), 112, 760, { font: font(800, 64), color: '#ffffff', ls: 4, shadow: 'rgba(0,0,0,0.9)', blur: 30 });
+  // A / B chips
+  [['A', S('thumb_a')], ['B', S('thumb_b')]].forEach(([k, l], i) => {
+    const y = 860 + i * 0; const x = 112 + i * 470;
+    ctx.fillStyle = i ? 'rgba(200,50,58,0.95)' : 'rgba(217,221,228,0.95)'; rr(ctx, x, y, 440, 110, 18); ctx.fill();
+    text(ctx, k + ' — ' + l, x + 220, y + 74, { font: font(900, 46), align: 'center', color: i ? '#fff' : '#0a0c12', ls: 2 });
+  });
+  ctx.restore();
+  postFX(ctx, T, 3, { grain: 0.08 });
+  return MAIN.toDataURL('image/png');
+};

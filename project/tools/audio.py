@@ -136,7 +136,37 @@ def roomtone(start, until):
     fade = np.minimum(1, t_(d) / 1.0) * np.minimum(1, (d - t_(d)) / 1.5)
     return x * fade
 
-SFX = {'vibrate': lambda e: sfx_vibrate(e.get('n', 2)), 'hit': lambda e: sfx_hit(), 'ping': lambda e: sfx_ping(),
+def sfx_rewind():
+    d = 1.6; tt = t_(d)
+    f = 300 + 2200 * (tt / d) ** 1.5
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * 0.15 + bp(noise(d), 1500, 6000) * 0.25 * (0.5 + 0.5 * np.sin(2 * np.pi * 18 * tt))
+    return x * np.minimum(1, tt / 0.05) * np.minimum(1, (d - tt) / 0.2) * 0.6
+
+def sfx_ringtone(dur=3.4):
+    out = np.zeros(int(dur * SR)); t = 0.0
+    mel = [659.3, 784, 987.8, 784]
+    while t < dur - 0.2:
+        for k, f in enumerate(mel):
+            tt = t_(0.16)
+            place(out, (np.sin(2 * np.pi * f * tt) + 0.3 * np.sin(4 * np.pi * f * tt)) * np.exp(-tt * 10), t + k * 0.17)
+        t += 1.4
+    return verb(lp(out, 4000), 0.2) * 0.22
+
+def sfx_clock(dur=2.0):
+    out = np.zeros(int(dur * SR)); t = 0.0
+    while t < dur:
+        tt = t_(0.05); place(out, bp(noise(0.05), 2000, 6000) * np.exp(-tt * 200) * 0.7, t); t += 1 / 3
+    return out * 0.4
+
+def sfx_hangup():
+    out = np.zeros(int(2.2 * SR))
+    for k in range(3):
+        tt = t_(0.35); place(out, np.sin(2 * np.pi * 425 * tt) * np.minimum(1, tt / 0.01) * np.minimum(1, (0.35 - tt) / 0.01), 0.2 + k * 0.7)
+    return bp(out, 300, 3400) * 0.06
+
+SFX = {'rewind': lambda e: sfx_rewind(), 'ringtone': lambda e: sfx_ringtone(e.get('dur', 3.4)),
+       'clock': lambda e: sfx_clock(e.get('dur', 2.0)), 'hangup': lambda e: sfx_hangup(),
+       'vibrate': lambda e: sfx_vibrate(e.get('n', 2)), 'hit': lambda e: sfx_hit(), 'ping': lambda e: sfx_ping(),
        'click': lambda e: sfx_click(), 'ui': lambda e: sfx_click() * 0.7 + 0, 'refresh': lambda e: sfx_refresh(),
        'whoosh': lambda e: sfx_whoosh(), 'alarm': lambda e: sfx_alarm(), 'shimmer': lambda e: sfx_shimmer(),
        'keyboard': lambda e: sfx_keyboard(e.get('dur', 3)), 'ringback': lambda e: sfx_ringback(e.get('dur', 4.9)),
@@ -191,15 +221,15 @@ def heartbeat(start, end, bpm=68):
 
 def build_music():
     buf = np.zeros(N)
-    for s, e, notes in CHORDS:
-        place(buf, pad(notes, e - s), s)
-    # eerie high tone through the threat section
-    tt = t_(10.0)
-    eerie = np.sin(2 * np.pi * NOTE(86) * tt) * (0.5 + 0.5 * np.sin(2 * np.pi * 5.5 * tt)) * np.sin(np.pi * tt / 10) ** 2 * 0.05
-    place(buf, eerie, 12.8)
-    place(buf, heartbeat(9.8, 22.2) * 0.55, 9.8)
-    place(buf, heartbeat(34.7, 40.1, 76) * 0.45, 34.7)
-    place(buf, heartbeat(48.9, 56.8, 60) * 0.35, 48.9)
+    A = TL['audio']
+    for s, e, notes in A.get('chords', CHORDS):
+        place(buf, pad(notes, e - max(s, 0)), max(s, 0))
+    # eerie high tone through the threat sections
+    for st, d in A.get('eerie', [[12.8, 10.0]]):
+        tt = t_(d)
+        place(buf, np.sin(2 * np.pi * NOTE(86) * tt) * (0.5 + 0.5 * np.sin(2 * np.pi * 5.5 * tt)) * np.sin(np.pi * tt / d) ** 2 * 0.05, st)
+    for s, e, bpm in A.get('heart', [[9.8, 22.2, 68], [34.7, 40.1, 76], [48.9, 56.8, 60]]):
+        place(buf, heartbeat(s, e, bpm) * 0.45, s)
     # automation
     pts = TL['audio']['music']
     ts = np.array([p['t'] for p in pts]); lv = np.array([p['level'] for p in pts])

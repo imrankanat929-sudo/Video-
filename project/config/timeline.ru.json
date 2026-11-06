@@ -1,413 +1,1868 @@
 {
-  "_comment": "Монтажные настройки. Все времена в секундах видео. Озвучка начинается с voiceOffset. Ключевые точки (cues) привязаны к словам озвучки (см. transcript_ru.json, время слова + voiceOffset).",
-  "fps": 30,
-  "width": 1920,
-  "height": 1080,
-  "duration": 72.0,
-  "voice": "assets/audio/voice_ru.mp3",
-  "voiceOffset": 0.5,
-  "strings": "config/strings.ru.json",
-  "shots": [
-    {
-      "id": "s01_room",
-      "start": 0.0,
-      "end": 4.4,
-      "in": "black",
-      "inDur": 0.8,
-      "scene": "ДЕСЯТЬ БИТКОИНОВ — общий план комнаты"
-    },
-    {
-      "id": "s02_notify",
-      "start": 4.4,
-      "end": 6.25,
-      "in": "cut",
-      "scene": "Уведомление +10 BTC"
-    },
-    {
-      "id": "s03_wallet",
-      "start": 6.25,
-      "end": 9.85,
-      "in": "fade",
-      "inDur": 0.35,
-      "scene": "ПРОВЕРКА БАЛАНСА"
-    },
-    {
-      "id": "s04_news",
-      "start": 9.85,
-      "end": 12.85,
-      "in": "fade",
-      "inDur": 0.3,
-      "scene": "КРАЖА — новость, резкий зум на «украдены»"
-    },
-    {
-      "id": "s05_graph",
-      "start": 12.85,
-      "end": 14.4,
-      "in": "cut",
-      "scene": "КРАЖА — схема транзакций, совпадение адреса"
-    },
-    {
-      "id": "s06_sender",
-      "start": 14.4,
-      "end": 16.4,
-      "in": "fade",
-      "inDur": 0.3,
-      "scene": "НЕИЗВЕСТНЫЙ ОТПРАВИТЕЛЬ — чат и пустой профиль"
-    },
-    {
-      "id": "s07_dark",
-      "start": 16.4,
-      "end": 19.0,
-      "in": "fade",
-      "inDur": 0.4,
-      "scene": "ПЕРВОЕ ПРЕДУПРЕЖДЕНИЕ — герой в темноте, вибрация"
-    },
-    {
-      "id": "s08_threats",
-      "start": 19.0,
-      "end": 22.85,
-      "in": "cut",
-      "scene": "Угрозы в чате, пропущенный звонок"
-    },
-    {
-      "id": "s09_lastmsg",
-      "start": 22.85,
-      "end": 26.05,
-      "in": "cut",
-      "scene": "ПОСЛЕДНЕЕ СООБЩЕНИЕ"
-    },
-    {
-      "id": "s10_window",
-      "start": 26.05,
-      "end": 27.75,
-      "in": "fade",
-      "inDur": 0.45,
-      "scene": "Силуэт героя на фоне окна"
-    },
-    {
-      "id": "s11_two",
-      "start": 27.75,
-      "end": 29.05,
-      "in": "fade",
-      "inDur": 0.35,
-      "scene": "Телефон на столе, кошелёк 10 BTC"
-    },
-    {
-      "id": "s12_optA",
-      "start": 29.05,
-      "end": 34.65,
-      "in": "flash",
-      "inDur": 0.25,
-      "scene": "OPTION A — оставить биткоины"
-    },
-    {
-      "id": "s13_invest",
-      "start": 34.65,
-      "end": 40.25,
-      "in": "fade",
-      "inDur": 0.4,
-      "scene": "ПОСЛЕДСТВИЯ — проверка транзакции, документы"
-    },
-    {
-      "id": "s14_optB",
-      "start": 40.25,
-      "end": 46.85,
-      "in": "flash",
-      "inDur": 0.25,
-      "scene": "OPTION B — позвонить в полицию"
-    },
-    {
-      "id": "s15_desk",
-      "start": 46.85,
-      "end": 48.95,
-      "in": "black",
-      "inDur": 0.5,
-      "scene": "Телефон лежит перед тобой"
-    },
-    {
-      "id": "s16_split",
-      "start": 48.95,
-      "end": 54.65,
-      "in": "fade",
-      "inDur": 0.4,
-      "scene": "Разделённый экран: кошелёк / экстренный вызов"
-    },
-    {
-      "id": "s17_decide",
-      "start": 54.65,
-      "end": 57.0,
-      "in": "fade",
-      "inDur": 0.5,
-      "scene": "Решение зависит только от тебя"
-    },
-    {
-      "id": "s18_final",
-      "start": 57.0,
-      "end": 72.0,
-      "in": "black",
-      "inDur": 0.3,
-      "scene": "ВЫБОР ЗРИТЕЛЯ — финальный текст"
-    }
-  ],
-  "cues": {
-    "phone_vibrate_1": 3.55,
-    "btc_word": 4.54,
-    "refresh_1": 7.3,
-    "refresh_2": 8.55,
-    "stolen_word": 11.84,
-    "graph_match": 13.7,
-    "lucky_msg": 14.55,
-    "profile_open": 15.4,
-    "vibrate_2": 17.3,
-    "new_msg": 19.06,
-    "chance_msg": 20.6,
-    "silence_start": 22.3,
-    "keep_msg": 22.88,
-    "two_options": 27.86,
-    "optA": 29.1,
-    "millionaire": 33.62,
-    "investigation": 34.76,
-    "optB": 40.3,
-    "police_word": 41.66,
-    "refuse_word": 43.92,
-    "split": 49.0,
-    "wallet_word": 51.32,
-    "emergency_word": 53.06,
-    "decide_word": 54.74,
-    "final_q": 57.04,
-    "final_a": 59.16,
-    "final_b": 62.12,
-    "final_c": 65.78,
-    "camera_freeze": 67.6,
-    "hard_black": 71.6
-  },
-  "audio": {
-    "voiceGainDb": 0,
-    "musicGainDb": -13,
-    "events": [
-      {
-        "t": 0.0,
-        "type": "roomtone",
-        "until": 71.6
-      },
-      {
-        "t": 3.55,
-        "type": "vibrate",
-        "n": 2
-      },
-      {
-        "t": 4.54,
-        "type": "hit",
-        "gain": -4
-      },
-      {
-        "t": 4.56,
-        "type": "ping"
-      },
-      {
-        "t": 6.9,
-        "type": "click"
-      },
-      {
-        "t": 7.3,
-        "type": "refresh"
-      },
-      {
-        "t": 8.55,
-        "type": "refresh"
-      },
-      {
-        "t": 9.85,
-        "type": "whoosh",
-        "gain": -10
-      },
-      {
-        "t": 11.7,
-        "type": "whoosh",
-        "gain": -4
-      },
-      {
-        "t": 11.84,
-        "type": "hit",
-        "gain": -3
-      },
-      {
-        "t": 12.85,
-        "type": "ui"
-      },
-      {
-        "t": 13.7,
-        "type": "alarm"
-      },
-      {
-        "t": 14.55,
-        "type": "ping"
-      },
-      {
-        "t": 15.4,
-        "type": "click"
-      },
-      {
-        "t": 17.3,
-        "type": "vibrate",
-        "n": 3
-      },
-      {
-        "t": 19.06,
-        "type": "ping"
-      },
-      {
-        "t": 19.8,
-        "type": "ping",
-        "gain": -6
-      },
-      {
-        "t": 20.6,
-        "type": "ping"
-      },
-      {
-        "t": 22.6,
-        "type": "vibrate",
-        "n": 1
-      },
-      {
-        "t": 22.88,
-        "type": "hit",
-        "gain": -2
-      },
-      {
-        "t": 29.1,
-        "type": "hit",
-        "gain": -4
-      },
-      {
-        "t": 33.62,
-        "type": "shimmer"
-      },
-      {
-        "t": 34.76,
-        "type": "keyboard",
-        "dur": 3.2
-      },
-      {
-        "t": 36.2,
-        "type": "alarm"
-      },
-      {
-        "t": 40.3,
-        "type": "hit",
-        "gain": -4
-      },
-      {
-        "t": 41.66,
-        "type": "ringback",
-        "dur": 4.9
-      },
-      {
-        "t": 43.92,
-        "type": "ui"
-      },
-      {
-        "t": 49.0,
-        "type": "whoosh",
-        "gain": -8
-      },
-      {
-        "t": 51.32,
-        "type": "ui"
-      },
-      {
-        "t": 53.06,
-        "type": "ui"
-      },
-      {
-        "t": 57.04,
-        "type": "hit",
-        "gain": -2
-      },
-      {
-        "t": 59.16,
-        "type": "tick"
-      },
-      {
-        "t": 62.12,
-        "type": "tick"
-      },
-      {
-        "t": 65.78,
-        "type": "tick"
-      },
-      {
-        "t": 14.4,
-        "type": "whoosh",
-        "gain": -12
-      }
+ "_comment": "Монтажные настройки полной RU-версии. Генерируется tools/make_timeline_ru.py (времена там — по озвучке, здесь — по видео: +voiceOffset).",
+ "fps": 30,
+ "width": 1920,
+ "height": 1080,
+ "duration": 184.6,
+ "voice": "assets/audio/voice_ru.mp3",
+ "voiceOffset": 0.5,
+ "strings": "config/strings.ru.json",
+ "shots": [
+  {
+   "id": "01_room",
+   "type": "room",
+   "start": 0.0,
+   "end": 3.9,
+   "inDur": 0.8,
+   "title": true,
+   "morning": true,
+   "cam": [
+    [
+     990,
+     540,
+     1
     ],
-    "music": [
-      {
-        "t": 0.0,
-        "level": 0.25
-      },
-      {
-        "t": 4.5,
-        "level": 0.55
-      },
-      {
-        "t": 9.8,
-        "level": 0.75
-      },
-      {
-        "t": 12.9,
-        "level": 0.9
-      },
-      {
-        "t": 16.4,
-        "level": 0.5
-      },
-      {
-        "t": 21.5,
-        "level": 0.2
-      },
-      {
-        "t": 22.3,
-        "level": 0.0
-      },
-      {
-        "t": 22.88,
-        "level": 0.0
-      },
-      {
-        "t": 23.2,
-        "level": 0.7
-      },
-      {
-        "t": 29.0,
-        "level": 0.8
-      },
-      {
-        "t": 40.2,
-        "level": 0.8
-      },
-      {
-        "t": 47.0,
-        "level": 0.6
-      },
-      {
-        "t": 54.6,
-        "level": 0.45
-      },
-      {
-        "t": 57.0,
-        "level": 0.35
-      },
-      {
-        "t": 64.0,
-        "level": 0.15
-      },
-      {
-        "t": 67.4,
-        "level": 0.0
-      }
+    [
+     900,
+     600,
+     1.25
     ]
+   ],
+   "phoneOnAt": 3.4,
+   "vibAt": 3.4,
+   "clock": "morning_clock",
+   "in": "black"
+  },
+  {
+   "id": "02_balance",
+   "type": "desk",
+   "start": 3.9,
+   "end": 6.4,
+   "cam": [
+    [
+     960,
+     390,
+     1.7
+    ],
+    [
+     960,
+     370,
+     1.85
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "count": 4.78
+   },
+   "clock": "morning_clock"
+  },
+  {
+   "id": "03_huge",
+   "type": "held",
+   "start": 6.4,
+   "end": 7.8,
+   "inDur": 0.3,
+   "cam": [
+    [
+     960,
+     420,
+     1.6
+    ],
+    [
+     960,
+     400,
+     1.8
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "pulse": 1
+   },
+   "clock": "morning_clock",
+   "in": "fade"
+  },
+  {
+   "id": "04_dream",
+   "type": "dream",
+   "start": 7.8,
+   "end": 13.0,
+   "inDur": 0.4,
+   "cam": [
+    [
+     860,
+     540,
+     1
+    ],
+    [
+     1060,
+     540,
+     1.05
+    ]
+   ],
+   "carAt": 8.18,
+   "homeAt": 8.94,
+   "freeAt": 10.32,
+   "in": "fade"
+  },
+  {
+   "id": "05_problem",
+   "type": "room",
+   "start": 13.0,
+   "end": 15.1,
+   "inDur": 0.35,
+   "cam": [
+    [
+     960,
+     560,
+     1.15
+    ],
+    [
+     1000,
+     560,
+     1.25
+    ]
+   ],
+   "tiltAt": 13.2,
+   "dim": 0.25,
+   "phoneOn": 0.6,
+   "in": "black"
+  },
+  {
+   "id": "06_stolen",
+   "type": "held",
+   "start": 15.1,
+   "end": 17.4,
+   "cam": [
+    [
+     960,
+     560,
+     1.15
+    ],
+    [
+     960,
+     470,
+     1.35
+    ]
+   ],
+   "snap": {
+    "at": 15.98,
+    "to": [
+     960,
+     380,
+     2.0
+    ]
+   },
+   "redFlash": 15.98,
+   "fadeOut": [
+    17.0,
+    17.4
+   ],
+   "screen": {
+    "kind": "news",
+    "stolen": 15.98
+   }
+  },
+  {
+   "id": "07_someone",
+   "type": "window",
+   "start": 17.4,
+   "end": 20.7,
+   "inDur": 0.4,
+   "cam": [
+    [
+     980,
+     520,
+     1.05
+    ],
+    [
+     1020,
+     520,
+     1.17
+    ]
+   ],
+   "red": 18.1,
+   "in": "fade"
+  },
+  {
+   "id": "08_earlier",
+   "type": "title",
+   "style": "rewind",
+   "start": 20.7,
+   "end": 22.9,
+   "inDur": 0.25,
+   "text": "earlier",
+   "at": 20.88,
+   "in": "flash"
+  },
+  {
+   "id": "09_morning",
+   "type": "window",
+   "start": 22.9,
+   "end": 26.2,
+   "inDur": 0.5,
+   "morning": true,
+   "cam": [
+    [
+     940,
+     520,
+     1.0
+    ],
+    [
+     1000,
+     520,
+     1.12
+    ]
+   ],
+   "phoneAt": 25.32,
+   "in": "black"
+  },
+  {
+   "id": "10_lucky",
+   "type": "held",
+   "start": 26.2,
+   "end": 31.5,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     26.2,
+     960,
+     500,
+     1.4
+    ],
+    [
+     28.8,
+     960,
+     470,
+     1.6
+    ],
+    [
+     29.0,
+     960,
+     450,
+     1.35
+    ],
+    [
+     31.5,
+     960,
+     430,
+     1.5
+    ]
+   ],
+   "screen": [
+    {
+     "kind": "lock",
+     "notifs": [
+      {
+       "at": 26.88,
+       "kind": "msg",
+       "app": "msg_app",
+       "title": "unknown",
+       "body": "m_lucky",
+       "big": true
+      }
+     ]
+    },
+    {
+     "from": 28.9,
+     "kind": "chat",
+     "msgs": [
+      {
+       "key": "m_lucky",
+       "at": 29.0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "11_spam",
+   "type": "desk",
+   "start": 31.5,
+   "end": 34.2,
+   "inDur": 0.3,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     960,
+     520,
+     1.25
+    ],
+    [
+     960,
+     560,
+     1.05
+    ]
+   ],
+   "screen": {
+    "kind": "chat",
+    "msgs": [
+     {
+      "key": "m_lucky",
+      "at": 0.5
+     }
+    ]
+   },
+   "in": "fade"
+  },
+  {
+   "id": "12_freeze",
+   "type": "desk",
+   "start": 34.2,
+   "end": 37.8,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     34.2,
+     960,
+     540,
+     1.1
+    ],
+    [
+     36.9,
+     960,
+     390,
+     1.75
+    ],
+    [
+     37.8,
+     960,
+     388,
+     1.77
+    ]
+   ],
+   "screen": [
+    {
+     "kind": "chat",
+     "msgs": [
+      {
+       "key": "m_lucky",
+       "at": 0.5
+      }
+     ]
+    },
+    {
+     "from": 35.0,
+     "kind": "splash"
+    },
+    {
+     "from": 35.8,
+     "kind": "wallet",
+     "count": 35.9
+    }
+   ]
+  },
+  {
+   "id": "13_really",
+   "type": "held",
+   "start": 37.8,
+   "end": 40.8,
+   "clock": "morning_clock",
+   "hand": 2,
+   "cam": [
+    [
+     960,
+     400,
+     1.9
+    ],
+    [
+     960,
+     410,
+     2.05
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "pulse": 1
+   }
+  },
+  {
+   "id": "14_check",
+   "type": "desk",
+   "start": 40.8,
+   "end": 44.8,
+   "inDur": 0.3,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     960,
+     560,
+     1.2
+    ],
+    [
+     960,
+     420,
+     1.55
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "refresh": [
+     43.18,
+     43.95
+    ]
+   },
+   "in": "fade"
+  },
+  {
+   "id": "15_restart",
+   "type": "held",
+   "start": 44.8,
+   "end": 49.1,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     960,
+     520,
+     1.25
+    ],
+    [
+     960,
+     420,
+     1.6
+    ]
+   ],
+   "screen": [
+    {
+     "kind": "wallet"
+    },
+    {
+     "from": 45.0,
+     "kind": "off"
+    },
+    {
+     "from": 45.4,
+     "kind": "splash"
+    },
+    {
+     "from": 46.8,
+     "kind": "wallet",
+     "pulse": 1
+    }
+   ]
+  },
+  {
+   "id": "16_rich",
+   "type": "window",
+   "start": 49.1,
+   "end": 54.4,
+   "inDur": 0.5,
+   "bright": true,
+   "phone": 0.7,
+   "cam": [
+    [
+     1000,
+     520,
+     1.0
+    ],
+    [
+     960,
+     520,
+     1.15
+    ]
+   ],
+   "in": "fade"
+  },
+  {
+   "id": "17_source",
+   "type": "monitor",
+   "start": 54.4,
+   "end": 57.6,
+   "inDur": 0.4,
+   "cam": [
+    [
+     700,
+     540,
+     1.2
+    ],
+    [
+     1150,
+     560,
+     1.45
+    ]
+   ],
+   "monitor": {
+    "kind": "desktop",
+    "redRow": 56.68
+   },
+   "in": "fade"
+  },
+  {
+   "id": "18_news",
+   "type": "held",
+   "start": 57.6,
+   "end": 61.2,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     960,
+     560,
+     1.2
+    ],
+    [
+     960,
+     520,
+     1.3
+    ]
+   ],
+   "screen": {
+    "kind": "news",
+    "scroll": [
+     58.5,
+     61.0
+    ],
+    "scrollBy": 160
+   }
+  },
+  {
+   "id": "19_graph",
+   "type": "monitor",
+   "start": 61.2,
+   "end": 65.8,
+   "fg": false,
+   "cam": [
+    [
+     600,
+     520,
+     1.3
+    ],
+    [
+     900,
+     540,
+     1.35
+    ]
+   ],
+   "monitor": {
+    "kind": "graph",
+    "reveal": [
+     61.4,
+     64.0
+    ]
+   }
+  },
+  {
+   "id": "20_match",
+   "type": "monitor",
+   "start": 65.8,
+   "end": 72.4,
+   "fg": false,
+   "cam": [
+    [
+     65.8,
+     900,
+     540,
+     1.35
+    ],
+    [
+     69.1,
+     1300,
+     600,
+     1.5
+    ],
+    [
+     72.4,
+     1350,
+     620,
+     1.85
+    ]
+   ],
+   "redAt": 69.36,
+   "monitor": {
+    "kind": "graph",
+    "focus": 69.36
+   }
+  },
+  {
+   "id": "21_not_gift",
+   "type": "room",
+   "start": 72.4,
+   "end": 74.9,
+   "cam": [
+    [
+     960,
+     560,
+     1.1
+    ],
+    [
+     1000,
+     580,
+     1.25
+    ]
+   ],
+   "red": true,
+   "monitor": {
+    "kind": "graph",
+    "focus": -0.5
+   },
+   "darkAt": 73.8,
+   "caption": {
+    "at": 74.0,
+    "key": "not_gift"
+   }
+  },
+  {
+   "id": "22_used",
+   "type": "desk",
+   "start": 74.9,
+   "end": 77.1,
+   "inDur": 0.3,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     960,
+     710,
+     1.8
+    ],
+    [
+     960,
+     700,
+     1.95
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "txRed": 75.34
+   },
+   "in": "black"
+  },
+  {
+   "id": "23_dont_touch",
+   "type": "desk",
+   "start": 77.1,
+   "end": 79.0,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     960,
+     540,
+     1.05
+    ],
+    [
+     960,
+     540,
+     0.95
+    ]
+   ],
+   "dark": 0.75,
+   "screen": {
+    "kind": "wallet"
+   },
+   "offAt": 78.3
+  },
+  {
+   "id": "24_vibrate",
+   "type": "side",
+   "start": 79.0,
+   "end": 81.2,
+   "cam": [
+    [
+     900,
+     540,
+     1.0
+    ],
+    [
+     960,
+     520,
+     1.12
+    ]
+   ],
+   "vibAt": 79.8
+  },
+  {
+   "id": "25_dont_return",
+   "type": "held",
+   "start": 81.2,
+   "end": 85.8,
+   "clock": "morning_clock",
+   "cam": [
+    [
+     960,
+     560,
+     1.35
+    ],
+    [
+     960,
+     620,
+     1.55
+    ]
+   ],
+   "screen": {
+    "kind": "chat",
+    "msgs": [
+     {
+      "key": "m_lucky",
+      "at": 0.5
+     },
+     {
+      "key": "m_dont",
+      "at": 81.4,
+      "red": true
+     },
+     {
+      "key": "m_keep_short",
+      "at": 84.56,
+      "red": true
+     }
+    ],
+    "typing": [
+     83.2,
+     84.5
+    ]
+   }
+  },
+  {
+   "id": "26_nervous",
+   "type": "room",
+   "start": 85.8,
+   "end": 91.2,
+   "inDur": 0.4,
+   "shake": 5,
+   "tiltAt": 86.0,
+   "tilt": -0.12,
+   "cam": [
+    [
+     1100,
+     560,
+     1.3
+    ],
+    [
+     1150,
+     540,
+     1.5
+    ]
+   ],
+   "phoneOn": 0.7,
+   "in": "fade"
+  },
+  {
+   "id": "27_we_know",
+   "type": "desk",
+   "start": 91.2,
+   "end": 96.8,
+   "clock": "morning_clock",
+   "vibAt": 93.1,
+   "dark": 0.72,
+   "cam": [
+    [
+     91.2,
+     960,
+     540,
+     1.0
+    ],
+    [
+     94.8,
+     960,
+     470,
+     1.6
+    ],
+    [
+     95.0,
+     960,
+     450,
+     1.9
+    ],
+    [
+     96.8,
+     960,
+     450,
+     1.95
+    ]
+   ],
+   "screen": {
+    "kind": "lock",
+    "flash": 93.4,
+    "notifs": [
+     {
+      "at": 93.4,
+      "kind": "msg",
+      "app": "msg_app",
+      "title": "unknown",
+      "body": "m_know",
+      "big": true,
+      "red": true
+     }
+    ]
+   },
+   "onAt": 93.1
+  },
+  {
+   "id": "28_serious",
+   "type": "window",
+   "start": 96.8,
+   "end": 100.8,
+   "inDur": 0.5,
+   "red": 97.0,
+   "cam": [
+    [
+     1000,
+     520,
+     1.0
+    ],
+    [
+     1040,
+     500,
+     1.2
+    ]
+   ],
+   "in": "fade"
+  },
+  {
+   "id": "29_ring",
+   "type": "desk",
+   "start": 100.8,
+   "end": 104.2,
+   "inDur": 0.4,
+   "clock": "evening_clock",
+   "vibAt": [
+    101.1,
+    102.5,
+    103.8
+   ],
+   "cam": [
+    [
+     960,
+     560,
+     1.0
+    ],
+    [
+     960,
+     520,
+     1.25
+    ]
+   ],
+   "screen": {
+    "kind": "incoming"
+   },
+   "in": "black"
+  },
+  {
+   "id": "30_answer",
+   "type": "held",
+   "start": 104.2,
+   "end": 108.0,
+   "clock": "evening_clock",
+   "jolt": 104.4,
+   "cam": [
+    [
+     960,
+     500,
+     1.3
+    ],
+    [
+     960,
+     470,
+     1.5
+    ]
+   ],
+   "screen": [
+    {
+     "kind": "incoming"
+    },
+    {
+     "from": 104.4,
+     "kind": "active",
+     "since": 104.4
+    }
+   ]
+  },
+  {
+   "id": "31_voice",
+   "type": "held",
+   "start": 108.0,
+   "end": 110.6,
+   "clock": "evening_clock",
+   "hand": 2,
+   "cam": [
+    [
+     960,
+     560,
+     1.6
+    ],
+    [
+     960,
+     630,
+     1.95
+    ]
+   ],
+   "screen": {
+    "kind": "active",
+    "since": 104.4,
+    "voice": [
+     [
+      110.72,
+      116.66
+     ]
+    ]
+   }
+  },
+  {
+   "id": "32_belongs",
+   "type": "window",
+   "start": 110.6,
+   "end": 113.8,
+   "red": 110.8,
+   "phone": 1,
+   "cam": [
+    [
+     1000,
+     520,
+     1.1
+    ],
+    [
+     1040,
+     480,
+     1.3
+    ]
+   ]
+  },
+  {
+   "id": "33_24h",
+   "type": "title",
+   "style": "countdown",
+   "start": 113.8,
+   "end": 115.8,
+   "at": 113.8
+  },
+  {
+   "id": "34_hangup",
+   "type": "held",
+   "start": 115.8,
+   "end": 118.0,
+   "clock": "evening_clock",
+   "cam": [
+    [
+     960,
+     520,
+     1.3
+    ],
+    [
+     960,
+     520,
+     1.4
+    ]
+   ],
+   "fadeOut": [
+    117.1,
+    118.0
+   ],
+   "screen": {
+    "kind": "ended"
+   }
+  },
+  {
+   "id": "35_evidence",
+   "type": "monitor",
+   "start": 118.0,
+   "end": 121.5,
+   "inDur": 0.4,
+   "cam": [
+    [
+     800,
+     540,
+     1.15
+    ],
+    [
+     960,
+     540,
+     1.3
+    ]
+   ],
+   "monitor": {
+    "kind": "docs",
+    "from": 120.1
+   },
+   "in": "fade"
+  },
+  {
+   "id": "36_police",
+   "type": "desk",
+   "start": 121.5,
+   "end": 124.8,
+   "clock": "evening_clock",
+   "cam": [
+    [
+     960,
+     560,
+     1.1
+    ],
+    [
+     960,
+     480,
+     1.4
+    ]
+   ],
+   "screen": {
+    "kind": "call"
+   }
+  },
+  {
+   "id": "37_last",
+   "type": "room",
+   "start": 124.8,
+   "end": 128.4,
+   "inDur": 0.4,
+   "cam": [
+    [
+     960,
+     540,
+     1.0
+    ],
+    [
+     880,
+     620,
+     1.3
+    ]
+   ],
+   "monitor": {
+    "kind": "docs"
+   },
+   "phoneOnAt": 127.1,
+   "vibAt": 127.1,
+   "in": "fade"
+  },
+  {
+   "id": "38_keep",
+   "type": "desk",
+   "start": 128.4,
+   "end": 132.4,
+   "clock": "evening_clock",
+   "vibAt": 128.4,
+   "dark": 0.75,
+   "cam": [
+    [
+     960,
+     560,
+     1.0
+    ],
+    [
+     960,
+     450,
+     1.7
+    ]
+   ],
+   "onAt": 128.4,
+   "screen": {
+    "kind": "lock",
+    "flash": 128.6,
+    "notifs": [
+     {
+      "at": 128.6,
+      "kind": "msg",
+      "app": "msg_app",
+      "title": "unknown",
+      "body": "m_keep2",
+      "big": true,
+      "red": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "39_look",
+   "type": "window",
+   "start": 132.4,
+   "end": 134.1,
+   "inDur": 0.4,
+   "cam": [
+    [
+     980,
+     520,
+     1.05
+    ],
+    [
+     1020,
+     520,
+     1.15
+    ]
+   ],
+   "in": "fade"
+  },
+  {
+   "id": "40_ten",
+   "type": "desk",
+   "start": 134.1,
+   "end": 136.6,
+   "inDur": 0.3,
+   "clock": "evening_clock",
+   "cam": [
+    [
+     960,
+     420,
+     1.5
+    ],
+    [
+     960,
+     400,
+     1.7
+    ]
+   ],
+   "screen": {
+    "kind": "wallet",
+    "pulse": 1
+   },
+   "in": "fade"
+  },
+  {
+   "id": "41_life",
+   "type": "room",
+   "start": 136.6,
+   "end": 140.6,
+   "inDur": 0.4,
+   "red": true,
+   "monitor": {
+    "kind": "docs"
+   },
+   "phoneOn": 0.9,
+   "dim": 0.2,
+   "cam": [
+    [
+     1100,
+     560,
+     1.25
+    ],
+    [
+     1160,
+     540,
+     1.5
+    ]
+   ],
+   "in": "fade"
+  },
+  {
+   "id": "42_two",
+   "type": "split",
+   "start": 140.6,
+   "end": 143.7,
+   "inDur": 0.4,
+   "clock": "evening_clock",
+   "in": "fade"
+  },
+  {
+   "id": "43_optA",
+   "type": "option",
+   "side": "A",
+   "start": 143.7,
+   "end": 148.6,
+   "inDur": 0.25,
+   "clock": "evening_clock",
+   "at": 143.86,
+   "millionAt": 147.76,
+   "cam": [
+    [
+     980,
+     540,
+     1.0
+    ],
+    [
+     1010,
+     540,
+     1.08
+    ]
+   ],
+   "in": "flash"
+  },
+  {
+   "id": "44_risk",
+   "type": "monitor",
+   "start": 148.6,
+   "end": 154.1,
+   "inDur": 0.4,
+   "cam": [
+    [
+     560,
+     560,
+     1.25
+    ],
+    [
+     1260,
+     470,
+     1.45
+    ]
+   ],
+   "redAt": 150.98,
+   "monitor": {
+    "kind": "warning",
+    "docs": 148.8,
+    "warn": 150.98,
+    "prog": [
+     151.1,
+     154.0
+    ]
+   },
+   "in": "fade"
+  },
+  {
+   "id": "45_optB",
+   "type": "option",
+   "side": "B",
+   "start": 154.1,
+   "end": 160.7,
+   "inDur": 0.25,
+   "clock": "evening_clock",
+   "at": 154.32,
+   "callingAt": 156.0,
+   "strikeAt": 158.58,
+   "cam": [
+    [
+     940,
+     540,
+     1.0
+    ],
+    [
+     910,
+     540,
+     1.08
+    ]
+   ],
+   "in": "flash"
+  },
+  {
+   "id": "46_your_place",
+   "type": "room",
+   "start": 160.7,
+   "end": 164.5,
+   "inDur": 0.5,
+   "monitor": {
+    "kind": "warning"
+   },
+   "red": true,
+   "monLight": 0.6,
+   "phoneOn": 0.9,
+   "tilt": -0.1,
+   "dim": 0.25,
+   "cam": [
+    [
+     1100,
+     560,
+     1.25
+    ],
+    [
+     1160,
+     540,
+     1.6
+    ]
+   ],
+   "in": "black"
+  },
+  {
+   "id": "47_final",
+   "type": "final",
+   "start": 164.5,
+   "end": 179.2,
+   "inDur": 0.3,
+   "clock": "evening_clock",
+   "q": 164.74,
+   "a": 166.26,
+   "b": 168.66,
+   "c": 172.32,
+   "d": 175.9,
+   "d2": 177.1,
+   "freeze": 175.3,
+   "in": "black"
+  },
+  {
+   "id": "48_part2",
+   "type": "part2",
+   "start": 179.2,
+   "end": 184.6,
+   "inDur": 0.6,
+   "in": "black"
   }
+ ],
+ "cues": {
+  "silence_start": 95.6,
+  "keep_msg": 97.2,
+  "camera_freeze": 182.7,
+  "hard_black": 183.7
+ },
+ "audio": {
+  "voiceGainDb": 0,
+  "musicGainDb": -13,
+  "events": [
+   {
+    "t": 0.0,
+    "type": "roomtone",
+    "until": 184.2
+   },
+   {
+    "t": 3.4,
+    "type": "vibrate",
+    "n": 2
+   },
+   {
+    "t": 4.78,
+    "type": "hit",
+    "gain": -4
+   },
+   {
+    "t": 4.8,
+    "type": "ping"
+   },
+   {
+    "t": 7.16,
+    "type": "shimmer"
+   },
+   {
+    "t": 8.68,
+    "type": "tick"
+   },
+   {
+    "t": 9.44,
+    "type": "tick"
+   },
+   {
+    "t": 10.82,
+    "type": "tick"
+   },
+   {
+    "t": 12.9,
+    "type": "whoosh",
+    "gain": -8
+   },
+   {
+    "t": 15.8,
+    "type": "whoosh",
+    "gain": -4
+   },
+   {
+    "t": 15.98,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 20.4,
+    "type": "whoosh",
+    "gain": -6
+   },
+   {
+    "t": 20.75,
+    "type": "rewind"
+   },
+   {
+    "t": 26.88,
+    "type": "vibrate",
+    "n": 1
+   },
+   {
+    "t": 26.95,
+    "type": "ping"
+   },
+   {
+    "t": 28.9,
+    "type": "click"
+   },
+   {
+    "t": 35.0,
+    "type": "click"
+   },
+   {
+    "t": 36.88,
+    "type": "hit",
+    "gain": -8
+   },
+   {
+    "t": 43.18,
+    "type": "refresh"
+   },
+   {
+    "t": 43.95,
+    "type": "refresh"
+   },
+   {
+    "t": 45.0,
+    "type": "click"
+   },
+   {
+    "t": 46.8,
+    "type": "ui"
+   },
+   {
+    "t": 55.0,
+    "type": "keyboard",
+    "dur": 2.2
+   },
+   {
+    "t": 56.68,
+    "type": "ui"
+   },
+   {
+    "t": 58.5,
+    "type": "refresh"
+   },
+   {
+    "t": 61.4,
+    "type": "ui"
+   },
+   {
+    "t": 69.36,
+    "type": "alarm"
+   },
+   {
+    "t": 69.36,
+    "type": "hit",
+    "gain": -6
+   },
+   {
+    "t": 73.8,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 75.34,
+    "type": "ui"
+   },
+   {
+    "t": 78.3,
+    "type": "click"
+   },
+   {
+    "t": 79.8,
+    "type": "vibrate",
+    "n": 3
+   },
+   {
+    "t": 81.4,
+    "type": "ping"
+   },
+   {
+    "t": 84.56,
+    "type": "ping"
+   },
+   {
+    "t": 93.1,
+    "type": "vibrate",
+    "n": 2
+   },
+   {
+    "t": 93.4,
+    "type": "ping"
+   },
+   {
+    "t": 94.8,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 101.0,
+    "type": "ringtone",
+    "dur": 3.4
+   },
+   {
+    "t": 101.1,
+    "type": "vibrate",
+    "n": 5
+   },
+   {
+    "t": 104.4,
+    "type": "click"
+   },
+   {
+    "t": 113.8,
+    "type": "hit",
+    "gain": 0
+   },
+   {
+    "t": 113.8,
+    "type": "clock",
+    "dur": 2.0
+   },
+   {
+    "t": 116.66,
+    "type": "hangup"
+   },
+   {
+    "t": 118.7,
+    "type": "keyboard",
+    "dur": 2.6
+   },
+   {
+    "t": 120.34,
+    "type": "click"
+   },
+   {
+    "t": 122.5,
+    "type": "ui"
+   },
+   {
+    "t": 127.1,
+    "type": "vibrate",
+    "n": 2
+   },
+   {
+    "t": 128.6,
+    "type": "hit",
+    "gain": -3
+   },
+   {
+    "t": 128.65,
+    "type": "ping"
+   },
+   {
+    "t": 134.8,
+    "type": "shimmer"
+   },
+   {
+    "t": 140.6,
+    "type": "whoosh",
+    "gain": -8
+   },
+   {
+    "t": 143.86,
+    "type": "hit",
+    "gain": -4
+   },
+   {
+    "t": 147.76,
+    "type": "shimmer"
+   },
+   {
+    "t": 150.98,
+    "type": "alarm"
+   },
+   {
+    "t": 154.32,
+    "type": "hit",
+    "gain": -4
+   },
+   {
+    "t": 156.0,
+    "type": "ringback",
+    "dur": 4.6
+   },
+   {
+    "t": 158.58,
+    "type": "ui"
+   },
+   {
+    "t": 164.74,
+    "type": "hit",
+    "gain": -2
+   },
+   {
+    "t": 166.26,
+    "type": "tick"
+   },
+   {
+    "t": 168.66,
+    "type": "tick"
+   },
+   {
+    "t": 172.32,
+    "type": "tick"
+   },
+   {
+    "t": 179.2,
+    "type": "hit",
+    "gain": -3
+   }
+  ],
+  "music": [
+   {
+    "t": 0.5,
+    "level": 0.3
+   },
+   {
+    "t": 4.8,
+    "level": 0.55
+   },
+   {
+    "t": 7.8,
+    "level": 0.7
+   },
+   {
+    "t": 12.9,
+    "level": 0.3
+   },
+   {
+    "t": 15.1,
+    "level": 0.8
+   },
+   {
+    "t": 20.7,
+    "level": 0.3
+   },
+   {
+    "t": 22.9,
+    "level": 0.25
+   },
+   {
+    "t": 36.5,
+    "level": 0.45
+   },
+   {
+    "t": 49.1,
+    "level": 0.6
+   },
+   {
+    "t": 54.4,
+    "level": 0.55
+   },
+   {
+    "t": 65.8,
+    "level": 0.8
+   },
+   {
+    "t": 73.5,
+    "level": 0.9
+   },
+   {
+    "t": 77.1,
+    "level": 0.4
+   },
+   {
+    "t": 79.0,
+    "level": 0.6
+   },
+   {
+    "t": 91.2,
+    "level": 0.75
+   },
+   {
+    "t": 96.1,
+    "level": 0.0
+   },
+   {
+    "t": 97.1,
+    "level": 0.0
+   },
+   {
+    "t": 97.7,
+    "level": 0.65
+   },
+   {
+    "t": 100.8,
+    "level": 0.6
+   },
+   {
+    "t": 104.3,
+    "level": 0.0
+   },
+   {
+    "t": 110.5,
+    "level": 0.0
+   },
+   {
+    "t": 110.8,
+    "level": 0.6
+   },
+   {
+    "t": 113.8,
+    "level": 0.9
+   },
+   {
+    "t": 116.7,
+    "level": 0.4
+   },
+   {
+    "t": 124.8,
+    "level": 0.6
+   },
+   {
+    "t": 128.3,
+    "level": 0.1
+   },
+   {
+    "t": 128.6,
+    "level": 0.8
+   },
+   {
+    "t": 140.6,
+    "level": 0.6
+   },
+   {
+    "t": 143.7,
+    "level": 0.8
+   },
+   {
+    "t": 160.7,
+    "level": 0.5
+   },
+   {
+    "t": 164.5,
+    "level": 0.4
+   },
+   {
+    "t": 172.5,
+    "level": 0.2
+   },
+   {
+    "t": 175.9,
+    "level": 0.0
+   },
+   {
+    "t": 179.2,
+    "level": 0.0
+   },
+   {
+    "t": 179.3,
+    "level": 0.35
+   },
+   {
+    "t": 183.5,
+    "level": 0.0
+   }
+  ],
+  "chords": [
+   [
+    0.0,
+    13.4,
+    [
+     38,
+     45,
+     53
+    ]
+   ],
+   [
+    12.8,
+    21.1,
+    [
+     38,
+     46,
+     52,
+     57
+    ]
+   ],
+   [
+    20.7,
+    37.1,
+    [
+     38,
+     45,
+     52,
+     53
+    ]
+   ],
+   [
+    36.5,
+    54.4,
+    [
+     34,
+     41,
+     50,
+     53
+    ]
+   ],
+   [
+    54.0,
+    79.4,
+    [
+     38,
+     46,
+     52,
+     57
+    ]
+   ],
+   [
+    78.8,
+    101.2,
+    [
+     31,
+     38,
+     46,
+     50
+    ]
+   ],
+   [
+    100.5,
+    125.2,
+    [
+     33,
+     40,
+     49,
+     52
+    ]
+   ],
+   [
+    124.5,
+    144.1,
+    [
+     38,
+     46,
+     52,
+     57
+    ]
+   ],
+   [
+    143.5,
+    154.4,
+    [
+     34,
+     41,
+     50,
+     53
+    ]
+   ],
+   [
+    153.9,
+    164.9,
+    [
+     31,
+     38,
+     46,
+     50
+    ]
+   ],
+   [
+    164.3,
+    179.5,
+    [
+     38,
+     45,
+     50,
+     53
+    ]
+   ],
+   [
+    179.1,
+    184.5,
+    [
+     33,
+     40,
+     45,
+     52
+    ]
+   ]
+  ],
+  "heart": [
+   [
+    15.1,
+    20.7,
+    70
+   ],
+   [
+    65.8,
+    78.8,
+    72
+   ],
+   [
+    91.2,
+    96.1,
+    80
+   ],
+   [
+    100.8,
+    117.8,
+    84
+   ],
+   [
+    124.8,
+    140.5,
+    70
+   ],
+   [
+    160.7,
+    175.5,
+    60
+   ]
+  ],
+  "eerie": [
+   [
+    79.0,
+    22.0
+   ],
+   [
+    124.8,
+    16.0
+   ]
+  ]
+ }
 }

@@ -374,6 +374,7 @@ function drawHeroSide(ctx, t, x, y, s, o = {}) {
 function drawRoomBack(ctx, t, o = {}) {
   ctx.drawImage(ART.wall, -240, -160);
   drawWindow(ctx, t, 200, 110, 560, 500, o);
+  if (o.morning) morningWash(ctx, 200, 110, 560, 500);
   drawCurtain(ctx, t, 90, 70, 150, 640);
   // cold window light on wall
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
