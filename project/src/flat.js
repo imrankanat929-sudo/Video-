@@ -381,7 +381,7 @@ const FLAT = {
   f_dream(ctx, T, sh) {
     const cam = fcamOf(sh, T);
     fcam(ctx, cam, 0.7, () => fbg(ctx, '#121a33', 'rgba(255,210,63,0.18)'));
-    const items = [['car', 'dream_car', sh.carAt, 470], ['house', 'dream_home', sh.homeAt, 860], ['keys', 'dream_free', sh.freeAt, 1230]];
+    const items = [['car', 'dream_car', sh.carAt, 470], ['house', sh.homeKey || 'dream_home', sh.homeAt, 860], ['keys', sh.freeKey || 'dream_free', sh.freeAt, 1230]];
     fcam(ctx, cam, 1, () => {
       for (const [kind, key, at, y] of items) {
         if (at === undefined || T < at) continue;
@@ -616,7 +616,8 @@ function drawSubs(ctx, T) {
     if (T >= p.s - 0.03) {
       const k = ease.outBack(ramp(T, p.s - 0.03, p.s + 0.12));
       const clean = p.txt.replace(/[.,?!:—]/g, '').toLowerCase();
-      const col = HL_R.test(clean) ? FP.red : HL_Y.test(clean) ? FP.yellow : FP.white;
+      const hr = TL.overlay && TL.overlay.hlRed ? new RegExp(TL.overlay.hlRed, 'i') : HL_R, hy = TL.overlay && TL.overlay.hlYellow ? new RegExp(TL.overlay.hlYellow, 'i') : HL_Y;
+      const col = hr.test(clean) ? FP.red : hy.test(clean) ? FP.yellow : FP.white;
       ctx.save(); ctx.translate(x + w / 2, y); ctx.scale(sc * (0.7 + 0.3 * k), sc * (0.7 + 0.3 * k));
       ctx.textAlign = 'center'; ctx.lineJoin = 'round'; ctx.lineWidth = 16; ctx.strokeStyle = '#000';
       ctx.strokeText(p.txt, 0, 0); ctx.fillStyle = col; ctx.fillText(p.txt, 0, 0);

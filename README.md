@@ -17,6 +17,13 @@
 - монтаж: `config/timeline.ru_v.json` (генератор `tools/make_timeline_ru_v.py`), графика: `src/flat.js`
 - сборка: `python3 tools/audio.py ru_v && node tools/render.js ru_v 3 && node tools/thumbnail.js ru_v`
 
+### Английская версия (Shorts, плоский стиль)
+
+- `output/WhatIf_EP01_en_shorts.mp4`: 1080×1920, 2:35
+- `output/thumbnail_en_v_9x16.png`: превью
+- монтаж: `config/timeline.en_v.json` (генератор `tools/make_timeline_en_v.py`), озвучка `assets/audio/voice_en.mp3`
+- сборка: `python3 tools/audio.py en_v && node tools/render.js en_v 3 && node tools/thumbnail.js en_v`
+
 ## Структура
 
 ```

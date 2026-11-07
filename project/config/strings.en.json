@@ -102,7 +102,7 @@
   "clock_night": "2:47",
   "evening_clock": "9:34",
   "thumb_1": "10 BTC",
-  "thumb_2": "STOLEN",
+  "thumb_2": "BUT STOLEN",
   "thumb_3": "WHAT WOULD YOU DO?",
   "thumb_a": "KEEP IT",
   "thumb_b": "POLICE",
@@ -115,5 +115,8 @@
   "part2_badge": "PART 2 — COMING SOON",
   "part2_line1": "THE OPTION WITH THE MOST VOTES",
   "part2_line2": "WILL HAPPEN IN PART 2",
-  "thumb_tag": "KEEP IT?"
+  "thumb_tag": "KEEP IT?",
+  "countdown_clock": "23:59",
+  "dream_life": "A NEW LIFE",
+  "dream_house": "A HOUSE"
 }
