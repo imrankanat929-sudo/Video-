@@ -40,7 +40,7 @@ async function worker(srv, idx, f0, f1) {
   srv.close();
   const list = path.join(TMP, 'list.txt');
   fs.writeFileSync(list, segs.map(s => `file '${s}'`).join('\n'));
-  const final = path.join(ROOT, '..', 'output', from === 0 && to === Math.round(TL.duration * TL.fps) ? `WhatIf_EP01_${lang}.mp4` : `preview_${lang}_${from}_${to}.mp4`);
+  const final = path.join(ROOT, '..', 'output', from === 0 && to === Math.round(TL.duration * TL.fps) ? `${TL.outName || 'WhatIf_EP01_' + lang}.mp4` : `preview_${lang}_${from}_${to}.mp4`);
   execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', list,
     '-ss', String(from / TL.fps), '-t', String(n / TL.fps), '-i', path.join(ROOT, `assets/audio/mix_${lang}.wav`),
     '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-ar', '48000', '-movflags', '+faststart', '-shortest', final], { stdio: 'inherit' });

@@ -52,6 +52,7 @@ function fbg(ctx, col = FP.bg, glowCol) {
 function circ(ctx, x, y, r, col) { ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); }
 function ell(ctx, x, y, rx, ry, col, rot = 0) { ctx.fillStyle = col; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, rot, 0, 7); ctx.fill(); }
 function ftext(ctx, s, x, y, size, col = FP.white, o = {}) {
+  if (!(size > 0.5)) return;
   ctx.save();
   ctx.font = font(o.w || 900, size); ctx.textAlign = o.align || 'center'; ctx.textBaseline = 'alphabetic';
   if (o.ls) ctx.letterSpacing = o.ls + 'px';
@@ -362,6 +363,7 @@ const FLAT = {
         for (let i = 0; i < 26; i++) { const x = r() * W, sp = 300 + r() * 300, y = ((T - sh.start) * sp + r() * 2000) % 2300 - 200; ell(ctx, x, y, 34, 34 * Math.abs(Math.cos(T * 3 + i)), FP.yellow); ftext(ctx, '₿', x, y + 14, 36, '#c9971a', { stroke: false }); }
       }
       heroFace(ctx, T, 540, 900, 1.6, expr, { lookX: sh.lookX || 0, lookY: sh.lookY || 0, sweat: sh.sweat, phoneLight: sh.phoneLight, talk: sh.talk, seed: 1 });
+      if (sh.thought && typeof thoughtBubble === 'function') thoughtBubble(ctx, T, 800, 420, 190, sh.thought, ease.outBack(ramp(T, sh.thoughtAt ?? sh.start, (sh.thoughtAt ?? sh.start) + 0.35)));
       if (sh.question) { const p = ease.outBack(ramp(T, sh.question, sh.question + 0.3)); ftext(ctx, '?', 900, 560, 220 * p, FP.red); ftext(ctx, '?', 190, 470, 150 * p, FP.yellow); }
     });
     if (sh.darkAt !== undefined) { ctx.fillStyle = `rgba(0,0,0,${sm(T, sh.darkAt, sh.darkAt + 0.3) * 0.9})`; ctx.fillRect(0, 0, W, H); }
@@ -519,13 +521,13 @@ const FLAT = {
     ctx.save(); ctx.translate(540, 700); ctx.scale(p, p);
     circ(ctx, 0, 0, 230, FP.white); circ(ctx, 0, 0, 205, '#1d2440');
     for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; ctx.fillStyle = FP.white; ctx.fillRect(Math.cos(a) * 170 - 8, Math.sin(a) * 170 - 8, 16, 16); }
-    const a = -(T - sh.start) * 9;
+    const a = (sh.forward ? 1 : -1) * (T - sh.start) * 9;
     ctx.strokeStyle = FP.yellow; ctx.lineWidth = 16; ctx.lineCap = 'round';
     ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * 150, Math.sin(a) * 150); ctx.stroke();
     ctx.strokeStyle = FP.red; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a / 12) * 100, Math.sin(a / 12) * 100); ctx.stroke();
     circ(ctx, 0, 0, 18, FP.yellow);
     ctx.restore();
-    ftext(ctx, '◀◀', 540, 1080, 90, FP.yellow, { alpha: Math.floor(T * 3) % 2 ? 1 : 0.4 });
+    ftext(ctx, sh.forward ? '▶▶' : '◀◀', 540, 1080, 90, FP.yellow, { alpha: Math.floor(T * 3) % 2 ? 1 : 0.4 });
   },
 
   f_split(ctx, T, sh) {
@@ -544,6 +546,7 @@ const FLAT = {
   },
 
   f_final(ctx, T, sh) {
+    if (!sh.noBg) {
     fbg(ctx, FP.bg, 'rgba(255,210,63,0.12)');
     const q = ease.outBack(ramp(T, sh.q, sh.q + 0.4));
     ftext(ctx, S('final_q'), 540, 470, 86 * q, FP.white, { maxW: 980 });
@@ -559,6 +562,7 @@ const FLAT = {
     row(sh.a, 'A', S('final_a_short'), 740, FP.yellow);
     row(sh.b, 'B', S('final_b_short'), 910, FP.red);
     ftext(ctx, S('final_c_short'), 540, 1080, 42, FP.white, { alpha: so(T, sh.c, sh.c + 0.4), maxW: 980 });
+    }
     // subscribe + part 2
     if (sh.sub !== undefined && T > sh.sub) {
       const p = ease.outBack(ramp(T, sh.sub, sh.sub + 0.35)), done = T > sh.sub + 1.4;
@@ -572,8 +576,8 @@ const FLAT = {
     if (sh.part2 !== undefined && T > sh.part2) {
       const p = so(T, sh.part2, sh.part2 + 0.5);
       tagBox(ctx, S('part2_badge'), 540, 1420, FP.yellow, { size: 46, scale: ease.outBack(ramp(T, sh.part2, sh.part2 + 0.4)) });
-      ftext(ctx, S('part2_line1'), 540, 1530, 38, FP.white, { alpha: p, maxW: 980 });
-      ftext(ctx, S('part2_line2'), 540, 1585, 38, FP.white, { alpha: p, maxW: 980 });
+      ftext(ctx, sh.p2l1 || S('part2_line1'), 540, 1530, 38, FP.white, { alpha: p, maxW: 980 });
+      ftext(ctx, sh.p2l2 ?? S('part2_line2'), 540, 1585, 38, FP.white, { alpha: p, maxW: 980 });
     }
   },
 };

@@ -164,7 +164,55 @@ def sfx_hangup():
         tt = t_(0.35); place(out, np.sin(2 * np.pi * 425 * tt) * np.minimum(1, tt / 0.01) * np.minimum(1, (0.35 - tt) / 0.01), 0.2 + k * 0.7)
     return bp(out, 300, 3400) * 0.06
 
-SFX = {'rewind': lambda e: sfx_rewind(), 'ringtone': lambda e: sfx_ringtone(e.get('dur', 3.4)),
+def sfx_knock():
+    d = 0.9; tt = t_(d)
+    x = np.sin(2 * np.pi * (95 + 60 * np.exp(-tt * 30)) * tt) * np.exp(-tt * 9) + bp(noise(d), 300, 2500) * np.exp(-tt * 40) * 0.6
+    x += np.sin(2 * np.pi * 410 * tt) * np.exp(-tt * 14) * 0.25        # metallic ring
+    return verb(x, 0.4) * 0.9
+
+def sfx_squeak():
+    d = 0.5; tt = t_(d); f = 900 + 500 * tt / d
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * (0.5 + 0.5 * np.sin(2 * np.pi * 30 * tt)) * np.sin(np.pi * tt / d) * 0.12
+    return x + hp(noise(d), 3000) * np.sin(np.pi * tt / d) * 0.04
+
+def sfx_flow(dur=6.0):
+    tt = t_(dur); x = bp(noise(dur), 300, 3000) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.7 * tt)) * 0.25
+    x += bp(noise(dur), 2000, 6000) * 0.05
+    return x * np.minimum(1, tt / 0.8) * np.minimum(1, (dur - tt) / 0.8)
+
+def sfx_drain():
+    d = 2.2; tt = t_(d); n = noise(d); out = np.zeros_like(n); seg = int(0.04 * SR)
+    for i in range(0, len(n), seg):
+        k = i / len(n); f = 1600 - 1300 * k
+        out[i:i + seg] = bp(n[max(0, i - seg):i + seg], f * 0.7, f * 1.4)[-len(n[i:i + seg]):]
+    gurgle = np.sin(2 * np.pi * (180 - 100 * tt / d) * tt) * (0.5 + 0.5 * np.sign(np.sin(2 * np.pi * 7 * tt))) * 0.15
+    return (out * 0.5 + gurgle) * np.sin(np.pi * tt / d)
+
+def sfx_shutter():
+    out = np.zeros(int(0.3 * SR)); place(out, sfx_click() * 1.5, 0); place(out, hp(noise(0.05), 2000) * np.exp(-t_(0.05) * 80) * 0.4, 0.07)
+    return out
+
+def sfx_jingle():
+    out = np.zeros(int(2.0 * SR))
+    for k, f in enumerate([523.3, 659.3, 784.0, 1046.5]):
+        tt = t_(0.9); place(out, (np.sin(2 * np.pi * f * tt) + 0.4 * np.sin(4 * np.pi * f * tt)) * np.exp(-tt * 4), k * 0.12)
+    return verb(out, 0.3) * 0.18
+
+def sfx_crowd(dur=6.0):
+    tt = t_(dur); x = np.zeros_like(tt)
+    for i in range(6):
+        x += bp(noise(dur), 250 + i * 80, 900 + i * 120) * (0.5 + 0.5 * np.sin(2 * np.pi * (0.8 + rng.random() * 2) * tt + rng.random() * 6)) ** 2
+    return x * 0.06 * np.minimum(1, tt / 1.0) * np.minimum(1, (dur - tt) / 1.0)
+
+def sfx_alert():
+    d = 1.6; tt = t_(d)
+    x = (np.sin(2 * np.pi * 853 * tt) + np.sin(2 * np.pi * 960 * tt)) * 0.5 * (np.sin(2 * np.pi * 2.5 * tt) > 0)
+    return lp(x, 3000) * np.minimum(1, tt / 0.02) * np.minimum(1, (d - tt) / 0.05) * 0.1
+
+SFX = {'knock': lambda e: sfx_knock(), 'squeak': lambda e: sfx_squeak(), 'flow': lambda e: sfx_flow(e.get('dur', 6)),
+       'drain': lambda e: sfx_drain(), 'shutter': lambda e: sfx_shutter(), 'jingle': lambda e: sfx_jingle(),
+       'crowd': lambda e: sfx_crowd(e.get('dur', 6)), 'alert': lambda e: sfx_alert(),
+       'rewind': lambda e: sfx_rewind(), 'ringtone': lambda e: sfx_ringtone(e.get('dur', 3.4)),
        'clock': lambda e: sfx_clock(e.get('dur', 2.0)), 'hangup': lambda e: sfx_hangup(),
        'vibrate': lambda e: sfx_vibrate(e.get('n', 2)), 'hit': lambda e: sfx_hit(), 'ping': lambda e: sfx_ping(),
        'click': lambda e: sfx_click(), 'ui': lambda e: sfx_click() * 0.7 + 0, 'refresh': lambda e: sfx_refresh(),
