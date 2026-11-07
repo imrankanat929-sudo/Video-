@@ -375,7 +375,7 @@ function scrIncoming(t, s = {}) {
   if (mode === 'incoming') {
     for (let i = 0; i < 3; i++) { const p = (t * 0.7 + i / 3) % 1; g.strokeStyle = `rgba(200,215,240,${(1 - p) * 0.35})`; g.lineWidth = 3; g.beginPath(); g.arc(278, 330, 95 + p * 110, 0, 7); g.stroke(); }
   }
-  text(g, S('hidden_num'), 278, 500, { font: font(700, 40), align: 'center' });
+  text(g, s.title ? S(s.title) : S('hidden_num'), 278, 500, { font: font(700, 40), align: 'center' });
   const sub = mode === 'incoming' ? S('incoming') : mode === 'ended' ? S('call_ended') : timer(t - (s.from || t));
   text(g, sub, 278, 550, { font: font(500, 26), align: 'center', color: mode === 'ended' ? '#e5a5a9' : PAL.mist });
   if (mode === 'active') {
@@ -435,5 +435,67 @@ function monDocs(t, s = {}) {
   // folder label
   g.fillStyle = '#16203a'; rr(g, 120, 790, 560, 60, 12); g.fill();
   text(g, '▣  ' + S('folder'), 150, 830, { font: font(600, 24, 'mono'), color: '#c3cbd8' });
+  return SCR.mon;
+}
+
+// --- monitor: new mail with an attached file ---
+function monMail(t, s = {}) {
+  const g = SCR.mon.getContext('2d');
+  monDesktop(t, {});
+  g.fillStyle = 'rgba(4,6,10,0.45)'; g.fillRect(0, 0, 1600, 900);
+  const a = s.at !== undefined ? clamp((t - s.at) / 0.35) : 1;
+  if (a > 0) {
+    g.save(); g.globalAlpha = a; g.translate((1 - ease.out(a)) * 300, 0);
+    g.fillStyle = '#121a2c'; rr(g, 980, 80, 560, 190, 18); g.fill(); g.strokeStyle = '#3d7bff'; g.lineWidth = 3; g.stroke();
+    text(g, '✉  ' + S(s.title || 'Новый файл'), 1010, 135, { font: font(800, 30), color: '#fff' });
+    text(g, S(s.from || 'Отправитель: неизвестен'), 1010, 180, { font: font(500, 22), color: '#8f9bb0' });
+    g.fillStyle = '#1d2a44'; rr(g, 1010, 200, 500, 50, 10); g.fill();
+    text(g, '▤  ' + (s.file || 'transactions_list.xlsx'), 1030, 235, { font: font(600, 22, 'mono'), color: '#c8d6f0' });
+    g.restore();
+  }
+  // opened file preview
+  const o = s.openAt !== undefined ? clamp((t - s.openAt) / 0.4) : 0;
+  if (o > 0) {
+    g.save(); g.globalAlpha = o; g.fillStyle = '#e9edf3'; rr(g, 200, 160, 760, 640, 10); g.fill();
+    g.fillStyle = '#2f8f5b'; g.fillRect(200, 160, 760, 50); text(g, s.file || 'transactions_list.xlsx', 220, 195, { font: font(700, 22, 'mono'), color: '#fff' });
+    for (let r = 0; r < 12; r++) { g.fillStyle = r % 2 ? '#dfe4ec' : '#eef1f6'; g.fillRect(220, 230 + r * 44, 720, 40); for (let c = 0; c < 4; c++) { g.fillStyle = '#9aa4b2'; g.fillRect(232 + c * 180, 246 + r * 44, 120 - (r * 13 + c * 7) % 50, 8); } }
+    g.restore();
+  }
+  return SCR.mon;
+}
+// --- monitor: transaction table (spreadsheet) ---
+function monTable(t, s = {}) {
+  const g = SCR.mon.getContext('2d');
+  g.fillStyle = '#eef1f6'; g.fillRect(0, 0, 1600, 900);
+  g.fillStyle = '#2f8f5b'; g.fillRect(0, 0, 1600, 60); text(g, s.file || 'transactions_list.xlsx', 30, 40, { font: font(700, 26, 'mono'), color: '#fff' });
+  const H = s.head || ['ДАТА', 'ОТКУДА', 'КУДА', 'СУММА'];
+  const cols = [40, 300, 760, 1220];
+  g.fillStyle = '#d5dbe4'; g.fillRect(0, 60, 1600, 56);
+  H.forEach((h, i) => text(g, h, cols[i], 98, { font: font(800, 24), color: '#2a3140', ls: 2 }));
+  const r = mulberry32(77), rows = [];
+  const addr = () => 'bc1q' + Math.floor(r() * 1e8).toString(36) + '…' + Math.floor(r() * 4e4).toString(36);
+  for (let i = 0; i < 11; i++) rows.push([`0${1 + (i % 9)}.11 0${i % 10}:${10 + i * 4}`, addr(), addr(), (r() * 3 + 0.2).toFixed(4) + ' BTC']);
+  rows[6] = ['06.11 02:46', addr(), s.you || 'bc1q…9x2m', '10.0000 BTC'];
+  rows[8] = ['07.11 08:12', addr(), s.you || 'bc1q…9x2m', '20.0000 BTC'];
+  const scroll = s.scroll ? clamp((t - s.scroll[0]) / (s.scroll[1] - s.scroll[0])) * 160 : 0;
+  g.save(); g.beginPath(); g.rect(0, 116, 1600, 784); g.clip(); g.translate(0, -ease.inOutSine(clamp(scroll / 160)) * 160);
+  rows.forEach((row, i) => {
+    const y = 116 + i * 62;
+    g.fillStyle = i % 2 ? '#e3e8ef' : '#f4f6f9'; g.fillRect(0, y, 1600, 62);
+    const youHi = (i === 6 || i === 8) && s.youAt !== undefined && t > s.youAt;
+    if (youHi) { g.fillStyle = 'rgba(255,210,63,0.55)'; g.fillRect(0, y, 1600, 62); }
+    row.forEach((c, k) => {
+      let col = '#3a4252';
+      if (k === 2 && youHi) col = '#111';
+      if (k === 3 && i === 8 && s.amountAt !== undefined && t > s.amountAt) col = '#c8323a';
+      text(g, c, cols[k], y + 40, { font: font(k === 3 && i === 8 && s.amountAt !== undefined && t > s.amountAt ? 900 : 500, k === 3 && i === 8 && t > (s.amountAt ?? 1e9) ? 30 : 24, 'mono'), color: col });
+    });
+  });
+  // the final line
+  const y = 116 + rows.length * 62;
+  const la = s.lastAt !== undefined ? clamp((t - s.lastAt) / 0.4) : 0;
+  g.fillStyle = la ? `rgba(200,50,58,${0.15 + 0.75 * la})` : '#f4f6f9'; g.fillRect(0, y, 1600, 76);
+  text(g, s.last || '→ СЛЕДУЮЩИЙ АДРЕС: АДРЕС СЛЕДОВАТЕЛЯ', 40, y + 50, { font: font(900, 32, 'mono'), color: la ? '#fff' : '#9aa4b2' });
+  g.restore();
   return SCR.mon;
 }

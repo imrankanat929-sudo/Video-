@@ -350,6 +350,7 @@ const FLAT = {
       heroFace(ctx, T, 210, 1880 - 260 * pop, 0.62, expr, { lookX: 0.6, lookY: -0.6, sweat: sh.sweat });
     }
     if (sh.fadeOut) { ctx.fillStyle = `rgba(0,0,0,${sm(T, sh.fadeOut[0], sh.fadeOut[1]) * 0.85})`; ctx.fillRect(0, 0, W, H); }
+    if (sh.shotAt !== undefined && T > sh.shotAt) { ctx.fillStyle = `rgba(255,255,255,${0.8 * (1 - ramp(T, sh.shotAt, sh.shotAt + 0.4))})`; ctx.fillRect(0, 0, W, H); }
   },
 
   f_face(ctx, T, sh) {
@@ -497,6 +498,18 @@ const FLAT = {
       if (sh.ill === 'wallet' || sh.ill === 'call') {
         const scr = sh.ill === 'wallet' ? phoneScreen({ kind: 'wallet', pulse: 1 }, T) : phoneScreen({ kind: 'call', calling: sh.callingAt }, T);
         drawPhone(ctx, 540, 1170, 0.4, sh.ill === 'wallet' ? -0.08 : 0.08, scr, { on: 1 });
+      } else if (sh.ill === 'file' || sh.ill === 'search') {
+        ctx.save(); ctx.translate(540, 1150);
+        if (sh.ill === 'file') {
+          ctx.fillStyle = '#e9edf3'; rr(ctx, -150, -190, 300, 380, 18); ctx.fill(); ctx.fillStyle = '#2f8f5b'; rr(ctx, -150, -190, 300, 60, 18); ctx.fill();
+          for (let i = 0; i < 6; i++) { ctx.fillStyle = i === 4 ? FP.red : '#9aa4b2'; ctx.fillRect(-120, -100 + i * 46, 240 - (i * 37) % 90, 16); }
+          ctx.fillStyle = FP.blue; circ(ctx, 160, 140, 80, FP.blue); ftext(ctx, '👮', 160, 168, 80, '#fff', { stroke: false });
+        } else {
+          ctx.rotate(-0.3); ctx.strokeStyle = '#e9edf3'; ctx.lineWidth = 34; ctx.beginPath(); ctx.arc(0, -40, 130, 0, 7); ctx.stroke();
+          ctx.fillStyle = 'rgba(160,200,255,0.25)'; ctx.beginPath(); ctx.arc(0, -40, 115, 0, 7); ctx.fill();
+          ctx.fillStyle = '#e9edf3'; rr(ctx, -28, 90, 56, 200, 24); ctx.fill(); ftext(ctx, '?', 0, 10, 140, FP.yellow);
+        }
+        ctx.restore();
       } else if (sh.ill === 'countdown') {
         const left = 24 * 3600 - Math.max(0, Math.floor((T - at - 0.4) * 3));
         const str = `${String(Math.floor(left / 3600)).padStart(2, '0')}:${String(Math.floor(left / 60) % 60).padStart(2, '0')}:${String(left % 60).padStart(2, '0')}`;
@@ -549,8 +562,8 @@ const FLAT = {
     if (!sh.noBg) {
     fbg(ctx, FP.bg, 'rgba(255,210,63,0.12)');
     const q = ease.outBack(ramp(T, sh.q, sh.q + 0.4));
-    ftext(ctx, S('final_q'), 540, 470, 86 * q, FP.white, { maxW: 980 });
-    ftext(ctx, S('money_or_safety'), 540, 560, 46, FP.yellow, { alpha: so(T, sh.q + 0.3, sh.q + 0.7), maxW: 980 });
+    ftext(ctx, sh.qText || S('final_q'), 540, 470, 86 * q, FP.white, { maxW: 980 });
+    ftext(ctx, sh.q2Text || S('money_or_safety'), 540, 560, 46, FP.yellow, { alpha: so(T, sh.q + 0.3, sh.q + 0.7), maxW: 980 });
     const row = (t, letter, label, y, col) => {
       const p = ease.outBack(ramp(T, t, t + 0.35)); if (p <= 0) return;
       ctx.save(); ctx.translate(540, y); ctx.scale(p, p);
@@ -559,9 +572,9 @@ const FLAT = {
       ftext(ctx, label, 60, 18, 50, FP.white, { stroke: false, maxW: 700 });
       ctx.restore();
     };
-    row(sh.a, 'A', S('final_a_short'), 740, FP.yellow);
-    row(sh.b, 'B', S('final_b_short'), 910, FP.red);
-    ftext(ctx, S('final_c_short'), 540, 1080, 42, FP.white, { alpha: so(T, sh.c, sh.c + 0.4), maxW: 980 });
+    row(sh.a, 'A', sh.aText || S('final_a_short'), 740, FP.yellow);
+    row(sh.b, 'B', sh.bText || S('final_b_short'), 910, FP.red);
+    ftext(ctx, sh.cText || S('final_c_short'), 540, 1080, 42, FP.white, { alpha: so(T, sh.c, sh.c + 0.4), maxW: 980 });
     }
     // subscribe + part 2
     if (sh.sub !== undefined && T > sh.sub) {
@@ -575,7 +588,7 @@ const FLAT = {
     }
     if (sh.part2 !== undefined && T > sh.part2) {
       const p = so(T, sh.part2, sh.part2 + 0.5);
-      tagBox(ctx, S('part2_badge'), 540, 1420, FP.yellow, { size: 46, scale: ease.outBack(ramp(T, sh.part2, sh.part2 + 0.4)) });
+      tagBox(ctx, sh.p2badge || S('part2_badge'), 540, 1420, FP.yellow, { size: 46, scale: ease.outBack(ramp(T, sh.part2, sh.part2 + 0.4)) });
       ftext(ctx, sh.p2l1 || S('part2_line1'), 540, 1530, 38, FP.white, { alpha: p, maxW: 980 });
       ftext(ctx, sh.p2l2 ?? S('part2_line2'), 540, 1585, 38, FP.white, { alpha: p, maxW: 980 });
     }

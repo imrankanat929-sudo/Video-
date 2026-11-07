@@ -58,9 +58,9 @@ function phoneScreen(spec, T, cv) {
     case 'profile': out = scrProfile(T, { p: ramp(T, s.from, s.from + 0.6) }); break;
     case 'news': out = scrNews(T, { stamp: s.stolen !== undefined ? so(T, s.stolen + 0.05, s.stolen + 0.3) : 0, scroll: s.scroll ? sm(T, s.scroll[0], s.scroll[1]) * (s.scrollBy || 200) : 0 }); break;
     case 'call': out = scrCall(T, { calling: s.calling !== undefined && T > s.calling }, cv); break;
-    case 'incoming': out = scrIncoming(T, { mode: 'incoming' }); break;
-    case 'active': out = scrIncoming(T, { mode: 'active', from: s.since, voice: (s.voice || []).some(([a, b]) => T > a && T < b) ? 0.6 + 0.4 * Math.abs(noise1(T * 9)) : 0 }); break;
-    case 'ended': out = scrIncoming(T, { mode: 'ended' }); break;
+    case 'incoming': out = scrIncoming(T, { mode: 'incoming', title: s.title }); break;
+    case 'active': out = scrIncoming(T, { mode: 'active', title: s.title, from: s.since, voice: (s.voice || []).some(([a, b]) => T > a && T < b) ? 0.6 + 0.4 * Math.abs(noise1(T * 9)) : 0 }); break;
+    case 'ended': out = scrIncoming(T, { mode: 'ended', title: s.title }); break;
     case 'splash': out = scrSplash(T); break;
     default: { const g = cv.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, PHONE.sw, PHONE.sh); out = cv; }
   }
@@ -77,6 +77,8 @@ function monScreen(m, T) {
     case 'graph': return monGraph(T, { reveal: m.reveal ? so(T, m.reveal[0], m.reveal[1]) : 1, focus: m.focus !== undefined ? so(T, m.focus, m.focus + 0.4) : 0 });
     case 'warning': return monWarning(T, { docs: m.docs !== undefined ? so(T, m.docs, m.docs + 1.2) : 1, warn: m.warn !== undefined ? so(T, m.warn, m.warn + 0.4) : 1, prog: m.prog ? ramp(T, m.prog[0], m.prog[1]) * 0.8 : 0.8 });
     case 'docs': return monDocs(T, { p: m.from !== undefined ? ramp(T, m.from, m.from + 2.4) : 1 });
+    case 'mail': return monMail(T, m);
+    case 'table': return monTable(T, m);
     default: return monDesktop(T, { redRow: m.redRow !== undefined && T > m.redRow });
   }
 }

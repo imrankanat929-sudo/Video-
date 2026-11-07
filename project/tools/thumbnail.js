@@ -8,8 +8,12 @@ const serve = require('./server');
   p.on('pageerror', e => console.log('[err]', e.message));
   await p.goto(`http://127.0.0.1:${srv.address().port}/index.html?render=1&lang=${lang}`); await p.evaluate(() => window.bootDone);
   if (flat) {
-    const u = await p.evaluate(() => (TL.outName || '').includes('EP02') ? window.renderThumbEp02() : window.renderThumbFlat());
-    fs.writeFileSync(path.join(out, `thumbnail_${lang}_9x16.png`.replace('ep02_', 'EP02_')), Buffer.from(u.split(',')[1], 'base64'));
+    const u = await p.evaluate(() => {
+      const n = TL.outName || '';
+      if (n.includes('part2')) return n.includes('_ru_') ? window.renderThumbBtc2('ТЫ ВЫБРАЛ', 'ПОЛИЦИЮ', '+20 BTC', 'АДРЕС СЛЕДОВАТЕЛЯ?') : window.renderThumbBtc2('YOU CALLED', 'THE POLICE', '+20 BTC', 'WHO IS WATCHING?');
+      return n.includes('EP02') ? window.renderThumbEp02() : window.renderThumbFlat();
+    });
+    fs.writeFileSync(path.join(out, `thumbnail_${lang}_9x16.png`.replace('ep02_', 'EP02_').replace('btc2_', 'EP01_part2_')), Buffer.from(u.split(',')[1], 'base64'));
     console.log('ok'); await b.close(); srv.close(); return;
   }
   const url = await p.evaluate(() => window.renderThumb());

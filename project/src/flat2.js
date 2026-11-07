@@ -453,3 +453,21 @@ window.renderThumbEp02 = () => {
   ctx.restore();
   return MAIN.toDataURL('image/png');
 };
+
+// EP01 part 2 thumbnail (9:16)
+window.renderThumbBtc2 = (l1, l2, tag1, tag2) => {
+  const ctx = MAIN.getContext('2d'), T = 2.0;
+  STR.clock = STR.evening_clock;
+  ctx.save();
+  fbg(ctx, FP.bg, 'rgba(61,123,255,0.35)');
+  glow(ctx, 660, 1000, 700, 'rgba(232,52,63,0.3)', 1);
+  drawPhone(ctx, 660, 1020, 0.72, 0.1, scrCall(T, { calling: true }), { on: 1 });
+  tagBox(ctx, tag1, 700, 1180, FP.red, { size: 96, rot: -0.12 });
+  ftext(ctx, l1, 540, 280, 170, FP.white, { maxW: 1000 });
+  ftext(ctx, l2, 540, 450, 150, FP.yellow, { maxW: 1000 });
+  heroFace(ctx, T, 270, 1520, 1.0, 'shock', { lookX: 0.8, lookY: -0.5, sweat: true, seed: 0.5 });
+  tagBox(ctx, tag2, 760, 1640, FP.red, { size: 50, rot: -0.06 });
+  ftext(ctx, '?', 960, 700, 190, FP.red);
+  ctx.restore();
+  return MAIN.toDataURL('image/png');
+};
