@@ -209,7 +209,55 @@ def sfx_alert():
     x = (np.sin(2 * np.pi * 853 * tt) + np.sin(2 * np.pi * 960 * tt)) * 0.5 * (np.sin(2 * np.pi * 2.5 * tt) > 0)
     return lp(x, 3000) * np.minimum(1, tt / 0.02) * np.minimum(1, (d - tt) / 0.05) * 0.1
 
-SFX = {'knock': lambda e: sfx_knock(), 'squeak': lambda e: sfx_squeak(), 'flow': lambda e: sfx_flow(e.get('dur', 6)),
+def sfx_alarmclock(dur=2.0):
+    out = np.zeros(int(dur * SR)); t = 0.0
+    while t < dur - 0.1:
+        for k in range(4):
+            tt = t_(0.07); place(out, np.sign(np.sin(2 * np.pi * 2350 * tt)) * np.minimum(1, tt / 0.003) * np.minimum(1, (0.07 - tt) / 0.005) * 0.5, t + k * 0.11)
+        t += 0.9
+    return lp(out, 6000) * 0.16
+
+def sfx_steps(dur=2.5, fast=0, dry=0):
+    out = np.zeros(int((dur + 0.3) * SR)); t = 0.05; step = 0.32 if fast else 0.55
+    while t < dur:
+        tt = t_(0.12)
+        x = lp(noise(0.12), 900 if not dry else 2500) * np.exp(-tt * (45 if not dry else 30)) + np.sin(2 * np.pi * 80 * tt) * np.exp(-tt * 40) * 0.6
+        if dry: x += bp(noise(0.12), 2000, 6000) * np.exp(-tt * 25) * 0.4
+        place(out, x * (0.7 + rng.random() * 0.3), t); t += step * (0.9 + rng.random() * 0.2)
+    return verb(out, 0.15) * 0.35
+
+def sfx_wind(dur=6.0):
+    tt = t_(dur); n = noise(dur)
+    gust = 0.55 + 0.45 * np.sin(2 * np.pi * 0.17 * tt + 1) * np.sin(2 * np.pi * 0.05 * tt + 2)
+    x = bp(n, 150, 1200) * gust + bp(noise(dur), 1500, 4000) * gust ** 2 * 0.3
+    return x * 0.22 * np.minimum(1, tt / 1.0) * np.minimum(1, (dur - tt) / 1.0)
+
+def sfx_uknock():
+    d = 1.4; tt = t_(d)
+    x = np.sin(2 * np.pi * (55 + 40 * np.exp(-tt * 25)) * tt) * np.exp(-tt * 6) + lp(noise(d), 400) * np.exp(-tt * 18) * 0.8
+    x += np.sin(2 * np.pi * 180 * tt) * np.exp(-tt * 10) * 0.3
+    return np.tanh(verb(lp(x, 900), 0.45) * 1.6) * 0.95
+
+def sfx_tapclick():
+    out = np.zeros(int(0.6 * SR)); tt = t_(0.05)
+    place(out, (hp(noise(0.05), 1500) * np.exp(-tt * 160) + np.sin(2 * np.pi * 1800 * tt) * np.exp(-tt * 120) * 0.5) * 0.7, 0)
+    place(out, sfx_squeak() * 0.6, 0.05)
+    return out
+
+def sfx_tvhum(dur=6.0):
+    tt = t_(dur)
+    x = np.sin(2 * np.pi * 15734 / 2 * tt) * 0.004 + bp(noise(dur), 300, 3000) * 0.02 * (0.6 + 0.4 * np.abs(np.sin(2 * np.pi * 3.1 * tt)) * (np.sin(2 * np.pi * 0.4 * tt) > -0.3))
+    return x * np.minimum(1, tt / 0.3) * np.minimum(1, (dur - tt) / 0.3)
+
+def sfx_creak():
+    d = 1.6; tt = t_(d); f = 140 + 60 * np.sin(2 * np.pi * 0.7 * tt)
+    x = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * (0.5 + 0.5 * np.sin(2 * np.pi * 23 * tt)) ** 4
+    return verb(bp(x, 300, 2500), 0.3) * np.sin(np.pi * tt / d) * 0.12
+
+SFX = {'alarmclock': lambda e: sfx_alarmclock(e.get('dur', 2)), 'steps': lambda e: sfx_steps(e.get('dur', 2.5), e.get('fast', 0), e.get('dry', 0)),
+       'wind': lambda e: sfx_wind(e.get('dur', 6)), 'uknock': lambda e: sfx_uknock(), 'tapclick': lambda e: sfx_tapclick(),
+       'tvhum': lambda e: sfx_tvhum(e.get('dur', 6)), 'creak': lambda e: sfx_creak(),
+       'knock': lambda e: sfx_knock(), 'squeak': lambda e: sfx_squeak(), 'flow': lambda e: sfx_flow(e.get('dur', 6)),
        'drain': lambda e: sfx_drain(), 'shutter': lambda e: sfx_shutter(), 'jingle': lambda e: sfx_jingle(),
        'crowd': lambda e: sfx_crowd(e.get('dur', 6)), 'alert': lambda e: sfx_alert(),
        'rewind': lambda e: sfx_rewind(), 'ringtone': lambda e: sfx_ringtone(e.get('dur', 3.4)),
@@ -308,6 +356,7 @@ if __name__ == '__main__':
     duck = 1 - 0.45 * np.clip(venv * 4, 0, 1)
     tt = np.arange(N) / SR
     tail = np.clip((TL['cues']['camera_freeze'] + 1.0 - tt) / 0.8, 0, 1)   # everything but the voice dies out
+    if 'music_cut' in TL['cues']: tail = (tt < TL['cues']['music_cut']).astype(float)      # abrupt cut after the last line
     mix = voice * db(TL['audio']['voiceGainDb']) + (music * duck + sfx * db(-8)) * tail
     # true silence after the hard cut
     mix *= np.clip((TL['cues']['hard_black'] - tt) / 0.05, 0, 1)
@@ -315,5 +364,13 @@ if __name__ == '__main__':
     if peak > db(-1): mix *= db(-1) / peak
     write(f'music_{LANG}.wav', music)
     write(f'sfx_{LANG}.wav', sfx * db(-8))
+    write(f'voice_{LANG}.wav', voice)
     write(f'mix_{LANG}.wav', mix)
     print('ok, peak', 20 * np.log10(np.max(np.abs(mix))))
+    if '--export-sfx' in sys.argv:            # every sound effect as a separate file
+        d = os.path.join(ROOT, 'assets', 'sfx', LANG.split('_')[0]); os.makedirs(d, exist_ok=True)
+        for name in sorted({e['type'] for e in TL['audio']['events']}):
+            e = next(x for x in TL['audio']['events'] if x['type'] == name)
+            x = roomtone(0, 8) if name == 'roomtone' else SFX[name](e)
+            wavfile.write(os.path.join(d, f'{name}.wav'), SR, (np.clip(x / (np.max(np.abs(x)) + 1e-9) * 0.9, -1, 1) * 32767).astype(np.int16))
+        print('sfx exported to', d)
