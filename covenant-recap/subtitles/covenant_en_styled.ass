@@ -1,0 +1,107 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,74,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,6,3,2,80,80,560,1
+Style: Scene,DejaVu Sans,58,&H0000D7FF,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,4,0,1,4,0,8,60,60,190,1
+Style: Shot,DejaVu Sans,42,&H00E6F0F5,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2,0,5,110,110,0,1
+Style: Tag,DejaVu Sans,34,&H0090B4C8,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,2,0,1,2,0,8,60,60,110,1
+Style: Final,DejaVu Serif,86,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,6,0,1,3,0,5,60,60,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 1,0:00:00.00,0:00:05.75,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 1/8 · 00:00–00:05
+Dialogue: 1,0:00:00.00,0:00:05.75,Scene,,0,0,0,,{\fad(200,150)}THE LAST SURVIVOR
+Dialogue: 1,0:00:05.75,0:00:14.80,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 2/8 · 00:05–00:14
+Dialogue: 1,0:00:05.75,0:00:14.80,Scene,,0,0,0,,{\fad(200,150)}JOHN AND AHMED
+Dialogue: 1,0:00:14.80,0:00:21.50,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 3/8 · 00:14–00:21
+Dialogue: 1,0:00:14.80,0:00:21.50,Scene,,0,0,0,,{\fad(200,150)}THE AMBUSH
+Dialogue: 1,0:00:21.50,0:00:29.20,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 4/8 · 00:21–00:29
+Dialogue: 1,0:00:21.50,0:00:29.20,Scene,,0,0,0,,{\fad(200,150)}AHMED SAVES HIM
+Dialogue: 1,0:00:29.20,0:00:38.30,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 5/8 · 00:29–00:38
+Dialogue: 1,0:00:29.20,0:00:38.30,Scene,,0,0,0,,{\fad(200,150)}THE PROMISE
+Dialogue: 1,0:00:38.30,0:00:46.90,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 6/8 · 00:38–00:46
+Dialogue: 1,0:00:38.30,0:00:46.90,Scene,,0,0,0,,{\fad(200,150)}BACK TO AFGHANISTAN
+Dialogue: 1,0:00:46.90,0:00:53.70,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 7/8 · 00:46–00:53
+Dialogue: 1,0:00:46.90,0:00:53.70,Scene,,0,0,0,,{\fad(200,150)}THE EXTRACTION
+Dialogue: 1,0:00:53.70,0:01:00.00,Tag,,0,0,0,,АНИМАТИК · СЦЕНА 8/8 · 00:53–01:00
+Dialogue: 1,0:00:53.70,0:01:00.00,Scene,,0,0,0,,{\fad(200,150)}THE COVENANT
+Dialogue: 1,0:00:00.00,0:00:01.60,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 1\N\NЭкстрим-крупный план: глаза Джона, пыль, кровь на виске. Удар баса + звон в ушах
+Dialogue: 1,0:00:01.60,0:00:03.00,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 2\N\NОбщий план: разрушенный горный склон, дым после боя
+Dialogue: 1,0:00:03.00,0:00:04.30,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 3\N\NБрошенное снаряжение отряда (без тел и крови)
+Dialogue: 1,0:00:04.30,0:00:05.75,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 4\N\NДжон лежит без сил, медленный наезд (zoom 100→110%)
+Dialogue: 1,0:00:05.75,0:00:07.40,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 5\N\NТень фигуры над Джоном (лицо ещё не видно)
+Dialogue: 1,0:00:07.40,0:00:10.40,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 6\N\NРАСКРЫТИЕ: крупный план Ахмеда на слове «спасёт». Музыкальный удар
+Dialogue: 1,0:00:10.40,0:00:12.30,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 7\N\NФлэшбэк: база, Джон знакомится с новым переводчиком
+Dialogue: 1,0:00:12.30,0:00:14.80,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 8\N\NДжон и Ахмед вместе на выезде / блокпосту, панорама
+Dialogue: 1,0:00:14.80,0:00:16.40,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 9\N\NОтряд выдвигается к цели в горах, тревожная тишина
+Dialogue: 1,0:00:16.40,0:00:17.90,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 10\N\NЗасада: вспышки, бойцы в укрытиях (быстрый монтаж 0.5–1 с)
+Dialogue: 1,0:00:17.90,0:00:19.80,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 11\N\NДжон ранен — падение, без крупного плана раны
+Dialogue: 1,0:00:19.80,0:00:21.50,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 12\N\NАхмед среди хаоса, бросается к Джону
+Dialogue: 1,0:00:21.50,0:00:23.80,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 13\N\NАхмед везёт Джона через горную тропу, широкий план с хребтом
+Dialogue: 1,0:00:23.80,0:00:25.80,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 14\N\NКрупно: лицо Ахмеда — пот, усталость, решимость
+Dialogue: 1,0:00:25.80,0:00:27.60,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 15\N\NУкрытие от преследователей, смена дня и ночи
+Dialogue: 1,0:00:27.60,0:00:29.20,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 16\N\NАмериканские военные замечают их — спасение
+Dialogue: 1,0:00:29.20,0:00:31.40,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 17\N\NДжон дома с семьёй, тёплые тона, медленная панорама
+Dialogue: 1,0:00:31.40,0:00:34.90,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 18\N\NАхмед с семьёй скрывается, холодные тона
+Dialogue: 1,0:00:34.90,0:00:36.60,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 19\N\NДеталь: документы / отказ, музыка драматичнее
+Dialogue: 1,0:00:36.60,0:00:38.30,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 20\N\NДжон на телефоне, бессилие перед системой
+Dialogue: 1,0:00:38.30,0:00:39.40,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 21\N\NДжон принимает решение — крупный план взгляда
+Dialogue: 1,0:00:39.40,0:00:41.10,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 22\N\NПрилёт в Афганистан, общий план
+Dialogue: 1,0:00:41.10,0:00:42.90,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 23\N\NВстреча Джона и Ахмеда — ключевой эмоциональный кадр
+Dialogue: 1,0:00:42.90,0:00:44.80,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 24\N\NЖена и ребёнок Ахмеда
+Dialogue: 1,0:00:44.80,0:00:46.90,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 25\N\NГруппа в пути к месту эвакуации
+Dialogue: 1,0:00:46.90,0:00:48.60,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 26\N\NПротивники приближаются со всех сторон, быстрые планы ~1 с
+Dialogue: 1,0:00:48.60,0:00:50.40,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 27\N\NГерои в обороне, выхода нет, музыка нарастает
+Dialogue: 1,0:00:50.40,0:00:52.40,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 28\N\NДжон и Ахмед переглядываются, надежда гаснет
+Dialogue: 1,0:00:52.40,0:00:53.70,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 29\N\NПрибытие помощи с воздуха — кульминация, мощный звуковой удар
+Dialogue: 1,0:00:53.70,0:00:56.00,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 30\N\NЭвакуация: семья Ахмеда в безопасности
+Dialogue: 1,0:00:56.00,0:00:59.00,Shot,,0,0,0,,{\pos(540,820)\fad(120,120)}КАДР 31\N\NФинальный кадр: Джон и Ахмед вместе, медленный отъезд камеры, музыка затихает
+Dialogue: 2,0:00:00.00,0:00:00.85,Sub,,0,0,0,,{\fad(60,60)}An American soldier
+Dialogue: 2,0:00:00.85,0:00:02.27,Sub,,0,0,0,,{\fad(60,60)}is stranded deep in {\c&H00D7FF&}enemy{\c&HFFFFFF&}
+Dialogue: 2,0:00:02.27,0:00:02.76,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}territory.{\c&HFFFFFF&}
+Dialogue: 2,0:00:03.00,0:00:04.17,Sub,,0,0,0,,{\fad(60,60)}His unit is {\c&H00D7FF&}wiped{\c&HFFFFFF&} {\c&H00D7FF&}out,{\c&HFFFFFF&}
+Dialogue: 2,0:00:04.17,0:00:05.53,Sub,,0,0,0,,{\fad(60,60)}and he is badly {\c&H00D7FF&}wounded.{\c&HFFFFFF&}
+Dialogue: 2,0:00:05.74,0:00:06.84,Sub,,0,0,0,,{\fad(60,60)}But the most {\c&H00D7FF&}incredible{\c&HFFFFFF&}
+Dialogue: 2,0:00:06.84,0:00:08.21,Sub,,0,0,0,,{\fad(60,60)}part: he will be {\c&H00D7FF&}saved{\c&HFFFFFF&}
+Dialogue: 2,0:00:08.21,0:00:10.05,Sub,,0,0,0,,{\fad(60,60)}by a man he barely knows.
+Dialogue: 2,0:00:10.56,0:00:11.85,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}John{\c&HFFFFFF&} {\c&H00D7FF&}Kinley{\c&HFFFFFF&} serves
+Dialogue: 2,0:00:11.85,0:00:13.15,Sub,,0,0,0,,{\fad(60,60)}in Afghanistan alongside
+Dialogue: 2,0:00:13.15,0:00:14.64,Sub,,0,0,0,,{\fad(60,60)}his interpreter, {\c&H00D7FF&}Ahmed.{\c&HFFFFFF&}
+Dialogue: 2,0:00:14.83,0:00:15.92,Sub,,0,0,0,,{\fad(60,60)}During a dangerous
+Dialogue: 2,0:00:15.92,0:00:17.00,Sub,,0,0,0,,{\fad(60,60)}operation, their unit
+Dialogue: 2,0:00:17.00,0:00:17.92,Sub,,0,0,0,,{\fad(60,60)}is {\c&H00D7FF&}ambushed.{\c&HFFFFFF&}
+Dialogue: 2,0:00:18.07,0:00:19.75,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}John{\c&HFFFFFF&} and {\c&H00D7FF&}Ahmed{\c&HFFFFFF&} are
+Dialogue: 2,0:00:19.75,0:00:21.20,Sub,,0,0,0,,{\fad(60,60)}the {\c&H00D7FF&}only{\c&HFFFFFF&} {\c&H00D7FF&}survivors.{\c&HFFFFFF&}
+Dialogue: 2,0:00:21.52,0:00:22.65,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}Ahmed{\c&HFFFFFF&} {\c&H00D7FF&}refuses{\c&HFFFFFF&} to leave
+Dialogue: 2,0:00:22.65,0:00:24.07,Sub,,0,0,0,,{\fad(60,60)}him, and for days carries
+Dialogue: 2,0:00:24.07,0:00:25.21,Sub,,0,0,0,,{\fad(60,60)}the {\c&H00D7FF&}wounded{\c&HFFFFFF&} soldier across
+Dialogue: 2,0:00:25.21,0:00:25.78,Sub,,0,0,0,,{\fad(60,60)}the {\c&H00D7FF&}mountains,{\c&HFFFFFF&}
+Dialogue: 2,0:00:25.78,0:00:27.44,Sub,,0,0,0,,{\fad(60,60)}until he finally reaches
+Dialogue: 2,0:00:27.44,0:00:28.89,Sub,,0,0,0,,{\fad(60,60)}an American {\c&H00D7FF&}base.{\c&HFFFFFF&}
+Dialogue: 2,0:00:29.24,0:00:30.38,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}John{\c&HFFFFFF&} returns home,
+Dialogue: 2,0:00:30.38,0:00:31.91,Sub,,0,0,0,,{\fad(60,60)}but learns that {\c&H00D7FF&}Ahmed{\c&HFFFFFF&}
+Dialogue: 2,0:00:31.91,0:00:33.81,Sub,,0,0,0,,{\fad(60,60)}and his family are still
+Dialogue: 2,0:00:33.81,0:00:34.77,Sub,,0,0,0,,{\fad(60,60)}in {\c&H00D7FF&}danger.{\c&HFFFFFF&}
+Dialogue: 2,0:00:35.02,0:00:36.47,Sub,,0,0,0,,{\fad(60,60)}The {\c&H00D7FF&}visas{\c&HFFFFFF&} they were
+Dialogue: 2,0:00:36.47,0:00:37.56,Sub,,0,0,0,,{\fad(60,60)}promised never came
+Dialogue: 2,0:00:37.56,0:00:38.13,Sub,,0,0,0,,{\fad(60,60)}through.
+Dialogue: 2,0:00:38.37,0:00:40.26,Sub,,0,0,0,,{\fad(60,60)}So {\c&H00D7FF&}John{\c&HFFFFFF&} decides to go {\c&H00D7FF&}back{\c&HFFFFFF&}
+Dialogue: 2,0:00:40.26,0:00:41.52,Sub,,0,0,0,,{\fad(60,60)}to Afghanistan and save
+Dialogue: 2,0:00:41.52,0:00:42.35,Sub,,0,0,0,,{\fad(60,60)}his {\c&H00D7FF&}friend.{\c&HFFFFFF&}
+Dialogue: 2,0:00:42.87,0:00:43.86,Sub,,0,0,0,,{\fad(60,60)}Together with {\c&H00D7FF&}Ahmed's{\c&HFFFFFF&}
+Dialogue: 2,0:00:43.86,0:00:45.50,Sub,,0,0,0,,{\fad(60,60)}family, they try to reach
+Dialogue: 2,0:00:45.50,0:00:46.68,Sub,,0,0,0,,{\fad(60,60)}the {\c&H00D7FF&}extraction{\c&HFFFFFF&} point.
+Dialogue: 2,0:00:47.11,0:00:48.12,Sub,,0,0,0,,{\fad(60,60)}The {\c&H00D7FF&}enemy{\c&HFFFFFF&} {\c&H00D7FF&}closes{\c&HFFFFFF&} in,
+Dialogue: 2,0:00:48.12,0:00:49.90,Sub,,0,0,0,,{\fad(60,60)}and there seems to be no {\c&H00D7FF&}way{\c&HFFFFFF&}
+Dialogue: 2,0:00:49.90,0:00:50.46,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}out.{\c&HFFFFFF&}
+Dialogue: 2,0:00:50.46,0:00:52.43,Sub,,0,0,0,,{\fad(60,60)}Just when hope is almost
+Dialogue: 2,0:00:52.43,0:00:53.80,Sub,,0,0,0,,{\fad(60,60)}gone, {\c&H00D7FF&}help{\c&HFFFFFF&} {\c&H00D7FF&}arrives.{\c&HFFFFFF&}
+Dialogue: 2,0:00:53.80,0:00:55.49,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}John{\c&HFFFFFF&} keeps his {\c&H00D7FF&}promise{\c&HFFFFFF&}
+Dialogue: 2,0:00:55.49,0:00:58.04,Sub,,0,0,0,,{\fad(60,60)}and {\c&H00D7FF&}saves{\c&HFFFFFF&} the man who once
+Dialogue: 2,0:00:58.04,0:00:59.00,Sub,,0,0,0,,{\fad(60,60)}{\c&H00D7FF&}saved{\c&HFFFFFF&} him.
+Dialogue: 3,0:00:58.95,0:01:00.00,Final,,0,0,0,,{\fad(300,0)}A PROMISE\NIS A PROMISE.
