@@ -1,176 +1,192 @@
 1
-00:00:00,000 --> 00:00:00,852
+00:00:00,000 --> 00:00:00,956
 An American soldier
 
 2
-00:00:00,852 --> 00:00:02,272
-is stranded deep in enemy
+00:00:00,956 --> 00:00:02,439
+is trapped behind enemy
 
 3
-00:00:02,272 --> 00:00:02,756
-territory.
+00:00:02,439 --> 00:00:04,410
+lines, his team is gone,
 
 4
-00:00:03,000 --> 00:00:04,167
-His unit is wiped out,
+00:00:04,410 --> 00:00:05,683
+and he is badly injured.
 
 5
-00:00:04,167 --> 00:00:05,533
-and he is badly wounded.
+00:00:06,049 --> 00:00:06,946
+But the person who will
 
 6
-00:00:05,741 --> 00:00:06,837
-But the most incredible
+00:00:06,946 --> 00:00:08,351
+save him is someone
 
 7
-00:00:06,837 --> 00:00:08,207
-part: he will be saved
+00:00:08,351 --> 00:00:09,488
+he barely knows.
 
 8
-00:00:08,207 --> 00:00:10,052
-by a man he barely knows.
+00:00:10,302 --> 00:00:11,551
+John Kinley is serving
 
 9
-00:00:10,556 --> 00:00:11,852
-John Kinley serves
-
-10
-00:00:11,852 --> 00:00:13,148
+00:00:11,551 --> 00:00:12,859
 in Afghanistan alongside
 
+10
+00:00:12,859 --> 00:00:14,146
+Ahmed, a local
+
 11
-00:00:13,148 --> 00:00:14,644
-his interpreter, Ahmed.
+00:00:14,146 --> 00:00:14,776
+interpreter.
 
 12
-00:00:14,833 --> 00:00:15,917
+00:00:15,259 --> 00:00:15,941
 During a dangerous
 
 13
-00:00:15,917 --> 00:00:17,000
-operation, their unit
+00:00:15,941 --> 00:00:17,112
+mission, their team
 
 14
-00:00:17,000 --> 00:00:17,922
+00:00:17,112 --> 00:00:18,132
 is ambushed.
 
 15
-00:00:18,074 --> 00:00:19,746
+00:00:18,283 --> 00:00:19,337
 John and Ahmed are
 
 16
-00:00:19,746 --> 00:00:21,200
+00:00:19,337 --> 00:00:20,415
 the only survivors.
 
 17
-00:00:21,519 --> 00:00:22,654
-Ahmed refuses to leave
+00:00:20,878 --> 00:00:22,420
+Ahmed refuses to abandon
 
 18
-00:00:22,654 --> 00:00:24,074
-him, and for days carries
+00:00:22,420 --> 00:00:22,912
+him.
 
 19
-00:00:24,074 --> 00:00:25,210
-the wounded soldier across
+00:00:23,083 --> 00:00:24,273
+For days, he carries
 
 20
-00:00:25,210 --> 00:00:25,778
-the mountains,
+00:00:24,273 --> 00:00:25,463
+the wounded soldier across
 
 21
-00:00:25,778 --> 00:00:27,439
-until he finally reaches
+00:00:25,463 --> 00:00:26,049
+the mountains
 
 22
-00:00:27,439 --> 00:00:28,885
-an American base.
+00:00:26,049 --> 00:00:27,395
+until they finally reach
 
 23
-00:00:29,241 --> 00:00:30,384
-John returns home,
+00:00:27,395 --> 00:00:28,376
+an American base.
 
 24
-00:00:30,384 --> 00:00:31,907
-but learns that Ahmed
+00:00:28,859 --> 00:00:30,380
+John returns home only
 
 25
-00:00:31,907 --> 00:00:33,812
-and his family are still
+00:00:30,380 --> 00:00:31,493
+to discover that Ahmed
 
 26
-00:00:33,812 --> 00:00:34,774
-in danger.
+00:00:31,493 --> 00:00:32,741
+and his family are still
 
 27
-00:00:35,019 --> 00:00:36,472
-The visas they were
+00:00:32,741 --> 00:00:33,449
+in danger.
 
 28
-00:00:36,472 --> 00:00:37,562
-promised never came
+00:00:33,834 --> 00:00:34,751
+The promised documents
 
 29
-00:00:37,562 --> 00:00:38,126
-through.
+00:00:34,751 --> 00:00:35,473
+that could bring them
 
 30
-00:00:38,370 --> 00:00:40,259
-So John decides to go back
+00:00:35,473 --> 00:00:36,800
+to America have never
 
 31
-00:00:40,259 --> 00:00:41,519
-to Afghanistan and save
+00:00:36,800 --> 00:00:37,488
+arrived.
 
 32
-00:00:41,519 --> 00:00:42,348
-his friend.
+00:00:37,893 --> 00:00:39,283
+So John makes a decision.
 
 33
-00:00:42,870 --> 00:00:43,855
-Together with Ahmed's
+00:00:39,707 --> 00:00:40,937
+He returns to Afghanistan
 
 34
-00:00:43,855 --> 00:00:45,497
-family, they try to reach
+00:00:40,937 --> 00:00:42,595
+to save the man who saved
 
 35
-00:00:45,497 --> 00:00:46,681
-the extraction point.
+00:00:42,595 --> 00:00:43,224
+his life.
 
 36
-00:00:47,111 --> 00:00:48,123
-The enemy closes in,
+00:00:43,746 --> 00:00:44,722
+Together with Ahmed's
 
 37
-00:00:48,123 --> 00:00:49,895
-and there seems to be no way
+00:00:44,722 --> 00:00:45,776
+family, they make their
 
 38
-00:00:49,895 --> 00:00:50,463
-out.
+00:00:45,776 --> 00:00:46,751
+way toward an evacuation
 
 39
-00:00:50,463 --> 00:00:52,431
-Just when hope is almost
+00:00:46,751 --> 00:00:47,517
+point.
 
 40
-00:00:52,431 --> 00:00:53,796
-gone, help arrives.
+00:00:47,922 --> 00:00:48,683
+Their enemies close
 
 41
-00:00:53,796 --> 00:00:55,494
-John keeps his promise
+00:00:48,683 --> 00:00:50,873
+in and escape seems impossible.
 
 42
-00:00:55,494 --> 00:00:58,040
-and saves the man who once
+00:00:51,356 --> 00:00:52,644
+Just when all hope seems
 
 43
-00:00:58,040 --> 00:00:59,000
-saved him.
+00:00:52,644 --> 00:00:54,205
+lost, help finally
 
 44
+00:00:54,205 --> 00:00:54,893
+arrives.
+
+45
+00:00:55,200 --> 00:00:56,488
+John keeps his promise
+
+46
+00:00:56,488 --> 00:00:58,088
+and saves the man who once
+
+47
+00:00:58,088 --> 00:00:58,934
+saved him.
+
+48
 00:00:59,000 --> 00:01:00,000
 A PROMISE IS A PROMISE.
 
