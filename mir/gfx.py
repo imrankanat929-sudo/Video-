@@ -44,7 +44,7 @@ def seg(t, a, b):
 def pop(t, start, dur=0.35):
     """Overshoot scale for things popping in."""
     p = seg(t, start, start + dur)
-    if p <= 0:
+    if p <= 0.01:
         return 0.0
     if p >= 1:
         return 1.0

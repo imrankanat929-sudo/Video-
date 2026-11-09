@@ -292,7 +292,7 @@ def msg_screen(ctx, sx, sy, sw, sh, L, t, n_msgs, typing=False, red2=False, glit
         bw = max(text_w(ctx, ln) for ln in lines) + fs * 1.1
         ctx.save()
         ctx.translate(sx + sw * 0.06, y)
-        ctx.scale(sc, sc)
+        ctx.scale(max(sc, 0.01), max(sc, 0.01))
         fill_rrect(ctx, 0, 0, bw, bh, fs * 0.6, bg, a)
         for i, ln in enumerate(lines):
             text(ctx, ln, fs * 0.55, fs * 1.25 + i * fs * 1.2, fs, fg, FONT_BLACK, align="left", shadow=False, a=a)

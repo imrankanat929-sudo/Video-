@@ -24,7 +24,7 @@ def _post_tables():
     d = np.sqrt(((xx - W / 2) / (W * 0.75)) ** 2 + ((yy - H / 2) / (H * 0.62)) ** 2)
     vig = np.clip(1.0 - 0.55 * np.clip(d - 0.45, 0, 1) ** 1.6, 0, 1)
     rng = np.random.default_rng(7)
-    grains = [rng.normal(0, 7, (H // 2, W // 2)).astype(np.int16) for _ in range(6)]
+    grains = [rng.normal(0, 4, (H // 2, W // 2)).astype(np.int16) for _ in range(6)]
     grains = [g.repeat(2, 0).repeat(2, 1) for g in grains]
     return (vig[..., None] * 256).astype(np.uint16), grains
 
@@ -42,7 +42,7 @@ def frame_bytes(t, lang, chunks, idx):
     surf.flush()
     arr = np.ndarray((H, W, 4), np.uint8, surf.get_data())
     rgb = (arr[..., :3].astype(np.uint16) * _VIG >> 8).astype(np.int16)
-    rgb += _GRAINS[idx % len(_GRAINS)][..., None]
+    rgb += _GRAINS[(idx // 3) % len(_GRAINS)][..., None]
     np.clip(rgb, 0, 255, out=rgb)
     out = np.empty((H, W, 4), np.uint8)
     out[..., :3] = rgb
@@ -55,7 +55,7 @@ def render_chunk(args):
     chunks = ep1.subtitle_chunks(lang)
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "bgra",
            "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium",
-           "-crf", "19", "-pix_fmt", "yuv420p", path]
+           "-crf", "21", "-tune", "grain", "-maxrate", "8M", "-bufsize", "16M", "-pix_fmt", "yuv420p", path]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     for i in range(f0, f1):
         p.stdin.write(frame_bytes(i / FPS, lang, chunks, i).tobytes())
