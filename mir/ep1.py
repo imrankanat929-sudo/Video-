@@ -745,13 +745,18 @@ def draw_bust(ctx, t):
     ctx.restore()
 
 
-def subtitle_chunks(lang):
-    """Split each voice line into short chunks with estimated timing."""
+def subtitle_chunks(lang, spans=None):
+    """Split each voice line into short chunks (estimated or real timing)."""
     out = []
     for i, (st, en, ru) in enumerate(LINES):
         s = en if lang == "en" else ru
-        nxt = LINES[i + 1][0] if i + 1 < len(LINES) else BLACK_T
-        dur = min(est_dur(s, lang), nxt - st - 0.15)
+        if spans:
+            st = spans[i][0]
+            nxt = spans[i + 1][0] if i + 1 < len(spans) else spans[i][1] + 0.6
+            dur = min(spans[i][1] - st + 0.25, nxt - st - 0.05)
+        else:
+            nxt = LINES[i + 1][0] if i + 1 < len(LINES) else BLACK_T
+            dur = min(est_dur(s, lang), nxt - st - 0.15)
         words = s.split()
         chunks, cur = [], []
         for w in words:
@@ -800,7 +805,8 @@ def draw_subtitle(ctx, t, chunks):
             return
 
 
-def draw_overlays(ctx, t, L, chunks):
+def draw_overlays(ctx, t, L, chunks, ts=None):
+    ts = t if ts is None else ts
     # hook title
     if t < 6.6:
         a = 1 - seg(t, 6.0, 6.6)
@@ -821,14 +827,14 @@ def draw_overlays(ctx, t, L, chunks):
             s = "09:17"
             bg = "#1d2a44" if t < 62.5 else "#c8161d"
         else:
-            rem = max(0, 600 - (t - TIMER_T))
+            rem = max(0, 600 - (ts - warp(TIMER_T)))
             s = "%02d:%02d" % (rem // 60, rem % 60)
             bg = "#c8161d"
         sc = pop(t, 0.8) if t < 2 else (pop(t, TIMER_T) if TIMER_T <= t < TIMER_T + 1 else 1.0)
         y = 120 if t > 6.6 else 120
         time_chip(ctx, s, 540, y, 54, bg=bg, s_scale=sc)
     draw_bust(ctx, t)
-    draw_subtitle(ctx, t, chunks)
+    draw_subtitle(ctx, ts, chunks)
 
 
 def shot_at(t):
@@ -838,7 +844,8 @@ def shot_at(t):
     return None
 
 
-def render_frame(ctx, t, lang, chunks):
+def render_frame(ctx, t, lang, chunks, ts=None):
+    """t = plan time (drives the animation), ts = real video time (subtitles)."""
     L = TEXT[lang]
     fill_rect(ctx, 0, 0, W, H, "#000000")
     if t >= BLACK_T:
@@ -854,4 +861,64 @@ def render_frame(ctx, t, lang, chunks):
         pfn(ctx, t, t - pa, L)
         ctx.pop_group_to_source()
         ctx.paint_with_alpha(1 - (t - a) / xf)
-    draw_overlays(ctx, t, L, chunks)
+    draw_overlays(ctx, t, L, chunks, ts)
+
+
+# ---------------- real voice-over sync ----------------
+# VOICE[lang] = list of (start, end) of every line in the recorded audio, and
+# WORDS[lang] = [(start, end, word)]. When set, the plan timeline is warped so
+# each line's scene starts exactly when the line is spoken.
+VOICE = {}
+WORDS = {}
+_ANCH = {}
+
+
+def set_voice(lang, spans, words=None):
+    VOICE[lang] = spans
+    WORDS[lang] = words or []
+    plan = [0.0] + [st for st, _, _ in LINES] + [BLACK_T, DURATION]
+    last_end = spans[-1][1]
+    real = [0.0] + [a for a, _ in spans] + [last_end + 2.6, last_end + 2.6 + (DURATION - BLACK_T)]
+    _ANCH[lang] = (plan, real)
+
+
+_CUR = [None]
+
+
+def use_lang(lang):
+    _CUR[0] = lang if lang in _ANCH else None
+
+
+def _interp(x, xs, ys):
+    if x <= xs[0]:
+        return ys[0] + (x - xs[0])
+    for i in range(1, len(xs)):
+        if x <= xs[i]:
+            k = (x - xs[i - 1]) / (xs[i] - xs[i - 1])
+            return ys[i - 1] + k * (ys[i] - ys[i - 1])
+    return ys[-1] + (x - xs[-1])
+
+
+def warp(t):
+    """plan time -> real time"""
+    if _CUR[0] is None:
+        return t
+    plan, real = _ANCH[_CUR[0]]
+    return _interp(t, plan, real)
+
+
+def unwarp(T):
+    """real time -> plan time"""
+    if _CUR[0] is None:
+        return T
+    plan, real = _ANCH[_CUR[0]]
+    return _interp(T, real, plan)
+
+
+def duration():
+    return warp(DURATION)
+
+
+def voice_chunks(lang):
+    """Subtitle chunks: script text spread over the recorded line spans."""
+    return subtitle_chunks(lang, VOICE[lang])

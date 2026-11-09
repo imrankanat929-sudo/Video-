@@ -36,13 +36,17 @@ def env(n, a, r):
 
 
 class Mix:
-    def __init__(self, dur):
+    def __init__(self, dur, warp=lambda x: x):
+        self.w = warp
         self.n = int(dur * SR)
         self.L = np.zeros(self.n)
         self.R = np.zeros(self.n)
 
     def add(self, t0, sig, gain=1.0, pan=0.0):
-        i = int(t0 * SR)
+        self.add_real(self.w(t0), sig, gain, pan)
+
+    def add_real(self, t0, sig, gain=1.0, pan=0.0):
+        i = int(max(0.0, t0) * SR)
         if i >= self.n:
             return
         sig = sig[: self.n - i]
@@ -137,8 +141,9 @@ def pad(dur, notes, vol=1.0, bright=900):
 
 
 def render(path, ep):
-    dur = ep.DURATION
-    m = Mix(dur)
+    wp = getattr(ep, "warp", lambda x: x)
+    dur = wp(ep.DURATION)
+    m = Mix(dur, wp)
     n = m.n
     t = _t(n)
 
@@ -152,7 +157,7 @@ def render(path, ep):
     m.add(0, wind[::-1].copy(), 0.06, 0.2)
 
     # 2) "frozen time" shimmer during the first scene
-    sh_n = int(22.5 * SR)
+    sh_n = int(wp(22.5) * SR)
     st = _t(sh_n)
     shimmer = sum(np.sin(2 * np.pi * f * st) for f in (1760, 2217, 2637)) / 3
     shimmer *= (0.5 + 0.5 * np.sin(2 * np.pi * 0.25 * st)) * env(sh_n, 1.5, 2.5)
@@ -165,15 +170,15 @@ def render(path, ep):
               (69.1, 91.8, [82.4, 103.8, 123.5]),       # E (dominant, tension)
               (91.8, ep.BLACK_T, [110, 130.8, 155.6])]  # Am(b5) darker
     for a, b, notes in scenes:
-        d = b - a
+        d = wp(b) - wp(a)
         nn = int(d * SR)
         e = np.linspace(0.25, 1.0, nn) ** 2 * env(nn, 1.0, 0.25)
-        m.add(a, pad(d, notes, 1.0, 500 + 900 * (a / dur)) * e, 0.16)
+        m.add(a, pad(d, notes, 1.0, 500 + 900 * (wp(a) / dur)) * e, 0.16)
         # soft pulse in the second half of tense scenes
         if a >= 50:
-            k = a + d * 0.45
-            while k < b - 0.3:
-                m.add(k, heartbeat(), 0.22)
+            k = wp(a) + d * 0.45
+            while k < wp(b) - 0.3:
+                m.add_real(k, heartbeat(), 0.22)
                 k += 0.86 if a < 91 else 0.78
 
     # 4) whooshes on cuts
@@ -181,9 +186,9 @@ def render(path, ep):
         m.add(a - 0.35, whoosh(0.7), 0.10, rng.uniform(-0.4, 0.4))
 
     # 5) wall clock tries to tick but never moves
-    k = 29.5
-    while k < 36.6:
-        m.add(k, tick(0.9), 0.25)
+    k = wp(29.5)
+    while k < wp(36.6):
+        m.add_real(k, tick(0.9), 0.25)
         k += 1.0
 
     # 6) all phones light up + chorus of notifications
@@ -206,17 +211,18 @@ def render(path, ep):
     m.add(ep.TOWER_T, bell(6.0, 130.8), 0.35)
     m.add(ep.TOWER_T, boom(2.0, 45), 0.25)
     k = ep.TOWER_T + 0.5
-    while k < 86.3:
-        m.add(k, tick(1.0), 0.22, 0.1)
+    k = wp(k)
+    while k < wp(86.3):
+        m.add_real(k, tick(1.0), 0.22, 0.1)
         k += 0.5
 
     # 9) the door opens by itself
-    m.add(ep.DOOR_T0, creak(ep.DOOR_T1 - ep.DOOR_T0), 0.18, 0.15)
+    m.add(ep.DOOR_T0, creak(wp(ep.DOOR_T1) - wp(ep.DOOR_T0)), 0.18, 0.15)
     m.add(ep.DOOR_T1 - 0.2, boom(1.5, 60), 0.15)
 
     # 10) final accent and darkness
     m.add(ep.BLACK_T, boom(3.2, 42), 0.6)
-    fade_i = int(ep.BLACK_T * SR)
+    fade_i = int(wp(ep.BLACK_T) * SR)
     fade = np.ones(n)
     fade[fade_i:] = np.exp(-np.arange(n - fade_i) / SR * 6)
     bed_L = m.L * fade
