@@ -1,3 +1,5 @@
 __pycache__/
 out/tmp/
 out/stills/
+out/*.mp4
+out/*.wav
