@@ -3,6 +3,7 @@ import math
 import random
 import cairo
 from core import *
+from lang import tr, LANG
 from person import draw_head, BOY, expr, expr_blend, R as HEAD_R
 
 SW, SH = 700, 1480
@@ -104,7 +105,7 @@ def notif_card(ctx, y, sender, msg, alpha=1.0, scale=1.0, icon=hexc('#38c172')):
     # bubble icon
     ellipse(ctx, 78, 52, 16, 13); setc(ctx, (1, 1, 1), alpha); ctx.fill()
     text(ctx, sender, 128, 56, 28, TXT, alpha, align="left")
-    text(ctx, "сейчас", SW - 60, 56, 24, SUB, alpha, weight="normal", align="right")
+    text(ctx, tr("сейчас"), SW - 60, 56, 24, SUB, alpha, weight="normal", align="right")
     text(ctx, msg, 128, 102, 30, hexc('#d4d8e2'), alpha, weight="normal", align="left")
     ctx.restore()
 
@@ -113,7 +114,7 @@ def lock_notifs(ctx, t, items, count_start=0, count_rate=40, t0=0.0):
     """items: list of (appear_time, sender, msg)"""
     wallpaper(ctx)
     status_bar(ctx)
-    text(ctx, "Вторник, 14 ноября", SW / 2, 210, 30, TXT, 0.85, weight="normal")
+    text(ctx, tr("Вторник, 14 ноября"), SW / 2, 210, 30, TXT, 0.85, weight="normal")
     text(ctx, "7:42", SW / 2, 360, 150, TXT, 0.95, weight="black")
     shown = [it for it in items if t >= it[0]]
     n = len(shown)
@@ -129,7 +130,7 @@ def lock_notifs(ctx, t, items, count_start=0, count_rate=40, t0=0.0):
     if cnt > 0:
         rrect(ctx, SW / 2 - 210, SH - 150, 420, 64, 32)
         setc(ctx, hexc('#2a2e3a'), 0.9); ctx.fill()
-        text(ctx, f"Новых сообщений: {min(cnt, 999)}", SW / 2, SH - 107, 28, TXT)
+        text(ctx, (f"Новых сообщений: {min(cnt, 999)}" if LANG == "ru" else f"{min(cnt, 999)} new messages"), SW / 2, SH - 107, 28, TXT)
 
 
 def avatar(ctx, cx, cy, r, c, letter="?", alpha=1.0):
@@ -209,7 +210,7 @@ def chat(ctx, t, name, msgs, sub="", avatar_c=hexc('#555b6b'), letter="?", size=
     # input bar
     ctx.rectangle(0, SH - 130, SW, 130); setc(ctx, hexc('#161922')); ctx.fill()
     rrect(ctx, 30, SH - 112, SW - 140, 66, 33); setc(ctx, hexc('#262a35')); ctx.fill()
-    text(ctx, "Сообщение", 70, SH - 68, 28, SUB, weight="normal", align="left")
+    text(ctx, tr("Сообщение"), 70, SH - 68, 28, SUB, weight="normal", align="left")
     ctx.arc(SW - 62, SH - 79, 33, 0, 6.3); setc(ctx, hexc('#2f6fe0')); ctx.fill()
 
 
@@ -226,7 +227,7 @@ def call_screen(ctx, t, name, status, letter="M", ended=0.0, timer=None):
     st = status if timer is None else f"{int(timer) // 60:02d}:{int(timer) % 60:02d}"
     text(ctx, st, SW / 2, 740, 32, mix(SUB, hexc('#ff5b5b'), ended), weight="normal")
     # buttons
-    for i, lab in enumerate(("звук", "клавиши", "динамик")):
+    for i, lab in enumerate((tr("звук"), tr("клавиши"), tr("динамик"))):
         cx = SW / 2 + (i - 1) * 200
         ctx.arc(cx, 1060, 62, 0, 6.3); setc(ctx, (1, 1, 1), 0.14); ctx.fill()
         text(ctx, lab, cx, 1160, 24, SUB, weight="normal")
@@ -268,7 +269,7 @@ def mini_family_photo(ctx, x, y, w, h, seed, boy_alpha=1.0, ghost=0.0, bg=None):
 def gallery(ctx, t, vanish_start, step=0.18):
     setc(ctx, UI_BG); ctx.paint()
     status_bar(ctx)
-    text(ctx, "Фото", 40, 190, 58, TXT, weight="black", align="left")
+    text(ctx, tr("Фото"), 40, 190, 58, TXT, weight="black", align="left")
     cols, gap = 3, 6
     cw = (SW - gap * (cols - 1)) / cols
     n = 0
@@ -298,20 +299,20 @@ def gallery(ctx, t, vanish_start, step=0.18):
                 rrect(ctx, x + cw / 2 - 30, y + cw / 2 - 24, 60, 48, 6); setc(ctx, SUB, 0.5 * (k - 0.5) * 2); ctx.stroke()
     allgone = prog(t, vanish_start + 18 * step, vanish_start + 18 * step + 0.4)
     if allgone > 0:
-        text(ctx, "Нет фото", SW / 2, SH - 240, 40, TXT, allgone)
-        text(ctx, "Медиатека пуста", SW / 2, SH - 190, 28, SUB, allgone, weight="normal")
+        text(ctx, tr("Нет фото"), SW / 2, SH - 240, 40, TXT, allgone)
+        text(ctx, tr("Медиатека пуста"), SW / 2, SH - 190, 28, SUB, allgone, weight="normal")
 
 
-CHATS = [("Мама", "Не забудь ключи", '#c0587a', 'М'), ("Папа", "Горжусь тобой, сын.", '#4a7bc0', 'П'),
-         ("Макс", "бро, ты сегодня придёшь?", '#d1784a', 'М'), ("10 «Б»", "Аня: домашка на стр. 42", '#5a9a6a', '10'),
-         ("Бабушка", "Позвони, когда сможешь", '#9a6ac0', 'Б'), ("Лёва", "ахахах", '#c09a4a', 'Л'),
-         ("Тренер", "Тренировка в 18:00", '#4ab0b0', 'Т'), ("София", "спасибо за сегодня!", '#c04a4a', 'С')]
+CHATS = [(tr("Мама"), tr("Не забудь ключи"), '#c0587a', tr("М")), (tr("Папа"), tr("Горжусь тобой, сын."), '#4a7bc0', tr("П")),
+         (tr("Макс"), tr("бро, ты сегодня придёшь?"), '#d1784a', tr("М")), (tr("10 «Б»"), tr("Аня: домашка на стр. 42"), '#5a9a6a', '10'),
+         (tr("Бабушка"), tr("Позвони, когда сможешь"), '#9a6ac0', tr("Б")), (tr("Лёва"), tr("ахахах"), '#c09a4a', tr("Л")),
+         (tr("Тренер"), tr("Тренировка в 18:00"), '#4ab0b0', tr("Т")), (tr("София"), tr("спасибо за сегодня!"), '#c04a4a', tr("С"))]
 
 
 def chats_list(ctx, t, vanish_start, step=0.22):
     setc(ctx, UI_BG); ctx.paint()
     status_bar(ctx)
-    text(ctx, "Чаты", 40, 190, 58, TXT, weight="black", align="left")
+    text(ctx, tr("Чаты"), 40, 190, 58, TXT, weight="black", align="left")
     allgone = prog(t, vanish_start + len(CHATS) * step, vanish_start + len(CHATS) * step + 0.4)
     for i, (name, msg, col, l) in enumerate(CHATS):
         y = 250 + i * 140
@@ -336,19 +337,22 @@ def chats_list(ctx, t, vanish_start, step=0.22):
                     ctx.rectangle(px, y + 20 + rnd.random() * 90, 8, 8)
                     setc(ctx, TXT, (1 - k) * 0.7); ctx.fill()
     if allgone > 0:
-        text(ctx, "Нет переписок", SW / 2, SH / 2, 40, TXT, allgone)
+        text(ctx, tr("Нет переписок"), SW / 2, SH / 2, 40, TXT, allgone)
 
 
-CONTACTS = ["Алексей Б.", "Аня Ким", "Бабушка", "Данил", "Даша", "Лёва", "Макс", "Мама", "Папа", "Саша",
-            "София", "Тренер", "Эмма"]
+CONTACTS = [tr("Алексей Б."), tr("Аня Ким"), tr("Бабушка"), tr("Данил"), tr("Даша"), tr("Лёва"), tr("Макс"), tr("Мама"), tr("Папа"), tr("Саша"),
+            tr("София"), tr("Тренер"), tr("Эмма")]
+if LANG == 'en':
+    CONTACTS = ["Aaron Blake", "Alex", "Anna Kim", "Ben Turner", "Chloe", "Dad", "Daniel Moss", "Emma",
+                "Grandma", "Leo", "Max", "Mom", "Sophie"]
 
 
-def contacts(ctx, t, delete_t, name="Саша"):
+def contacts(ctx, t, delete_t, name=tr("Саша")):
     setc(ctx, UI_BG); ctx.paint()
     status_bar(ctx)
-    text(ctx, "Контакты", 40, 190, 58, TXT, weight="black", align="left")
+    text(ctx, tr("Контакты"), 40, 190, 58, TXT, weight="black", align="left")
     rrect(ctx, 30, 225, SW - 60, 62, 18); setc(ctx, hexc('#1f232c')); ctx.fill()
-    text(ctx, "Поиск", 70, 266, 28, SUB, weight="normal", align="left")
+    text(ctx, tr("Поиск"), 70, 266, 28, SUB, weight="normal", align="left")
     k = prog(t, delete_t, delete_t + 0.9)
     gone_idx = CONTACTS.index(name)
     y = 330
@@ -401,9 +405,9 @@ def face_cam(ctx, t, ex, cam_shake=0.0, bg=hexc('#1a1c22'), lit=1.0, turn=0.0, t
     ctx.restore()
     # UI
     status_bar(ctx)
-    text(ctx, "ФОТО", SW / 2, SH - 190, 26, hexc('#f5c542'))
-    text(ctx, "ВИДЕО", SW / 2 - 150, SH - 190, 26, SUB)
-    text(ctx, "ПОРТРЕТ", SW / 2 + 170, SH - 190, 26, SUB)
+    text(ctx, tr("ФОТО"), SW / 2, SH - 190, 26, hexc('#f5c542'))
+    text(ctx, tr("ВИДЕО"), SW / 2 - 150, SH - 190, 26, SUB)
+    text(ctx, tr("ПОРТРЕТ"), SW / 2 + 170, SH - 190, 26, SUB)
     ctx.arc(SW / 2, SH - 95, 58, 0, 6.3); setc(ctx, (1, 1, 1)); ctx.set_line_width(6); ctx.stroke()
     ctx.arc(SW / 2, SH - 95, 48, 0, 6.3); setc(ctx, (1, 1, 1)); ctx.fill()
     rrect(ctx, 60, SH - 130, 70, 70, 14); setc(ctx, hexc('#333333'), 1); ctx.fill()

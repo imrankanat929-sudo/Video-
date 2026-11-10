@@ -1,5 +1,6 @@
 """English subtitles, chunked and synced to the Russian voice-over timestamps."""
 from core import *
+from lang import LANG
 
 # (start, end, "chunk / chunk / chunk")  — '/' splits on-screen chunks
 SEGMENTS = [
@@ -41,7 +42,49 @@ SEGMENTS = [
     (120.00, 122.80, "Напиши в комментариях, / что бы ты сделал / на моём месте."),
 ]
 
+SEGMENTS_EN_TEXT = [
+    "Imagine you wake up tomorrow / and no one in the world / remembers you.",
+    "You open your eyes, / grab your phone / and see hundreds of messages.",
+    "But instead of the usual greetings, / there's the same question:",
+    "\"Who are you?\"",
+    "At first you think / it's some kind of joke,",
+    "but then you leave your room / and head to the kitchen.",
+    "Your parents are sitting there.",
+    "You say \"Good morning,\"",
+    "but they look at you / like they're seeing / a stranger for the first time.",
+    "One of them even asks:",
+    "\"Young man, / who are you here for?\"",
+    "You try to explain / it's your home, / that you're their son, / but they call security.",
+    "In panic, you run outside. / Maybe at least / your friends remember you.",
+    "You call your best friend. / He answers, / but after your words / he turns serious.",
+    "\"Listen, I don't know you. / Don't call me again.\"",
+    "You open the family album / to find proof.",
+    "But in every photo / where you used to be, / there's now an empty space.",
+    "Your messages are gone. / Your photos have vanished.",
+    "Even your name / is gone from your contacts.",
+    "It's as if you / never existed.",
+    "Suddenly, your phone vibrates. / A message / from an unknown number.",
+    "\"Finally, / they forgot you.\"",
+    "You freeze.",
+    "A few seconds later, / another message arrives.",
+    "\"Now all that's left / is to forget yourself.\"",
+    "You slowly raise your phone / and open the front camera.",
+    "But what you see / makes you step back.",
+    "Your reflection / is smiling.",
+    "Even though / you're not smiling / at all.",
+    "The screen suddenly goes dark.",
+    "And when you turn / the phone back on, / one last message appears.",
+    "\"Tomorrow you'll forget / that you ever existed.\"",
+    "And now the most important question.",
+    "If the whole world forgot you, / how would you prove",
+    "that you were once / part of this world?",
+    "Write in the comments / what you would do / in my place.",
+]
+
 import json, os, re
+if LANG == 'en':
+    _timing = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'assets', 'voice_en_timing.json')))
+    SEGMENTS = [(a, b, txt) for (a, b), txt in zip(_timing, SEGMENTS_EN_TEXT)]
 _WORDS = []
 try:
     _tp = os.path.join(os.path.dirname(__file__), '..', 'assets', 'transcript.json')
@@ -75,7 +118,7 @@ def build_chunks():
         for p in parts:
             d = (e - s) * (len(p) + 6) / total
             st = t
-            if starts:
+            if starts and LANG == 'ru':
                 ws = _word_start(p.split()[0], t - 0.6, t + 0.6)
                 if ws is not None and ws > starts[-1] + 0.3:
                     st = ws
@@ -104,7 +147,7 @@ def draw_subs(ctx, t, y=1440):
             ctx.save()
             ctx.translate(W / 2, y)
             ctx.scale(lerp(0.8, 1.0, k), lerp(0.8, 1.0, k))
-            quote = p.startswith('«') or p.rstrip('.,').endswith('»')
+            quote = p.startswith(('«', '"')) or p.rstrip('.,').endswith(('»', '"'))
             col = hexc('#ffd84a') if quote else (1, 1, 1)
             for i, ln in enumerate(lines):
                 yy = (i - (len(lines) - 1) / 2) * size * 1.12 + size * 0.36
