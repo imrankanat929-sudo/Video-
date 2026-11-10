@@ -1,5 +1,5 @@
 // Frame compositor: shot selection, crossfades, VHS overlays, OSD, subtitles.
-const cv = document.getElementById('c');
+const cv = document.getElementById('c'); cv.width = W; cv.height = H;
 const main = cv.getContext('2d');
 const buf = document.createElement('canvas'); buf.width = W; buf.height = H;
 const bufCtx = buf.getContext('2d');
@@ -8,7 +8,7 @@ initNoise();
 function drawShot(sh, t, ctx) {
   c = ctx; c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
   c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
-  c.save(); sh.draw(t - sh.t0, t); c.restore();
+  CUR = sh; c.save(); sh.draw(t - sh.t0, t); c.restore();
 }
 
 function glitchAt(t) {
@@ -40,16 +40,16 @@ function vhs(t) {
 function osd(t) {
   c = main; c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1;
   const font = { w: 700, f: 'DejaVu Sans Mono', a: 'left', stroke: 'rgba(0,0,0,.6)', sw: 6 };
-  if (t < 3.2 && Math.floor(t * 2) % 2 === 0) txt('▶ PLAY', 90, 90, 48, '#f2f2f2', font);
-  if (t > 89.3) txt('■ STOP', 90, 90, 48, '#f2f2f2', font);
+  if (t < 3.2 && Math.floor(t * 2) % 2 === 0) txt('▶ PLAY', VERT ? 60 : 90, 90, 48, '#f2f2f2', font);
+  if (t > 89.3) txt('■ STOP', VERT ? 60 : 90, 90, 48, '#f2f2f2', font);
   if (t < 84) {
     let cur = OSD[0]; OSD.forEach(o => { if (t >= o[0]) cur = o; });
     const [hh, mm] = cur[2].split(':').map(Number); const sec = Math.floor(t - cur[0]); const m2 = mm + Math.floor(sec / 60);
     const tm = `${String(hh).padStart(2, '0')}:${String(m2).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
-    txt(cur[1], W - 90, 76, 40, '#f2f2f2', Object.assign({}, font, { a: 'right' }));
-    txt(tm, W - 90, 126, 40, '#f2f2f2', Object.assign({}, font, { a: 'right' }));
+    txt(cur[1], W - (VERT ? 60 : 90), 76, 40, '#f2f2f2', Object.assign({}, font, { a: 'right' }));
+    txt(tm, W - (VERT ? 60 : 90), 126, 40, '#f2f2f2', Object.assign({}, font, { a: 'right' }));
   }
-  txt('SP', 90, H - 150, 34, 'rgba(242,242,242,.8)', font);
+  txt('SP', VERT ? 60 : 90, H - 150, 34, 'rgba(242,242,242,.8)', font);
 }
 
 function wrap(s, max = 32) {
@@ -57,6 +57,12 @@ function wrap(s, max = 32) {
   const w = s.split(' '); let best = 1, bd = 1e9;
   for (let i = 1; i < w.length; i++) { const a = w.slice(0, i).join(' ').length, b = w.slice(i).join(' ').length; const d = Math.abs(a - b); if (d < bd) { bd = d; best = i; } }
   return [w.slice(0, best).join(' '), w.slice(best).join(' ')];
+}
+function wrapW(s, maxw, size) {
+  c.font = `800 ${size}px Inter`; const sp = c.measureText(' ').width * 1.9;
+  const out = []; let cur = '';
+  s.split(' ').forEach(w => { const cand = cur ? cur + ' ' + w : w; const wd = cand.split(' ').reduce((a, k) => a + c.measureText(k).width, 0) + sp * (cand.split(' ').length - 1); if (wd > maxw && cur) { out.push(cur); cur = w; } else cur = cand; });
+  if (cur) out.push(cur); return out;
 }
 function richLine(s, y, size) {
   c.font = `800 ${size}px Inter`; c.letterSpacing = '0px';
@@ -69,8 +75,9 @@ function subs(t) {
   const s = SUBS.find(x => t >= x[0] && t < x[1]); if (!s) return;
   const a = cl((t - s[0]) / 0.12) * cl((s[1] - t) / 0.1);
   c.globalAlpha = a;
-  const lines = wrap(s[2]); const size = 54;
-  lines.forEach((l, i) => richLine(l, H - 95 - (lines.length - 1 - i) * 66, size));
+  const lines = VERT ? wrapW(s[2], 900, 64) : wrap(s[2]); const size = VERT ? 64 : 54;
+  const base = VERT ? H * 0.74 : H - 95, lh = VERT ? 80 : 66;
+  lines.forEach((l, i) => richLine(l, base - (lines.length - 1 - i) * lh, size));
   c.globalAlpha = 1;
 }
 

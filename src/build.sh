@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Full build: render frames -> soundtrack -> VHS grade -> final MP4.
-# Usage: ./build.sh <voice.mp3> <work_dir> <out.mp4>
+# Usage: ./build.sh <voice.mp3> <work_dir> <out.mp4>   (VERT=1 for 9:16 1080x1920)
 set -euo pipefail
 cd "$(dirname "$0")"
 VOICE=$1; WORK=$2; OUT=$3
@@ -16,7 +16,8 @@ fi
 python3 audio.py "$VOICE" "$WORK/mix.wav"
 
 printf "file '%s'\n" "$WORK/seg0.mp4" "$WORK/seg1.mp4" "$WORK/seg2.mp4" > "$WORK/list.txt"
-VHS="scale=1280:1080:flags=bilinear,scale=1920:1080:flags=bicubic,\
+if [ "${VERT:-0}" = 1 ]; then SZ1=720:1920; SZ2=1080:1920; else SZ1=1280:1080; SZ2=1920:1080; fi
+VHS="scale=$SZ1:flags=bilinear,scale=$SZ2:flags=bicubic,\
 rgbashift=rh=-4:bh=4:gv=1,\
 eq=saturation=0.8:contrast=0.94:brightness=0.015:gamma=1.04,\
 colorbalance=rs=0.05:gs=0.01:bs=-0.05:rm=0.03:bm=-0.03,\

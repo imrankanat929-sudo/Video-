@@ -160,7 +160,7 @@ shot(0, 3.0, (lt, t) => {
   heroLying(t, lt < 2.2 ? 'closed' : 'sleepy', 0);
   sunbeam(t);
   if (lt < 2.4) alpha(0.9, () => { for (let i = 0; i < 3; i++) { const p = (lt * 2 + i / 3) % 1; c.beginPath(); c.arc(510, 610, 40 + p * 90, -2.4, -0.7); c.strokeStyle = `rgba(255,80,60,${1 - p})`; c.lineWidth = 6; c.stroke(); } });
-});
+}, { v: { x: (p) => lerp(720, 800, p) } });
 // 1b  sits up, realises
 shot(3.0, 6.2, (lt, t) => {
   cam(eio(prog(lt, 0, 3.2)), [960, 470, 1.5], [960, 400, 2.1], 1, t);
@@ -303,7 +303,7 @@ shot(35.6, 38.62, (lt, t) => {
   const shrug = eo(prog(lt, 1.4, 1.8));
   person({ x: 960, y: 1060, s: 0.95, expr: lt < 1.4 ? 'worried' : 'smile', blink: blinkAt(lt), hl: [-100 - shrug * 80, -210 + pat * 20 - shrug * 120], hr: [100 + shrug * 80, -210 + pat * 20 - shrug * 120], look: lt < 1.4 ? [0, 10] : [0, 0], tilt: shrug * 0.08 });
   if (lt > 1.6) alpha(prog(lt, 1.6, 1.9), () => { push(1250, 320, Math.sin(t * 3) * 0.1); rr(-60, -100, 120, 200, 20, '#222'); rr(-50, -86, 100, 160, 8, '#5a6f8a'); line(-80, 110, 80, -110, '#e8322a', 14); line(-80, -110, 80, 110, '#e8322a', 14); pop(); });
-});
+}, { v: { k: 1.0, x: 1000 } });
 
 // 4a  rotary phone dial
 shot(38.62, 41.2, (lt, t) => {
@@ -329,7 +329,7 @@ shot(41.2, 45.0, (lt, t) => {
   circ(860 + 70, 1120 - 455, 23, HERO.skin);
   if (lt > 0.4 && lt < 3.2) { const n = Math.floor((lt - 0.4) / 0.9); for (let i = 0; i <= Math.min(n, 2); i++) alpha(0.9, () => txt('ДУ-У-У', 1280 + i * 40, 260 + i * 70, 40, '#2a2a2a', { w: 900, stroke: '#f6efe0', sw: 10 })); }
   if (lt > 3.0) alpha(prog(lt, 3.0, 3.3), () => { push(1300, 300); ell(0, 0, 150, 110, '#fff'); circ(-150, 110, 24, '#fff'); circ(-185, 145, 12, '#fff'); person({ x: 0, y: 120, s: 0.3, ...OUTFITS[0], hair: 'short', hairCol: '#3a2a1e', expr: 'smile' }); pop(); });
-});
+}, { v: { k: 1.0, x: 1060 } });
 // 4c  shop
 shot(45.0, 48.1, (lt, t) => {
   cam(eio(prog(lt, 0, 3.1)), [960, 520, 1.05], [1050, 520, 1.25], 1, t);
@@ -344,7 +344,7 @@ shot(45.0, 48.1, (lt, t) => {
   const cp = eo(prog(lt, 1.4, 2.0));
   cassette(lerp(1300, 1100, cp), lerp(560, 600, cp), 0.32, t, 0);
   person({ x: 750, y: 1200, s: 1.0, view: 'side', dir: 1, expr: lt > 1.8 ? 'smile' : 'neutral', blink: blinkAt(lt), hr: [lerp(30, 230, eo(prog(lt, 1.7, 2.2))), lerp(-200, -330, eo(prog(lt, 1.7, 2.2)))] });
-});
+}, { v: { k: 1.0, x: 1000 } });
 
 // 5a  walkman, lid opens
 shot(48.1, 50.25, (lt, t) => {
@@ -401,7 +401,7 @@ shot(58.35, 61.6, (lt, t) => {
   extra(2, { x: 1350, y: 990, s: 0.6, hair: 'cap', hairCol: '#c23b3b', expr: 'happy', hr: lt > 1.0 ? wave(1) : undefined });
   extra(4, { x: 1540, y: 985, s: 0.58, hair: 'pony', hairCol: '#c9a25a', top: 'tshirt', c1: '#e05a8a', expr: 'smile', blink: blinkAt(t, 3) });
   person({ x: lerp(250, 900, eo(prog(lt, 0, 2.4))), y: 1000, s: 0.64, view: 'side', dir: 1, walk: lt < 2.3 ? lt * 9 : null, expr: 'smile', hr: lt > 2.4 ? [120, -470 + Math.sin(t * 9) * 20] : undefined });
-});
+}, { v: { k: 1.05, x: (p) => lerp(800, 1250, p) } });
 // 6b  bikes
 shot(61.6, 63.9, (lt, t) => {
   const bx = lerp(200, 1500, prog(lt, 0, 2.3));
@@ -482,8 +482,18 @@ shot(80.4, 84.0, (lt, t) => {
 // 7g  final card
 shot(84.0, 90.5, (lt, t) => {
   c.fillStyle = grad(0, 0, 0, H, [[0, '#0d1030'], [1, '#2a1238']]); c.fillRect(0, 0, W, H);
-  for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + t * 0.08; alpha(0.06, () => poly([960, 470, 960 + Math.cos(a) * 2400, 470 + Math.sin(a) * 2400, 960 + Math.cos(a + 0.12) * 2400, 470 + Math.sin(a + 0.12) * 2400], '#ffd27a')); }
+  if (!VERT) for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + t * 0.08; alpha(0.06, () => poly([960, 470, 960 + Math.cos(a) * 2400, 470 + Math.sin(a) * 2400, 960 + Math.cos(a + 0.12) * 2400, 470 + Math.sin(a + 0.12) * 2400], '#ffd27a')); }
   const a1 = eo(prog(lt, 0.1, 0.6)), a2 = eo(prog(lt, 0.5, 1.0));
+  if (VERT) {
+    for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + t * 0.08; alpha(0.06, () => poly([540, 700, 540 + Math.cos(a) * 2400, 700 + Math.sin(a) * 2400, 540 + Math.cos(a + 0.12) * 2400, 700 + Math.sin(a + 0.12) * 2400], '#ffd27a')); }
+    push(540, 360, 0, lerp(1.3, 1, a1)); alpha(a1, () => { txt('СЛЕДУЮЩАЯ', 0, 0, 104, '#f6efe0', { w: 900, ls: 2 }); txt('ОСТАНОВКА —', 0, 120, 104, '#f6efe0', { w: 900, ls: 2 }); }); pop();
+    push(540, 900, 0, lerp(1.6, 1, a2) * (1 + Math.sin(t * 3) * 0.01));
+    alpha(a2, () => { [['2005', -110, 300], ['ГОД', 170, 220]].forEach(([s2, y, sz]) => { txt(s2, -8, y, sz, 'rgba(255,40,80,.7)', { w: 900 }); txt(s2, 8, y, sz, 'rgba(40,200,255,.7)', { w: 900 }); txt(s2, 0, y, sz, '#ffe14d', { w: 900 }); }); });
+    pop();
+    alpha(prog(lt, 1.2, 1.6), () => { person({ x: 790, y: 1920, s: 0.6, expr: 'surprised', blink: blinkAt(lt), look: [-10, -6] }); person({ x: 290, y: 1920, s: 0.6, expr: 'smile', headphones: true, blink: blinkAt(lt, 2) }); });
+    alpha(prog(lt, 5.4, 6.0), () => rect(0, 0, W, H, '#000'));
+    return;
+  }
   push(960, 330, 0, lerp(1.3, 1, a1)); alpha(a1, () => txt('СЛЕДУЮЩАЯ ОСТАНОВКА —', 0, 0, 92, '#f6efe0', { w: 900, ls: 2 })); pop();
   push(960, 520, 0, lerp(1.6, 1, a2) * (1 + Math.sin(t * 3) * 0.01));
   alpha(a2, () => { txt('2005 ГОД', -8, 0, 230, 'rgba(255,40,80,.7)', { w: 900 }); txt('2005 ГОД', 8, 0, 230, 'rgba(40,200,255,.7)', { w: 900 }); txt('2005 ГОД', 0, 0, 230, '#ffe14d', { w: 900 }); });

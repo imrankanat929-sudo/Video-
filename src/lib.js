@@ -1,5 +1,7 @@
 // Drawing library: helpers, characters, 90s props.
-const W = 1920, H = 1080;
+const VERT = typeof location !== 'undefined' && location.search.includes('v');
+const W = VERT ? 1080 : 1920, H = VERT ? 1920 : 1080;
+let CUR = null; // shot being drawn (for vertical reframing)
 let c; // active 2D context
 
 const cl = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -552,7 +554,12 @@ function sky(top, bot) { c.fillStyle = grad(0, -300, 0, 900, [[0, top], [1, bot]
 
 // ---------- camera ----------
 function cam(p, a, b, shake = 1, t = 0) {
-  const cx = lerp(a[0], b[0], p), cy = lerp(a[1], b[1], p), z = lerp(a[2], b[2], p), rot = lerp(a[3] || 0, b[3] || 0, p);
+  let cx = lerp(a[0], b[0], p), cy = lerp(a[1], b[1], p), z = lerp(a[2], b[2], p), rot = lerp(a[3] || 0, b[3] || 0, p);
+  if (VERT) {
+    const v = (CUR && CUR.v) || {};
+    if (v.x !== undefined) cx = typeof v.x === 'function' ? v.x(p, cx) : v.x;
+    cy += v.dy || 0; z *= v.k || 1.3;
+  }
   const sx = (Math.sin(t * 1.3) + Math.sin(t * 2.7) * 0.5) * 4 * shake, sy = (Math.cos(t * 1.1) + Math.sin(t * 3.1) * 0.5) * 3 * shake;
   c.translate(W / 2, H / 2); c.rotate(rot + Math.sin(t * 0.9) * 0.002 * shake); c.scale(z, z); c.translate(-cx + sx, -cy + sy);
 }

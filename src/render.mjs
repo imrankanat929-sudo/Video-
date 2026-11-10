@@ -14,10 +14,11 @@ const [mode, out, a, b] = process.argv.slice(2);
 const FPS = 30;
 
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+const VERT = process.env.VERT === '1';
+const page = await browser.newPage({ viewport: VERT ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 } });
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));
-await page.goto('file://' + path.join(dir, 'index.html'));
+await page.goto('file://' + path.join(dir, 'index.html') + (VERT ? '?v' : ''));
 await page.waitForFunction(() => window.ready === true);
 await page.evaluate(() => document.fonts.ready);
 
