@@ -1,0 +1,86 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Main,Roboto Condensed,70,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,5,2,2,80,80,390,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:03.83,0:00:05.25,Main,,0,0,0,,{\fad(120,120)}Imagine waking up one
+Dialogue: 0,0:00:05.25,0:00:06.87,Main,,0,0,0,,{\fad(120,120)}morning and realizing...
+Dialogue: 0,0:00:06.87,0:00:08.29,Main,,0,0,0,,{\fad(120,120)}that now you can hear
+Dialogue: 0,0:00:08.29,0:00:09.92,Main,,0,0,0,,{\fad(120,120)}other people's thoughts.
+Dialogue: 0,0:00:10.12,0:00:11.57,Main,,0,0,0,,{\fad(120,120)}You look at your parents,
+Dialogue: 0,0:00:11.57,0:00:13.38,Main,,0,0,0,,{\fad(120,120)}and you hear their inner voice.
+Dialogue: 0,0:00:13.58,0:00:14.74,Main,,0,0,0,,{\fad(120,120)}You step outside,
+Dialogue: 0,0:00:14.74,0:00:17.24,Main,,0,0,0,,{\fad(120,120)}and suddenly you begin to understand
+Dialogue: 0,0:00:17.24,0:00:19.80,Main,,0,0,0,,{\fad(120,120)}what complete strangers are thinking.
+Dialogue: 0,0:00:20.00,0:00:23.08,Main,,0,0,0,,{\fad(120,120)}At first, it feels like a real superpower.
+Dialogue: 0,0:00:23.08,0:00:26.01,Main,,0,0,0,,{\fad(120,120)}But very quickly, you realize one thing.
+Dialogue: 0,0:00:26.21,0:00:27.89,Main,,0,0,0,,{\fad(120,120)}You can't turn it off.
+Dialogue: 0,0:00:28.64,0:00:30.49,Main,,0,0,0,,{\fad(120,120)}Day one. You go to school.
+Dialogue: 0,0:00:30.69,0:00:33.06,Main,,0,0,0,,{\fad(120,120)}The teacher is explaining a new topic,
+Dialogue: 0,0:00:33.06,0:00:34.62,Main,,0,0,0,,{\fad(120,120)}but instead of his words,
+Dialogue: 0,0:00:34.62,0:00:36.12,Main,,0,0,0,,{\fad(120,120)}your head is filled with
+Dialogue: 0,0:00:36.12,0:00:37.75,Main,,0,0,0,,{\fad(120,120)}your classmates' thoughts.
+Dialogue: 0,0:00:37.95,0:00:40.08,Main,,0,0,0,,{\fad(120,120)}One is thinking about the exam.
+Dialogue: 0,0:00:40.08,0:00:41.69,Main,,0,0,0,,{\fad(120,120)}Another dreams of going
+Dialogue: 0,0:00:41.69,0:00:43.44,Main,,0,0,0,,{\fad(120,120)}home as soon as possible.
+Dialogue: 0,0:00:43.64,0:00:45.20,Main,,0,0,0,,{\fad(120,120)}A third keeps replaying
+Dialogue: 0,0:00:45.20,0:00:46.88,Main,,0,0,0,,{\fad(120,120)}yesterday's conversation.
+Dialogue: 0,0:00:47.08,0:00:48.23,Main,,0,0,0,,{\fad(120,120)}You try to focus,
+Dialogue: 0,0:00:48.23,0:00:51.21,Main,,0,0,0,,{\fad(120,120)}but there are hundreds of voices around you.
+Dialogue: 0,0:00:51.41,0:00:52.21,Main,,0,0,0,,{\fad(120,120)}And suddenly,
+Dialogue: 0,0:00:52.21,0:00:54.73,Main,,0,0,0,,{\fad(120,120)}you hear a thought that makes you freeze.
+Dialogue: 0,0:00:55.23,0:00:56.83,Main,,0,0,0,,{\fad(120,120)}"I hope he never finds out
+Dialogue: 0,0:00:56.83,0:00:58.56,Main,,0,0,0,,{\fad(120,120)}what I really think of him."
+Dialogue: 0,0:00:59.31,0:00:59.97,Main,,0,0,0,,{\fad(120,120)}Day three.
+Dialogue: 0,0:00:59.97,0:01:01.52,Main,,0,0,0,,{\fad(120,120)}The whole world already
+Dialogue: 0,0:01:01.52,0:01:03.20,Main,,0,0,0,,{\fad(120,120)}knows about this ability.
+Dialogue: 0,0:01:03.41,0:01:06.09,Main,,0,0,0,,{\fad(120,120)}People start avoiding conversations.
+Dialogue: 0,0:01:06.29,0:01:08.38,Main,,0,0,0,,{\fad(120,120)}Friends fight over thoughts that no
+Dialogue: 0,0:01:08.38,0:01:10.36,Main,,0,0,0,,{\fad(120,120)}one would ever have heard before.
+Dialogue: 0,0:01:10.56,0:01:13.27,Main,,0,0,0,,{\fad(120,120)}Even an ordinary smile no longer means
+Dialogue: 0,0:01:13.27,0:01:16.12,Main,,0,0,0,,{\fad(120,120)}that a person is truly happy to see you.
+Dialogue: 0,0:01:16.32,0:01:18.72,Main,,0,0,0,,{\fad(120,120)}Thousands of videos appear online,
+Dialogue: 0,0:01:18.72,0:01:20.53,Main,,0,0,0,,{\fad(120,120)}from people talking about
+Dialogue: 0,0:01:20.53,0:01:22.26,Main,,0,0,0,,{\fad(120,120)}their unusual abilities.
+Dialogue: 0,0:01:22.46,0:01:24.70,Main,,0,0,0,,{\fad(120,120)}But no one knows why it happened.
+Dialogue: 0,0:01:25.45,0:01:27.24,Main,,0,0,0,,{\fad(120,120)}Day five. The world becomes
+Dialogue: 0,0:01:27.24,0:01:28.64,Main,,0,0,0,,{\fad(120,120)}completely different.
+Dialogue: 0,0:01:28.84,0:01:30.73,Main,,0,0,0,,{\fad(120,120)}Imagine that it's impossible
+Dialogue: 0,0:01:30.73,0:01:32.68,Main,,0,0,0,,{\fad(120,120)}to hide your true intentions.
+Dialogue: 0,0:01:32.88,0:01:35.37,Main,,0,0,0,,{\fad(120,120)}Politicians can't hide their thoughts.
+Dialogue: 0,0:01:35.57,0:01:37.52,Main,,0,0,0,,{\fad(120,120)}Sellers know what you want to buy.
+Dialogue: 0,0:01:37.52,0:01:39.28,Main,,0,0,0,,{\fad(120,120)}And your friends hear even the
+Dialogue: 0,0:01:39.28,0:01:41.32,Main,,0,0,0,,{\fad(120,120)}things you would never dare to say.
+Dialogue: 0,0:01:41.52,0:01:44.44,Main,,0,0,0,,{\fad(120,120)}It seems like now everyone will be honest.
+Dialogue: 0,0:01:44.44,0:01:46.15,Main,,0,0,0,,{\fad(120,120)}But along with the lies,
+Dialogue: 0,0:01:46.15,0:01:47.79,Main,,0,0,0,,{\fad(120,120)}privacy disappears too.
+Dialogue: 0,0:01:47.99,0:01:48.62,Main,,0,0,0,,{\fad(120,120)}After all,
+Dialogue: 0,0:01:48.62,0:01:51.39,Main,,0,0,0,,{\fad(120,120)}not every thought should be known to others.
+Dialogue: 0,0:01:52.14,0:01:52.80,Main,,0,0,0,,{\fad(120,120)}Day seven.
+Dialogue: 0,0:01:52.80,0:01:54.61,Main,,0,0,0,,{\fad(120,120)}You wake up and notice that
+Dialogue: 0,0:01:54.61,0:01:56.55,Main,,0,0,0,,{\fad(120,120)}for the first time in a week,
+Dialogue: 0,0:01:56.55,0:01:58.24,Main,,0,0,0,,{\fad(120,120)}there is complete silence.
+Dialogue: 0,0:01:58.44,0:02:01.21,Main,,0,0,0,,{\fad(120,120)}No more voices. No more thoughts.
+Dialogue: 0,0:02:01.41,0:02:03.06,Main,,0,0,0,,{\fad(120,120)}The ability is gone.
+Dialogue: 0,0:02:03.26,0:02:05.36,Main,,0,0,0,,{\fad(120,120)}But when you meet your best friend,
+Dialogue: 0,0:02:05.36,0:02:06.78,Main,,0,0,0,,{\fad(120,120)}you hear a voice again,
+Dialogue: 0,0:02:06.78,0:02:08.19,Main,,0,0,0,,{\fad(120,120)}right inside your head.
+Dialogue: 0,0:02:08.69,0:02:10.39,Main,,0,0,0,,{\fad(120,120)}"I know you've been hearing my
+Dialogue: 0,0:02:10.39,0:02:12.16,Main,,0,0,0,,{\fad(120,120)}thoughts this whole time, too."
+Dialogue: 0,0:02:12.66,0:02:14.57,Main,,0,0,0,,{\fad(120,120)}You look at him. He smiles.
+Dialogue: 0,0:02:14.77,0:02:16.38,Main,,0,0,0,,{\fad(120,120)}And then you realize...
+Dialogue: 0,0:02:16.38,0:02:18.84,Main,,0,0,0,,{\fad(120,120)}maybe this ability was no accident.
+Dialogue: 0,0:02:19.04,0:02:20.26,Main,,0,0,0,,{\fad(120,120)}Now answer me this.
+Dialogue: 0,0:02:20.26,0:02:21.64,Main,,0,0,0,,{\fad(120,120)}If you could read the
+Dialogue: 0,0:02:21.64,0:02:23.48,Main,,0,0,0,,{\fad(120,120)}thoughts of only one person,
+Dialogue: 0,0:02:23.48,0:02:24.81,Main,,0,0,0,,{\fad(120,120)}who would you choose?
+Dialogue: 0,0:02:25.01,0:02:26.37,Main,,0,0,0,,{\fad(120,120)}And most importantly...
+Dialogue: 0,0:02:26.37,0:02:28.00,Main,,0,0,0,,{\fad(120,120)}would you want to know what
+Dialogue: 0,0:02:28.00,0:02:29.75,Main,,0,0,0,,{\fad(120,120)}that person thinks about you?
