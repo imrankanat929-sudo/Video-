@@ -71,6 +71,22 @@ window.renderFrame = function (t) {
 window.renderCover = function () {
   c = main; c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1;
   const t = 20.0;
+  if (VERT) {
+    c.save(); c.translate(540, 1150); c.scale(1.75, 1.75); c.translate(-880, -560);
+    room05(t, 'day', { screen: scrDesktop, pcOn: true });
+    alpha(0.35, () => { c.globalCompositeOperation = 'lighter'; c.fillStyle = rgrad(820, 500, 20, 600, [[0, 'rgba(120,170,255,.6)'], [1, 'rgba(0,0,0,0)']]); c.fillRect(-600, -400, 3200, 2000); });
+    c.restore();
+    c.fillStyle = grad(0, 0, 0, 900, [[0, 'rgba(13,18,48,.96)'], [0.75, 'rgba(13,18,48,.7)'], [1, 'rgba(13,18,48,0)']]); c.fillRect(0, 0, W, 900);
+    person({ x: 470, y: 1990, s: 1.45, expr: 'shock', look: [16, 4], sweat: true, hl: [-190, -560], hr: [230, -330] });
+    c.fillStyle = rgrad(840, 1420, 10, 330, [[0, 'rgba(255,201,58,.55)'], [1, 'rgba(255,201,58,0)']]); c.fillRect(450, 1000, 800, 900);
+    push(840, 1420, 0.18); phone05(0, 0, 0.95, t, 'ring'); pop();
+    for (let i = 0; i < 3; i++) { c.beginPath(); c.arc(840, 1420, 250 + i * 40, -0.9, -0.3); c.strokeStyle = YEL; c.lineWidth = 8; c.stroke(); }
+    const tl = (s, x, y, size, col) => { txt(s, x + 8, y + 10, size, RED, { w: 900 }); txt(s, x, y, size, col, { w: 900, stroke: '#0d1230', sw: size * 0.13 }); };
+    tl('ТЫ ПРОСНУЛСЯ', 540, 260, 118, '#ffffff');
+    tl('В 2005', 540, 470, 230, YEL);
+    tl('ГОДУ', 540, 690, 230, YEL);
+    return true;
+  }
   c.save(); c.translate(1080, 640); c.scale(1.55, 1.55); c.translate(-900, -560);
   room05(t, 'day', { screen: scrDesktop, pcOn: true });
   alpha(0.35, () => { c.globalCompositeOperation = 'lighter'; c.fillStyle = rgrad(820, 500, 20, 600, [[0, 'rgba(120,170,255,.6)'], [1, 'rgba(0,0,0,0)']]); c.fillRect(-600, -400, 3200, 2000); });
