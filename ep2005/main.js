@@ -36,6 +36,12 @@ function wrap(s, max = 30) {
   return [w.slice(0, best).join(' '), w.slice(best).join(' ')];
 }
 const HL = /2005|2010|2000-Х|WINDOWS|XP|MP3|COUNTER|ИНТЕРНЕТ|КЛУБ/;
+function wrapW(s, maxw, size) {
+  c.font = `900 ${size}px Inter`; const sp = c.measureText(' ').width * 1.6;
+  const out = []; let cur = '';
+  s.split(' ').forEach(w => { const cand = cur ? cur + ' ' + w : w; const ws = cand.split(' '); const wd = ws.reduce((a, k) => a + c.measureText(k).width, 0) + sp * (ws.length - 1); if (wd > maxw && cur) { out.push(cur); cur = w; } else cur = cand; });
+  if (cur) out.push(cur); return out;
+}
 function richLine(s, y, size) {
   c.font = `900 ${size}px Inter`; c.letterSpacing = '0px';
   const toks = s.split(' '); const sp = c.measureText(' ').width * 1.6; const ws = toks.map(k => c.measureText(k).width);
@@ -47,10 +53,11 @@ function subs(t) {
   const s = SUBS.find(x => t >= x[0] && t < x[1]); if (!s) return;
   const p = cl((t - s[0]) / 0.15);
   c.globalAlpha = p * cl((s[1] - t) / 0.1);
-  const lines = wrap(s[2].toUpperCase());
+  const size = VERT ? 62 : 56, lh = VERT ? 78 : 70, base = VERT ? H * 0.76 : H - 100;
+  const lines = VERT ? wrapW(s[2].toUpperCase(), 940, size) : wrap(s[2].toUpperCase());
   const sc = lerp(0.85, 1, eo(p));
-  c.save(); c.translate(W / 2, H - 120); c.scale(sc, sc); c.translate(-W / 2, -(H - 120));
-  lines.forEach((l, i) => richLine(l, H - 100 - (lines.length - 1 - i) * 70, 56));
+  c.save(); c.translate(W / 2, base - 20); c.scale(sc, sc); c.translate(-W / 2, -(base - 20));
+  lines.forEach((l, i) => richLine(l, base - (lines.length - 1 - i) * lh, size));
   c.restore(); c.globalAlpha = 1;
 }
 

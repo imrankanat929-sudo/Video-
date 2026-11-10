@@ -43,6 +43,7 @@ function light(mode, t, a = 1) {
   if (mode === 'night') alpha(0.68 * a, () => rect(-600, -400, 3200, 2000, '#03040f'));
 }
 function popText(s, x, y, size, lt, col = YEL, sub) {
+  if (VERT) size *= 0.7;
   const p = eo(prog(lt, 0, 0.35)); if (p <= 0) return;
   push(x, y, Math.sin(lt * 3) * 0.015, lerp(1.6, 1, p) * (1 + Math.sin(lt * 4) * 0.01));
   alpha(p, () => { txt(s, 6, 8, size, RED, { w: 900 }); txt(s, 0, 0, size, col, { w: 900, stroke: '#0d1230', sw: size * 0.14 }); if (sub) { rr(-c.measureText(sub).width / 2 - 20, -size * 0.95, 0, 0, 0); const tw = sub.length * size * 0.18 + 30; rr(-tw / 2, -size * 0.98, tw, size * 0.32, 8, '#2a6ae8'); txt(sub, 0, -size * 0.82, size * 0.2, '#fff', { w: 900 }); } });
@@ -78,8 +79,8 @@ shot(2.9, 4.3, (lt, t) => {
 shot(4.3, 5.85, (lt, t) => {
   cam(eio(prog(lt, 0, 1.6)), [960, 560, 1.0], [960, 500, 1.2], 1, t);
   rect(-600, -400, 3200, 2000, NAVY); for (let x = -600; x < 2600; x += 160) rect(x, -400, 6, 2000, NAVY2);
-  calendar2(640, 210, 1.9, '2005', null, 0, t);
-  popText('2005 ГОД', 1320, 560, 130, lt - 0.1, YEL);
+  calendar2(VERT ? 960 : 640, 210, 1.9, '2005', null, 0, t);
+  popText('2005 ГОД', VERT ? 960 : 1320, VERT ? 70 : 560, 130, lt - 0.1, YEL);
 }, { fade: 0.15 });
 shot(5.85, 8.7, (lt, t) => {
   cam(eio(prog(lt, 0, 2.9)), [1300, 470, 1.6], [760, 480, 1.6], 2, t);
@@ -151,9 +152,9 @@ shot(25.75, 28.2, (lt, t) => {
 shot(28.2, 30.3, (lt, t) => {
   cam(eo(prog(lt, 0, 2)), [960, 560, 1.0], [960, 540, 1.15], 1, t);
   rect(-600, -400, 3200, 2000, NAVY3);
-  phone05(760, 560, 1.75, t, 'home', -0.08);
-  push(1380, 470); alpha(eo(prog(lt, 0.3, 0.6)), () => { rr(-110, -200, 220, 400, 30, '#111'); rr(-96, -180, 192, 350, 8, '#2a4a8a'); line(-160, -230, 160, 230, RED, 22); line(160, -230, -160, 230, RED, 22); }); pop();
-  popText('НИКАКИХ СЕНСОРОВ', 1380, 770, 54, lt - 0.6, '#fff');
+  phone05(VERT ? 800 : 760, 560, VERT ? 1.3 : 1.75, t, 'home', -0.08);
+  push(VERT ? 1180 : 1380, VERT ? 420 : 470); if (VERT) c.scale(0.7, 0.7); alpha(eo(prog(lt, 0.3, 0.6)), () => { rr(-110, -200, 220, 400, 30, '#111'); rr(-96, -180, 192, 350, 8, '#2a4a8a'); line(-160, -230, 160, 230, RED, 22); line(160, -230, -160, 230, RED, 22); }); pop();
+  popText('НИКАКИХ СЕНСОРОВ', VERT ? 960 : 1380, VERT ? 60 : 770, 54, lt - 0.6, '#fff');
 });
 shot(30.3, 33.85, (lt, t) => {
   cam(eio(prog(lt, 0, 3.5)), [960, 560, 1.1, 0.03], [960, 480, 1.35, -0.02], 1, t);
@@ -167,7 +168,7 @@ shot(33.85, 35.55, (lt, t) => {
   room05(t, 'day');
   person({ x: 900, y: 1040, s: 0.95, expr: 'smile', look: [10, -10], blink: blinkAt(lt), hr: [60, -470], tilt: 0.06 });
   alpha(eo(prog(lt, 0.2, 0.5)), () => { push(1250, 300); ell(0, 0, 150, 110, '#fff'); circ(-150, 110, 22, '#fff'); circ(-185, 145, 11, '#fff'); txt('♫ ?', 0, 0, 90, NAVY, { w: 900, f: 'DejaVu Sans' }); pop(); });
-});
+}, { v: { x: 1050 } });
 shot(35.55, 37.3, (lt, t) => {
   cam(eo(prog(lt, 0, 1.7)), [960, 560, 1.0], [960, 540, 1.15], 1, t);
   rect(-600, -400, 3200, 2000, '#2a6ae8'); for (let i = 0; i < 16; i++) { const a = i / 16 * TAU + t * 0.2; alpha(0.12, () => poly([960, 540, 960 + Math.cos(a) * 2400, 540 + Math.sin(a) * 2400, 960 + Math.cos(a + 0.15) * 2400, 540 + Math.sin(a + 0.15) * 2400], '#fff')); }
@@ -243,7 +244,7 @@ shot(49.35, 52.95, (lt, t) => {
   extra(1, { x: 780, y: 1000, s: 0.68, hair: 'cap', hairCol: '#1d1d24', expr: 'smile', blink: blinkAt(t, 3) });
   const point = eo(prog(lt, 1.6, 2.0));
   person({ x: 300, y: 1000, s: 0.7, view: 'side', dir: 1, expr: 'smile', hr: [lerp(20, 190, point), lerp(-200, -420, point)], blink: blinkAt(lt) });
-});
+}, { v: { x: 560 } });
 shot(52.95, 55.05, (lt, t) => {
   cam(eio(prog(lt, 0, 2.1)), [700, 560, 1.0], [1200, 560, 1.0], 1, t);
   club(t);
@@ -258,7 +259,7 @@ shot(58.55, 60.35, (lt, t) => {
   station(600, 700, 1.0, t, scrShooter, 1);
   station(1320, 700, 1.0, t, (w, h) => scrChat(w, h, lt), -1, { headphones: false, tilt: Math.sin(t * 2) * 0.03, hl: [-60, -260], hr: [lerp(60, 70, Math.floor(t * 4) % 2), -250] });
   if (lt > 0.6) alpha(prog(lt, 0.6, 0.9), () => { push(960, 420); rr(-210, -60, 420, 120, 30, '#fff'); txt('ХА-ХА! :D', 0, 0, 56, RED, { w: 900 }); pop(); });
-});
+}, { v: { k: 0.95, x: 960 } });
 
 // ===== SCENE 6 — ВЕЧЕР =====
 shot(60.35, 62.3, (lt, t) => {
@@ -283,7 +284,7 @@ shot(62.3, 65.85, (lt, t) => {
   if (on) { const fl = 0.7 + 0.3 * Math.sin(t * 13) * Math.sin(t * 7); alpha(fl, () => { c.globalCompositeOperation = 'lighter'; c.fillStyle = rgrad(520, 470, 20, 900, [[0, 'rgba(120,150,255,.5)'], [1, 'rgba(0,0,0,0)']]); c.fillRect(-600, -400, 3200, 2000); }); tv2005(300, 300, 440, lt < 0.8 ? (w, h, tt) => staticFill(0, 0, w, h, tt, 1) : scrTV05, t, on); }
   person({ x: 1250, y: 860, s: 0.72, view: 'side', dir: -1, sit: true, fl: [110, -14], fr: [95, -14], expr: 'smile', blink: blinkAt(lt), hr: lt < 0.4 ? [140, -300] : [60, -150] });
   if (lt < 0.5) { push(1250 - 0.72 * 140, 860 - 0.72 * 230 + 70 * 0.72); rr(-14, -30, 28, 60, 8, '#222'); circ(0, -18, 5, RED); pop(); }
-});
+}, { v: { k: 0.9, x: 770 } });
 shot(65.85, 68.55, (lt, t) => {
   cam(eio(prog(lt, 0, 2.7)), [960, 600, 1.55], [960, 580, 1.85], 1, t);
   rect(-600, -400, 3200, 2000, '#0d1230');
@@ -319,8 +320,8 @@ shot(74.55, 77.35, (lt, t) => {
   cam(eio(prog(lt, 0, 2.8)), [960, 560, 1.0], [960, 500, 1.2], 1, t);
   rect(-600, -400, 3200, 2000, NAVY); for (let x = -600; x < 2600; x += 160) rect(x, -400, 6, 2000, NAVY2);
   const f = eio(prog(lt, 0.2, 0.9));
-  calendar2(640, 210, 1.9, '2005', '2010', f, t);
-  if (lt > 0.9) popText('2010 ГОД', 1320, 560, 120, lt - 0.9, YEL);
+  calendar2(VERT ? 960 : 640, 210, 1.9, '2005', '2010', f, t);
+  if (lt > 0.9) popText('2010 ГОД', VERT ? 960 : 1320, VERT ? 70 : 560, 120, lt - 0.9, YEL);
 }, { fade: 0.2 });
 shot(77.35, 80.2, (lt, t) => {
   cam(eio(prog(lt, 0, 2.9)), [960, 560, 1.0], [960, 540, 1.1], 1, t);
@@ -329,10 +330,21 @@ shot(77.35, 80.2, (lt, t) => {
   alpha(a1, () => laptop10(540, 640 + (1 - a1) * 300, 1.0, t));
   alpha(a2, () => smart10(1400, 560 + (1 - a2) * 300, 1.25, t));
   person({ x: 960, y: 1180, s: 0.9, expr: 'surprised', look: [Math.sin(t * 2.5) * 14, -6], blink: blinkAt(lt), sweat: true });
-});
+}, { v: { k: 0.9 } });
 shot(80.2, 90.5, (lt, t) => {
   c.fillStyle = grad(0, 0, 0, H, [[0, '#0d1230'], [1, '#2a1550']]); c.fillRect(0, 0, W, H);
-  for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + t * 0.08; alpha(0.06, () => poly([960, 470, 960 + Math.cos(a) * 2400, 470 + Math.sin(a) * 2400, 960 + Math.cos(a + 0.12) * 2400, 470 + Math.sin(a + 0.12) * 2400], YEL)); }
+  if (VERT) {
+    for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + t * 0.08; alpha(0.06, () => poly([540, 760, 540 + Math.cos(a) * 2400, 760 + Math.sin(a) * 2400, 540 + Math.cos(a + 0.12) * 2400, 760 + Math.sin(a + 0.12) * 2400], YEL)); }
+    const b1 = eo(prog(lt, 0.1, 0.6)), b2 = eo(prog(lt, 0.5, 1.0));
+    push(540, 360, 0, lerp(1.3, 1, b1)); alpha(b1, () => { txt('СЛЕДУЮЩАЯ', 0, 0, 104, '#fff', { w: 900 }); txt('ОСТАНОВКА —', 0, 120, 104, '#fff', { w: 900 }); }); pop();
+    push(540, 820, 0, lerp(1.6, 1, b2) * (1 + Math.sin(t * 3) * 0.01));
+    alpha(b2, () => { [['2010', -110, 300], ['ГОД', 170, 230]].forEach(([s2, y, sz]) => { txt(s2, 10, y + 12, sz, RED, { w: 900 }); txt(s2, 0, y, sz, YEL, { w: 900, stroke: '#0d1230', sw: sz * 0.11 }); }); });
+    pop();
+    alpha(prog(lt, 1.2, 1.6), () => { laptop10(250, 1880, 0.5, t); smart10(860, 1820, 0.6, t); person({ x: 540, y: 2050, s: 0.7, expr: 'surprised', blink: blinkAt(lt), look: [Math.sin(t * 2) * 12, -6] }); });
+    alpha(prog(lt, 9.6, 10.2), () => rect(0, 0, W, H, '#000'));
+    return;
+  }
+  if (!VERT) for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + t * 0.08; alpha(0.06, () => poly([960, 470, 960 + Math.cos(a) * 2400, 470 + Math.sin(a) * 2400, 960 + Math.cos(a + 0.12) * 2400, 470 + Math.sin(a + 0.12) * 2400], YEL)); }
   const a1 = eo(prog(lt, 0.1, 0.6)), a2 = eo(prog(lt, 0.5, 1.0));
   push(960, 300, 0, lerp(1.3, 1, a1)); alpha(a1, () => txt('СЛЕДУЮЩАЯ ОСТАНОВКА —', 0, 0, 92, '#fff', { w: 900, ls: 2 })); pop();
   push(960, 500, 0, lerp(1.6, 1, a2) * (1 + Math.sin(t * 3) * 0.01));
