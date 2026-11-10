@@ -1,0 +1,4 @@
+__pycache__/
+*.parts/
+output/mix.wav
+output/video_noaudio.mp4
