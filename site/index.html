@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>HIDE & HUSTLE — Leather bags made to last</title>
+  <meta name="description" content="Full-grain leather backpacks, messengers, cardholders and duffels. Affordable luxury for students and young professionals, run by a 14-year-old founder." />
+  <meta name="theme-color" content="#111111" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#111111",
+            cream: "#F5F0E8",
+            cognac: { DEFAULT: "#9A5B2E", dark: "#7A4521" },
+            olive: "#4B5320",
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            serif: ["Fraunces", "Georgia", "serif"],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-cream font-sans text-ink antialiased">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-30 border-b border-ink/10 bg-cream/90 backdrop-blur">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3" aria-label="Main">
+      <a href="#" class="font-serif text-lg font-bold tracking-tight" data-brand>HIDE & HUSTLE</a>
+      <div class="flex items-center gap-4 text-sm font-medium">
+        <a href="#shop" class="hidden sm:inline hover:text-cognac">Shop</a>
+        <a href="#faq" class="hidden sm:inline hover:text-cognac">FAQ</a>
+        <button type="button" data-open-cart
+          class="relative inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-cream transition hover:bg-cognac focus:outline-none focus-visible:ring-2 focus-visible:ring-cognac focus-visible:ring-offset-2">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span>Bag</span>
+          <span data-cart-count class="min-w-[1.25rem] rounded-full bg-cream px-1.5 text-center text-xs font-bold text-ink">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="relative overflow-hidden" aria-labelledby="hero-title">
+      <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-12 pt-8 md:grid-cols-2 md:gap-12 md:pb-20 md:pt-16">
+        <div>
+          <p class="mb-4 inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cognac">
+            <span class="h-1.5 w-1.5 rounded-full bg-cognac" aria-hidden="true"></span>
+            Founding price · first 100 orders
+          </p>
+          <h1 id="hero-title" class="font-serif text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+            Leather that<br class="hidden sm:block" /> grows with you.
+          </h1>
+          <p class="mt-5 max-w-md text-base leading-relaxed text-ink/75 sm:text-lg">
+            Full-grain leather bags for students and young professionals. Designed, checked and packed by hand by a 14-year-old founder who answers every message personally.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="#shop"
+              class="inline-flex items-center justify-center rounded-full bg-ink px-7 py-4 text-base font-semibold text-cream shadow-lg shadow-ink/10 transition hover:bg-cognac focus:outline-none focus-visible:ring-2 focus-visible:ring-cognac focus-visible:ring-offset-2">
+              Shop the collection
+            </a>
+            <a href="#story"
+              class="inline-flex items-center justify-center rounded-full border border-ink/20 px-7 py-4 text-base font-semibold transition hover:border-ink">
+              Why buy from a 14-year-old?
+            </a>
+          </div>
+          <ul class="mt-8 grid grid-cols-3 gap-3 text-center text-xs font-medium text-ink/70 sm:text-sm">
+            <li class="rounded-2xl bg-white/70 px-2 py-3"><strong class="block text-base text-ink sm:text-lg">100%</strong>real leather</li>
+            <li class="rounded-2xl bg-white/70 px-2 py-3"><strong class="block text-base text-ink sm:text-lg">14-day</strong>returns</li>
+            <li class="rounded-2xl bg-white/70 px-2 py-3"><strong class="block text-base text-ink sm:text-lg">Lifetime</strong>stitching</li>
+          </ul>
+        </div>
+        <div>
+          <div class="relative mx-auto aspect-[4/3] w-full max-w-md md:aspect-[4/5] overflow-hidden rounded-[2rem] bg-ink/5 shadow-2xl shadow-cognac/20">
+            <img
+              src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=1000&q=70"
+              alt="Cognac full-grain leather backpack"
+              class="h-full w-full object-cover" fetchpriority="high" />
+            <div class="absolute bottom-4 left-4 right-4 rounded-2xl bg-cream/90 p-4 backdrop-blur">
+              <p class="text-sm font-semibold">“Packed it myself. Signed the note myself.”</p>
+              <p class="mt-1 text-xs text-ink/60">— Founder, age 14</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust bar -->
+    <section class="border-y border-ink/10 bg-ink text-cream" aria-label="Guarantees">
+      <ul class="mx-auto flex max-w-6xl snap-x gap-8 overflow-x-auto px-4 py-4 text-sm font-medium [scrollbar-width:none] sm:justify-center">
+        <li class="shrink-0 snap-start">✔ Full-grain & top-grain only</li>
+        <li class="shrink-0 snap-start">✔ Free shipping over $100</li>
+        <li class="shrink-0 snap-start">✔ Ships within 48 h</li>
+        <li class="shrink-0 snap-start">✔ Handwritten note in every box</li>
+      </ul>
+    </section>
+
+    <!-- Catalog -->
+    <section id="shop" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-14 md:py-20" aria-labelledby="shop-title">
+      <div class="mb-8 flex items-end justify-between gap-4">
+        <div>
+          <h2 id="shop-title" class="font-serif text-3xl font-bold tracking-tight sm:text-4xl">The collection</h2>
+          <p class="mt-2 text-ink/70">Four pieces. Made to be used every day.</p>
+        </div>
+      </div>
+      <!-- Cards are rendered from config.js by order.js. The <template> below is the card design. -->
+      <div data-catalog class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"></div>
+
+      <template id="product-card">
+        <article class="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink/5 transition hover:shadow-xl hover:shadow-ink/5">
+          <div class="relative aspect-square overflow-hidden bg-cream">
+            <img data-image alt="" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+            <span data-badge class="absolute left-3 top-3 rounded-full bg-ink px-3 py-1 text-xs font-semibold text-cream"></span>
+          </div>
+          <div class="flex flex-1 flex-col p-5">
+            <p data-leather class="text-xs font-semibold uppercase tracking-wider text-cognac"></p>
+            <h3 data-name class="mt-1 text-lg font-semibold"></h3>
+            <p data-tagline class="mt-1 text-sm text-ink/65"></p>
+            <div class="mt-4 flex items-baseline gap-2">
+              <span data-price class="text-2xl font-bold"></span>
+              <s data-compare class="text-sm text-ink/40"></s>
+            </div>
+            <fieldset class="mt-4">
+              <legend class="sr-only">Colour</legend>
+              <div data-colors class="flex flex-wrap gap-2"></div>
+            </fieldset>
+            <button type="button" data-add
+              class="mt-5 w-full rounded-full bg-ink py-3.5 text-sm font-semibold text-cream transition hover:bg-cognac active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-cognac focus-visible:ring-offset-2">
+              Add to bag
+            </button>
+          </div>
+        </article>
+      </template>
+    </section>
+
+    <!-- Story / USP -->
+    <section id="story" class="scroll-mt-20 bg-white" aria-labelledby="story-title">
+      <div class="mx-auto max-w-3xl px-4 py-14 md:py-20">
+        <h2 id="story-title" class="font-serif text-3xl font-bold tracking-tight sm:text-4xl">Why buy from a 14-year-old?</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-3">
+          <div>
+            <p class="text-2xl" aria-hidden="true">🔍</p>
+            <h3 class="mt-2 font-semibold">I show everything</h3>
+            <p class="mt-1 text-sm text-ink/70">Suppliers, leather tests, costs, mistakes. Follow along on TikTok — nothing is hidden.</p>
+          </div>
+          <div>
+            <p class="text-2xl" aria-hidden="true">✍️</p>
+            <h3 class="mt-2 font-semibold">I check every bag</h3>
+            <p class="mt-1 text-sm text-ink/70">Each order is inspected, packed and signed by me. If something's wrong, I fix it.</p>
+          </div>
+          <div>
+            <p class="text-2xl" aria-hidden="true">🤝</p>
+            <h3 class="mt-2 font-semibold">Backed by my family</h3>
+            <p class="mt-1 text-sm text-ink/70">Payments and the business account are run with my parents. Your money is safe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="mx-auto max-w-3xl scroll-mt-20 px-4 py-14 md:py-20" aria-labelledby="faq-title">
+      <h2 id="faq-title" class="font-serif text-3xl font-bold tracking-tight">FAQ</h2>
+      <div class="mt-6 divide-y divide-ink/10 rounded-3xl bg-white ring-1 ring-ink/5">
+        <details class="group p-5">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">How do I order?<span class="transition group-open:rotate-45" aria-hidden="true">+</span></summary>
+          <p class="mt-3 text-sm text-ink/70">Add items to your bag, tap Checkout and send the order to me on WhatsApp or Telegram. I reply with a secure payment link and your ship date — usually within 2 hours.</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">Is it really leather?<span class="transition group-open:rotate-45" aria-hidden="true">+</span></summary>
+          <p class="mt-3 text-sm text-ink/70">Yes. Every product lists the exact grade (full-grain or top-grain) and thickness. Never PU, never "vegan leather".</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">Returns & guarantee?<span class="transition group-open:rotate-45" aria-hidden="true">+</span></summary>
+          <p class="mt-3 text-sm text-ink/70">14-day returns on unused items. Lifetime stitching guarantee on cardholders, 1-year guarantee on bags.</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">Can I add my initials?<span class="transition group-open:rotate-45" aria-hidden="true">+</span></summary>
+          <p class="mt-3 text-sm text-ink/70">Yes — hot-stamped initials for +$7 per item. Add them at checkout.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-ink/10 px-4 py-10 text-center text-sm text-ink/60">
+    <p><span data-brand>HIDE & HUSTLE</span> · Leather bags made to last</p>
+    <p class="mt-2"><a data-wa-direct class="underline hover:text-cognac" href="#">WhatsApp</a> · <a data-tg-direct class="underline hover:text-cognac" href="#">Telegram</a></p>
+  </footer>
+
+  <!-- Toast -->
+  <div data-toast role="status" aria-live="polite"
+    class="pointer-events-none fixed inset-x-0 bottom-6 z-50 mx-auto w-fit translate-y-24 rounded-full bg-ink px-5 py-3 text-sm font-medium text-cream opacity-0 shadow-xl transition duration-300"></div>
+
+  <!-- Cart / checkout bottom sheet -->
+  <div data-sheet class="fixed inset-0 z-40 hidden" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div data-close-cart class="absolute inset-0 bg-ink/50 backdrop-blur-sm"></div>
+    <div class="absolute inset-x-0 bottom-0 max-h-[92vh] overflow-y-auto rounded-t-[2rem] bg-cream p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:inset-x-auto sm:right-4 sm:top-4 sm:bottom-4 sm:w-[420px] sm:rounded-[2rem]">
+      <div class="mx-auto mb-4 h-1.5 w-12 rounded-full bg-ink/15 sm:hidden" aria-hidden="true"></div>
+      <div class="flex items-center justify-between">
+        <h2 id="sheet-title" class="font-serif text-2xl font-bold">Your bag</h2>
+        <button type="button" data-close-cart class="rounded-full p-2 hover:bg-ink/5" aria-label="Close">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <ul data-cart-items class="mt-4 space-y-3"></ul>
+      <p data-cart-empty class="mt-6 rounded-2xl bg-white p-6 text-center text-sm text-ink/60">Your bag is empty.</p>
+
+      <form data-checkout class="mt-6 space-y-4" novalidate>
+        <div class="space-y-1 rounded-2xl bg-white p-4 text-sm">
+          <div class="flex justify-between"><span>Subtotal</span><span data-subtotal>$0</span></div>
+          <div class="flex justify-between"><span>Initials</span><span data-initials-total>$0</span></div>
+          <div class="flex justify-between"><span>Shipping</span><span data-shipping>$0</span></div>
+          <p data-free-hint class="text-xs text-cognac"></p>
+          <div class="flex justify-between border-t border-ink/10 pt-2 text-base font-bold"><span>Total</span><span data-total>$0</span></div>
+        </div>
+
+        <label class="block">
+          <span class="text-sm font-medium">Your name *</span>
+          <input name="name" required autocomplete="name" class="mt-1 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base focus:border-cognac focus:outline-none focus:ring-2 focus:ring-cognac/30" />
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">City / country *</span>
+          <input name="city" required autocomplete="address-level2" class="mt-1 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base focus:border-cognac focus:outline-none focus:ring-2 focus:ring-cognac/30" />
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">Delivery</span>
+          <select name="delivery" class="mt-1 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base focus:border-cognac focus:outline-none focus:ring-2 focus:ring-cognac/30">
+            <option>Standard post</option>
+            <option>Courier to door</option>
+            <option>Parcel locker / pickup point</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">Initials to stamp (optional, +$7/item)</span>
+          <input name="initials" maxlength="3" placeholder="e.g. A.K" class="mt-1 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base uppercase focus:border-cognac focus:outline-none focus:ring-2 focus:ring-cognac/30" />
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">Note (optional)</span>
+          <textarea name="note" rows="2" class="mt-1 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base focus:border-cognac focus:outline-none focus:ring-2 focus:ring-cognac/30"></textarea>
+        </label>
+        <p data-form-error class="hidden text-sm font-medium text-red-700"></p>
+
+        <div class="grid gap-3">
+          <button type="submit" data-channel="whatsapp"
+            class="flex items-center justify-center gap-2 rounded-full bg-[#25D366] py-4 text-base font-semibold text-ink transition hover:brightness-95 active:scale-[0.98]">
+            Send order via WhatsApp
+          </button>
+          <button type="submit" data-channel="telegram"
+            class="flex items-center justify-center gap-2 rounded-full bg-[#229ED9] py-4 text-base font-semibold text-white transition hover:brightness-95 active:scale-[0.98]">
+            Send order via Telegram
+          </button>
+          <p class="text-center text-xs text-ink/55">You won't pay yet. I'll reply with a secure payment link and your ship date.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="order.js"></script>
+</body>
+</html>
