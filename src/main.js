@@ -96,3 +96,37 @@ window.renderFrame = function (t) {
   return true;
 };
 window.ready = true;
+
+// Cover / thumbnail image for the video.
+window.renderCover = function () {
+  c = main; c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1;
+  const t = 4.0;
+  c.save();
+  if (VERT) { c.translate(540, 1425); c.scale(2.17, 2.17); c.translate(-960, -560); }
+  else { c.translate(1380, 600); c.scale(1.45, 1.45); c.translate(-960, -520); }
+  room(t, 'morning'); pillow();
+  heroSitBed(t, { expr: 'shock', sweat: true, look: [-6, -4], hl: [-170, -560], hr: [170, -560] });
+  sunbeam(t, 0.8);
+  c.restore();
+  // dark gradient behind the title
+  if (VERT) { c.fillStyle = grad(0, 0, 0, 900, [[0, 'rgba(10,8,30,.92)'], [0.75, 'rgba(10,8,30,.55)'], [1, 'rgba(10,8,30,0)']]); c.fillRect(0, 0, W, 900); }
+  else { c.fillStyle = grad(0, 0, 1100, 0, [[0, 'rgba(10,8,30,.92)'], [0.7, 'rgba(10,8,30,.6)'], [1, 'rgba(10,8,30,0)']]); c.fillRect(0, 0, 1100, H); }
+  const title = (s, x, y, size, col, a = 'center') => { txt(s, x - 7, y, size, 'rgba(255,40,80,.75)', { w: 900, a }); txt(s, x + 7, y, size, 'rgba(40,200,255,.75)', { w: 900, a }); txt(s, x, y, size, col, { w: 900, a, stroke: '#14102a', sw: size * 0.12 }); };
+  if (VERT) {
+    title('ТЫ ПРОСНУЛСЯ', 540, 300, 118, '#f6efe0');
+    title('В 90-Х', 540, 470, 230, '#ffe14d');
+    rr(250, 600, 580, 92, 46, '#e8322a'); txt('1995 ГОД', 540, 648, 60, '#fff', { w: 900, ls: 4 });
+    push(170, 1500, -0.12); calendar(0, 0, 0.7, '1995', undefined, 'ЯНВАРЬ', t); pop();
+  } else {
+    title('ТЫ ПРОСНУЛСЯ', 90, 300, 120, '#f6efe0', 'left');
+    title('В 90-Х', 90, 500, 250, '#ffe14d', 'left');
+    rr(90, 660, 420, 90, 45, '#e8322a'); txt('1995 ГОД', 300, 707, 58, '#fff', { w: 900, ls: 4 });
+    calendar(1780, 260, 0.62, '1995', undefined, 'ЯНВАРЬ', t);
+  }
+  vhs(9.93);
+  c = main; c.setTransform(1, 0, 0, 1, 0, 0);
+  const font = { w: 700, f: 'DejaVu Sans Mono', a: 'left', stroke: 'rgba(0,0,0,.6)', sw: 6 };
+  txt('▶ PLAY', VERT ? 60 : 90, VERT ? 90 : 90, 48, '#f2f2f2', font);
+  txt('14.01.1995', W - (VERT ? 60 : 90), VERT ? 76 : 76, 40, '#f2f2f2', Object.assign({}, font, { a: 'right' }));
+  return true;
+};

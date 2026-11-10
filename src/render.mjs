@@ -22,7 +22,10 @@ await page.goto('file://' + path.join(dir, 'index.html') + (VERT ? '?v' : ''));
 await page.waitForFunction(() => window.ready === true);
 await page.evaluate(() => document.fonts.ready);
 
-if (mode === 'stills') {
+if (mode === 'cover') {
+  await page.evaluate(() => renderCover());
+  await page.screenshot({ path: out });
+} else if (mode === 'stills') {
   fs.mkdirSync(out, { recursive: true });
   for (const t of a.split(',').map(Number)) {
     await page.evaluate(t => renderFrame(t), t);
