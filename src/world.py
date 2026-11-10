@@ -72,7 +72,7 @@ def bedroom(ctx, t, phone_glow=0.0, sleeping=True):
     # poster + shelf
     rrect(ctx, 110, 430, 260, 360, 6); setc(ctx, hexc('#3b2230')); ctx.fill()
     ctx.arc(240, 560, 70, 0, 6.3); setc(ctx, hexc('#6b3346')); ctx.fill()
-    text(ctx, "NO SIGNAL", 240, 730, 34, hexc('#a06070'), weight="black")
+    text(ctx, "НЕТ СИГНАЛА", 240, 730, 34, hexc('#a06070'), weight="black")
     ctx.rectangle(80, 930, 360, 16); setc(ctx, hexc('#2a3045')); ctx.fill()
     for i, c in enumerate(['#3a4a6a', '#5a3a3a', '#2f4f4f', '#4a4060', '#3a5a4a', '#5a5040']):
         ctx.rectangle(100 + i * 44, 930 - 90 - (i % 2) * 20, 36, 90 + (i % 2) * 20)

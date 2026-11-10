@@ -3,43 +3,66 @@ from core import *
 
 # (start, end, "chunk / chunk / chunk")  — '/' splits on-screen chunks
 SEGMENTS = [
-    (0.00, 4.96, "Imagine you wake up tomorrow / and no one in the world / remembers you."),
-    (5.56, 9.82, "You open your eyes, / grab your phone / and see hundreds of messages."),
-    (10.30, 13.44, "But instead of the usual greetings, / there's the same question:"),
-    (14.36, 15.30, "\"Who are you?\""),
-    (15.36, 17.48, "At first you think / it's some kind of joke,"),
-    (17.90, 20.68, "but then you leave your room / and head to the kitchen."),
-    (21.22, 22.50, "Your parents are sitting there."),
-    (23.12, 24.42, "You say \"Good morning\","),
-    (24.42, 29.36, "but they look at you / like they're seeing / a stranger for the first time."),
-    (30.02, 31.80, "One of them even asks:"),
-    (31.90, 33.90, "\"Young man, / who are you here for?\""),
-    (34.26, 39.48, "You try to explain / it's your home, / that you're their son, / but they call security."),
-    (40.04, 44.38, "In panic, you run outside. / Maybe at least / your friends remember you."),
-    (44.80, 49.88, "You call your best friend. / He answers, / but after your words / he turns serious."),
-    (50.60, 53.94, "\"Listen, I don't know you. / Don't call me again.\""),
-    (54.40, 57.46, "You open the family album / to find proof."),
-    (57.78, 61.76, "But in every photo / where you used to be, / there's now an empty space."),
-    (62.50, 65.74, "Your messages are gone. / Your photos have vanished."),
-    (66.46, 69.46, "Even your name / is gone from the contacts."),
-    (70.12, 72.60, "It's as if you / never existed."),
-    (73.06, 76.78, "Suddenly, your phone vibrates. / A message / from an unknown number."),
-    (77.42, 79.90, "\"Finally, / they forgot you.\""),
-    (80.06, 80.90, "You freeze."),
-    (81.36, 84.34, "A few seconds later, / another message arrives."),
-    (84.86, 86.94, "\"Now all that's left / is to forget yourself.\""),
-    (87.62, 90.90, "You slowly raise your phone / and open the front camera."),
-    (91.50, 94.34, "But what you see / makes you step back."),
-    (95.02, 97.40, "Your reflection / is smiling."),
-    (97.68, 100.80, "Even though / you're not smiling / at all."),
-    (101.54, 102.82, "The screen suddenly goes dark."),
-    (102.82, 107.36, "And when you turn / the phone back on, / one last message appears."),
-    (107.94, 110.78, "\"Tomorrow you'll forget / that you ever existed.\""),
-    (111.42, 113.04, "And now the most important question."),
-    (113.96, 117.02, "If the whole world forgot you, / how would you prove"),
-    (117.08, 119.32, "that you were once / part of this world?"),
-    (120.00, 122.80, "Write in the comments / what you would do / in my place."),
+    (0.00, 4.96, "Представь, что завтра / ты проснёшься, / и окажется, что никто в мире / тебя не помнит."),
+    (5.56, 9.82, "Ты открываешь глаза, / берёшь телефон / и видишь сотни сообщений."),
+    (10.30, 13.44, "Но вместо привычных приветствий / там один и тот же вопрос:"),
+    (14.36, 15.30, "«Ты кто?»"),
+    (15.36, 17.48, "Сначала ты думаешь, / что это какая-то шутка,"),
+    (17.90, 20.68, "но потом выходишь из комнаты / и направляешься на кухню."),
+    (21.22, 22.50, "Там сидят твои родители."),
+    (23.12, 24.42, "Ты говоришь им: «Доброе утро»,"),
+    (24.42, 29.36, "но они смотрят на тебя так, / словно впервые видят / незнакомого человека."),
+    (30.02, 31.80, "Один из них даже спрашивает:"),
+    (31.90, 33.90, "«Молодой человек, / вы к кому?»"),
+    (34.26, 39.48, "Ты пытаешься объяснить, / что это твой дом, / что ты их сын, / но они вызывают охрану."),
+    (40.04, 44.38, "В панике ты выбегаешь на улицу. / Может быть, / хотя бы друзья тебя помнят?"),
+    (44.80, 49.88, "Ты звонишь лучшему другу. / Он отвечает, / но после твоих слов / становится серьёзным."),
+    (50.60, 53.94, "«Послушай, я тебя не знаю. / Больше не звони»."),
+    (54.40, 57.46, "Ты открываешь семейный альбом, / чтобы найти доказательства."),
+    (57.78, 61.76, "Но на всех фотографиях, / где раньше был ты, / теперь пустое место."),
+    (62.50, 65.74, "Твои сообщения исчезли. / Твои фотографии пропали."),
+    (66.46, 69.46, "Даже твоего имени / больше нет в списках контактов."),
+    (70.12, 72.60, "Кажется, будто тебя / никогда не существовало."),
+    (73.06, 76.78, "И вдруг телефон вибрирует. / Сообщение / от неизвестного номера."),
+    (77.42, 79.90, "«Наконец-то / они тебя забыли»."),
+    (80.06, 80.90, "Ты замираешь."),
+    (81.36, 84.34, "Через несколько секунд / приходит ещё одно сообщение."),
+    (84.86, 86.94, "«Теперь осталось / забыть себя»."),
+    (87.62, 90.90, "Ты медленно поднимаешь телефон / и открываешь фронтальную камеру."),
+    (91.50, 94.34, "Но то, что ты видишь, / заставляет тебя отступить."),
+    (95.02, 97.40, "Твоё отражение / улыбается."),
+    (97.68, 100.80, "Хотя сам ты / совершенно / не улыбаешься."),
+    (101.54, 102.82, "Экран внезапно гаснет."),
+    (102.82, 107.36, "А когда ты снова / включаешь телефон, / появляется последнее сообщение."),
+    (107.94, 110.78, "«Завтра ты забудешь, / что когда-то существовал»."),
+    (111.42, 113.04, "И теперь самый главный вопрос."),
+    (113.96, 117.02, "Если бы весь мир забыл тебя, / как бы ты доказал,"),
+    (117.08, 119.32, "что когда-то был / частью этого мира?"),
+    (120.00, 122.80, "Напиши в комментариях, / что бы ты сделал / на моём месте."),
 ]
+
+import json, os, re
+_WORDS = []
+try:
+    _tp = os.path.join(os.path.dirname(__file__), '..', 'assets', 'transcript.json')
+    for seg in json.load(open(_tp, encoding='utf-8')):
+        for w in seg['w']:
+            _WORDS.append((w[0], w[1], w[2]))
+except Exception:
+    pass
+
+
+def _norm(w):
+    return re.sub(r'[^а-яё]', '', w.lower().replace('ё', 'е'))
+
+
+def _word_start(word, lo, hi):
+    """time the voice starts saying `word` inside [lo, hi], or None"""
+    n = _norm(word)
+    for a, b, w in _WORDS:
+        if lo - 0.05 <= a <= hi and n and _norm(w)[:4] == n[:4]:
+            return a
+    return None
 
 
 def build_chunks():
@@ -48,10 +71,18 @@ def build_chunks():
         parts = [p.strip() for p in txt.split('/')]
         total = sum(len(p) + 6 for p in parts)
         t = s
+        starts = []
         for p in parts:
             d = (e - s) * (len(p) + 6) / total
-            out.append((t, t + d, p))
+            st = t
+            if starts:
+                ws = _word_start(p.split()[0], t - 0.6, t + 0.6)
+                if ws is not None and ws > starts[-1] + 0.3:
+                    st = ws
+            starts.append(st)
             t += d
+        for k, p in enumerate(parts):
+            out.append((starts[k], starts[k + 1] if k + 1 < len(parts) else e, p))
     # extend each chunk slightly to avoid flicker gaps (but not past the next one)
     res = []
     for i, (a, b, p) in enumerate(out):
@@ -73,7 +104,7 @@ def draw_subs(ctx, t, y=1440):
             ctx.save()
             ctx.translate(W / 2, y)
             ctx.scale(lerp(0.8, 1.0, k), lerp(0.8, 1.0, k))
-            quote = p.startswith('"') or p.endswith('"')
+            quote = p.startswith('«') or p.rstrip('.,').endswith('»')
             col = hexc('#ffd84a') if quote else (1, 1, 1)
             for i, ln in enumerate(lines):
                 yy = (i - (len(lines) - 1) / 2) * size * 1.12 + size * 0.36

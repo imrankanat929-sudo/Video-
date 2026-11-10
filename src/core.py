@@ -176,6 +176,13 @@ def text_width(ctx, s, size, weight="bold", family=FONT):
     return ctx.text_extents(s).x_advance
 
 
+def fit_text(ctx, s, x, y, size, maxw, **kw):
+    w = text_width(ctx, s, size, kw.get('weight', 'bold'))
+    if w > maxw:
+        size = size * maxw / w
+    return text(ctx, s, x, y, size, **kw)
+
+
 def wrap(ctx, s, size, maxw, weight="bold"):
     words = s.split()
     lines, cur = [], ""

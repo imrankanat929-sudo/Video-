@@ -54,12 +54,12 @@ def s_bed_wide(ctx, t):
         fl = 1.0 if (int(t * 24) % 17) else 0.4
         k = back_out(prog(t, 0.15, 0.6))
         ctx.save(); ctx.translate(W / 2, 330); ctx.scale(lerp(0.85, 1, k), lerp(0.85, 1, k))
-        text(ctx, "WHAT IF", 0, -110, 84, (1, 1, 1), a * fl, weight="black", outline=12, oa=0.8)
-        text(ctx, "EVERYONE", 0, 0, 112, (1, 1, 1), a * fl, weight="black", outline=14, oa=0.8)
+        fit_text(ctx, "А ЧТО, ЕСЛИ", 0, -110, 84, 960, c=(1, 1, 1), a=a * fl, weight="black", outline=12, oa=0.8)
+        fit_text(ctx, "ВСЕ ЛЮДИ", 0, 0, 112, 960, c=(1, 1, 1), a=a * fl, weight="black", outline=14, oa=0.8)
         k2 = back_out(prog(t, 0.7, 1.1))
         if k2 > 0:
             ctx.save(); ctx.scale(lerp(1.6, 1, k2), lerp(1.6, 1, k2))
-            text(ctx, "FORGOT YOU?", 0, 125, 120, hexc('#ff3b3b'), a * clamp(k2 * 2) * fl, weight="black", outline=14,
+            fit_text(ctx, "ЗАБЫЛИ ТЕБЯ?", 0, 125, 120, 960, c=hexc('#ff3b3b'), a= a * clamp(k2 * 2) * fl, weight="black", outline=14,
                  oa=0.8)
             ctx.restore()
         ctx.restore()
@@ -126,11 +126,11 @@ def s_sit_phone(ctx, t):
     ctx.save(); ctx.set_operator(cairo.OPERATOR_MULTIPLY); setc(ctx, hexc('#9aa2c0')); ctx.paint(); ctx.restore()
 
 
-NOTIFS = [(10.35, "+44 7700 900461", "Who are you?"), (10.85, "Anna K.", "How did you get my number?"),
-          (11.35, "Unknown", "We don't know you."), (11.8, "Mark", "Who is this??"),
-          (12.2, "+44 7700 900118", "Wrong number. Stop texting me."), (12.55, "Class 10B", "Who added this person?"),
-          (12.85, "Unknown", "Who are you?"), (13.1, "Sophie", "Do I know you?"), (13.35, "+44 7700 900872", "who are you"),
-          (13.55, "Leo", "???"), (13.75, "Unknown", "WHO ARE YOU?"), (13.95, "Grandma", "Who is this, dear?")]
+NOTIFS = [(10.35, "+7 900 000-41-61", "Ты кто?"), (10.85, "Аня К.", "Откуда у тебя мой номер?"),
+          (11.35, "Неизвестный", "Мы тебя не знаем."), (11.8, "Марк", "Кто это??"),
+          (12.2, "+7 900 000-11-18", "Ошиблись номером. Не пиши."), (12.55, "10 «Б»", "Кто добавил этого человека?"),
+          (12.85, "Неизвестный", "Ты кто?"), (13.1, "София", "Мы знакомы?"), (13.35, "+7 900 000-87-20", "кто ты"),
+          (13.55, "Лёва", "???"), (13.75, "Неизвестный", "КТО ТЫ?"), (13.95, "Бабушка", "Кто это, внучек?")]
 
 
 def s_notifs(ctx, t):
@@ -161,7 +161,7 @@ def s_face_who(ctx, t):
         k = back_out(prog(t, 14.36, 14.6))
         ctx.save(); ctx.translate(W / 2, 330); ctx.scale(k, k)
         rrect(ctx, -300, -80, 600, 130, 50); setc(ctx, hexc('#2a2d35'), 0.92 * a); ctx.fill()
-        text(ctx, "Who are you?", 0, 8, 60, (1, 1, 1), a)
+        text(ctx, "Ты кто?", 0, 8, 64, (1, 1, 1), a)
         ctx.restore()
 
 
@@ -235,7 +235,7 @@ def street_grade(ctx, dark):
 
 
 def s_call_dial(ctx, t):
-    pov_phone(ctx, t, 44.6, lambda c: ph.call_screen(c, t, "Max", "calling…" if t < 45.9 else "connected", 'M'),
+    pov_phone(ctx, t, 44.6, lambda c: ph.call_screen(c, t, "Макс", "вызов…" if t < 45.9 else "соединено", 'М'),
               'street', 1.0, 1.06, 1.6)
 
 
@@ -282,7 +282,7 @@ def s_call_close(ctx, t):
 
 
 def s_call_end(ctx, t):
-    pov_phone(ctx, t, 53.7, lambda c: ph.call_screen(c, t, "Max", "Call ended", 'M', ended=1.0), 'street', 1.04, 1.08,
+    pov_phone(ctx, t, 53.7, lambda c: ph.call_screen(c, t, "Макс", "Вызов завершён", 'М', ended=1.0), 'street', 1.04, 1.08,
               0.6)
 
 
@@ -345,16 +345,16 @@ def s_vibrate(ctx, t):
 
 
 def s_unknown_notif(ctx, t):
-    pov_phone(ctx, t, 75.0, lambda c: ph.lock_notifs(c, t, [(75.2, "Unknown number", "1 new message")]),
+    pov_phone(ctx, t, 75.0, lambda c: ph.lock_notifs(c, t, [(75.2, "Неизвестный номер", "1 новое сообщение")]),
               'street_dark', 1.0, 1.1, 2.3, vib=1.0 if t < 75.9 else 0.0)
 
 
 def unknown_chat(c, t, msgs, glitch=0.0):
-    ph.chat(c, t, "Unknown number", msgs, sub="last seen: never", avatar_c=hexc('#3a3a42'), letter="?", size=40)
+    ph.chat(c, t, "Неизвестный номер", msgs, sub="был(а) в сети: никогда", avatar_c=hexc('#3a3a42'), letter="?", size=40)
 
 
-MSG1 = (77.0, "Finally, they forgot you.", 'in', dict(typing_until=77.42, size=50, color=hexc('#3a1f24')))
-MSG2 = (81.4, "Now all that's left is to forget yourself.", 'in',
+MSG1 = (77.0, "Наконец-то они тебя забыли.", 'in', dict(typing_until=77.42, size=50, color=hexc('#3a1f24')))
+MSG2 = (81.4, "Теперь осталось забыть себя.", 'in',
         dict(typing_until=84.86, size=50, color=hexc('#3a1f24')))
 
 
@@ -494,7 +494,7 @@ def s_power_on(ctx, t):
         ctx.restore()
 
 
-MSG3 = (107.5, "Tomorrow you'll forget that you ever existed.", 'in',
+MSG3 = (107.5, "Завтра ты забудешь, что когда-то существовал.", 'in',
         dict(typing_until=107.94, size=50, color=hexc('#5a1820')))
 
 
@@ -510,24 +510,24 @@ def s_final_msg(ctx, t):
 
 def s_end(ctx, t):
     setc(ctx, (0, 0, 0)); ctx.paint()
-    lines = [("COULD YOU LIVE", 111.6, (1, 1, 1)), ("IF EVERYONE", 112.3, (1, 1, 1)),
-             ("FORGOT YOU?", 113.0, hexc('#ff3b3b'))]
+    lines = [("А ТЫ СМОГ БЫ", 111.6, (1, 1, 1)), ("ЖИТЬ, ЕСЛИ БЫ", 112.3, (1, 1, 1)),
+             ("ВСЕ ТЕБЯ ЗАБЫЛИ?", 113.0, hexc('#ff3b3b'))]
     for i, (s, ta, c) in enumerate(lines):
         a = prog(t, ta, ta + 0.5)
         if a <= 0:
             continue
         fl = 1.0 if int(t * 30 + i * 7) % 23 else 0.55
         y = 640 + i * 130 + (1 - ease_out(a)) * 30
-        text(ctx, s, W / 2, y, 112 if i < 2 else 124, c, a * fl, weight="black", spacing=2)
+        fit_text(ctx, s, W / 2, y, 112 if i < 2 else 124, 980, c=c, a=a * fl, weight="black")
     if t > 120.0:
         a = prog(t, 120.0, 120.5)
         k = back_out(prog(t, 120.0, 120.45))
         ctx.save(); ctx.translate(W / 2, 1120); ctx.scale(k, k)
-        rrect(ctx, -330, -70, 660, 130, 65); setc(ctx, (1, 1, 1), a); ctx.fill()
+        rrect(ctx, -440, -70, 880, 130, 65); setc(ctx, (1, 1, 1), a); ctx.fill()
         # speech bubble icon
-        rrect(ctx, -290, -40, 70, 54, 16); setc(ctx, (0, 0, 0), a); ctx.fill()
-        ctx.move_to(-275, 10); ctx.line_to(-285, 34); ctx.line_to(-255, 12); ctx.close_path(); ctx.fill()
-        text(ctx, "COMMENT BELOW", 40, 17, 52, (0, 0, 0), a, weight="black")
+        rrect(ctx, -400, -40, 70, 54, 16); setc(ctx, (0, 0, 0), a); ctx.fill()
+        ctx.move_to(-385, 10); ctx.line_to(-395, 34); ctx.line_to(-365, 12); ctx.close_path(); ctx.fill()
+        fit_text(ctx, "ПИШИ В КОММЕНТАРИЯХ", 40, 17, 52, 700, c=(0, 0, 0), a=a, weight="black")
         ctx.restore()
         # bouncing arrow
         by = 1240 + abs(math.sin(t * 5)) * 30
