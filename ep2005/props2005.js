@@ -153,7 +153,7 @@ function scrDialup(w, h, t) {
   xpDesktop(w, h, t);
   rr(w * 0.18, h * 0.2, w * 0.64, h * 0.5, 4, '#ece9d8'); rect(w * 0.18, h * 0.2, w * 0.64, 16, '#0a58d8'); txt('Подключение к Интернету', w * 0.2, h * 0.2 + 8, 8, '#fff', { w: 700, a: 'left' });
   txt('Набор номера...', w / 2, h * 0.36, 10, '#222', { w: 700 });
-  const dots = Math.floor(t * 3) % 4; txt('●'.repeat(dots) + '○'.repeat(3 - dots), w / 2, h * 0.47, 12, '#0a58d8', { w: 400, f: 'DejaVu Sans' });
+  const dots = ((Math.floor(t * 3) % 4) + 4) % 4; txt('●'.repeat(dots) + '○'.repeat(3 - dots), w / 2, h * 0.47, 12, '#0a58d8', { w: 400, f: 'DejaVu Sans' });
   rr(w * 0.3, h * 0.56, w * 0.4, 10, 2, '#fff', '#888', 1); rect(w * 0.3 + 1, h * 0.56 + 1, (w * 0.4 - 2) * ((t * 0.18) % 1), 8, '#3cba3c');
   // hourglass
   push(w * 0.62, h * 0.82, t * 2); poly([-6, -9, 6, -9, 0, 0], '#fff'); poly([-6, 9, 6, 9, 0, 0], '#fff'); pop();
