@@ -6,6 +6,7 @@ cd "$(dirname "$0")"; W=work; mkdir -p $W
 for n in en ru; do ffmpeg -v error -y -i voice/voice_${n}_original.mp3 -ac 1 -ar 16000 $W/vo_$n.wav; done
 cp $W/vo_en.wav $W/vo_a.wav; cp $W/vo_ru.wav $W/vo_b.wav
 # timeline.json already contains phrase placement + corrected subtitles; prep.py regenerates it from whisper JSON.
+cp timeline.json $W/
 for L in en ru; do
   node render/render.js $L 0 1350 $W/${L}_a.mp4 & node render/render.js $L 1350 2700 $W/${L}_b.mp4 & wait
   printf "file '%s'\nfile '%s'\n" ${L}_a.mp4 ${L}_b.mp4 > $W/list_$L.txt
