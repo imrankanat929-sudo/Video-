@@ -51,7 +51,7 @@ function doctor(ctx, x, y, s) {
   ctx.restore();
 }
 
-function thumb(lang) {
+function thumb(lang, noText) {
   const c = L.canvas(W, H), x = c.getContext('2d');
   L.skyGradient(x, W, H, [[0, '#0e0f13'], [0.45, '#2a1f1c'], [0.7, '#5a2c1e'], [1, '#2a1a16']]);
   // big blood moon / glow behind doctor
@@ -75,6 +75,7 @@ function thumb(lang) {
   const g = x.createLinearGradient(0, 760, 0, H); g.addColorStop(0, 'rgba(10,8,8,0)'); g.addColorStop(1, 'rgba(10,8,8,0.92)'); x.fillStyle = g; x.fillRect(0, 760, W, 320);
   // vignette
   x.drawImage(A.vig, 0, 0); x.drawImage(A.vig, 0, 0);
+  if (noText) return c;
   // title
   const title = lang === 'ru' ? 'ЧЁРНАЯ СМЕРТЬ' : 'THE BLACK DEATH';
   const sub = lang === 'ru' ? 'Эпидемия, изменившая мир' : 'The plague that changed the world';
@@ -91,7 +92,24 @@ function thumb(lang) {
   x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#f6ecd8'; x.fillText(sub, W / 2, 987); x.restore();
   return c;
 }
+function thumbV(lang) {
+  const bg = thumb(lang, true), c = L.canvas(1080, 1920), x = c.getContext('2d'), sc = 1920 / 1080;
+  x.drawImage(bg, 540 - 990 * sc, 0, 1920 * sc, 1920);
+  const g = x.createLinearGradient(0, 1150, 0, 1920); g.addColorStop(0, 'rgba(8,6,6,0)'); g.addColorStop(1, 'rgba(8,6,6,0.9)'); x.fillStyle = g; x.fillRect(0, 1150, 1080, 770);
+  const lines = lang === 'ru' ? ['ЧЁРНАЯ', 'СМЕРТЬ'] : ['THE BLACK', 'DEATH'];
+  x.save(); x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.letterSpacing = '6px';
+  let fs_ = 250; x.font = `${fs_}px OswaldBold`; const mw = Math.max(...lines.map(l => x.measureText(l).width)); if (mw > 1000) fs_ = Math.floor(fs_ * 1000 / mw);
+  x.font = `${fs_}px OswaldBold`; x.shadowColor = 'rgba(0,0,0,0.95)'; x.shadowBlur = 40; x.shadowOffsetY = 8;
+  lines.forEach((l, i) => { const y = 1420 + i * fs_ * 0.98; x.lineWidth = 14; x.strokeStyle = '#0a0808'; x.strokeText(l, 540, y); x.fillStyle = '#f3e8d2'; x.fillText(l, 540, y); });
+  x.restore();
+  const sub = lang === 'ru' ? ['Эпидемия,', 'изменившая мир'] : ['The plague that', 'changed the world'];
+  x.save(); x.font = '64px PTSerifBold'; const sw = Math.max(...sub.map(l => x.measureText(l).width)) + 90, y0 = 1420 + fs_ * 0.98 + 70;
+  x.fillStyle = '#8e1f16'; x.fillRect(540 - sw / 2, y0, sw, 170); x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#f6ecd8';
+  sub.forEach((l, i) => x.fillText(l, 540, y0 + 50 + i * 74)); x.restore();
+  return c;
+}
 const out = process.argv[2];
+for (const lang of ['ru', 'en']) { const c = thumbV(lang); fs.writeFileSync(`${out}/thumbnail_9x16_${lang}.png`, c.encodeSync('png')); fs.writeFileSync(`${out}/thumbnail_9x16_${lang}.jpg`, c.encodeSync('jpeg', 92)); }
 for (const lang of ['ru', 'en']) {
   const c = thumb(lang);
   fs.writeFileSync(`${out}/thumbnail_${lang}.png`, c.encodeSync('png'));

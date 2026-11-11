@@ -2,6 +2,10 @@
 const L = require('./lib');
 const M = require('./map');
 const { W, H, rng, clamp, lerp, prog, ease, easeS, easeOut, mix, rgba, glow, beam, canvas, textC } = L;
+// vertical (9:16) mode: screen-space overlays are queued and drawn by the renderer in 1080x1920 space
+let V = false, OVA = 1; const OV = [];
+const setV = v => { V = v; }, setOVA = a => { OVA = a; };
+function fitFont(c, str, font, size, maxW, sp = 0) { c.font = `${size}px ${font}`; c.letterSpacing = sp + 'px'; const w = c.measureText(str).width; return w > maxW ? Math.floor(size * maxW / w) : size; }
 
 // ---------------- static asset builders ----------------
 function buildStreet(seed, o) {
@@ -101,6 +105,10 @@ function camZoom(ctx, z, cx = W / 2, cy = H / 2) { ctx.translate(cx, cy); ctx.sc
 function label(ctx, t, inAt, outAt, l1, l2) {
   const a = clamp(prog(t, inAt, inAt + 0.8)) * (1 - prog(t, outAt - 0.6, outAt));
   if (a <= 0) return;
+  if (V) { const aa = a * OVA, sl = (1 - easeOut(prog(t, inAt, inAt + 1))) * -20; OV.push(c => { c.save(); c.globalAlpha = aa; const x0 = 64, y0 = 250;
+    c.fillStyle = '#b2453a'; c.fillRect(x0 + sl, y0 - 36, 8, l2 ? 104 : 58);
+    textC(c, l1, x0 + 28 + sl, y0 - 8, `${fitFont(c, l1, 'OswaldBold', 50, 900, 5)}px OswaldBold`, '#ece2cf', 5, 'left');
+    if (l2) textC(c, l2, x0 + 28 + sl, y0 + 44, `${fitFont(c, l2, 'PTSans', 36, 900, 1)}px PTSans`, 'rgba(236,226,207,0.8)', 1, 'left'); c.restore(); }); return; }
   ctx.save(); ctx.globalAlpha = a; const x0 = 90, y0 = 96, slide = (1 - easeOut(prog(t, inAt, inAt + 1))) * -20;
   ctx.fillStyle = '#b2453a'; ctx.fillRect(x0 + slide, y0 - 28, 6, l2 ? 84 : 46);
   textC(ctx, l1, x0 + 22 + slide, y0 - 6, '38px OswaldBold', '#ece2cf', 5, 'left');
@@ -268,16 +276,16 @@ function shotAsia(ctx, t, D, ev, lang) {
   if (t > mapAt) {
     const a = prog(t, mapAt, mapAt + 0.8);
     const tmp = ctx; tmp.save(); tmp.globalAlpha = a;
-    const u = easeS(prog(t, mapAt, mapAt + 3.6));
+    const u = easeS(prog(t, mapAt, mapAt + (V ? 2.6 : 3.6)));
     const [ix, iy] = M.P('issyk');
-    const cam = { x: lerp(M.MW * 0.52, ix - 330, u), y: lerp(M.MH * 0.5, iy + 40, u), z: lerp(0.62, 1.45, u) };
+    const cam = V ? { x: lerp(M.MW * 0.52, ix + 60, u), y: lerp(M.MH * 0.5, iy - 40, u), z: lerp(0.5, 1.15, u) } : { x: lerp(M.MW * 0.52, ix - 330, u), y: lerp(M.MH * 0.5, iy + 40, u), z: lerp(0.62, 1.45, u) };
     M.drawMap(tmp, cam, t, {
       lang, overlay: (c, iz) => {
         const pu = prog(t, mapAt + 1.2, mapAt + 2.4), pulse = 0.5 + 0.5 * Math.sin(t * 3);
         // Central Asia highlight
         c.save(); c.globalAlpha = pu; const [cx, cy] = M.proj(68, 42);
         const g = c.createRadialGradient(cx, cy, 0, cx, cy, 520); g.addColorStop(0, `rgba(150,30,20,${0.35 + pulse * 0.1})`); g.addColorStop(1, 'rgba(150,30,20,0)'); c.fillStyle = g; c.save(); c.clip(M.landPath); c.fillRect(cx - 600, cy - 600, 1200, 1200); c.restore();
-        textC(c, lang === 'ru' ? 'ЦЕНТРАЛЬНАЯ АЗИЯ' : 'CENTRAL ASIA', cx - 40, cy - 190, `${40 * iz * 1.3}px PTSerifBold`, 'rgba(60,14,8,0.85)', 10 * iz);
+        textC(c, lang === 'ru' ? 'ЦЕНТРАЛЬНАЯ АЗИЯ' : 'CENTRAL ASIA', V ? ix + 60 : cx - 40, V ? iy - 200 : cy - 190, `${(V ? 30 : 40) * iz * 1.3}px PTSerifBold`, 'rgba(60,14,8,0.85)', (V ? 4 : 10) * iz);
         c.restore();
         const pr = prog(t, mapAt + 1.8, mapAt + 2.6);
         for (let k = 0; k < 3; k++) { const ph = ((t * 0.6 + k / 3) % 1); c.strokeStyle = `rgba(150,25,15,${(1 - ph) * 0.8 * pr})`; c.lineWidth = 3 * iz; c.beginPath(); c.arc(ix, iy, 10 + ph * 90, 0, 7); c.stroke(); }
@@ -332,7 +340,7 @@ function shotTrade(ctx, t, D, ev, lang) {
     const v = prog(t, inf, D + 0.6);                     // infection progress
     const k = easeS(prog(t, mapAt, D + 0.6));
     const [ix, iy] = M.P('issyk'), [mx, my] = M.P('messina');
-    const cam = { x: lerp(ix - 350, mx + 500, k), y: lerp(iy - 60, my - 120, k), z: lerp(0.95, 0.72, k) };
+    const cam = V ? { x: lerp(ix - 150, mx + 150, k), y: lerp(iy - 60, my - 120, k), z: lerp(0.62, 0.5, k) } : { x: lerp(ix - 350, mx + 500, k), y: lerp(iy - 60, my - 120, k), z: lerp(0.95, 0.72, k) };
     M.drawMap(ctx, cam, t, {
       lang, overlay: (c, iz) => {
         for (const rt of M.ROUTES) {
@@ -443,7 +451,7 @@ function shotEurope(ctx, t, D, ev, lang) {
 function shotToll(ctx, t, D, ev, lang) {
   const u = prog(t, 0.2, D - 0.6);
   const [mx, my] = M.proj(14, 48);
-  const cam = { x: mx + lerp(-80, 120, u), y: my, z: lerp(1.0, 0.86, easeS(u)) };
+  const cam = V ? { x: mx + lerp(-40, 60, u), y: my + 60, z: lerp(0.66, 0.58, easeS(u)) } : { x: mx + lerp(-80, 120, u), y: my, z: lerp(1.0, 0.86, easeS(u)) };
   const seeds = [['messina', 0, 340], ['const', 0, 300], ['alex', 0.05, 260], ['marseille', 0.12, 380], ['genoa', 0.12, 320], ['venice', 0.15, 340], ['florence', 0.2, 260], ['paris', 0.38, 440], ['london', 0.55, 380], ['bergen', 0.75, 340], ['novgorod', 0.88, 420], ['baghdad', 0.2, 300]];
   M.drawMap(ctx, cam, t, {
     lang, overlay: (c, iz) => {
@@ -460,6 +468,13 @@ function shotToll(ctx, t, D, ev, lang) {
   });
   // year counter
   const yr = 1347 + Math.min(4, Math.floor(u * 4.6));
+  if (V) { const sa = prog(t, 1.6, 2.4), sb = prog(t, 3.0, 3.8), aa = OVA; OV.push(c => { c.save(); c.globalAlpha = aa;
+      textC(c, String(yr), 70, 250, '110px OswaldBold', '#ece2cf', 4, 'left'); c.fillStyle = '#b2453a'; c.fillRect(70, 320, 240 * Math.min(1, u * 1.15), 6);
+      if (sa > 0) { c.globalAlpha = aa * sa; c.fillStyle = 'rgba(14,10,8,0.75)'; L.rrect(c, 60, 380, 960, 270, 14); c.fill(); c.fillStyle = '#b2453a'; c.fillRect(60, 380, 9, 270);
+        textC(c, lang === 'ru' ? '25–50 МЛН' : '25–50 MILLION', 105, 460, '92px OswaldBold', '#ece2cf', 2, 'left');
+        textC(c, lang === 'ru' ? 'погибших только в Европе' : 'dead in Europe alone', 108, 540, '38px PTSans', 'rgba(236,226,207,0.85)', 1, 'left');
+        c.globalAlpha = aa * sa * sb; textC(c, lang === 'ru' ? '≈ 30–50 % населения' : '≈ 30–50% of the population', 108, 600, '40px PTSansBold', '#d06a5a', 1, 'left'); }
+      c.restore(); }); return; }
   ctx.save(); textC(ctx, String(yr), 110, 120, '84px OswaldBold', '#ece2cf', 4, 'left'); ctx.restore();
   ctx.fillStyle = '#b2453a'; ctx.fillRect(110, 175, 180 * Math.min(1, u * 1.15), 5);
   // stats
@@ -513,7 +528,16 @@ function shotFinal(ctx, t, D, ev, lang) {
     ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.globalAlpha = 0.6; beam(ctx, 760, 800, -200, -200, 500, -200, '#e0a060', 0.12); ctx.restore();
     // title
     const ta = prog(t, titleAt, titleAt + 1.2) * (1 - prog(t, endAt - 0.6, endAt));
-    if (ta > 0) {
+    if (ta > 0 && V) {
+      ctx.save(); ctx.fillStyle = `rgba(8,6,5,${0.45 * ta})`; ctx.fillRect(-2000, 0, W + 4000, H); ctx.restore();
+      const sp = lerp(40, 14, easeOut(prog(t, titleAt, titleAt + 2.5))), lw = 520 * easeOut(prog(t, titleAt + 0.4, titleAt + 1.8)), aa = ta * OVA;
+      const lines = lang === 'ru' ? ['ЧЁРНАЯ', 'СМЕРТЬ'] : ['THE BLACK', 'DEATH'];
+      OV.push(c => { c.save(); c.globalAlpha = aa; textC(c, '1346 — 1353', 540, 615, '44px OswaldMed', 'rgba(236,226,207,0.85)', 12);
+        c.shadowColor = 'rgba(0,0,0,0.85)'; c.shadowBlur = 30;
+        const fs = Math.min(...lines.map(l => fitFont(c, l, 'OswaldBold', 240, 960, sp)));
+        lines.forEach((l, i) => textC(c, l, 540, 860 + i * fs * 1.02, `${fs}px OswaldBold`, '#efe4cf', sp));
+        c.shadowBlur = 0; c.fillStyle = '#b2453a'; c.fillRect(540 - lw / 2, 860 + fs * 1.02 + fs * 0.62, lw, 7); c.restore(); });
+    } else if (ta > 0) {
       ctx.save(); ctx.fillStyle = `rgba(8,6,5,${0.45 * ta})`; ctx.fillRect(0, 0, W, H);
       ctx.globalAlpha = ta; const sp = lerp(48, 22, easeOut(prog(t, titleAt, titleAt + 2.5)));
       textC(ctx, lang === 'ru' ? '1346 — 1353' : '1346 — 1353', W / 2, 360, '36px OswaldMed', 'rgba(236,226,207,0.8)', 12);
@@ -527,7 +551,8 @@ function shotFinal(ctx, t, D, ev, lang) {
   const bk = prog(t, endAt - 0.6, endAt);
   if (bk > 0) { ctx.fillStyle = `rgba(0,0,0,${bk})`; ctx.fillRect(0, 0, W, H); }
   const fa = prog(t, endAt + 0.4, endAt + 1.4) * (1 - prog(t, D - 1.1, D - 0.2));
-  if (fa > 0) { ctx.save(); ctx.globalAlpha = fa; textC(ctx, lang === 'ru' ? 'Эпидемия, изменившая историю человечества' : 'The pandemic that changed human history', W / 2, H / 2, '58px PTSerifBold', '#e6dac4', 2); ctx.restore(); }
+  if (fa > 0 && V) { const aa = fa * OVA; OV.push(c => { c.save(); c.globalAlpha = aa; const ls = lang === 'ru' ? ['Эпидемия, изменившая', 'историю человечества'] : ['The pandemic that changed', 'human history']; ls.forEach((l, i) => textC(c, l, 540, 920 + i * 84, '64px PTSerifBold', '#e6dac4', 1)); c.restore(); }); }
+  else if (fa > 0) { ctx.save(); ctx.globalAlpha = fa; textC(ctx, lang === 'ru' ? 'Эпидемия, изменившая историю человечества' : 'The pandemic that changed human history', W / 2, H / 2, '58px PTSerifBold', '#e6dac4', 2); ctx.restore(); }
 }
 
-module.exports = { build, shots: { city: shotCity, window: shotWindow, asia: shotAsia, trade: shotTrade, europe: shotEurope, toll: shotToll, after: shotAfter, final: shotFinal }, get A() { return A; }, stall, crow, cart, candle, seaBand, label };
+module.exports = { setV, setOVA, OV, build, shots: { city: shotCity, window: shotWindow, asia: shotAsia, trade: shotTrade, europe: shotEurope, toll: shotToll, after: shotAfter, final: shotFinal }, get A() { return A; }, stall, crow, cart, candle, seaBand, label };
