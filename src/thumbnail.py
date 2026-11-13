@@ -15,7 +15,12 @@ from world import Cam, render_world, trail_x  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def main():
+TXT = {'ru': ('ТЫ ВСТРЕТИЛ', 'МЕДВЕДЯ!', 'ЧТО ДЕЛАТЬ?', 'bear_thumbnail.png'),
+       'en': ('YOU MET', 'A BEAR!', 'WHAT TO DO?', 'bear_thumbnail_en.png')}
+
+
+def main(lang='ru'):
+    l1, l2, l3, fname = TXT[lang]
     world.init_sprites()
     T = 50.0
     pal = world.pal_mix('tense', 'dark', 0.55)
@@ -39,15 +44,16 @@ def main():
     c.drawRect(skia.Rect.MakeLTRB(0, 0, W, H), paint(shader=rad_grad((W * 0.45, H * 0.55), H * 0.75, [(0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0.7)], [0, 0.45, 1])))
     c.drawRect(skia.Rect.MakeLTRB(0, 0, W, 760), paint(shader=lin_grad((0, 0), (0, 760), [(0, 0, 0, 0.8), (0, 0, 0, 0)])))
     # title
-    text(c, 'ТЫ ВСТРЕТИЛ', W / 2, 300, 132, '#ffffff', FONT_BLACK, outline=18, outline_color='#0b0b0b')
-    text(c, 'МЕДВЕДЯ!', W / 2, 460, 176, '#ffd400', FONT_BLACK, outline=20, outline_color='#0b0b0b')
+    text(c, l1, W / 2, 300, 132, '#ffffff', FONT_BLACK, outline=18, outline_color='#0b0b0b')
+    text(c, l2, W / 2, 460, 176, '#ffd400', FONT_BLACK, outline=20, outline_color='#0b0b0b')
     # red pill
     r = skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(W / 2 - 230, 520, 460, 72), 36, 36)
     c.drawRRect(r, paint('#e53935'))
-    text(c, 'ЧТО ДЕЛАТЬ?', W / 2, 572, 46, '#ffffff', FONT_BLACK)
+    text(c, l3, W / 2, 572, 46, '#ffffff', FONT_BLACK)
     os.makedirs(os.path.join(ROOT, 'output'), exist_ok=True)
-    surf.makeImageSnapshot().save(os.path.join(ROOT, 'output', 'bear_thumbnail.png'))
+    surf.makeImageSnapshot().save(os.path.join(ROOT, 'output', fname))
 
 
 if __name__ == '__main__':
-    main()
+    for lg in (sys.argv[1:] or ['ru', 'en']):
+        main(lg)
