@@ -1,0 +1,15 @@
+DIDAO S01E01 - score cue sheet (procedural, original)
+   0.00s  CLIP_01_JOURNEY
+  11.50s  CLIP_02_CAMPSITE
+  21.50s  CLIP_03_FIRST_SIGHTING
+  31.50s  CLIP_04_DISAPPEARANCE
+  41.00s  CLIP_05_MIDNIGHT
+  50.00s  CLIP_06_FOOTSTEPS
+  61.00s  CLIP_07_SECOND_SIGHTING
+  71.00s  CLIP_08_DISAPPEARANCE_AGAIN
+  81.00s  CLIP_09_MISSING_PATH
+  91.00s  CLIP_10_WARNING
+ 100.00s  CLIP_11_PHONE_MESSAGE
+ 109.00s  CLIP_12_FINAL_REVEAL
+Key: D minor drone; tension curve rises through clips 3-8, drops for morning (9), climbs to the final hit at CLIP_12 9.0s,
+then hard silence 9.0-10.2s before the black end card.
