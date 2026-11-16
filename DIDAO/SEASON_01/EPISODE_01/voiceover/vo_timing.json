@@ -1,366 +1,659 @@
 {
  "VO_RU_01_1.wav": {
-  "text": "Нас было трое. Одни выходные. Лес, в котором никто не ночевал уже много лет.",
-  "start": 1.6,
-  "dur": 6.5,
-  "end": 8.1,
-  "clip_dur": 10.0
+  "clip": "CLIP_01A_JOURNEY",
+  "text": "Представь, что ты отправился с друзьями в лес на выходные.",
+  "src": [
+   0.0,
+   3.8
+  ],
+  "dur": 3.8
  },
  "VO_RU_01_2.wav": {
-  "text": "Мы думали, это просто страшилка.",
-  "start": 7.4,
-  "dur": 2.35,
-  "end": 9.75,
-  "clip_dur": 10.0
+  "clip": "CLIP_01A_JOURNEY",
+  "text": "Вы хотели просто отдохнуть, разбить палатку и провести ночь под звёздами.",
+  "src": [
+   3.94,
+   9.03
+  ],
+  "dur": 5.09
  },
- "VO_RU_02_1.wav": {
-  "text": "К ночи у нас были палатка, костёр…",
-  "start": 1.0,
-  "dur": 2.19,
-  "end": 3.19,
-  "clip_dur": 10.0
- },
- "VO_RU_02_2.wav": {
-  "text": "и странное чувство, что мы здесь не одни.",
-  "start": 5.2,
-  "dur": 2.59,
-  "end": 7.79,
-  "clip_dur": 10.0
+ "VO_RU_01_3.wav": {
+  "clip": "CLIP_01A_JOURNEY",
+  "text": "Но вы даже не представляли, что этот лес станет вашей ловушкой.",
+  "src": [
+   9.1,
+   13.96
+  ],
+  "dur": 4.86
  },
  "VO_RU_03_1.wav": {
-  "text": "Лена заметила его первой.",
-  "start": 0.8,
-  "dur": 2.07,
-  "end": 2.87,
-  "clip_dur": 10.0
- },
- "VO_RU_03_2.wav": {
-  "text": "Что-то высокое. Между деревьями.",
-  "start": 4.2,
-  "dur": 3.37,
-  "end": 7.57,
-  "clip_dur": 10.0
- },
- "VO_RU_03_3.wav": {
-  "text": "Оно не двигалось.",
-  "start": 7.6,
-  "dur": 1.61,
-  "end": 9.21,
-  "clip_dur": 10.0
+  "clip": "CLIP_02_CAMPSITE",
+  "text": "В первый вечер всё было спокойно.",
+  "src": [
+   14.06,
+   16.49
+  ],
+  "dur": 2.43
  },
  "VO_RU_04_1.wav": {
-  "text": "Я направил на него фонарик…",
-  "start": 0.6,
-  "dur": 2.03,
-  "end": 2.63,
-  "clip_dur": 9.0
+  "clip": "CLIP_03A_CAMPFIRE",
+  "text": "Вы сидели у костра, разговаривали и шутили.",
+  "src": [
+   16.56,
+   19.56
+  ],
+  "dur": 3.0
  },
  "VO_RU_04_2.wav": {
-  "text": "и он исчез.",
-  "start": 4.0,
-  "dur": 1.36,
-  "end": 5.36,
-  "clip_dur": 9.0
- },
- "VO_RU_04_3.wav": {
-  "text": "Макс сказал, что это просто дерево.",
-  "start": 6.4,
-  "dur": 2.33,
-  "end": 8.73,
-  "clip_dur": 9.0
+  "clip": "CLIP_03A_CAMPFIRE",
+  "text": "Но вдруг твой друг заметил между деревьями высокую фигуру.",
+  "src": [
+   19.68,
+   24.24
+  ],
+  "dur": 4.56
  },
  "VO_RU_05_1.wav": {
-  "text": "Около полуночи я проснулся.",
-  "start": 1.2,
-  "dur": 2.25,
-  "end": 3.45,
-  "clip_dur": 9.0
- },
- "VO_RU_05_2.wav": {
-  "text": "Костёр погас. Лес стал абсолютно тихим.",
-  "start": 4.4,
-  "dur": 3.83,
-  "end": 8.23,
-  "clip_dur": 9.0
+  "clip": "CLIP_03B_FIRST_SIGHTING",
+  "text": "Она была настолько высокой, что почти доставала до верхушек деревьев.",
+  "src": [
+   24.3,
+   28.72
+  ],
+  "dur": 4.42
  },
  "VO_RU_06_1.wav": {
-  "text": "Шаги. Три медленных шага. Прямо у палатки.",
-  "start": 6.0,
-  "dur": 4.89,
-  "end": 10.89,
-  "clip_dur": 10.0
+  "clip": "CLIP_04_DISAPPEARANCE",
+  "text": "Ты направил на неё фонарик.",
+  "src": [
+   28.7,
+   30.79
+  ],
+  "dur": 2.09
+ },
+ "VO_RU_06_2.wav": {
+  "clip": "CLIP_04_DISAPPEARANCE",
+  "text": "Но в следующую секунду фигура исчезла.",
+  "src": [
+   30.79,
+   34.16
+  ],
+  "dur": 3.37
+ },
+ "VO_RU_06_3.wav": {
+  "clip": "CLIP_04_DISAPPEARANCE",
+  "text": "Вы решили, что это просто игра теней, и легли спать.",
+  "src": [
+   34.28,
+   38.12
+  ],
+  "dur": 3.84
  },
  "VO_RU_07_1.wav": {
-  "text": "Он стоял ближе. Намного ближе.",
-  "start": 2.6,
-  "dur": 3.32,
-  "end": 5.92,
-  "clip_dur": 10.0
- },
- "VO_RU_07_2.wav": {
-  "text": "И смотрел прямо на нашу палатку.",
-  "start": 6.4,
-  "dur": 2.31,
-  "end": 8.71,
-  "clip_dur": 10.0
+  "clip": "CLIP_05_MIDNIGHT",
+  "text": "Около полуночи ты проснулся от странного звука.",
+  "src": [
+   38.26,
+   41.68
+  ],
+  "dur": 3.42
  },
  "VO_RU_08_1.wav": {
-  "text": "Я разбудил остальных.",
-  "start": 0.5,
-  "dur": 1.8,
-  "end": 2.3,
-  "clip_dur": 10.0
+  "clip": "CLIP_06_FOOTSTEPS",
+  "text": "Три медленных шага…",
+  "src": [
+   41.8,
+   43.5
+  ],
+  "dur": 1.7
  },
  "VO_RU_08_2.wav": {
-  "text": "Но когда мы выбежали наружу… там никого не было.",
-  "start": 4.6,
-  "dur": 2.83,
-  "end": 7.43,
-  "clip_dur": 10.0
+  "clip": "CLIP_06_FOOTSTEPS",
+  "text": "…потом тишина.",
+  "src": [
+   43.5,
+   44.7
+  ],
+  "dur": 1.2
+ },
+ "VO_RU_08_3.wav": {
+  "clip": "CLIP_06_FOOTSTEPS",
+  "text": "И ещё три шага.",
+  "src": [
+   44.9,
+   46.51
+  ],
+  "dur": 1.61
  },
  "VO_RU_09_1.wav": {
-  "text": "Утром мы собрались уходить.",
-  "start": 1.0,
-  "dur": 1.83,
-  "end": 2.83,
-  "clip_dur": 10.0
+  "clip": "CLIP_07A_SECOND_SIGHTING",
+  "text": "Ты осторожно открыл палатку и выглянул наружу.",
+  "src": [
+   46.58,
+   49.91
+  ],
+  "dur": 3.33
  },
  "VO_RU_09_2.wav": {
-  "text": "Но тропинки, по которой мы пришли… больше не было.",
-  "start": 4.4,
-  "dur": 2.83,
-  "end": 7.23,
-  "clip_dur": 10.0
+  "clip": "CLIP_07A_SECOND_SIGHTING",
+  "text": "На поляне стоял тот самый силуэт.",
+  "src": [
+   49.98,
+   52.74
+  ],
+  "dur": 2.76
+ },
+ "VO_RU_09_3.wav": {
+  "clip": "CLIP_07A_SECOND_SIGHTING",
+  "text": "Высокий, худой, в чёрном костюме.",
+  "src": [
+   52.88,
+   55.62
+  ],
+  "dur": 2.74
  },
  "VO_RU_10_1.wav": {
-  "text": "А потом я увидел надпись на дереве.",
-  "start": 0.6,
-  "dur": 2.33,
-  "end": 2.93,
-  "clip_dur": 9.0
+  "clip": "CLIP_07B_NO_FACE",
+  "text": "Но самое странное было в другом.",
+  "src": [
+   55.72,
+   57.94
+  ],
+  "dur": 2.22
  },
  "VO_RU_10_2.wav": {
-  "text": "«Не оглядывайтесь».",
-  "start": 5.6,
-  "dur": 1.54,
-  "end": 7.14,
-  "clip_dur": 9.0
+  "clip": "CLIP_07B_NO_FACE",
+  "text": "У него не было лица.",
+  "src": [
+   57.92,
+   59.96
+  ],
+  "dur": 2.04
  },
  "VO_RU_11_1.wav": {
-  "text": "Связи не было уже много часов.",
-  "start": 0.5,
-  "dur": 2.46,
-  "end": 2.96,
-  "clip_dur": 9.0
+  "clip": "CLIP_08_DISAPPEARANCE_AGAIN",
+  "text": "Ты резко разбудил друзей.",
+  "src": [
+   60.1,
+   61.9
+  ],
+  "dur": 1.8
  },
  "VO_RU_11_2.wav": {
-  "text": "Но телефон завибрировал.",
-  "start": 3.4,
-  "dur": 1.85,
-  "end": 5.25,
-  "clip_dur": 9.0
- },
- "VO_RU_11_3.wav": {
-  "text": "Одно новое сообщение.",
-  "start": 6.6,
-  "dur": 1.94,
-  "end": 8.54,
-  "clip_dur": 9.0
+  "clip": "CLIP_08_DISAPPEARANCE_AGAIN",
+  "text": "Но когда они выбежали из палатки, фигура уже исчезла.",
+  "src": [
+   61.94,
+   65.84
+  ],
+  "dur": 3.9
  },
  "VO_RU_12_1.wav": {
-  "text": "Я поднял голову…",
-  "start": 0.6,
-  "dur": 1.6,
-  "end": 2.2,
-  "clip_dur": 12.0
+  "clip": "CLIP_09_MISSING_PATH",
+  "text": "Утром вы решили немедленно покинуть лес.",
+  "src": [
+   65.98,
+   68.64
+  ],
+  "dur": 2.66
  },
  "VO_RU_12_2.wav": {
-  "text": "Он был не один.",
-  "start": 5.0,
-  "dur": 1.42,
-  "end": 6.42,
-  "clip_dur": 12.0
+  "clip": "CLIP_09_MISSING_PATH",
+  "text": "Однако дорога, по которой вы пришли, исчезла.",
+  "src": [
+   68.86,
+   72.14
+  ],
+  "dur": 3.28
+ },
+ "VO_RU_12_3.wav": {
+  "clip": "CLIP_09_MISSING_PATH",
+  "text": "Вместо неё повсюду были одинаковые деревья.",
+  "src": [
+   72.24,
+   75.7
+  ],
+  "dur": 3.46
+ },
+ "VO_RU_13_1.wav": {
+  "clip": "CLIP_10_WARNING",
+  "text": "Вы начали искать выход, пока не заметили странную надпись на одном из стволов.",
+  "src": [
+   75.8,
+   80.8
+  ],
+  "dur": 5.0
+ },
+ "VO_RU_13_2.wav": {
+  "clip": "CLIP_10_WARNING",
+  "text": "«Не смотрите назад».",
+  "src": [
+   80.96,
+   82.74
+  ],
+  "dur": 1.78
+ },
+ "VO_RU_14_1.wav": {
+  "clip": "CLIP_11_PHONE_MESSAGE",
+  "text": "В этот момент твой телефон завибрировал.",
+  "src": [
+   83.1,
+   85.6
+  ],
+  "dur": 2.5
+ },
+ "VO_RU_14_2.wav": {
+  "clip": "CLIP_11_PHONE_MESSAGE",
+  "text": "Пришло сообщение от неизвестного отправителя.",
+  "src": [
+   85.58,
+   88.86
+  ],
+  "dur": 3.28
+ },
+ "VO_RU_14_3.wav": {
+  "clip": "CLIP_11_PHONE_MESSAGE",
+  "text": "«Я вижу вас всех».",
+  "src": [
+   89.14,
+   91.62
+  ],
+  "dur": 2.48
+ },
+ "VO_RU_15_1.wav": {
+  "clip": "CLIP_12_FINAL_REVEAL",
+  "text": "Ты поднял голову и посмотрел между деревьями.",
+  "src": [
+   91.6,
+   94.82
+  ],
+  "dur": 3.22
+ },
+ "VO_RU_15_2.wav": {
+  "clip": "CLIP_12_FINAL_REVEAL",
+  "text": "Там стояли три одинаковые фигуры.",
+  "src": [
+   94.9,
+   97.44
+  ],
+  "dur": 2.54
+ },
+ "VO_RU_15_3.wav": {
+  "clip": "CLIP_12_FINAL_REVEAL",
+  "text": "Но одна из них была гораздо ближе остальных.",
+  "src": [
+   97.58,
+   100.84
+  ],
+  "dur": 3.26
+ },
+ "VO_RU_16_1.wav": {
+  "clip": "CLIP_13_THE_FOURTH",
+  "text": "И вдруг твой друг прошептал:",
+  "src": [
+   101.08,
+   103.04
+  ],
+  "dur": 1.96
+ },
+ "VO_RU_16_2.wav": {
+  "clip": "CLIP_13_THE_FOURTH",
+  "text": "«Подожди… а где четвёртый?»",
+  "src": [
+   103.18,
+   105.46
+  ],
+  "dur": 2.28
+ },
+ "VO_RU_17_1.wav": {
+  "clip": "CLIP_14_EMPTY_TENT",
+  "text": "Ты обернулся, но палатка уже была пуста.",
+  "src": [
+   105.6,
+   108.9
+  ],
+  "dur": 3.3
+ },
+ "VO_RU_17_2.wav": {
+  "clip": "CLIP_14_EMPTY_TENT",
+  "text": "Как думаешь, куда исчез твой друг?",
+  "src": [
+   109.08,
+   111.62
+  ],
+  "dur": 2.54
  },
  "VO_EN_01_1.wav": {
-  "text": "There were three of us. One weekend. A forest nobody had camped in for years.",
-  "start": 1.6,
-  "dur": 5.0,
-  "end": 6.6,
-  "clip_dur": 10.0
+  "clip": "CLIP_01A_JOURNEY",
+  "text": "Imagine going camping in the forest with your friends for the weekend.",
+  "src": [
+   0.0,
+   3.52
+  ],
+  "dur": 3.52
  },
  "VO_EN_01_2.wav": {
-  "text": "We thought it was just a story.",
-  "start": 7.4,
-  "dur": 1.3,
-  "end": 8.7,
-  "clip_dur": 10.0
+  "clip": "CLIP_01A_JOURNEY",
+  "text": "You just want to relax, set up a tent, and spend a night under the stars.",
+  "src": [
+   3.76,
+   8.2
+  ],
+  "dur": 4.44
  },
- "VO_EN_02_1.wav": {
-  "text": "By nightfall, we had a tent, a fire…",
-  "start": 1.0,
-  "dur": 2.0,
-  "end": 3.0,
-  "clip_dur": 10.0
- },
- "VO_EN_02_2.wav": {
-  "text": "and the strange feeling that we weren't alone.",
-  "start": 5.2,
-  "dur": 1.94,
-  "end": 7.14,
-  "clip_dur": 10.0
+ "VO_EN_01_3.wav": {
+  "clip": "CLIP_01A_JOURNEY",
+  "text": "But you have no idea that this forest is about to become your trap.",
+  "src": [
+   8.48,
+   13.16
+  ],
+  "dur": 4.68
  },
  "VO_EN_03_1.wav": {
-  "text": "Lena saw it first.",
-  "start": 0.8,
-  "dur": 1.3,
-  "end": 2.1,
-  "clip_dur": 10.0
- },
- "VO_EN_03_2.wav": {
-  "text": "Something tall. Between the trees.",
-  "start": 4.2,
-  "dur": 2.42,
-  "end": 6.62,
-  "clip_dur": 10.0
- },
- "VO_EN_03_3.wav": {
-  "text": "It wasn't moving.",
-  "start": 7.6,
-  "dur": 0.94,
-  "end": 8.54,
-  "clip_dur": 10.0
+  "clip": "CLIP_02_CAMPSITE",
+  "text": "On the first evening, everything seems normal.",
+  "src": [
+   13.34,
+   16.18
+  ],
+  "dur": 2.84
  },
  "VO_EN_04_1.wav": {
-  "text": "I pointed my flashlight at it…",
-  "start": 0.6,
-  "dur": 1.79,
-  "end": 2.39,
-  "clip_dur": 9.0
+  "clip": "CLIP_03A_CAMPFIRE",
+  "text": "You're sitting around the campfire, talking and laughing.",
+  "src": [
+   16.5,
+   19.54
+  ],
+  "dur": 3.04
  },
  "VO_EN_04_2.wav": {
-  "text": "and it was gone.",
-  "start": 4.0,
-  "dur": 0.86,
-  "end": 4.86,
-  "clip_dur": 9.0
- },
- "VO_EN_04_3.wav": {
-  "text": "Max said it was just a tree.",
-  "start": 6.4,
-  "dur": 1.51,
-  "end": 7.91,
-  "clip_dur": 9.0
+  "clip": "CLIP_03A_CAMPFIRE",
+  "text": "Suddenly, your friend notices a tall figure standing between the trees.",
+  "src": [
+   19.9,
+   24.12
+  ],
+  "dur": 4.22
  },
  "VO_EN_05_1.wav": {
-  "text": "Around midnight, I woke up.",
-  "start": 1.2,
-  "dur": 1.73,
-  "end": 2.93,
-  "clip_dur": 9.0
- },
- "VO_EN_05_2.wav": {
-  "text": "The fire was out. The forest had gone completely silent.",
-  "start": 4.4,
-  "dur": 3.71,
-  "end": 8.11,
-  "clip_dur": 9.0
+  "clip": "CLIP_03B_FIRST_SIGHTING",
+  "text": "It's so tall that it almost reaches the treetops.",
+  "src": [
+   24.42,
+   27.42
+  ],
+  "dur": 3.0
  },
  "VO_EN_06_1.wav": {
-  "text": "Footsteps. Three slow steps. Right outside the tent.",
-  "start": 6.0,
-  "dur": 3.81,
-  "end": 9.81,
-  "clip_dur": 10.0
+  "clip": "CLIP_04_DISAPPEARANCE",
+  "text": "You point your flashlight toward it.",
+  "src": [
+   27.4,
+   29.73
+  ],
+  "dur": 2.33
+ },
+ "VO_EN_06_2.wav": {
+  "clip": "CLIP_04_DISAPPEARANCE",
+  "text": "But the next second, the figure disappears.",
+  "src": [
+   29.8,
+   32.48
+  ],
+  "dur": 2.68
+ },
+ "VO_EN_06_3.wav": {
+  "clip": "CLIP_04_DISAPPEARANCE",
+  "text": "You decide it was just a trick of the shadows and go to sleep.",
+  "src": [
+   33.18,
+   36.42
+  ],
+  "dur": 3.24
  },
  "VO_EN_07_1.wav": {
-  "text": "It was closer now. Much closer.",
-  "start": 2.6,
-  "dur": 2.24,
-  "end": 4.84,
-  "clip_dur": 10.0
- },
- "VO_EN_07_2.wav": {
-  "text": "And it was watching our tent.",
-  "start": 6.4,
-  "dur": 1.38,
-  "end": 7.78,
-  "clip_dur": 10.0
+  "clip": "CLIP_05_MIDNIGHT",
+  "text": "Around midnight, you wake up because of a strange sound.",
+  "src": [
+   36.64,
+   40.1
+  ],
+  "dur": 3.46
  },
  "VO_EN_08_1.wav": {
-  "text": "I woke the others.",
-  "start": 0.5,
-  "dur": 1.1,
-  "end": 1.6,
-  "clip_dur": 10.0
+  "clip": "CLIP_06_FOOTSTEPS",
+  "text": "Three slow footsteps.",
+  "src": [
+   40.36,
+   42.02
+  ],
+  "dur": 1.66
  },
  "VO_EN_08_2.wav": {
-  "text": "But by the time we got outside… there was no one there.",
-  "start": 4.6,
-  "dur": 2.46,
-  "end": 7.06,
-  "clip_dur": 10.0
+  "clip": "CLIP_06_FOOTSTEPS",
+  "text": "Then silence.",
+  "src": [
+   42.42,
+   43.62
+  ],
+  "dur": 1.2
+ },
+ "VO_EN_08_3.wav": {
+  "clip": "CLIP_06_FOOTSTEPS",
+  "text": "And three more footsteps.",
+  "src": [
+   44.02,
+   45.54
+  ],
+  "dur": 1.52
  },
  "VO_EN_09_1.wav": {
-  "text": "In the morning, we packed up to leave.",
-  "start": 1.0,
-  "dur": 1.92,
-  "end": 2.92,
-  "clip_dur": 10.0
+  "clip": "CLIP_07A_SECOND_SIGHTING",
+  "text": "You carefully open the tent and look outside.",
+  "src": [
+   46.04,
+   48.72
+  ],
+  "dur": 2.68
  },
  "VO_EN_09_2.wav": {
-  "text": "But the path we came in on… was gone.",
-  "start": 4.4,
-  "dur": 1.9,
-  "end": 6.3,
-  "clip_dur": 10.0
+  "clip": "CLIP_07A_SECOND_SIGHTING",
+  "text": "The same figure is standing in the clearing.",
+  "src": [
+   49.16,
+   51.82
+  ],
+  "dur": 2.66
+ },
+ "VO_EN_09_3.wav": {
+  "clip": "CLIP_07A_SECOND_SIGHTING",
+  "text": "Tall, thin, wearing a black suit.",
+  "src": [
+   52.12,
+   55.24
+  ],
+  "dur": 3.12
  },
  "VO_EN_10_1.wav": {
-  "text": "Then I saw the words carved into a tree.",
-  "start": 0.6,
-  "dur": 2.26,
-  "end": 2.86,
-  "clip_dur": 9.0
+  "clip": "CLIP_07B_NO_FACE",
+  "text": "But there's something even stranger.",
+  "src": [
+   55.22,
+   57.66
+  ],
+  "dur": 2.44
  },
  "VO_EN_10_2.wav": {
-  "text": "Do not look back.",
-  "start": 5.6,
-  "dur": 0.91,
-  "end": 6.51,
-  "clip_dur": 9.0
+  "clip": "CLIP_07B_NO_FACE",
+  "text": "It has no face.",
+  "src": [
+   57.96,
+   59.38
+  ],
+  "dur": 1.42
  },
  "VO_EN_11_1.wav": {
-  "text": "We'd had no signal for hours.",
-  "start": 0.5,
-  "dur": 1.76,
-  "end": 2.26,
-  "clip_dur": 9.0
+  "clip": "CLIP_08_DISAPPEARANCE_AGAIN",
+  "text": "You quickly wake your friends.",
+  "src": [
+   59.78,
+   61.46
+  ],
+  "dur": 1.68
  },
  "VO_EN_11_2.wav": {
-  "text": "But my phone buzzed.",
-  "start": 3.4,
-  "dur": 1.18,
-  "end": 4.58,
-  "clip_dur": 9.0
- },
- "VO_EN_11_3.wav": {
-  "text": "One new message.",
-  "start": 6.6,
-  "dur": 1.02,
-  "end": 7.62,
-  "clip_dur": 9.0
+  "clip": "CLIP_08_DISAPPEARANCE_AGAIN",
+  "text": "But when they rush outside, the figure is already gone.",
+  "src": [
+   61.64,
+   65.1
+  ],
+  "dur": 3.46
  },
  "VO_EN_12_1.wav": {
-  "text": "I looked up…",
-  "start": 0.6,
-  "dur": 0.65,
-  "end": 1.25,
-  "clip_dur": 12.0
+  "clip": "CLIP_09_MISSING_PATH",
+  "text": "In the morning, you decide to leave the forest immediately.",
+  "src": [
+   65.38,
+   68.48
+  ],
+  "dur": 3.1
  },
  "VO_EN_12_2.wav": {
-  "text": "It wasn't alone.",
-  "start": 5.0,
-  "dur": 0.96,
-  "end": 5.96,
-  "clip_dur": 12.0
+  "clip": "CLIP_09_MISSING_PATH",
+  "text": "But the road you used to get here has disappeared.",
+  "src": [
+   68.92,
+   71.7
+  ],
+  "dur": 2.78
+ },
+ "VO_EN_12_3.wav": {
+  "clip": "CLIP_09_MISSING_PATH",
+  "text": "Everywhere you look, there are identical trees.",
+  "src": [
+   72.18,
+   75.06
+  ],
+  "dur": 2.88
+ },
+ "VO_EN_13_1.wav": {
+  "clip": "CLIP_10_WARNING",
+  "text": "You start searching for an exit until you notice a strange message carved into a tree.",
+  "src": [
+   75.42,
+   80.64
+  ],
+  "dur": 5.22
+ },
+ "VO_EN_13_2.wav": {
+  "clip": "CLIP_10_WARNING",
+  "text": "“Do not look back.”",
+  "src": [
+   81.04,
+   82.6
+  ],
+  "dur": 1.56
+ },
+ "VO_EN_14_1.wav": {
+  "clip": "CLIP_11_PHONE_MESSAGE",
+  "text": "At that moment, your phone vibrates.",
+  "src": [
+   82.84,
+   85.5
+  ],
+  "dur": 2.66
+ },
+ "VO_EN_14_2.wav": {
+  "clip": "CLIP_11_PHONE_MESSAGE",
+  "text": "A message appears from an unknown sender.",
+  "src": [
+   85.8,
+   88.42
+  ],
+  "dur": 2.62
+ },
+ "VO_EN_14_3.wav": {
+  "clip": "CLIP_11_PHONE_MESSAGE",
+  "text": "“I can see you all.”",
+  "src": [
+   88.52,
+   89.92
+  ],
+  "dur": 1.4
+ },
+ "VO_EN_15_1.wav": {
+  "clip": "CLIP_12_FINAL_REVEAL",
+  "text": "You raise your head and look between the trees.",
+  "src": [
+   90.2,
+   92.76
+  ],
+  "dur": 2.56
+ },
+ "VO_EN_15_2.wav": {
+  "clip": "CLIP_12_FINAL_REVEAL",
+  "text": "Three identical figures are standing there.",
+  "src": [
+   93.24,
+   95.98
+  ],
+  "dur": 2.74
+ },
+ "VO_EN_15_3.wav": {
+  "clip": "CLIP_12_FINAL_REVEAL",
+  "text": "But one of them is much closer than the others.",
+  "src": [
+   96.12,
+   98.8
+  ],
+  "dur": 2.68
+ },
+ "VO_EN_16_1.wav": {
+  "clip": "CLIP_13_THE_FOURTH",
+  "text": "Suddenly, your friend whispers:",
+  "src": [
+   99.14,
+   100.78
+  ],
+  "dur": 1.64
+ },
+ "VO_EN_16_2.wav": {
+  "clip": "CLIP_13_THE_FOURTH",
+  "text": "“Wait… where is the fourth one?”",
+  "src": [
+   101.12,
+   103.32
+  ],
+  "dur": 2.2
+ },
+ "VO_EN_17_1.wav": {
+  "clip": "CLIP_14_EMPTY_TENT",
+  "text": "You turn around.",
+  "src": [
+   103.54,
+   104.6
+  ],
+  "dur": 1.06
+ },
+ "VO_EN_17_2.wav": {
+  "clip": "CLIP_14_EMPTY_TENT",
+  "text": "But the tent is already empty.",
+  "src": [
+   104.7,
+   106.66
+  ],
+  "dur": 1.96
+ },
+ "VO_EN_17_3.wav": {
+  "clip": "CLIP_14_EMPTY_TENT",
+  "text": "Where do you think your friend disappeared?",
+  "src": [
+   106.94,
+   108.82
+  ],
+  "dur": 1.88
  }
 }

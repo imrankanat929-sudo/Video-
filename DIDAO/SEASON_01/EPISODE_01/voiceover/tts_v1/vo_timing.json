@@ -1,0 +1,366 @@
+{
+ "VO_RU_01_1.wav": {
+  "text": "Нас было трое. Одни выходные. Лес, в котором никто не ночевал уже много лет.",
+  "start": 1.6,
+  "dur": 6.5,
+  "end": 8.1,
+  "clip_dur": 10.0
+ },
+ "VO_RU_01_2.wav": {
+  "text": "Мы думали, это просто страшилка.",
+  "start": 7.4,
+  "dur": 2.35,
+  "end": 9.75,
+  "clip_dur": 10.0
+ },
+ "VO_RU_02_1.wav": {
+  "text": "К ночи у нас были палатка, костёр…",
+  "start": 1.0,
+  "dur": 2.19,
+  "end": 3.19,
+  "clip_dur": 10.0
+ },
+ "VO_RU_02_2.wav": {
+  "text": "и странное чувство, что мы здесь не одни.",
+  "start": 5.2,
+  "dur": 2.59,
+  "end": 7.79,
+  "clip_dur": 10.0
+ },
+ "VO_RU_03_1.wav": {
+  "text": "Лена заметила его первой.",
+  "start": 0.8,
+  "dur": 2.07,
+  "end": 2.87,
+  "clip_dur": 10.0
+ },
+ "VO_RU_03_2.wav": {
+  "text": "Что-то высокое. Между деревьями.",
+  "start": 4.2,
+  "dur": 3.37,
+  "end": 7.57,
+  "clip_dur": 10.0
+ },
+ "VO_RU_03_3.wav": {
+  "text": "Оно не двигалось.",
+  "start": 7.6,
+  "dur": 1.61,
+  "end": 9.21,
+  "clip_dur": 10.0
+ },
+ "VO_RU_04_1.wav": {
+  "text": "Я направил на него фонарик…",
+  "start": 0.6,
+  "dur": 2.03,
+  "end": 2.63,
+  "clip_dur": 9.0
+ },
+ "VO_RU_04_2.wav": {
+  "text": "и он исчез.",
+  "start": 4.0,
+  "dur": 1.36,
+  "end": 5.36,
+  "clip_dur": 9.0
+ },
+ "VO_RU_04_3.wav": {
+  "text": "Макс сказал, что это просто дерево.",
+  "start": 6.4,
+  "dur": 2.33,
+  "end": 8.73,
+  "clip_dur": 9.0
+ },
+ "VO_RU_05_1.wav": {
+  "text": "Около полуночи я проснулся.",
+  "start": 1.2,
+  "dur": 2.25,
+  "end": 3.45,
+  "clip_dur": 9.0
+ },
+ "VO_RU_05_2.wav": {
+  "text": "Костёр погас. Лес стал абсолютно тихим.",
+  "start": 4.4,
+  "dur": 3.83,
+  "end": 8.23,
+  "clip_dur": 9.0
+ },
+ "VO_RU_06_1.wav": {
+  "text": "Шаги. Три медленных шага. Прямо у палатки.",
+  "start": 6.0,
+  "dur": 4.89,
+  "end": 10.89,
+  "clip_dur": 10.0
+ },
+ "VO_RU_07_1.wav": {
+  "text": "Он стоял ближе. Намного ближе.",
+  "start": 2.6,
+  "dur": 3.32,
+  "end": 5.92,
+  "clip_dur": 10.0
+ },
+ "VO_RU_07_2.wav": {
+  "text": "И смотрел прямо на нашу палатку.",
+  "start": 6.4,
+  "dur": 2.31,
+  "end": 8.71,
+  "clip_dur": 10.0
+ },
+ "VO_RU_08_1.wav": {
+  "text": "Я разбудил остальных.",
+  "start": 0.5,
+  "dur": 1.8,
+  "end": 2.3,
+  "clip_dur": 10.0
+ },
+ "VO_RU_08_2.wav": {
+  "text": "Но когда мы выбежали наружу… там никого не было.",
+  "start": 4.6,
+  "dur": 2.83,
+  "end": 7.43,
+  "clip_dur": 10.0
+ },
+ "VO_RU_09_1.wav": {
+  "text": "Утром мы собрались уходить.",
+  "start": 1.0,
+  "dur": 1.83,
+  "end": 2.83,
+  "clip_dur": 10.0
+ },
+ "VO_RU_09_2.wav": {
+  "text": "Но тропинки, по которой мы пришли… больше не было.",
+  "start": 4.4,
+  "dur": 2.83,
+  "end": 7.23,
+  "clip_dur": 10.0
+ },
+ "VO_RU_10_1.wav": {
+  "text": "А потом я увидел надпись на дереве.",
+  "start": 0.6,
+  "dur": 2.33,
+  "end": 2.93,
+  "clip_dur": 9.0
+ },
+ "VO_RU_10_2.wav": {
+  "text": "«Не оглядывайтесь».",
+  "start": 5.6,
+  "dur": 1.54,
+  "end": 7.14,
+  "clip_dur": 9.0
+ },
+ "VO_RU_11_1.wav": {
+  "text": "Связи не было уже много часов.",
+  "start": 0.5,
+  "dur": 2.46,
+  "end": 2.96,
+  "clip_dur": 9.0
+ },
+ "VO_RU_11_2.wav": {
+  "text": "Но телефон завибрировал.",
+  "start": 3.4,
+  "dur": 1.85,
+  "end": 5.25,
+  "clip_dur": 9.0
+ },
+ "VO_RU_11_3.wav": {
+  "text": "Одно новое сообщение.",
+  "start": 6.6,
+  "dur": 1.94,
+  "end": 8.54,
+  "clip_dur": 9.0
+ },
+ "VO_RU_12_1.wav": {
+  "text": "Я поднял голову…",
+  "start": 0.6,
+  "dur": 1.6,
+  "end": 2.2,
+  "clip_dur": 12.0
+ },
+ "VO_RU_12_2.wav": {
+  "text": "Он был не один.",
+  "start": 5.0,
+  "dur": 1.42,
+  "end": 6.42,
+  "clip_dur": 12.0
+ },
+ "VO_EN_01_1.wav": {
+  "text": "There were three of us. One weekend. A forest nobody had camped in for years.",
+  "start": 1.6,
+  "dur": 5.0,
+  "end": 6.6,
+  "clip_dur": 10.0
+ },
+ "VO_EN_01_2.wav": {
+  "text": "We thought it was just a story.",
+  "start": 7.4,
+  "dur": 1.3,
+  "end": 8.7,
+  "clip_dur": 10.0
+ },
+ "VO_EN_02_1.wav": {
+  "text": "By nightfall, we had a tent, a fire…",
+  "start": 1.0,
+  "dur": 2.0,
+  "end": 3.0,
+  "clip_dur": 10.0
+ },
+ "VO_EN_02_2.wav": {
+  "text": "and the strange feeling that we weren't alone.",
+  "start": 5.2,
+  "dur": 1.94,
+  "end": 7.14,
+  "clip_dur": 10.0
+ },
+ "VO_EN_03_1.wav": {
+  "text": "Lena saw it first.",
+  "start": 0.8,
+  "dur": 1.3,
+  "end": 2.1,
+  "clip_dur": 10.0
+ },
+ "VO_EN_03_2.wav": {
+  "text": "Something tall. Between the trees.",
+  "start": 4.2,
+  "dur": 2.42,
+  "end": 6.62,
+  "clip_dur": 10.0
+ },
+ "VO_EN_03_3.wav": {
+  "text": "It wasn't moving.",
+  "start": 7.6,
+  "dur": 0.94,
+  "end": 8.54,
+  "clip_dur": 10.0
+ },
+ "VO_EN_04_1.wav": {
+  "text": "I pointed my flashlight at it…",
+  "start": 0.6,
+  "dur": 1.79,
+  "end": 2.39,
+  "clip_dur": 9.0
+ },
+ "VO_EN_04_2.wav": {
+  "text": "and it was gone.",
+  "start": 4.0,
+  "dur": 0.86,
+  "end": 4.86,
+  "clip_dur": 9.0
+ },
+ "VO_EN_04_3.wav": {
+  "text": "Max said it was just a tree.",
+  "start": 6.4,
+  "dur": 1.51,
+  "end": 7.91,
+  "clip_dur": 9.0
+ },
+ "VO_EN_05_1.wav": {
+  "text": "Around midnight, I woke up.",
+  "start": 1.2,
+  "dur": 1.73,
+  "end": 2.93,
+  "clip_dur": 9.0
+ },
+ "VO_EN_05_2.wav": {
+  "text": "The fire was out. The forest had gone completely silent.",
+  "start": 4.4,
+  "dur": 3.71,
+  "end": 8.11,
+  "clip_dur": 9.0
+ },
+ "VO_EN_06_1.wav": {
+  "text": "Footsteps. Three slow steps. Right outside the tent.",
+  "start": 6.0,
+  "dur": 3.81,
+  "end": 9.81,
+  "clip_dur": 10.0
+ },
+ "VO_EN_07_1.wav": {
+  "text": "It was closer now. Much closer.",
+  "start": 2.6,
+  "dur": 2.24,
+  "end": 4.84,
+  "clip_dur": 10.0
+ },
+ "VO_EN_07_2.wav": {
+  "text": "And it was watching our tent.",
+  "start": 6.4,
+  "dur": 1.38,
+  "end": 7.78,
+  "clip_dur": 10.0
+ },
+ "VO_EN_08_1.wav": {
+  "text": "I woke the others.",
+  "start": 0.5,
+  "dur": 1.1,
+  "end": 1.6,
+  "clip_dur": 10.0
+ },
+ "VO_EN_08_2.wav": {
+  "text": "But by the time we got outside… there was no one there.",
+  "start": 4.6,
+  "dur": 2.46,
+  "end": 7.06,
+  "clip_dur": 10.0
+ },
+ "VO_EN_09_1.wav": {
+  "text": "In the morning, we packed up to leave.",
+  "start": 1.0,
+  "dur": 1.92,
+  "end": 2.92,
+  "clip_dur": 10.0
+ },
+ "VO_EN_09_2.wav": {
+  "text": "But the path we came in on… was gone.",
+  "start": 4.4,
+  "dur": 1.9,
+  "end": 6.3,
+  "clip_dur": 10.0
+ },
+ "VO_EN_10_1.wav": {
+  "text": "Then I saw the words carved into a tree.",
+  "start": 0.6,
+  "dur": 2.26,
+  "end": 2.86,
+  "clip_dur": 9.0
+ },
+ "VO_EN_10_2.wav": {
+  "text": "Do not look back.",
+  "start": 5.6,
+  "dur": 0.91,
+  "end": 6.51,
+  "clip_dur": 9.0
+ },
+ "VO_EN_11_1.wav": {
+  "text": "We'd had no signal for hours.",
+  "start": 0.5,
+  "dur": 1.76,
+  "end": 2.26,
+  "clip_dur": 9.0
+ },
+ "VO_EN_11_2.wav": {
+  "text": "But my phone buzzed.",
+  "start": 3.4,
+  "dur": 1.18,
+  "end": 4.58,
+  "clip_dur": 9.0
+ },
+ "VO_EN_11_3.wav": {
+  "text": "One new message.",
+  "start": 6.6,
+  "dur": 1.02,
+  "end": 7.62,
+  "clip_dur": 9.0
+ },
+ "VO_EN_12_1.wav": {
+  "text": "I looked up…",
+  "start": 0.6,
+  "dur": 0.65,
+  "end": 1.25,
+  "clip_dur": 12.0
+ },
+ "VO_EN_12_2.wav": {
+  "text": "It wasn't alone.",
+  "start": 5.0,
+  "dur": 0.96,
+  "end": 5.96,
+  "clip_dur": 12.0
+ }
+}

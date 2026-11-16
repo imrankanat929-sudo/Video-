@@ -1,40 +1,56 @@
-CLIP_01_JOURNEY.mp4                  1080x1920 30/1 frames=345/345 h264 OK
-CLIP_02_CAMPSITE.mp4                 1080x1920 30/1 frames=300/300 h264 OK
-CLIP_03_FIRST_SIGHTING.mp4           1080x1920 30/1 frames=300/300 h264 OK
-CLIP_04_DISAPPEARANCE.mp4            1080x1920 30/1 frames=285/285 h264 OK
-CLIP_05_MIDNIGHT.mp4                 1080x1920 30/1 frames=270/270 h264 OK
-CLIP_06_FOOTSTEPS.mp4                1080x1920 30/1 frames=330/330 h264 OK
-CLIP_07_SECOND_SIGHTING.mp4          1080x1920 30/1 frames=300/300 h264 OK
-CLIP_08_DISAPPEARANCE_AGAIN.mp4      1080x1920 30/1 frames=300/300 h264 OK
-CLIP_09_MISSING_PATH.mp4             1080x1920 30/1 frames=300/300 h264 OK
-CLIP_10_WARNING.mp4                  1080x1920 30/1 frames=270/270 h264 OK
-CLIP_11_PHONE_MESSAGE.mp4            1080x1920 30/1 frames=270/270 h264 OK
-CLIP_12_FINAL_REVEAL.mp4             1080x1920 30/1 frames=360/360 h264 OK
-TOTAL 121.00s
+CLIP_01A_JOURNEY.mp4                 1080x1920 30/1 frames=213/213 h264 OK
+CLIP_01B_JOURNEY.mp4                 1080x1920 30/1 frames=252/252 h264 OK
+CLIP_02_CAMPSITE.mp4                 1080x1920 30/1 frames=180/180 h264 OK
+CLIP_03A_CAMPFIRE.mp4                1080x1920 30/1 frames=258/258 h264 OK
+CLIP_03B_FIRST_SIGHTING.mp4          1080x1920 30/1 frames=156/156 h264 OK
+CLIP_04_DISAPPEARANCE.mp4            1080x1920 30/1 frames=315/315 h264 OK
+CLIP_05_MIDNIGHT.mp4                 1080x1920 30/1 frames=180/180 h264 OK
+CLIP_06_FOOTSTEPS.mp4                1080x1920 30/1 frames=300/300 h264 OK
+CLIP_07A_SECOND_SIGHTING.mp4         1080x1920 30/1 frames=309/309 h264 OK
+CLIP_07B_NO_FACE.mp4                 1080x1920 30/1 frames=162/162 h264 OK
+CLIP_08_DISAPPEARANCE_AGAIN.mp4      1080x1920 30/1 frames=246/246 h264 OK
+CLIP_09_MISSING_PATH.mp4             1080x1920 30/1 frames=324/324 h264 OK
+CLIP_10_WARNING.mp4                  1080x1920 30/1 frames=234/234 h264 OK
+CLIP_11_PHONE_MESSAGE.mp4            1080x1920 30/1 frames=285/285 h264 OK
+CLIP_12_FINAL_REVEAL.mp4             1080x1920 30/1 frames=312/312 h264 OK
+CLIP_13_THE_FOURTH.mp4               1080x1920 30/1 frames=156/156 h264 OK
+CLIP_14_EMPTY_TENT.mp4               1080x1920 30/1 frames=294/294 h264 OK
+TOTAL 139.20s
 VO lines:
-     1.60-   6.60  There were three of us. One weekend. A forest nobody had camped in for years.
-     8.50-   9.80  We thought it was just a story.
-    12.50-  14.50  By nightfall, we had a tent, a fire…
-    16.70-  18.64  and the strange feeling that we weren't alone.
-    22.30-  23.60  Lena saw it first.
-    25.70-  28.12  Something tall. Between the trees.
-    29.10-  30.04  It wasn't moving.
-    32.10-  33.89  I pointed my flashlight at it…
-    35.50-  36.36  and it was gone.
-    37.90-  39.41  Max said it was just a tree.
-    42.20-  43.93  Around midnight, I woke up.
-    45.40-  49.11  The fire was out. The forest had gone completely silent.
-    55.40-  59.21  Footsteps. Three slow steps. Right outside the tent.
-    63.60-  65.84  It was closer now. Much closer.
-    67.40-  68.78  And it was watching our tent.
-    71.50-  72.60  I woke the others.
-    75.60-  78.06  But by the time we got outside… there was no one there.
-    82.00-  83.92  In the morning, we packed up to leave.
-    85.40-  87.30  But the path we came in on… was gone.
-    91.60-  93.86  Then I saw the words carved into a tree.
-    96.60-  97.51  Do not look back.
-   100.50- 102.26  We'd had no signal for hours.
-   103.40- 104.58  But my phone buzzed.
-   106.60- 107.62  One new message.
-   109.60- 110.25  I looked up…
-   114.00- 114.96  It wasn't alone.
+     0.40-   3.92  Imagine going camping in the forest with your friends for the weekend.
+     4.22-   8.66  You just want to relax, set up a tent, and spend a night under the stars.
+     8.96-  13.64  But you have no idea that this forest is about to become your trap.
+    16.10-  18.94  On the first evening, everything seems normal.
+    21.90-  24.94  You're sitting around the campfire, talking and laughing.
+    25.24-  29.46  Suddenly, your friend notices a tall figure standing between the trees.
+    30.40-  33.40  It's so tall that it almost reaches the treetops.
+    35.60-  37.93  You point your flashlight toward it.
+    38.23-  40.91  But the next second, the figure disappears.
+    41.21-  44.45  You decide it was just a trick of the shadows and go to sleep.
+    46.60-  50.06  Around midnight, you wake up because of a strange sound.
+    52.10-  53.76  Three slow footsteps.
+    56.20-  57.40  Then silence.
+    58.10-  59.62  And three more footsteps.
+    62.30-  64.98  You carefully open the tent and look outside.
+    65.40-  68.06  The same figure is standing in the clearing.
+    68.36-  71.48  Tall, thin, wearing a black suit.
+    72.50-  74.94  But there's something even stranger.
+    75.24-  76.66  It has no face.
+    77.80-  79.48  You quickly wake your friends.
+    81.40-  84.86  But when they rush outside, the figure is already gone.
+    86.20-  89.30  In the morning, you decide to leave the forest immediately.
+    89.60-  92.38  But the road you used to get here has disappeared.
+    92.68-  95.56  Everywhere you look, there are identical trees.
+    96.80- 102.02  You start searching for an exit until you notice a strange message carved into a tree.
+   102.32- 103.88  “Do not look back.”
+   104.60- 107.26  At that moment, your phone vibrates.
+   107.56- 110.18  A message appears from an unknown sender.
+   110.48- 111.88  “I can see you all.”
+   114.20- 116.76  You raise your head and look between the trees.
+   117.40- 120.14  Three identical figures are standing there.
+   120.44- 123.12  But one of them is much closer than the others.
+   124.50- 126.14  Suddenly, your friend whispers:
+   126.44- 128.64  “Wait… where is the fourth one?”
+   129.70- 130.76  You turn around.
+   131.06- 133.02  But the tent is already empty.
+   133.40- 135.28  Where do you think your friend disappeared?

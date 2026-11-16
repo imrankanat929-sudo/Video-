@@ -19,7 +19,7 @@ from scipy.signal import butter, resample_poly, sosfilt, fftconvolve
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from script_ep01 import CLIPS, ONSCREEN, SEASON_TITLE_EN, SEASON_TITLE_RU, EP_TITLE_EN, EP_TITLE_RU  # noqa
+from script_ep01 import CLIPS, END_CARD_CLIP, GAP, SEASON_TITLE_EN, SEASON_TITLE_RU, EP_TITLE_EN, EP_TITLE_RU  # noqa
 
 EP = os.path.join(HERE, '..')
 CLIPDIR = os.path.join(EP, 'clips')
@@ -70,7 +70,7 @@ def validate(lang):
     report = []
     files = []
     for c in CLIPS:
-        name = c['name'] + ('_RU' if (lang == 'ru' and c['id'] == 12) else '') + '.mp4'
+        name = c['name'] + ('_RU' if (lang == 'ru' and c['id'] == END_CARD_CLIP) else '') + '.mp4'
         p = os.path.join(CLIPDIR, name)
         ok = os.path.exists(p) and os.path.getsize(p) > 10000
         if not ok:
@@ -92,12 +92,11 @@ def vo_timeline(lang):
     out = []
     prev_end = 0.0
     for c in CLIPS:
-        for i, line in enumerate(c['vo']):
-            text = line[1] if lang == 'ru' else line[2]
+        for i, (planned, src, text) in enumerate(c['vo'][lang]):
             wavp = os.path.join(EP, 'voiceover', lang, f"VO_{lang.upper()}_{c['id']:02d}_{i + 1}.wav")
             x, sr = read_wav(wavp)
             d = len(x) / sr
-            st = max(off[c['id']] + line[0], prev_end + 0.3)
+            st = max(off[c['id']] + (planned if planned is not None else 0.0), prev_end + GAP)
             out.append((st, st + d, text, wavp))
             prev_end = st + d
     return out
@@ -106,22 +105,23 @@ def vo_timeline(lang):
 def build_audio(lang, total):
     n = int((total + 0.5) * SR)
     vo = np.zeros(n)
+    # the client recording is already mastered: keep its relative levels, only normalise the whole track
     tl = vo_timeline(lang)
     sos_hp = butter(2, 90, 'high', fs=SR, output='sos')
     for st, en, text, wavp in tl:
         x, sr = read_wav(wavp)
         x = resample_poly(x, SR, sr)
         x = sosfilt(sos_hp, x)
-        x = x / (np.max(np.abs(x)) + 1e-9) * 0.9
         i = int(st * SR)
         vo[i:i + len(x)] += x[: n - i]
+    vo = vo / (np.max(np.abs(vo)) + 1e-9) * 0.9
     # small dark room reverb on the narration
     ir_n = int(0.9 * SR)
     rng = np.random.default_rng(1)
     ir = rng.standard_normal(ir_n) * np.exp(-np.arange(ir_n) / (0.18 * SR))
     ir = sosfilt(butter(2, 3500, 'low', fs=SR, output='sos'), ir)
     ir /= np.sqrt(np.sum(ir ** 2))
-    wet = fftconvolve(vo, ir)[:n] * 0.10
+    wet = fftconvolve(vo, ir)[:n] * 0.05
     vo_st = np.stack([vo + wet, vo + np.roll(wet, 400)], 1)
     sfx, _ = read_wav(os.path.join(EP, 'sound_effects', 'SFX_EP01_FULL.wav'))
     mus, _ = read_wav(os.path.join(EP, 'music', 'MUSIC_EP01_FULL.wav'))
@@ -141,7 +141,12 @@ def build_audio(lang, total):
     # VO-only stem for the archive
     write_wav(os.path.join(EP, 'voiceover', f'VO_{lang.upper()}_FULL_TIMELINE.wav'), vo_st / (np.max(np.abs(vo_st)) + 1e-9) * 0.9)
     norm = os.path.join(TMP, f'mix_{lang}_norm.wav')
-    run(['ffmpeg', '-y', '-loglevel', 'error', '-i', raw, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-ar', str(SR), norm])
+    meas = subprocess.run(['ffmpeg', '-hide_banner', '-i', raw, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
+                          capture_output=True, text=True).stderr
+    m = json.loads(meas[meas.rindex('{'):meas.rindex('}') + 1])
+    af = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:"
+          f"measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+    run(['ffmpeg', '-y', '-loglevel', 'error', '-i', raw, '-af', af, '-ar', str(SR), norm])
     return norm, tl
 
 
@@ -160,11 +165,6 @@ def fmt_srt(t):
 def build_subs(lang, tl):
     off, total = offsets()
     events = [(st, en + 0.25, txt) for st, en, txt, _ in tl]
-    if lang == 'ru':  # translate diegetic English text on screen
-        for cid, (a, b, ru, en) in ONSCREEN.items():
-            if cid == 10:
-                continue  # already read aloud by the narrator
-            events.append((off[cid] + a, off[cid] + b, f'[{ru}]'))
     events.sort()
     # avoid overlapping subtitle events
     fixed = []

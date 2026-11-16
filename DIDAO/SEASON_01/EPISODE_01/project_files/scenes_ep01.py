@@ -325,9 +325,20 @@ SIGHT = [(-1.7 + 0.3 * k, 7.0 + 1.6 * k, 1.1) for k in range(8)]
 SEAT = {'lena': (-0.35, 20.65), 'hero': (0.9, 20.75), 'max': (2.15, 20.6)}
 
 
-def render_03(c, t, frame, lang):
-    if t < 4.6:
-        u = seg(t, 0, 4.6)
+def render_03b(c, t, frame, lang):
+    render_03(c, t + 4.6, frame, lang, standalone=True)
+
+
+def render_03a(c, t, frame, lang):
+    render_03(c, t, frame, lang, shift=3.0)
+
+
+def render_03(c, t, frame, lang, shift=0.0, standalone=False):
+    if not standalone:
+        u = seg(t, 0, 4.6 + shift)
+        laugh = 1 - smooth(seg(t, 3.9, 4.4)) if shift else 0.0
+        t0 = t
+        t = t - shift
         cam = Camera(x=0.9, y=0.95, z=lerp(16.0, 16.5, ease_in_out(u)), yaw=0.0, focal=1650, horizon=0.47)
         sc = Scene(cam, tod='night', t=t)
         put_fire(sc, t, 0.95)
@@ -336,17 +347,20 @@ def render_03(c, t, frame, lang):
         scared = smooth(seg(t, 1.5, 2.1))
         le = expr_mix(expr('smile', lx=0.1), expr('scared', lx=-0.65, ly=-0.3), scared)
         le['blink'] = blink_at(t, [0.8])
+        le['mouth'] += 0.30 * laugh * abs(math.sin(t0 * 8.0))
         arm = ease_out(seg(t, 2.5, 3.3))
         lp = pose(sit=1, rs=lerp(-8, -125, arm), re=lerp(-20, 10, arm), rhand='point' if arm > 0.3 else 'relaxed',
                   ls=12, le=40, yaw=lerp(5, -25, scared), head=lerp(0, -4, scared))
         put_char(sc, LENA, *SEAT['lena'][:1], SEAT['lena'][1], lp, 'front', le, fire=1.0)
         look_h = smooth(seg(t, 2.9, 3.5))
-        he = expr_mix(expr('calm', lx=0.3), expr('worried', lx=-0.7), look_h)
+        he = expr_mix(expr('smile', lx=0.3), expr('worried', lx=-0.7), look_h)
         he['blink'] = blink_at(t, [1.2])
+        he['mouth'] += 0.22 * laugh * abs(math.sin(t0 * 7.0 + 1.0))
         put_char(sc, HERO, SEAT['hero'][0], SEAT['hero'][1], pose(sit=1, ls=20, le=50, rs=-20, re=-50, lhand='fist', rhand='fist',
                                                                   yaw=lerp(10, -30, look_h)), 'front', he, fire=1.0)
         look_m = smooth(seg(t, 3.2, 3.9))
         me = expr_mix(expr('smile', lx=-0.4), expr('worried', lx=-0.8), look_m)
+        me['mouth'] += 0.35 * laugh * abs(math.sin(t0 * 6.0 + 2.0))
         put_char(sc, MAX, SEAT['max'][0], SEAT['max'][1], pose(sit=1, ls=25, le=45, rs=-25, re=-45, lhand='fist', rhand='fist',
                                                                yaw=lerp(-15, -35, look_m)), 'front', me, fire=1.0)
         sc.render(c, rays=0.0)
@@ -366,7 +380,6 @@ def render_03(c, t, frame, lang):
         put_slender(sc, -1.7, 7.0, t, extra_fog=-0.15, tilt=keys(tt, [(0, 4), (3.5, 4), (4.5, 14)]))
         sc.render(c, rays=0.05)
         fire_light_overlay(c, sc, t, 0.9)
-        cut_flash(c, t, 4.6)
         post(c, frame, vignette=0.9)
 
 
@@ -374,8 +387,8 @@ def render_03(c, t, frame, lang):
 # CLIP 04 - DISAPPEARANCE
 # =============================================================================
 def render_04(c, t, frame, lang):
-    if t < 4.6:
-        u = seg(t, 0, 4.6)
+    if t < 5.6:
+        u = seg(t, 0, 5.6)
         cam = Camera(x=0.5, y=1.45, z=24.8, yaw=math.pi, focal=lerp(1700, 1900, u), horizon=0.5)
         sc = Scene(cam, tod='night', t=t, hide_trees_near=SIGHT)
         put_fire(sc, t, 0.9)
@@ -383,27 +396,27 @@ def render_04(c, t, frame, lang):
         raise_ = ease_out(seg(t, 0.9, 1.6))
         hx, hz = SEAT['hero']
         put_char(sc, HERO, hx, hz, pose(sit=1 - stand, ls=lerp(10, 150, raise_), le=lerp(10, -10, raise_), lhand='flashlight', rs=-10), 'back', fire=1.0)
-        put_char(sc, LENA, SEAT['lena'][0], SEAT['lena'][1], pose(sit=1, ls=lerp(125, 20, seg(t, 2.8, 3.6)), le=-8, lhand='point', rs=-10), 'back', fire=1.0)
+        put_char(sc, LENA, SEAT['lena'][0], SEAT['lena'][1], pose(sit=1, ls=lerp(125, 20, seg(t, 4.2, 5.0)), le=-8, lhand='point', rs=-10), 'back', fire=1.0)
         put_char(sc, MAX, SEAT['max'][0], SEAT['max'][1], pose(sit=1 - 0.6 * stand, ls=10, rs=-10), 'back', fire=1.0)
-        gone = t > 3.15
-        dist = seg(t, 2.55, 3.15)
+        gone = t > 4.6
+        dist = seg(t, 4.0, 4.6)
         if not gone:
             put_slender(sc, -1.7, 7.0, t, extra_fog=-0.15, tilt=14, distort=dist * 1.5, alpha=1.0 - 0.5 * dist)
         sc.render(c, rays=0.04)
         fire_light_overlay(c, sc, t, 0.9)
         # beam from the torch towards the figure / then searching
         hand = cam.project(hx - 0.32, 1.62 - 0.4 * (1 - stand), hz - 0.25)
-        tgt_w = (-1.7 + 0.9 * math.sin(max(0, t - 3.2) * 1.6) * seg(t, 3.2, 4.6), 1.7, 7.0)
+        tgt_w = (-1.7 + 0.9 * math.sin(max(0, t - 4.6) * 1.6) * seg(t, 4.6, 5.6), 1.7, 7.0)
         tgt = cam.project(*tgt_w)
         on = seg(t, 1.25, 1.4)
         if hand and tgt and on > 0:
             draw_beam(c, (hand[0], hand[1]), (tgt[0], tgt[1]), strength=on * 0.9, spread=0.10, t=t, flicker=dist)
-        if 2.55 < t < 3.3:  # glitch flicker
+        if 4.0 < t < 4.75:  # glitch flicker
             if int(t * 30) % 2 == 0:
                 c.drawRect(skia.Rect(0, 0, W, H), paint((0.6, 0.7, 0.9), alpha=0.06, blend=skia.BlendMode.kPlus))
         post(c, frame, vignette=0.9)
     else:
-        tt = t - 4.6
+        tt = t - 5.6
         u = ease_in_out(seg(tt, 0, 4.9))
         cam = Camera(x=0.9, y=1.42, z=lerp(17.4, 17.9, u), yaw=0.0, focal=1450, horizon=0.44)
         sc = Scene(cam, tod='night', t=t)
@@ -422,7 +435,7 @@ def render_04(c, t, frame, lang):
         put_char(sc, HERO, 0.9, 20.75, pose(ls=30, le=60, lhand='flashlight', rs=-5, yaw=lerp(0, 25, smooth(seg(tt, 2.4, 3.4)))), 'front', he, fire=0.85)
         sc.render(c, rays=0.0)
         fire_light_overlay(c, sc, t, 0.85)
-        cut_flash(c, t, 4.6)
+        cut_flash(c, t, 5.6)
         post(c, frame, vignette=0.9)
 
 
@@ -470,26 +483,23 @@ def render_05(c, t, frame, lang):
 # =============================================================================
 # CLIP 06 - FOOTSTEPS
 # =============================================================================
-STEPS = (1.5, 3.0, 4.5)
+STEPS = (2.0, 2.8, 3.6, 7.9, 8.6, 9.3)
 
 
 def render_06(c, t, frame, lang):
     step_k = sum(math.exp(-((t - s) / 0.12) ** 2) for s in STEPS)
-    u = ease_in_out(seg(t, 5.5, 11))
+    u = ease_in_out(seg(t, 4.0, 10.0))
     zoom = lerp(1.0, 1.45, u) * (1 + 0.006 * step_k)
-    shadow_x = keys(t, [(3.4, W * 1.25), (6.8, -W * 0.25)], fn=lambda v: v)
-    sh_a = 0.0 if t < 3.4 or t > 6.8 else 0.55 * math.sin(math.pi * seg(t, 3.4, 6.8))
+    shadow_x = keys(t, [(7.4, W * 1.25), (10.0, -W * 0.25)], fn=lambda v: v)
+    sh_a = 0.0 if t < 7.4 else 0.55 * math.sin(math.pi * seg(t, 7.4, 10.4))
     tent_interior(c, t, light=0.1, ripple=0.25 + 0.6 * step_k, shadow=(shadow_x, sh_a), branch=0.7, zoom=zoom, cy=0.45)
     c.save()
     c.translate(W / 2, H * 0.45)
     c.scale(zoom, zoom)
     c.translate(-W / 2, -H * 0.45)
-    look = 0.0
-    for s in STEPS:
-        look = max(look, 0.85 * smooth(seg(t, s, s + 0.15)))
-    look = look if t < 7.5 else lerp(0.85, 0.0, smooth(seg(t, 7.5, 8.5)))
-    e = expr('scared', lx=look, ly=-0.1, blink=blink_at(t, [0.6, 6.0]))
-    e['mouth'] = 0.2 + 0.25 * smooth(seg(t, 1.5, 2.0))
+    look = 0.85 * smooth(seg(t, 2.0, 2.15)) * (1 - 0.7 * smooth(seg(t, 4.6, 6.0))) + 0.6 * smooth(seg(t, 7.9, 8.05))
+    e = expr('scared', lx=look, ly=-0.1, blink=blink_at(t, [0.6, 5.2, 6.6]))
+    e['mouth'] = 0.2 + 0.25 * smooth(seg(t, 2.0, 2.5))
     flinch = 0.03 * step_k
     sleeping_bag(c, W / 2, H * 0.78, 800, t=t)
     portrait(c, HERO, W / 2 + 10 * math.sin(t * 0.8), H * 0.53 + 20 * flinch * 30, 330 * (1 - flinch), yaw=0.18 * look, e=e,
@@ -503,12 +513,12 @@ def render_06(c, t, frame, lang):
 # CLIP 07 - SECOND SIGHTING (POV through the tent door, then the hero's face)
 # =============================================================================
 def render_07(c, t, frame, lang):
-    if t < 6.4:
-        u = ease_in_out(seg(t, 0.8, 6.4))
+    if t < 99:
+        u = ease_in_out(seg(t, 0.8, 10.3))
         cam = Camera(x=-2.25, y=0.62, z=21.2, yaw=math.pi + 0.10, focal=lerp(1250, 1800, u), horizon=0.52)
         sc = Scene(cam, tod='night', t=t)
         put_fire(sc, t, 0.0, embers=0.55, smoke=0.4)
-        put_slender(sc, -3.4, 12.6, t, tilt=keys(t, [(0, 6), (3.6, 6), (4.6, 18)]))
+        put_slender(sc, -3.4, 12.6, t, tilt=keys(t, [(0, 6), (6.6, 6), (7.4, 18)]))
         sc.render(c, rays=0.07)
         fire_light_overlay(c, sc, t, 0.06)
         # tent door opening (foreground fabric)
@@ -633,8 +643,8 @@ def render_08(c, t, frame, lang):
 # CLIP 09 - MISSING PATH (morning)
 # =============================================================================
 def render_09(c, t, frame, lang):
-    if t < 5.0:
-        u = ease_in_out(seg(t, 0, 5))
+    if t < 6.6:
+        u = ease_in_out(seg(t, 0, 6.6))
         cam = Camera(x=0.25, y=lerp(1.65, 2.1, u), z=lerp(18.6, 17.9, u), yaw=math.pi, focal=1250, horizon=lerp(0.50, 0.46, u))
         sc = Scene(cam, tod='morning', t=t, overgrown=True)
         put_fire(sc, t, 0.0, embers=0.0, smoke=0.25)
@@ -648,17 +658,18 @@ def render_09(c, t, frame, lang):
         sc.render(c)
         post(c, frame, vignette=0.7, grain=0.06)
     else:
-        tt = t - 5.0
-        u = ease_in_out(seg(tt, 0, 5))
+        tt = t - 6.6
+        u = ease_in_out(seg(tt, 0, 4.2))
         cam = Camera(x=0.2, y=1.5, z=lerp(11.4, 11.9, u), yaw=0.0, focal=1500, horizon=0.47)
         sc = Scene(cam, tod='morning', t=t, overgrown=True, hide_trees_near=[(0.2, 11.6, 1.6)])
+        put_tent(sc, t, door=0.0, wind=0.2, skew=0.3)
         look = 0.8 * math.sin(tt * 1.3)
         put_char(sc, LENA, -0.85, 15.2, pose(pack=1, yaw=-30 * math.sin(tt * 1.1 + 1), rs=-15, re=-70, rhand='relaxed'), 'front',
                  expr('worried', lx=-0.6 * math.sin(tt * 1.1 + 1), blink=blink_at(tt, [2.0])))
         put_char(sc, HERO, 0.15, 14.9, pose(pack=1, yaw=25 * look), 'front', expr('confused', lx=look, blink=blink_at(tt, [3.1])))
         put_char(sc, MAX, 1.15, 15.1, pose(pack=1, ls=20, le=-150, lhand='open', yaw=-20), 'front', expr('confused', lx=-0.4, blink=blink_at(tt, [1.2])))
         sc.render(c)
-        cut_flash(c, t, 5.0, color=(0.6, 0.65, 0.65))
+        cut_flash(c, t, 6.6, color=(0.6, 0.65, 0.65))
         post(c, frame, vignette=0.7, grain=0.06)
 
 
@@ -715,14 +726,14 @@ def render_10(c, t, frame, lang):
 def render_11(c, t, frame, lang):
     defocus_forest(c, 'morning', t)
     c.drawRect(skia.Rect(0, 0, W, H), paint((0, 0, 0), alpha=0.35))
-    u = ease_in_out(seg(t, 4.8, 9.0))
+    u = ease_in_out(seg(t, 3.2, 9.5))
     z = lerp(1.0, 1.32, u)
     buzz = 0.0
-    for b0, b1 in ((3.4, 4.0), (4.25, 4.85)):
+    for b0, b1 in ((1.5, 2.1), (2.35, 2.95)):
         if b0 <= t <= b1:
             buzz = 1.0
-    screen = 0.35 if t < 3.4 else 1.0
-    notif = ease_out(seg(t, 4.5, 4.9))
+    screen = 0.35 if t < 1.5 else 1.0
+    notif = ease_out(seg(t, 2.9, 3.3))
     c.save()
     c.translate(W / 2, H * 0.5)
     c.scale(z, z)
@@ -735,7 +746,8 @@ def render_11(c, t, frame, lang):
 # =============================================================================
 # CLIP 12 - FINAL REVEAL
 # =============================================================================
-THREE = ((-3.4, 26.9), (0.5, 28.3), (4.3, 26.7))
+THREE = ((-2.9, 6.0), (0.7, 10.2), (4.4, 5.6))   # south of the clearing; the middle one is much closer
+FOURTH_SIGHT = [(x, z, 1.4) for x, z in THREE] + [(0.4, 12.0, 1.2), (-1.3, 9.0, 1.0), (2.6, 8.0, 1.0)]
 
 
 def render_12(c, t, frame, lang):
@@ -749,29 +761,122 @@ def render_12(c, t, frame, lang):
         lt = Light(amb=(0.62, 0.68, 0.72), rim=hexc('#c9d3d2'), rim_side=-1, rim_k=0.35, shade=0.5, front=0.25 * (1 - up), front_col=(0.6, 0.7, 1.0))
         portrait(c, HERO, W * 0.5, H * lerp(0.47, 0.43, up), lerp(380, 470, u), yaw=0.0, e=e, light=lt, t=t, rot=lerp(0, -2, up))
         post(c, frame, vignette=0.85, grain=0.06)
-    elif t < 9.6:
-        tt = t - 3.0
-        u = ease_in_out(seg(tt, 0, 6.0))
-        hit = ease_in(seg(tt, 6.0, 6.6))
-        cam = Camera(x=2.0 + 0.04 * math.sin(tt * 40) * hit, y=1.55, z=13.0, yaw=0.0, focal=lerp(1200, 1900, u) + 1600 * hit, horizon=0.47)
-        sc = Scene(cam, tod='morning', t=t, overgrown=True, fog_mult=1.15)
-        tilt = keys(tt, [(0, 5), (4.6, 5), (5.4, 24)])
-        for i, (x, z) in enumerate(THREE):
-            put_slender(sc, x, z, t, tilt=tilt, seed=0, distort=hit * 0.8)
-        put_char(sc, HERO, 1.15, 14.7, pose(pack=1, ls=8, le=10), 'back', blur=5)
-        sc.render(c)
-        if hit > 0:
-            c.drawRect(skia.Rect(0, 0, W, H), paint((0, 0, 0), alpha=hit * 0.6))
-        cut_flash(c, t, 3.0)
-        post(c, frame, vignette=0.8 + 0.15 * u, grain=0.07)
     else:
-        black(c)
-        a = smooth(seg(t, 10.2, 11.0))
-        txt = 'TO BE CONTINUED…' if lang == 'en' else 'ПРОДОЛЖЕНИЕ СЛЕДУЕТ…'
-        draw_text(c, txt, W / 2, H * 0.5, 'dejavu/DejaVuSerif-Bold.ttf', 64 if lang == 'en' else 56, (0.85, 0.87, 0.9), alpha=a, spacing=4)
-        draw_text(c, 'DIDAO', W / 2, H * 0.5 + 110, 'dejavu/DejaVuSans-Bold.ttf', 30, (0.55, 0.6, 0.65), alpha=a * 0.8, spacing=14)
-        post(c, frame, vignette=0.0, grain=0.05)
+        tt = t - 3.0
+        u = ease_in_out(seg(tt, 0, 7.6))
+        close = ease_in_out(seg(tt, 3.2, 7.6))   # push toward the closest figure
+        cam = Camera(x=lerp(0.9, 0.8, close), y=1.55, z=lerp(16.6, 15.6, close), yaw=math.pi, focal=lerp(1150, 1650, u), horizon=0.47)
+        sc = Scene(cam, tod='morning', t=t, overgrown=True, fog_mult=1.15, hide_trees_near=FOURTH_SIGHT,
+                   extra_trees=[(CARVED_TREE[0], CARVED_TREE[2], 24.0, 3, False)])
+        tilt = keys(tt, [(0, 5), (5.4, 5), (6.2, 24)])
+        for i, (x, z) in enumerate(THREE):
+            put_slender(sc, x, z, t, tilt=tilt, seed=0, extra_fog=-0.1 if i == 1 else 0.0)
+        put_char(sc, HERO, 1.35, 14.2, pose(pack=1, ls=8, le=10), 'back', blur=5)
+        put_char(sc, LENA, 0.25, 14.4, pose(pack=1, rs=-8, re=-20, head=-3), 'back', blur=3)
+        sc.render(c)
+        cut_flash(c, t, 3.0)
+        post(c, frame, vignette=0.8 + 0.1 * u, grain=0.07)
 
 
-RENDERERS = {1: render_01, 2: render_02, 3: render_03, 4: render_04, 5: render_05, 6: render_06,
-             7: render_07, 8: render_08, 9: render_09, 10: render_10, 11: render_11, 12: render_12}
+# =============================================================================
+# CLIP 07B - NO FACE (slow tilt up the Tall Man to the featureless head)
+# =============================================================================
+def render_07b(c, t, frame, lang):
+    defocus_forest(c, 'night', t, seed=9)
+    c.drawRect(skia.Rect(0, 0, W, H), paint((0, 0, 0), alpha=0.45))
+    up = ease_in_out(seg(t, 0.0, 2.6))
+    sc_ = lerp(900, 1500, ease_in_out(seg(t, 0, 5.4)))
+    head_y = -2.69          # head centre in slender space
+    focus_y = lerp(-2.0, head_y, up)
+    c.save()
+    c.translate(W / 2, H * 0.46 - focus_y * sc_)
+    c.scale(sc_, sc_)
+    lt = Light(amb=(0.50, 0.56, 0.72), rim=hexc('#a9c0e6'), rim_side=-1, rim_k=0.9, shade=0.6)
+    draw_slender(c, t=t, tilt=keys(t, [(0, 4), (3.4, 4), (3.9, 15)]), sway=0.4, light=lt)
+    c.restore()
+    for i in range(3):   # drifting fog in front
+        y = H * (0.25 + 0.25 * i) + 30 * math.sin(t * 0.5 + i)
+        c.drawOval(skia.Rect(-300 + (t * 50 + i * 300) % 700, y, 900 + (t * 50 + i * 300) % 700, y + 260),
+                   paint((0.5, 0.58, 0.7), alpha=0.06, blur=70))
+    post(c, frame, vignette=1.0, grain=0.09)
+
+
+# =============================================================================
+# CLIP 13 - THE FOURTH (Lena whispers)
+# =============================================================================
+def render_13(c, t, frame, lang):
+    defocus_forest(c, 'morning', t, seed=6)
+    c.drawRect(skia.Rect(0, 0, W, H), paint((0, 0, 0), alpha=0.35))
+    u = ease_in_out(seg(t, 0, 5.2))
+    e = expr('scared', lx=keys(t, [(0, 0.2), (1.6, 0.2), (2.0, -0.85)]), ly=-0.1, blink=blink_at(t, [1.3]))
+    talk = 2.1 <= t <= 4.2
+    e['mouth'] = (0.12 + 0.22 * abs(math.sin(t * 13))) if talk else 0.12
+    lt = Light(amb=(0.66, 0.70, 0.74), rim=hexc('#c9d3d2'), rim_side=-1, rim_k=0.4, shade=0.5)
+    portrait(c, LENA, W * 0.52, H * 0.42, lerp(400, 470, u), yaw=keys(t, [(0, 0.1), (1.6, 0.1), (2.2, -0.3)]), e=e, light=lt, t=t)
+    breath_puff(c, W * 0.45, H * 0.50, t, period=1.6, scale=0.8)
+    post(c, frame, vignette=0.9, grain=0.06)
+
+
+# =============================================================================
+# CLIP 14 - EMPTY TENT (turn around, the tent is empty, hit, silence, end card)
+# =============================================================================
+def put_beanie(scene, x, z):
+    def fn(c, pr):
+        sx, sy, s, d = pr
+        c.save()
+        c.translate(sx, sy)
+        c.scale(s, s)
+        c.saveLayer(None, paint(cf=fog_filter(scene.pal['fog'], scene.fog_amount(d))))
+        hat = mix(MAX.hat, (0.2, 0.25, 0.25, 1), 0.2)
+        c.drawOval(skia.Rect(-0.13, -0.10, 0.13, 0.01), paint(hat))
+        c.drawRect(skia.Rect(-0.13, -0.04, 0.13, 0.01), paint(mix(hat, (0, 0, 0, 1), 0.25)))
+        c.drawOval(skia.Rect(-0.16, -0.01, 0.16, 0.03), paint((0, 0, 0), alpha=0.35, blur=0.02))
+        c.restore()
+        c.restore()
+    scene.add(x, 0, z, fn)
+
+
+def render_14(c, t, frame, lang):
+    HIT = 7.4
+    if t < 1.0:
+        # whip turn: hero spins round, motion smear
+        defocus_forest(c, 'morning', t * 3, seed=4)
+        c.drawRect(skia.Rect(0, 0, W, H), paint((0, 0, 0), alpha=0.35))
+        k = ease_in_out(seg(t, 0.1, 0.8))
+        lt = Light(amb=(0.64, 0.7, 0.74), rim=hexc('#c9d3d2'), rim_side=-1, rim_k=0.35, shade=0.5)
+        for i in range(4):
+            off = (i - 1.5) * 60 * math.sin(math.pi * k)
+            p = skia.Paint()
+            p.setAlphaf(0.25 if i else 1.0)
+            c.saveLayer(None, p)
+            portrait(c, HERO, W * 0.5 - k * 900 + off, H * 0.43, 450, yaw=lerp(0.0, -0.6, k), e=expr('scared', lx=-0.9), light=lt, t=t)
+            c.restore()
+        post(c, frame, vignette=0.85, grain=0.06)
+        return
+    if t < HIT + 0.6:
+        tt = t - 1.0
+        u = ease_in_out(seg(tt, 0, HIT - 1.0))
+        rush = ease_in(seg(t, HIT, HIT + 0.6))
+        cam = Camera(x=lerp(0.4, -1.6, u) + 0.05 * math.sin(t * 50) * rush, y=1.45, z=lerp(14.6, 18.4, u) + 2.0 * rush,
+                     yaw=lerp(-0.34, -0.19, u), focal=1300 + 900 * rush, horizon=0.5)
+        sc = Scene(cam, tod='morning', t=t)
+        put_fire(sc, t, 0.0, embers=0.0, smoke=0.15)
+        put_tent(sc, t, door=1.0, wind=0.35, skew=0.3)
+        put_beanie(sc, -1.85, 21.3)
+        sc.render(c)
+        if rush > 0:
+            c.drawRect(skia.Rect(0, 0, W, H), paint((0, 0, 0), alpha=rush * 0.7))
+        cut_flash(c, t, 1.0, 0.1)
+        post(c, frame, vignette=0.8 + 0.1 * u, grain=0.07)
+        return
+    black(c)
+    a = smooth(seg(t, HIT + 1.2, HIT + 1.9))
+    txt = 'TO BE CONTINUED…' if lang == 'en' else 'ПРОДОЛЖЕНИЕ СЛЕДУЕТ…'
+    draw_text(c, txt, W / 2, H * 0.5, 'dejavu/DejaVuSerif-Bold.ttf', 64 if lang == 'en' else 56, (0.85, 0.87, 0.9), alpha=a, spacing=4)
+    draw_text(c, 'DIDAO', W / 2, H * 0.5 + 110, 'dejavu/DejaVuSans-Bold.ttf', 30, (0.55, 0.6, 0.65), alpha=a * 0.8, spacing=14)
+    post(c, frame, vignette=0.0, grain=0.05)
+
+
+RENDERERS = {1: render_01, 2: render_02, 3: render_03a, 30: render_03b, 4: render_04, 5: render_05, 6: render_06,
+             7: render_07, 70: render_07b, 8: render_08, 9: render_09, 10: render_10, 11: render_11, 12: render_12,
+             13: render_13, 14: render_14}

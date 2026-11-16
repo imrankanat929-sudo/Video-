@@ -17,29 +17,40 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 Dialogue: 1,0:00:00.60,0:00:05.60,Brand,,0,0,0,,{\fad(600,700)}D I D A O
 Dialogue: 1,0:00:00.90,0:00:05.60,Title,,0,0,0,,{\fad(800,700)}THE FOREST HAS NO EXIT
 Dialogue: 1,0:00:01.40,0:00:05.60,Ep,,0,0,0,,{\fad(800,700)}Episode 1: The Last Night
-Dialogue: 0,0:00:01.60,0:00:06.85,Sub,,0,0,0,,{\fad(120,120)}There were three of us. One weekend. A forest nobody had camped in for years.
-Dialogue: 0,0:00:08.50,0:00:10.05,Sub,,0,0,0,,{\fad(120,120)}We thought it was just a story.
-Dialogue: 0,0:00:12.50,0:00:14.75,Sub,,0,0,0,,{\fad(120,120)}By nightfall, we had a tent, a fire…
-Dialogue: 0,0:00:16.70,0:00:18.89,Sub,,0,0,0,,{\fad(120,120)}and the strange feeling that we weren't alone.
-Dialogue: 0,0:00:22.30,0:00:23.85,Sub,,0,0,0,,{\fad(120,120)}Lena saw it first.
-Dialogue: 0,0:00:25.70,0:00:28.37,Sub,,0,0,0,,{\fad(120,120)}Something tall. Between the trees.
-Dialogue: 0,0:00:29.10,0:00:30.29,Sub,,0,0,0,,{\fad(120,120)}It wasn't moving.
-Dialogue: 0,0:00:32.10,0:00:34.14,Sub,,0,0,0,,{\fad(120,120)}I pointed my flashlight at it…
-Dialogue: 0,0:00:35.50,0:00:36.61,Sub,,0,0,0,,{\fad(120,120)}and it was gone.
-Dialogue: 0,0:00:37.90,0:00:39.66,Sub,,0,0,0,,{\fad(120,120)}Max said it was just a tree.
-Dialogue: 0,0:00:42.20,0:00:44.18,Sub,,0,0,0,,{\fad(120,120)}Around midnight, I woke up.
-Dialogue: 0,0:00:45.40,0:00:49.36,Sub,,0,0,0,,{\fad(120,120)}The fire was out. The forest had gone completely silent.
-Dialogue: 0,0:00:55.40,0:00:59.46,Sub,,0,0,0,,{\fad(120,120)}Footsteps. Three slow steps. Right outside the tent.
-Dialogue: 0,0:01:03.60,0:01:06.09,Sub,,0,0,0,,{\fad(120,120)}It was closer now. Much closer.
-Dialogue: 0,0:01:07.40,0:01:09.03,Sub,,0,0,0,,{\fad(120,120)}And it was watching our tent.
-Dialogue: 0,0:01:11.50,0:01:12.85,Sub,,0,0,0,,{\fad(120,120)}I woke the others.
-Dialogue: 0,0:01:15.60,0:01:18.31,Sub,,0,0,0,,{\fad(120,120)}But by the time we got outside… there was no one there.
-Dialogue: 0,0:01:22.00,0:01:24.17,Sub,,0,0,0,,{\fad(120,120)}In the morning, we packed up to leave.
-Dialogue: 0,0:01:25.40,0:01:27.55,Sub,,0,0,0,,{\fad(120,120)}But the path we came in on… was gone.
-Dialogue: 0,0:01:31.60,0:01:34.11,Sub,,0,0,0,,{\fad(120,120)}Then I saw the words carved into a tree.
-Dialogue: 0,0:01:36.60,0:01:37.76,Sub,,0,0,0,,{\fad(120,120)}Do not look back.
-Dialogue: 0,0:01:40.50,0:01:42.51,Sub,,0,0,0,,{\fad(120,120)}We'd had no signal for hours.
-Dialogue: 0,0:01:43.40,0:01:44.83,Sub,,0,0,0,,{\fad(120,120)}But my phone buzzed.
-Dialogue: 0,0:01:46.60,0:01:47.87,Sub,,0,0,0,,{\fad(120,120)}One new message.
-Dialogue: 0,0:01:49.60,0:01:50.50,Sub,,0,0,0,,{\fad(120,120)}I looked up…
-Dialogue: 0,0:01:54.00,0:01:55.21,Sub,,0,0,0,,{\fad(120,120)}It wasn't alone.
+Dialogue: 0,0:00:00.40,0:00:04.17,Sub,,0,0,0,,{\fad(120,120)}Imagine going camping in the forest with your friends for the weekend.
+Dialogue: 0,0:00:04.22,0:00:08.91,Sub,,0,0,0,,{\fad(120,120)}You just want to relax, set up a tent, and spend a night under the stars.
+Dialogue: 0,0:00:08.96,0:00:13.89,Sub,,0,0,0,,{\fad(120,120)}But you have no idea that this forest is about to become your trap.
+Dialogue: 0,0:00:16.10,0:00:19.19,Sub,,0,0,0,,{\fad(120,120)}On the first evening, everything seems normal.
+Dialogue: 0,0:00:21.90,0:00:25.19,Sub,,0,0,0,,{\fad(120,120)}You're sitting around the campfire, talking and laughing.
+Dialogue: 0,0:00:25.24,0:00:29.71,Sub,,0,0,0,,{\fad(120,120)}Suddenly, your friend notices a tall figure standing between the trees.
+Dialogue: 0,0:00:30.40,0:00:33.65,Sub,,0,0,0,,{\fad(120,120)}It's so tall that it almost reaches the treetops.
+Dialogue: 0,0:00:35.60,0:00:38.18,Sub,,0,0,0,,{\fad(120,120)}You point your flashlight toward it.
+Dialogue: 0,0:00:38.23,0:00:41.16,Sub,,0,0,0,,{\fad(120,120)}But the next second, the figure disappears.
+Dialogue: 0,0:00:41.21,0:00:44.70,Sub,,0,0,0,,{\fad(120,120)}You decide it was just a trick of the shadows and go to sleep.
+Dialogue: 0,0:00:46.60,0:00:50.31,Sub,,0,0,0,,{\fad(120,120)}Around midnight, you wake up because of a strange sound.
+Dialogue: 0,0:00:52.10,0:00:54.01,Sub,,0,0,0,,{\fad(120,120)}Three slow footsteps.
+Dialogue: 0,0:00:56.20,0:00:57.65,Sub,,0,0,0,,{\fad(120,120)}Then silence.
+Dialogue: 0,0:00:58.10,0:00:59.87,Sub,,0,0,0,,{\fad(120,120)}And three more footsteps.
+Dialogue: 0,0:01:02.30,0:01:05.23,Sub,,0,0,0,,{\fad(120,120)}You carefully open the tent and look outside.
+Dialogue: 0,0:01:05.40,0:01:08.31,Sub,,0,0,0,,{\fad(120,120)}The same figure is standing in the clearing.
+Dialogue: 0,0:01:08.36,0:01:11.73,Sub,,0,0,0,,{\fad(120,120)}Tall, thin, wearing a black suit.
+Dialogue: 0,0:01:12.50,0:01:15.19,Sub,,0,0,0,,{\fad(120,120)}But there's something even stranger.
+Dialogue: 0,0:01:15.24,0:01:16.91,Sub,,0,0,0,,{\fad(120,120)}It has no face.
+Dialogue: 0,0:01:17.80,0:01:19.73,Sub,,0,0,0,,{\fad(120,120)}You quickly wake your friends.
+Dialogue: 0,0:01:21.40,0:01:25.11,Sub,,0,0,0,,{\fad(120,120)}But when they rush outside, the figure is already gone.
+Dialogue: 0,0:01:26.20,0:01:29.55,Sub,,0,0,0,,{\fad(120,120)}In the morning, you decide to leave the forest immediately.
+Dialogue: 0,0:01:29.60,0:01:32.63,Sub,,0,0,0,,{\fad(120,120)}But the road you used to get here has disappeared.
+Dialogue: 0,0:01:32.68,0:01:35.81,Sub,,0,0,0,,{\fad(120,120)}Everywhere you look, there are identical trees.
+Dialogue: 0,0:01:36.80,0:01:42.27,Sub,,0,0,0,,{\fad(120,120)}You start searching for an exit until you notice a strange message carved into a tree.
+Dialogue: 0,0:01:42.32,0:01:44.13,Sub,,0,0,0,,{\fad(120,120)}“Do not look back.”
+Dialogue: 0,0:01:44.60,0:01:47.51,Sub,,0,0,0,,{\fad(120,120)}At that moment, your phone vibrates.
+Dialogue: 0,0:01:47.56,0:01:50.43,Sub,,0,0,0,,{\fad(120,120)}A message appears from an unknown sender.
+Dialogue: 0,0:01:50.48,0:01:52.13,Sub,,0,0,0,,{\fad(120,120)}“I can see you all.”
+Dialogue: 0,0:01:54.20,0:01:57.01,Sub,,0,0,0,,{\fad(120,120)}You raise your head and look between the trees.
+Dialogue: 0,0:01:57.40,0:02:00.39,Sub,,0,0,0,,{\fad(120,120)}Three identical figures are standing there.
+Dialogue: 0,0:02:00.44,0:02:03.37,Sub,,0,0,0,,{\fad(120,120)}But one of them is much closer than the others.
+Dialogue: 0,0:02:04.50,0:02:06.39,Sub,,0,0,0,,{\fad(120,120)}Suddenly, your friend whispers:
+Dialogue: 0,0:02:06.44,0:02:08.89,Sub,,0,0,0,,{\fad(120,120)}“Wait… where is the fourth one?”
+Dialogue: 0,0:02:09.70,0:02:11.01,Sub,,0,0,0,,{\fad(120,120)}You turn around.
+Dialogue: 0,0:02:11.06,0:02:13.27,Sub,,0,0,0,,{\fad(120,120)}But the tent is already empty.
+Dialogue: 0,0:02:13.40,0:02:15.53,Sub,,0,0,0,,{\fad(120,120)}Where do you think your friend disappeared?

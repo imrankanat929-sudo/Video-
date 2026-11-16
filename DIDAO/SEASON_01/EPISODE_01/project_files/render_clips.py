@@ -7,7 +7,7 @@ import os, sys, time
 from multiprocessing import Pool
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from script_ep01 import CLIPS
+from script_ep01 import CLIPS, END_CARD_CLIP
 import scenes_ep01 as S
 from didao_engine.core import FPS, new_surface, VideoWriter, save_png
 
@@ -19,6 +19,8 @@ def render_clip(args):
     clip = next(c for c in CLIPS if c['id'] == cid)
     n = int(round(clip['dur'] * FPS))
     suffix = '' if lang == 'en' else '_RU'
+    if cid != END_CARD_CLIP:
+        suffix = ''
     path = os.path.join(OUT, clip['name'] + suffix + '.mp4')
     surf = new_surface()
     vw = VideoWriter(path)
@@ -26,7 +28,8 @@ def render_clip(args):
     for f in range(n):
         cv = surf.getCanvas()
         cv.clear(0xFF000000)
-        S.RENDERERS[cid](cv, f / FPS, f, lang)
+        rid, off = clip['scene']
+        S.RENDERERS[rid](cv, off + f / FPS, f, lang)
         vw.write(surf)
     vw.close()
     return f"{os.path.basename(path)}: {n} frames in {time.time() - t0:.0f}s"
@@ -36,13 +39,14 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     if a and a[0] == '--preview':
         cid = int(a[1])
+        clip = next(c for c in CLIPS if c['id'] == cid)
         for ts in a[2:]:
             surf = new_surface(); cv = surf.getCanvas(); cv.clear(0xFF000000)
-            S.RENDERERS[cid](cv, float(ts), int(float(ts) * FPS), 'en')
+            S.RENDERERS[clip['scene'][0]](cv, clip['scene'][1] + float(ts), int(float(ts) * FPS), 'en')
             save_png(surf, f'/tmp/claude-0/t/p{cid:02d}_{ts}.png')
         sys.exit()
     ids = [int(x) for x in a] or [c['id'] for c in CLIPS]
-    jobs = [(i, 'en') for i in ids] + ([(12, 'ru')] if 12 in ids else [])
+    jobs = [(i, 'en') for i in ids] + ([(END_CARD_CLIP, 'ru')] if END_CARD_CLIP in ids else [])
     jobs.sort(key=lambda j: -next(c['dur'] for c in CLIPS if c['id'] == j[0]))
     with Pool(4) as p:
         for r in p.imap_unordered(render_clip, jobs):
