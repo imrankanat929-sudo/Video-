@@ -3,10 +3,13 @@
 //        node render.mjs cover               -> output/cover.png
 import { createRequire } from 'module'; import { spawn } from 'child_process'; import fs from 'fs'; import path from 'path'; import { fileURLToPath } from 'url';
 const require = createRequire(import.meta.url); const { chromium } = require('playwright');
-const here = path.dirname(fileURLToPath(import.meta.url)); const out = path.join(here, '..', 'output');
+const here = path.dirname(fileURLToPath(import.meta.url));
+const PAGE = process.env.PAGE ? path.resolve(process.env.PAGE) : path.join(here, 'index.html');
+const out = process.env.OUT ? path.resolve(process.env.OUT) : path.join(here, '..', 'output');
+const [VW, VH] = (process.env.SIZE || '1920x1080').split('x').map(Number);
 const FPS = 30; const mode = process.argv[2] || 'stills'; const only = process.argv[3] ? process.argv[3].split(',') : null;
 const browser = await chromium.launch({ args: ['--allow-file-access-from-files', '--disable-web-security'] });
-async function newPage() { const p = await browser.newPage({ viewport: { width: 1920, height: 1080 } }); await p.goto('file://' + path.join(here, 'index.html')); await p.evaluate(() => window.ready); return p; }
+async function newPage() { const p = await browser.newPage({ viewport: { width: VW, height: VH } }); await p.goto('file://' + PAGE); await p.evaluate(() => window.ready); return p; }
 const shots = (await (await newPage()).evaluate(() => SHOTS.map(s => ({ id: s.id, dur: s.dur, start: s.start })))).filter(s => !only || only.includes(s.id));
 if (mode === 'cover') { const p = await newPage(); await p.evaluate(() => renderCover()); const d = await p.evaluate(() => grabPng()); fs.writeFileSync(path.join(out, 'cover.png'), Buffer.from(d.split(',')[1], 'base64')); }
 else if (mode === 'stills') { fs.mkdirSync(path.join(out, 'stills'), { recursive: true }); const p = await newPage(); const fr = process.argv[4] ? parseFloat(process.argv[4]) : 0.6;

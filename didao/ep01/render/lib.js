@@ -1,6 +1,6 @@
 // DIDAO — shared drawing library (2D flat cartoon, neon "Vice" city mood)
 // Everything is deterministic: frame(t) always draws the same picture.
-const W = 1920, H = 1080;
+var W = 1920, H = 1080;  // the vertical cut overrides these before loading its shots
 
 const C = {
   skin: '#d6a77a', skinSh: '#b98a60', hair: '#0e0e11', hairHi: '#26262c',
@@ -21,6 +21,7 @@ const easeIn = k => Math.pow(clamp(k), 3);
 const easeOutBack = k => { k = clamp(k); const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
 function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 const fmt = n => Math.floor(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+const fmtEn = n => Math.floor(n).toLocaleString('en-US');
 
 // ---------- primitives ----------
 function rr(ctx, x, y, w, h, r) { r = Math.min(r, w / 2, h / 2); ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }

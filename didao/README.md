@@ -15,3 +15,11 @@ Original 2D cartoon in a neon "Vice" city style. One recurring hero, 2-minute ep
 5. Assembly: cross-fades between the clips, colour grade, music ducked under the voice, loudness normalised
 
 Requirements: ffmpeg with libass, Node and Playwright (Chromium), Python with numpy. `SKIP_RENDER=1 ./build.sh` re-assembles without re-rendering the shots.
+
+## Episode 1, vertical English cut — `ep01_en_vertical/`
+- `output/ONE_DAY_BEFORE_GTA6_EN_9x16.mp4`: 1080×1920 (9:16), 2:00, English voice-over and burned-in English subtitles. No DIDAO branding; the channel in the story is simply "My Channel".
+- `output/ONE_DAY_BEFORE_GTA6_EN_preview_1080x1920.jpg`: the vertical preview (thumbnail)
+- `output/ONE_DAY_BEFORE_GTA6_EN_subtitles.srt`
+- `render/shots_v.js`: the 25 shots re-composed for the vertical frame. They reuse the hero and art from `ep01/render/lib.js`.
+- `audio/make_vo.py`: English VO, made locally with the Kokoro TTS model (`am_puck` voice). Each line sits at the same time as in the Russian cut. The score and SFX are shared with `ep01/audio`.
+- Build: `./render.sh shots` then `SKIP_RENDER=1 ./build.sh`
