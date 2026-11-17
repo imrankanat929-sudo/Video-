@@ -23,3 +23,9 @@ Requirements: ffmpeg with libass, Node and Playwright (Chromium), Python with nu
 - `render/shots_v.js`: the 25 shots re-composed for the vertical frame. They reuse the hero and art from `ep01/render/lib.js`.
 - `audio/make_vo.py`: English VO, made locally with the Kokoro TTS model (`am_puck` voice). Each line sits at the same time as in the Russian cut. The score and SFX are shared with `ep01/audio`.
 - Build: `./render.sh shots` then `SKIP_RENDER=1 ./build.sh`
+
+## Episode 1, vertical Russian cut — `ep01_en_vertical/output_ru/`
+- `ZA_DEN_DO_GTA6_RU_9x16.mp4`: 1080×1920, 2:00, original Russian ElevenLabs VO, Russian subtitles. The channel is "Мой канал".
+- `ZA_DEN_DO_GTA6_RU_preview_1080x1920.jpg`, `ZA_DEN_DO_GTA6_RU_subtitles.srt`
+- The Russian shots are generated from the English ones by `render/make_ru.py` (a string-by-string translation). Edit `shots_v.js`, and both languages pick up the change.
+- Build: `./render_ru.sh shots` then `SKIP_RENDER=1 ./build_ru.sh`
