@@ -202,7 +202,7 @@ def environment_refs():
 PATH_PX = 30
 
 
-def cover():
+def cover(lang='en'):
     s = new_surface()
     c = s.getCanvas()
     cam = Camera(x=0.6, y=1.5, z=15.6, yaw=0.0, focal=1500, horizon=0.47)
@@ -224,9 +224,14 @@ def cover():
     post(c, 0, vignette=0.9, grain=0.05)
     c.drawRect(skia.Rect(0, 0, W, 560), paint(shader=lin_grad((0, 0), (0, 560), [(0, 0, 0, 0.8), (0, 0, 0, 0)])))
     draw_text(c, 'D I D A O', W / 2, 120, BOLD, 36, (0.65, 0.7, 0.78))
-    draw_text(c, 'HE IS', W / 2, 270, 'dejavu/DejaVuSerif-Bold.ttf', 140, (0.95, 0.95, 0.97), spacing=6)
-    draw_text(c, 'WATCHING YOU', W / 2, 410, 'dejavu/DejaVuSerif-Bold.ttf', 96, (0.95, 0.95, 0.97), spacing=2)
-    save_png(s, os.path.join(EP, 'final', 'DIDAO_EP01_COVER.png'))
+    if lang == 'ru':
+        draw_text(c, 'ОН СЛЕДИТ', W / 2, 270, 'dejavu/DejaVuSerif-Bold.ttf', 112, (0.95, 0.95, 0.97), spacing=3)
+        draw_text(c, 'ЗА ТОБОЙ', W / 2, 410, 'dejavu/DejaVuSerif-Bold.ttf', 112, (0.95, 0.95, 0.97), spacing=3)
+        save_png(s, os.path.join(EP, 'final', 'DIDAO_EP01_COVER_RU.png'))
+    else:
+        draw_text(c, 'HE IS', W / 2, 270, 'dejavu/DejaVuSerif-Bold.ttf', 140, (0.95, 0.95, 0.97), spacing=6)
+        draw_text(c, 'WATCHING YOU', W / 2, 410, 'dejavu/DejaVuSerif-Bold.ttf', 96, (0.95, 0.95, 0.97), spacing=2)
+        save_png(s, os.path.join(EP, 'final', 'DIDAO_EP01_COVER.png'))
 
 
 if __name__ == '__main__':
@@ -239,4 +244,5 @@ if __name__ == '__main__':
     monster_sheet()
     environment_refs()
     cover()
+    cover('ru')
     print('refs done')
