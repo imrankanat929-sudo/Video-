@@ -575,7 +575,16 @@ def sfx_tap(d=0.2, seed=44):
     return norm(x, 0.25)
 
 
+def sfx_breath(d=4.0, seed=45):
+    n = int(d * SR)
+    t = np.arange(n) / SR
+    env = np.clip(np.sin(2 * np.pi * t / 2.0), 0, 1) ** 1.5 + 0.6 * np.clip(-np.sin(2 * np.pi * t / 2.0), 0, 1) ** 2
+    x = bp(white(n, seed), 400, 2500) * env.astype(np.float32)
+    return norm(reverb(lp(x, 2000), 0.8, 0.3), 0.45)
+
+
 SFX = {
+    'breath': sfx_breath, 'knock3': lambda: sfx_knock(2.6, 50, 3, 1.0, 0.7),
     'boom': sfx_boom, 'hit': sfx_hit, 'stinger': sfx_stinger, 'riser': sfx_riser, 'tape_click': sfx_tape_click,
     'knock': sfx_knock, 'knock_soft': sfx_knock_soft, 'glass_tap': sfx_glass_tap,
     'door_creak': lambda: sfx_creak(1.8, 10, 160), 'gate_creak': lambda: sfx_creak(2.8, 11, 120),

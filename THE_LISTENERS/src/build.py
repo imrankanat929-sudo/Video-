@@ -15,7 +15,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD = os.path.join(ROOT, 'build')
 FPS = 25
 SR = A.SR
-SPEAKER_NAMES = {'A': 'Алекс', 'AN': 'Алекс', 'MOM': 'Голос', 'MIMA': 'Голос', 'TV': 'Радио', 'MIRA': 'Мира', 'VIK': 'Виктор', 'VIKL': 'Голос', 'MAN': 'Голос'}
+SPEAKER_NAMES = {'A': 'Алекс', 'AN': 'Алекс', 'MOM': 'Голос', 'MIMA': 'Голос', 'TV': 'Радио', 'MIRA': 'Мира', 'VIK': 'Виктор', 'VIKL': 'Голос', 'MAN': 'Голос', 'FRIEND': 'Голос друга', 'MIMW': 'Голос'}
 os.makedirs(BUILD, exist_ok=True)
 
 
@@ -277,13 +277,13 @@ def scripts():
     tl = load_tl()
     d = os.path.join(ROOT, 'scripts')
     os.makedirs(d, exist_ok=True)
-    parts = {1: 'НАЧАЛО', 2: 'КТО ОНИ?', 3: 'ПРАВИЛА 1–5', 4: 'ПРАВИЛА 6–10', 5: 'ПРАВИЛА 11–14', 6: 'ПРАВИЛО 15', 7: 'ФИНАЛ'}
+    parts = {1: 'ЧЁРНАЯ ТИШИНА', 2: 'ПРАВИЛА 1–5', 3: 'ПРАВИЛА 6–10', 4: 'ПРАВИЛА 11–14', 5: 'ПРАВИЛО 15', 6: 'ДИКТОФОН'}
     with open(os.path.join(d, 'russian_script.txt'), 'w', encoding='utf-8') as f:
-        f.write('СЛУШАЮЩИЕ (THE LISTENERS) — ЭПИЗОД 01 — 15 ПРАВИЛ, ЧТОБЫ ВЫЖИТЬ\nРусский сценарий озвучки\n')
+        f.write('THE LISTENERS — ЭПИЗОД 01 — 15 ПРАВИЛ, ЧТОБЫ ВЫЖИТЬ СРЕДИ СЛУШАЮЩИХ\nРусский сценарий озвучки\n')
         f.write('Обозначения: [ДИКТОР] — низкий спокойный голос; [ДИКТОР, шёпот]; [АЛЕКС, шёпот]; [ГОЛОС] — имитация существа.\n')
         cur = None
         names = {'N': 'ДИКТОР', 'W': 'ДИКТОР, шёпот', 'A': 'АЛЕКС, шёпот', 'AN': 'АЛЕКС', 'MOM': 'ГОЛОС «МАМЫ» (существо)', 'MIMA': 'ГОЛОС АЛЕКСА (существо)',
-                 'TV': 'ЭКСТРЕННОЕ ВЕЩАНИЕ', 'MIRA': 'МИРА, шёпот', 'VIK': 'ВИКТОР, шёпот', 'VIKL': 'ГОЛОС «ВИКТОРА» (существо)', 'MAN': 'МУЖЧИНА / ГОЛОС'}
+                 'TV': 'ЭКСТРЕННОЕ ВЕЩАНИЕ', 'MIRA': 'МИРА, шёпот', 'VIK': 'ВИКТОР, шёпот', 'VIKL': 'ГОЛОС «ВИКТОРА» (существо)', 'MAN': 'МУЖЧИНА / ГОЛОС', 'FRIEND': 'ГОЛОС ДРУГА (существо)', 'MIMW': 'ГОЛОС АЛЕКСА, шёпот (существо)'}
         for it in tl:
             if it['part'] != cur:
                 cur = it['part']
@@ -322,7 +322,7 @@ def final():
     out = os.path.join(ROOT, 'final', 'THE_LISTENERS_EP01_RU.mp4')
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', video, '-i', os.path.join(BUILD, 'mix.wav'), '-map', '0:v', '-map', '1:a',
                     '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart',
-                    '-metadata', 'title=СЛУШАЮЩИЕ — 15 правил, чтобы выжить (Эпизод 01)', out], check=True)
+                    '-metadata', 'title=THE LISTENERS — 15 правил, чтобы выжить среди Слушающих (Эпизод 01)', out], check=True)
     print('final ->', out)
 
 

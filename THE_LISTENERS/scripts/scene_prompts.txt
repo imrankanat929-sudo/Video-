@@ -4,281 +4,263 @@ CREATURE (constant): THE LISTENER — 2.3-2.6 m, smooth matte white ceramic body
 ALEX (constant): 16 y.o., black messy hair, dark grey-blue sweater, dark jeans, tired tense eyes.
 
 scene_001  [8.0s, part 1, camera: slow push-in, music: dread, ambience: drone_room]
-  Dark corridor, flickering ceiling light, a tall white faceless ceramic figure stands far away. Slow push-in.
+  Dark corridor, flickering light, a tall white faceless figure far away. Slow push-in.
 
 scene_002  [6.0s, part 1, camera: slow push-in, music: title, ambience: none]
-  Title card: white faceless creature in darkness, title СЛУШАЮЩИЕ.
+  Title card: 15 ПРАВИЛ, ЧТОБЫ ВЫЖИТЬ СРЕДИ СЛУШАЮЩИХ.
 
-scene_003  [9.0s, part 1, camera: slow push-in, music: calm, ambience: room_dawn]
-  Teen boy Alex (black messy hair, dark sweater) sits up in bed, grey dawn light from window, empty city outside.
+scene_003  [8.0s, part 1, camera: slow push-in, music: calm, ambience: city_dawn]
+  Normal busy city day: cars, people walking, birds. People fade away at the end.
 
-scene_004  [9.2s, part 1, camera: slow push-in, music: calm, ambience: room_dawn]
-  Extreme close-up of smartphone: НЕТ СЕТИ, 06:47.
+scene_004  [7.0s, part 1, camera: slow push-in, music: tense, ambience: lab_hum]
+  World map, red dots of missing people spreading, counter ПРОПАВШИЕ БЕЗ ВЕСТИ.
 
-scene_005  [9.1s, part 1, camera: slow push-in, music: calm, ambience: room_dawn]
-  Medium close-up: Alex holds phone to ear, worried, dawn bedroom.
+scene_005  [5.5s, part 1, camera: slow push-in, music: tense, ambience: room_dawn]
+  Empty family apartment: plates on the table, a toy car on the floor, nobody home.
 
-scene_006  [8.9s, part 1, camera: slow pull-out, music: calm, ambience: city_dawn]
-  Wide shot: empty city at dawn, abandoned cars with open doors, blinking yellow traffic light, fog.
+scene_006  [5.5s, part 1, camera: slow pull-out, music: tense, ambience: city_dawn]
+  Empty grey street, abandoned cars with open doors, papers blowing.
 
-scene_007  [15.8s, part 1, camera: slow push-in, music: tense, ambience: room_dawn]
-  Kitchen, TV switches on itself: red emergency broadcast ОРГАНИЗМ N-0, Alex staring.
+scene_007  [6.5s, part 1, camera: slow push-in, music: tense, ambience: room_dawn]
+  Montage: phone НЕТ СЕТИ, TV static, browser no-connection page.
 
-scene_008  [10.6s, part 1, camera: slow push-in, music: tense, ambience: room_dawn]
-  Close-up of TV emergency alert, scrolling red text.
+scene_008  [6.0s, part 1, camera: slow push-in, music: dread, ambience: room_dawn]
+  Emergency broadcast: ЧЁРНАЯ ТИШИНА.
 
-scene_009  [8.9s, part 1, camera: static, music: tense, ambience: city_dawn]
-  Tracking shot: Alex walks along an empty grey street past abandoned cars with doors open.
+scene_009  [6.5s, part 1, camera: slow push-in, music: doc, ambience: lab_hum]
+  Microscope view: red cells turning white. N-0.
 
-scene_010  [8.7s, part 1, camera: slow push-in, music: tense, ambience: city_dawn]
-  Overhead close-up: headphones on wet asphalt, tiny music still playing.
+scene_010  [8.6s, part 1, camera: slow push-in, music: dread, ambience: city_dawn]
+  Over-the-shoulder: Alex, a white faceless figure appears in the fog at the end of the street.
 
-scene_011  [8.0s, part 1, camera: slow push-in, music: dread, ambience: city_dawn]
-  Over-the-shoulder: Alex in foreground, a tall white faceless figure appears in the fog at the end of the street.
+scene_011  [8.4s, part 1, camera: slow push-in, music: doc, ambience: room_night]
+  Classified dossier N-0 with photo of the creature and anatomy notes.
 
-scene_012  [8.0s, part 1, camera: slow push-in, music: silence, ambience: city_dawn]
-  Low angle from under a car: long white legs walk past; Alex covers his mouth in the dark foreground.
+scene_012  [7.0s, part 1, camera: slow push-in, music: tense, ambience: city_night]
+  A survivor tiptoes past a motionless white creature that cannot see him.
 
-scene_013  [2.9s, part 2, camera: static, music: dread, ambience: none]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_013  [7.0s, part 1, camera: slow push-in, music: doc, ambience: lab_hum]
+  Blueprint diagram of the Listener, head slowly turning.
 
-scene_014  [14.3s, part 2, camera: slow push-in, music: doc, ambience: room_night]
-  Classified dossier ДЕЛО N-0 with a photo of the white faceless creature and anatomy notes.
+scene_014  [8.8s, part 1, camera: slow push-in, music: calm, ambience: room_night]
+  Alex, 16, at night by lamp light, speaks into a dictaphone.
 
-scene_015  [8.8s, part 2, camera: slow push-in, music: doc, ambience: lab_hum]
-  Blueprint anatomy diagram of the Listener with callouts, head slowly turning.
+scene_015  [5.5s, part 1, camera: slow push-in, music: dread, ambience: none]
+  Card: 15 ПРАВИЛ.
 
-scene_016  [8.0s, part 2, camera: slow push-in, music: tense, ambience: city_night]
-  Night street under a single lamp: a survivor tiptoes past a motionless white creature that cannot see him.
+scene_016  [12.4s, part 2, camera: slow push-in, music: silence, ambience: city_night]
+  Night courtyard, one window flashes with party lights, loud music.
 
-scene_017  [8.0s, part 2, camera: slow push-in, music: tense, ambience: city_night]
-  A bearded man shouts for help; the white creature turns its head and lunges. Hard cut to black.
+scene_017  [9.0s, part 2, camera: slow push-in, music: tense, ambience: city_night]
+  A single white figure appears under the window and slowly turns its head up toward the music.
 
-scene_018  [3.5s, part 2, camera: static, music: silence, ambience: none]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_018  [6.0s, part 2, camera: slow pull-out, music: silence, ambience: city_night]
+  Silence: dark window, the creature stands still below.
 
-scene_019  [9.2s, part 2, camera: slow push-in, music: doc, ambience: lab_hum]
-  Microscope view: red cells turning white. Label N-0, origin unknown.
+scene_019  [4.3s, part 2, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 1 into his notebook.
 
-scene_020  [9.0s, part 2, camera: slow push-in, music: calm, ambience: room_night]
-  Alex at home at night, lamp light, holding a notebook, door locked.
+scene_020  [9.0s, part 2, camera: slow push-in, music: calm, ambience: city_night]
+  Apartment facade at night, a woman talks on the phone in a lit open window.
 
-scene_021  [2.9s, part 3, camera: static, music: dread, ambience: none]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_021  [13.6s, part 2, camera: slow pull-out, music: tense, ambience: city_night]
+  The woman stops talking; three white creatures stand below the window with heads tilted up.
 
-scene_022  [13.3s, part 3, camera: slow push-in, music: silence, ambience: city_night]
-  Night courtyard, soviet apartment block, one window flashing colored party lights, loud music.
+scene_022  [4.3s, part 2, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 2 into his notebook.
 
-scene_023  [11.8s, part 3, camera: slow push-in, music: tense, ambience: city_night]
-  Dozens of white creatures gather below the window with music, some climb up the wall.
+scene_023  [7.0s, part 2, camera: slow push-in, music: tense, ambience: room_night]
+  The front door shakes from knocking, Alex freezes.
 
-scene_024  [8.0s, part 3, camera: slow pull-out, music: silence, ambience: city_night]
-  Silence: dark window, creatures stand motionless in the courtyard until dawn.
+scene_024  [8.6s, part 2, camera: slow pull-out, music: dread, ambience: room_night]
+  Alex backs away from the door covering his mouth.
 
-scene_025  [4.2s, part 3, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_025  [7.0s, part 2, camera: slow push-in, music: dread, ambience: room_night]
+  Fisheye peephole view: smooth white eyeless face.
 
-scene_026  [12.4s, part 3, camera: slow push-in, music: calm, ambience: room_night]
-  Night kitchen, window open, Alex standing near it.
+scene_026  [4.3s, part 2, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 3 into his notebook.
 
-scene_027  [11.1s, part 3, camera: slow push-in, music: tense, ambience: city_night]
-  Exterior: Alex whispers out of his lit window; a white creature crawls up the facade below.
+scene_027  [7.0s, part 2, camera: slow push-in, music: tense, ambience: store]
+  Supermarket at night, a white creature walks between shelves, Alex hides.
 
-scene_028  [8.0s, part 3, camera: slow push-in, music: dread, ambience: room_night]
-  Alex slams the window shut, the faceless head rises behind the glass.
+scene_028  [6.9s, part 2, camera: slow push-in, music: silence, ambience: store]
+  Phone screen: notification beep.
 
-scene_029  [4.2s, part 3, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_029  [6.0s, part 2, camera: slow push-in, music: action, ambience: store]
+  The creature snaps its head toward Alex and lunges; Alex runs.
 
-scene_030  [10.5s, part 3, camera: slow push-in, music: tense, ambience: room_night]
-  Dark hallway inside apartment: the front door shakes from knocking, light under the door. Alex freezes.
+scene_030  [6.0s, part 2, camera: slow push-in, music: calm, ambience: room_night]
+  Phone: silent mode switched on.
 
-scene_031  [11.2s, part 3, camera: slow push-in, music: tense, ambience: room_night]
-  Close: Alex reaches toward the door lock, a familiar female voice behind the door.
+scene_031  [4.3s, part 2, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 4 into his notebook.
 
-scene_032  [8.7s, part 3, camera: slow push-in, music: dread, ambience: room_night]
-  Fisheye peephole view: a smooth white eyeless face pressed against the door.
+scene_032  [6.5s, part 2, camera: slow push-in, music: calm, ambience: city_night]
+  Apartment block at night, one window flickers with TV light.
 
-scene_033  [10.8s, part 3, camera: slow pull-out, music: dread, ambience: room_night]
-  Alex backs away from the door, covering his mouth, the voice repeats.
+scene_033  [6.5s, part 2, camera: slow push-in, music: calm, ambience: room_night]
+  A family sits on the sofa watching TV loudly at night.
 
-scene_034  [4.2s, part 3, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_034  [7.0s, part 2, camera: slow push-in, music: tense, ambience: city_night]
+  White creatures gather in the courtyard under the flickering TV window.
 
-scene_035  [13.8s, part 3, camera: slow push-in, music: tense, ambience: store]
-  Supermarket at night, flickering fluorescent lights, a white creature walks slowly between shelves, Alex hides.
+scene_035  [7.5s, part 2, camera: slow push-in, music: silence, ambience: room_night]
+  TV goes dark; in the gloom a white figure stands behind the frightened family.
 
-scene_036  [6.3s, part 3, camera: slow push-in, music: silence, ambience: store]
-  Extreme close-up: phone screen, low battery notification pops up with a beep.
+scene_036  [4.3s, part 2, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 5 into his notebook.
 
-scene_037  [10.3s, part 3, camera: slow push-in, music: action, ambience: store]
-  The creature snaps its head toward Alex and lunges; Alex runs away.
+scene_037  [6.0s, part 3, camera: slow push-in, music: tense, ambience: city_night]
+  Dark courtyard at midnight, nobody visible.
 
-scene_038  [4.2s, part 3, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_038  [7.0s, part 3, camera: slow push-in, music: dread, ambience: room_night]
+  Alex grips the window handle, hesitating.
 
-scene_039  [11.3s, part 3, camera: slow push-in, music: calm, ambience: city_night]
-  Apartment block at night, one window flickers with blue TV light.
-
-scene_040  [16.1s, part 3, camera: slow pull-out, music: dread, ambience: room_night]
-  Inside a living room lit only by a TV show: five white creatures stand around the TV, listening.
-
-scene_041  [6.0s, part 3, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
-
-scene_042  [2.9s, part 4, camera: static, music: dread, ambience: none]
-  Title / chapter card or notebook insert (Alex writes the rule down).
-
-scene_043  [14.2s, part 4, camera: slow push-in, music: tense, ambience: city_night]
-  Dark courtyard at midnight, a cry for help echoes, nobody visible.
-
-scene_044  [16.0s, part 4, camera: slow push-in, music: dread, ambience: room_night]
-  Alex grips the window handle, then freezes as the cry repeats identically.
-
-scene_045  [9.1s, part 4, camera: slow push-in, music: dread, ambience: city_night]
+scene_039  [7.0s, part 3, camera: slow push-in, music: dread, ambience: city_night]
   Under a streetlight a single white creature tilts its head up toward the windows.
 
-scene_046  [4.2s, part 4, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_040  [4.3s, part 3, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 6 into his notebook.
 
-scene_047  [15.6s, part 4, camera: slow push-in, music: tense, ambience: room_night]
-  Close-up: a walkie-talkie on a table, channel 7, static, a voice calls Alex by name.
+scene_041  [7.0s, part 3, camera: slow push-in, music: tense, ambience: room_night]
+  Close-up: a walkie-talkie, channel 7, static.
 
-scene_048  [10.2s, part 4, camera: slow push-in, music: dread, ambience: room_night]
-  Close-up: Alex in lamp light, thinking, scared.
+scene_042  [9.6s, part 3, camera: slow push-in, music: dread, ambience: room_night]
+  Close-up: Alex in lamp light, scared.
 
-scene_049  [6.0s, part 4, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_043  [4.3s, part 3, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 7 into his notebook.
 
-scene_050  [13.5s, part 4, camera: slow push-in, music: tense, ambience: stairs]
-  Dim stairwell, flickering bulb, graffiti ТИХО, Alex steps out carefully.
+scene_044  [7.0s, part 3, camera: slow push-in, music: tense, ambience: stairs]
+  Dim stairwell, Alex steps out carefully.
 
-scene_051  [10.0s, part 4, camera: slow push-in, music: dread, ambience: stairs]
-  Reveal: a white creature stands motionless on the landing below, head tilted toward Alex.
+scene_045  [8.8s, part 3, camera: slow push-in, music: dread, ambience: stairs]
+  Reveal: a white creature stands motionless on the landing below.
 
-scene_052  [4.9s, part 4, camera: slow push-in, music: calm, ambience: room_night]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_046  [7.5s, part 3, camera: slow push-in, music: silence, ambience: city_night]
+  A foggy street full of motionless creatures; at a sound all heads snap toward Alex at once.
 
-scene_053  [16.8s, part 4, camera: slow push-in, music: tense, ambience: room_night]
-  Bedroom at night, metal vent grille on the wall slowly bulges, ticking sounds.
+scene_047  [4.3s, part 3, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 8 into his notebook.
 
-scene_054  [9.0s, part 4, camera: static, music: action, ambience: stairs]
-  Alex runs down the dark stairwell with a backpack.
+scene_048  [6.5s, part 3, camera: slow push-in, music: tense, ambience: room_night]
+  Bedroom at night, vent grille on the wall, ticking.
 
-scene_055  [4.2s, part 4, camera: slow push-in, music: calm, ambience: wind]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_049  [9.9s, part 3, camera: slow push-in, music: silence, ambience: room_night]
+  A door; three identical knocks, then silence.
 
-scene_056  [10.8s, part 4, camera: slow push-in, music: tense, ambience: hospital]
-  Hospital corridor, flickering lights, Alex walks with a flashlight.
+scene_050  [6.0s, part 3, camera: slow push-in, music: dread, ambience: room_night]
+  Alex backs away from the door, covering his mouth.
 
-scene_057  [15.1s, part 4, camera: slow push-in, music: dread, ambience: hospital]
-  Hospital corridor: a white creature at the far end speaks with a nurse's voice; Alex hides in foreground.
+scene_051  [4.3s, part 3, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 9 into his notebook.
 
-scene_058  [12.8s, part 4, camera: slow push-in, music: dread, ambience: hospital]
-  Close: the white creature stands in the corridor and speaks with the mother's voice. Slow push-in.
+scene_052  [7.0s, part 3, camera: slow push-in, music: tense, ambience: hospital]
+  Dark corridor, Alex walks with a flashlight.
 
-scene_059  [10.2s, part 4, camera: slow push-in, music: sad, ambience: hospital]
-  Close-up: Alex closes his eyes, covers his mouth, a tear.
+scene_053  [12.0s, part 3, camera: slow push-in, music: dread, ambience: room_night]
+  Alex listens at a dark window; a friend's voice repeats the same phrase outside.
 
-scene_060  [4.2s, part 4, camera: slow push-in, music: sad, ambience: hospital]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_054  [7.0s, part 3, camera: slow push-in, music: dread, ambience: city_dawn]
+  A white figure in the fog, standing where the friend's voice came from.
 
-scene_061  [2.9s, part 5, camera: static, music: dread, ambience: none]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_055  [4.3s, part 3, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 10 into his notebook.
 
-scene_062  [13.0s, part 5, camera: slow push-in, music: calm, ambience: hospital]
-  Hospital pharmacy: Alex meets Mira (yellow jacket, ponytail) and Viktor (beard, cap), whispering.
+scene_056  [10.4s, part 4, camera: slow push-in, music: tense, ambience: room_night]
+  Phone chat with messages about a shelter at metro Северная.
 
-scene_063  [19.2s, part 5, camera: slow push-in, music: tense, ambience: room_night]
-  Close-up of an old radio, FM dial, broadcast about a shelter at metro station Северная.
+scene_057  [6.5s, part 4, camera: slow push-in, music: tense, ambience: subway]
+  Survivors descend a stopped metro escalator.
 
-scene_064  [9.8s, part 5, camera: slow push-in, music: tense, ambience: subway]
-  Three survivors descend a stopped metro escalator, a voice echoes from below.
+scene_058  [8.0s, part 4, camera: slow pull-out, music: dread, ambience: subway]
+  Metro platform full of motionless white creatures under a loudspeaker.
 
-scene_065  [16.8s, part 5, camera: slow pull-out, music: dread, ambience: subway]
-  Metro platform СЕВЕРНАЯ crowded with motionless white creatures listening to a loudspeaker.
+scene_059  [4.3s, part 4, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 11 into his notebook.
 
-scene_066  [6.0s, part 5, camera: slow push-in, music: calm, ambience: wind]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_060  [7.0s, part 4, camera: slow push-in, music: calm, ambience: forest]
+  Night forest road, three survivors walk together.
 
-scene_067  [9.3s, part 5, camera: slow push-in, music: calm, ambience: forest]
-  Night forest road under the moon, three survivors walk in a line, fog.
+scene_061  [7.0s, part 4, camera: slow push-in, music: dread, ambience: forest]
+  Alex and Mira freeze; a white shape between the trees.
 
-scene_068  [12.1s, part 5, camera: slow push-in, music: tense, ambience: forest]
-  Viktor walks alone toward an abandoned car among the trees; Alex and Mira wait.
+scene_062  [6.0s, part 4, camera: slow push-in, music: calm, ambience: forest]
+  Alex and Mira walk on silently.
 
-scene_069  [16.2s, part 5, camera: slow push-in, music: dread, ambience: forest]
-  Alex and Mira freeze; Viktor's loud voice calls from the forest; a white shape between trees.
+scene_063  [4.3s, part 4, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 12 into his notebook.
 
-scene_070  [6.0s, part 5, camera: slow push-in, music: sad, ambience: forest]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_064  [11.4s, part 4, camera: slow push-in, music: tense, ambience: car_inside]
+  Inside an abandoned car: emergency message on the car radio.
 
-scene_071  [19.8s, part 5, camera: slow push-in, music: tense, ambience: car_inside]
-  Inside an abandoned car at night: emergency message on the car radio, Alex and Mira listen.
+scene_065  [7.0s, part 4, camera: slow push-in, music: hope, ambience: forest]
+  Dawn: floodlights of an evacuation convoy ahead.
 
-scene_072  [9.3s, part 5, camera: slow push-in, music: hope, ambience: forest]
-  Dawn: floodlights of an evacuation convoy appear ahead on the forest road.
+scene_066  [4.3s, part 4, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 13 into his notebook.
 
-scene_073  [4.2s, part 5, camera: slow push-in, music: hope, ambience: wind]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_067  [7.5s, part 4, camera: slow push-in, music: tense, ambience: convoy]
+  Evacuation convoy; a man runs back for his suitcase.
 
-scene_074  [12.0s, part 5, camera: slow push-in, music: tense, ambience: convoy]
-  Evacuation convoy at dawn: buses, military trucks; a man runs back for his suitcase.
+scene_068  [7.5s, part 4, camera: slow push-in, music: action, ambience: convoy]
+  The man drags a rattling suitcase; white creatures emerge from the fog.
 
-scene_075  [9.0s, part 5, camera: slow push-in, music: action, ambience: convoy]
-  A man drags a rattling suitcase; white creatures emerge from the fog along the road.
+scene_069  [7.0s, part 4, camera: slow push-in, music: sad, ambience: forest]
+  Alex and Mira keep walking along the night road.
 
-scene_076  [12.2s, part 5, camera: slow push-in, music: action, ambience: convoy]
-  The convoy drives away early; Alex and Mira are left behind as creatures approach.
+scene_070  [4.3s, part 4, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 14 into his notebook.
 
-scene_077  [6.0s, part 5, camera: slow push-in, music: sad, ambience: wind]
-  Title / chapter card or notebook insert (Alex writes the rule down).
-
-scene_078  [3.4s, part 6, camera: static, music: dread, ambience: none]
-  Title / chapter card or notebook insert (Alex writes the rule down).
-
-scene_079  [14.7s, part 6, camera: slow pull-out, music: dread, ambience: wind]
-  Night exterior: a grim concrete institute behind a fence, sign НИИ АКУСТИЧЕСКИХ ИССЛЕДОВАНИЙ.
-
-scene_080  [10.2s, part 6, camera: slow push-in, music: tense, ambience: room_night]
-  Barricaded office at night, desk lamp, Mira sleeps on the floor, Alex keeps watch.
-
-scene_081  [8.6s, part 6, camera: slow push-in, music: dread, ambience: room_night]
-  Close-up: Alex hears his own voice behind the door, terrified.
-
-scene_082  [10.0s, part 6, camera: slow push-in, music: dread, ambience: room_night]
-  Mira half-asleep walks toward the door; Alex grabs her hand from behind.
-
-scene_083  [14.9s, part 6, camera: slow push-in, music: dread, ambience: room_night]
-  The door from inside, a thin light strip under it broken by two thin shadows; knocking.
-
-scene_084  [10.0s, part 6, camera: slow push-in, music: dread, ambience: room_night]
+scene_071  [6.0s, part 5, camera: slow push-in, music: dread, ambience: room_night]
   Rule 15 card; Alex and Mira cover their mouths in darkness.
 
-scene_085  [9.1s, part 6, camera: slow push-in, music: silence, ambience: room_night]
-  Darkness: Alex and Mira sit still, hands over mouths, until dawn.
+scene_072  [8.0s, part 5, camera: slow push-in, music: dread, ambience: room_night]
+  The door from inside; thin shadows under it; a voice outside.
 
-scene_086  [6.5s, part 6, camera: slow push-in, music: sad, ambience: room_dawn]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_073  [8.0s, part 5, camera: slow push-in, music: dread, ambience: room_night]
+  Close-up: Alex covers his mouth, terrified, a voice behind the door.
 
-scene_087  [3.4s, part 7, camera: static, music: dread, ambience: none]
-  Title / chapter card or notebook insert (Alex writes the rule down).
+scene_074  [4.3s, part 5, camera: slow push-in, music: calm, ambience: room_night]
+  Insert: Alex writes rule 15 into his notebook.
 
-scene_088  [11.0s, part 7, camera: slow push-in, music: tense, ambience: lab_hum]
-  Basement acoustic lab with foam walls; flashlight beam reveals an old dictaphone on a table.
+scene_075  [8.0s, part 6, camera: slow pull-out, music: dread, ambience: wind]
+  Night: an abandoned research institute behind a fence.
 
-scene_089  [6.5s, part 7, camera: slow push-in, music: silence, ambience: lab_hum]
-  Extreme close-up: dictaphone display ФАЙЛ 001, a finger presses play.
+scene_076  [9.0s, part 6, camera: slow push-in, music: tense, ambience: lab_hum]
+  Basement acoustic lab; flashlight reveals an old dictaphone.
 
-scene_090  [6.6s, part 7, camera: slow push-in, music: silence, ambience: lab_hum]
-  Black screen with a green audio waveform: the recording speaks.
+scene_077  [9.0s, part 6, camera: slow push-in, music: dread, ambience: lab_hum]
+  Black screen, green waveform: Dr. Mark's recording.
 
-scene_091  [14.9s, part 7, camera: slow push-in, music: dread, ambience: lab_hum]
-  Dictaphone display: recording date 14.03.2019 — seven years before the outbreak.
+scene_078  [6.5s, part 6, camera: slow push-in, music: dread, ambience: lab_hum]
+  Dictaphone display: recording date — twelve years ago.
 
-scene_092  [12.0s, part 7, camera: slow push-in, music: dread, ambience: drone_room]
-  Final shot: dark flickering corridor, the white creature at the end slowly turns its head toward camera; slow push-in.
+scene_079  [6.0s, part 6, camera: slow push-in, music: silence, ambience: lab_hum]
+  Dictaphone close-up, the play button presses itself.
 
-scene_093  [10.0s, part 7, camera: static, music: end, ambience: none]
-  Black screen: СЛУШАЮЩИЕ ВЕРНУТСЯ / THE LISTENERS WILL RETURN.
+scene_080  [8.4s, part 6, camera: slow push-in, music: silence, ambience: lab_hum]
+  Waveform: the recorder plays Alex's own voice.
+
+scene_081  [6.0s, part 6, camera: slow push-in, music: dread, ambience: lab_hum]
+  Close-up: Alex in the dark lab holding the dictaphone.
+
+scene_082  [6.5s, part 6, camera: slow push-in, music: silence, ambience: drone_room]
+  Alex freezes as someone whispers his name behind him.
+
+scene_083  [5.5s, part 6, camera: slow push-in, music: silence, ambience: drone_room]
+  Alex slowly turns his head.
+
+scene_084  [10.0s, part 6, camera: slow push-in, music: dread, ambience: drone_room]
+  Dark flickering corridor, the white creature slowly turns its head toward camera; slow push-in.
+
+scene_085  [7.0s, part 6, camera: slow push-in, music: dread, ambience: drone_room]
+  Hold on the creature in the corridor, fade to black.
+
+scene_086  [8.0s, part 6, camera: static, music: end, ambience: none]
+  Black: КТО БЫЛ ПЕРВЫМ СЛУШАЮЩИМ?
+
+scene_087  [6.0s, part 6, camera: static, music: end, ambience: none]
+  Black: СЛУШАЮЩИЕ ВЕРНУТСЯ / THE LISTENERS WILL RETURN.
 

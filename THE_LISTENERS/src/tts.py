@@ -112,8 +112,8 @@ def norm_rms(x, target_db=-20.0):
 
 PROFILE = {
     # narrator: low, slow, close-mic documentary
-    'N': dict(src=('piper', 'ruslan', 1.07), pitch=0.9, whisper=False, fx='equalizer=f=140:t=q:w=1:g=3,equalizer=f=3200:t=q:w=1:g=1.5,acompressor=threshold=0.1:ratio=3:attack=5:release=120', db=-19),
-    'W': dict(src=('piper', 'ruslan', 1.13), pitch=0.92, whisper=True, keep=0.10, fx='highpass=f=170,equalizer=f=5000:t=q:w=1:g=2,acompressor=threshold=0.08:ratio=4:attack=3:release=100', db=-20),
+    'N': dict(src=('piper', 'ruslan', 1.14), pitch=0.9, whisper=False, fx='equalizer=f=140:t=q:w=1:g=3,equalizer=f=3200:t=q:w=1:g=1.5,acompressor=threshold=0.1:ratio=3:attack=5:release=120', db=-19),
+    'W': dict(src=('piper', 'ruslan', 1.2), pitch=0.92, whisper=True, keep=0.10, fx='highpass=f=170,equalizer=f=5000:t=q:w=1:g=2,acompressor=threshold=0.08:ratio=4:attack=3:release=100', db=-20),
     'A': dict(src=('piper', 'denis', 1.08), pitch=1.06, whisper=True, keep=0.10, fx='highpass=f=140,acompressor=threshold=0.08:ratio=4:attack=3:release=100', db=-21),
     'AN': dict(src=('piper', 'denis', 1.05), pitch=1.06, whisper=False, fx='highpass=f=100,aecho=0.8:0.5:35:0.12', db=-21),
     'MIMA': dict(src=('piper', 'denis', 1.18), pitch=1.04, whisper=False, fx='vibrato=f=5.5:d=0.18,aphaser=in_gain=0.6:out_gain=0.8:delay=2.5:decay=0.5:speed=0.4,aecho=0.8:0.6:70|140:0.35|0.2,lowpass=f=5200', db=-21),
@@ -121,6 +121,8 @@ PROFILE = {
     'TV': dict(src=('piper', 'dmitri', 1.0), pitch=1.0, whisper=False, fx='highpass=f=320,lowpass=f=3400,acrusher=bits=10:mix=0.25,acompressor=threshold=0.05:ratio=6', db=-22),
     'MIRA': dict(src=('gtts', None, 1.0), pitch=1.03, whisper=True, keep=0.12, fx='highpass=f=160,acompressor=threshold=0.08:ratio=4', db=-21),
     'VIK': dict(src=('piper', 'dmitri', 1.05), pitch=0.93, whisper=True, keep=0.12, fx='highpass=f=120,acompressor=threshold=0.08:ratio=4', db=-21),
+    'MIMW': dict(src=('piper', 'denis', 1.35), pitch=1.0, whisper=True, keep=0.05, fx='highpass=f=200,vibrato=f=4:d=0.12,aecho=0.8:0.7:90|180:0.4|0.25', db=-23),
+    'FRIEND': dict(src=('piper', 'denis', 1.05), pitch=1.12, whisper=False, fx='vibrato=f=5:d=0.12,aecho=0.8:0.7:150|300:0.35|0.2,highpass=f=220,lowpass=f=4200', db=-24),
     'VIKL': dict(src=('piper', 'dmitri', 1.0), pitch=0.93, whisper=False, fx='vibrato=f=4:d=0.08,aecho=0.8:0.7:180|360:0.35|0.2,highpass=f=200,lowpass=f=4500', db=-23),
     'MAN': dict(src=('piper', 'dmitri', 0.95), pitch=0.9, whisper=False, fx='highpass=f=180,aecho=0.8:0.7:160|320:0.35|0.18,acompressor=threshold=0.1:ratio=3', db=-21),
 }
