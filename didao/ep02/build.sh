@@ -18,7 +18,7 @@ for ((i=1; i<${#IDS[@]}; i++)); do
   filt+="${prev}[$i:v]xfade=transition=${TYPES[$((i % ${#TYPES[@]}))]}:duration=$XF:offset=$st[x$i];"; prev="[x$i]"
 done
 GRADE="eq=contrast=1.07:saturation=1.15:gamma=0.98,colorbalance=rs=0.03:bs=0.04:rh=0.03:bh=-0.02,noise=alls=3:allf=t,vignette=angle=PI/6"
-SUB="subtitles=output_$lang/${NAME}_subtitles.srt:force_style='FontName=Rubik,Bold=1,FontSize=16,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=1.5,Shadow=0.7,MarginV=52,MarginL=10,MarginR=10'"
+SUB="subtitles=output_$lang/${NAME}_subtitles.srt:force_style='FontName=Rubik,Bold=1,FontSize=16,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=1.5,Shadow=0.7,MarginV=22,MarginL=10,MarginR=10'"
 filt+="${prev}${GRADE},${SUB},format=yuv420p[v];"
 n=${#IDS[@]}; LEADMS=250
 filt+="[$n:a]aformat=channel_layouts=stereo,adelay=$LEADMS|$LEADMS,apad=whole_dur=$TOTAL,highpass=f=70,acompressor=threshold=-20dB:ratio=3:attack=5:release=120,asplit=2[vo][vosc];"

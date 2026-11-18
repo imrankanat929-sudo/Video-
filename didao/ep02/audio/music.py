@@ -8,6 +8,7 @@ TM = json.load(open(os.path.join(here, 'timing.json')))[lang]; S = TM['starts'];
 os.environ['SYNTH_DUR'] = str(END)
 sys.path.insert(0, os.path.join(here, '..', '..', 'shared'))
 from synth import *  # noqa
+here = os.path.dirname(os.path.abspath(__file__))  # synth also defines 'here'
 music, sfx = Track(), Track()
 
 def beat_section(t0, t1, bpm, prog, kick_on=True, snare_on=True, hats=True, bassg=0.5, plk=0.15, padg=0.25, bright=4500, octave=0):

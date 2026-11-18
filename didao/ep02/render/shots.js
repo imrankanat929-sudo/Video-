@@ -134,7 +134,7 @@ const SHOTS = [
     text(ctx, 'GTA 6 IS', 540, 990, { size: 120, color: '#fff', weight: 900 });
     text(ctx, 'FINALLY', 540, 1120, { size: 120, color: C.yellow, weight: 900 });
     text(ctx, 'HERE!', 540, 1250, { size: 140, color: C.pink, weight: 900, glow: C.pink, blur: 12 });
-    for (let i = 0; i < 3; i++) { const t0 = 0.5 + i * 0.45; if (t > t0) { const k = pop(t, t0); ctx.save(); ctx.translate(540, 1420 + i * 100); ctx.scale(k, k); fillRR(ctx, -320, -40, 640, 80, 20, 'rgba(255,255,255,0.1)'); text(ctx, ['🔥 12.4M', '▶ 3.1M LIVE', '♥ 48M'][i].replace('🔥 ', '★ '), 0, 2, { size: 40, color: '#fff', weight: 800 }); ctx.restore(); } }
+    for (let i = 0; i < 3; i++) { const t0 = 0.5 + i * 0.45; if (t > t0) { const k = pop(t, t0); ctx.save(); ctx.translate(540, 1350 + i * 76); ctx.scale(k, k); fillRR(ctx, -300, -32, 600, 64, 18, 'rgba(255,255,255,0.1)'); text(ctx, ['★ 12.4M', '▶ 3.1M LIVE', '♥ 48M'][i], 0, 2, { size: 34, color: '#fff', weight: 800 }); ctx.restore(); } }
     ctx.restore(); ctx.restore();
     const fl = Math.exp(-t * 7); if (fl > 0.02) { ctx.fillStyle = `rgba(255,255,255,${fl})`; ctx.fillRect(0, 0, W, H); }
   } },
@@ -186,7 +186,7 @@ const SHOTS = [
     ctx.save(); rr(ctx, 0, 120, W, 900, 0); ctx.clip(); sceneFill(ctx, viceNightStreet, t, 0.5, { scroll: t * 220 }); car(ctx, 140, 980, 1.25, C.pink, { lights: true, underglow: 'rgba(25,227,255,0.6)' }); ctx.restore();
     liveBadge(ctx, 30, 150, 1.3); text(ctx, `● ${kfmt(1.2e6 + t * 8000)}`, 180, 177, { size: 34, align: 'left', color: '#fff', weight: 900, stroke: '#000', strokeW: 6 });
     streamerCam(ctx, 700, 700, 340, 280, 23, t, { shades: true });
-    chatColumn(ctx, 30, 1040, 1020, 720, t, 4, 3);
+    chatColumn(ctx, 30, 1040, 1020, 460, t, 4, 3);
     text(ctx, STREAMER, 540, 80, { size: 52, color: '#fff', weight: 900 }); verified(ctx, 540 + 150, 80, 1.1);
   } },
   { id: 'b3_millions', draw(ctx, t, d) {
@@ -247,7 +247,7 @@ const SHOTS = [
     const kinds = ['sun', 'night', 'car', 'sun2'];
     for (let i = 0; i < 24; i++) { const col = i % 3, row = Math.floor(i / 3); const t0 = i * 0.06; if (t < t0) continue; const k = easeOutBack(seg(t, t0, t0 + 0.25)); const x = 50 + col * 335, y = 140 + row * 225; ctx.save(); ctx.translate(x + 155, y + 90); ctx.scale(k, k); ctx.translate(-x - 155, -y - 90); viceThumb(ctx, x, y, 310, 174, kinds[i % 4], t + i); fillRR(ctx, x + 10, y + 10, 76, 36, 8, C.red); text(ctx, 'NEW', x + 48, y + 29, { size: 22, color: '#fff', weight: 900 }); ctx.restore(); }
     ctx.restore();
-    fillRR(ctx, 60, 1430, 960, 240, 40, 'rgba(10,8,20,0.92)'); text(ctx, '+' + num(Math.floor(lerp(1200, 12400, easeOut(seg(t, 0, d))))), 540, 1520, { size: 120, color: C.cyan, weight: 900, glow: C.cyan, blur: 14 }); text(ctx, L.newVids, 540, 1625, { size: 44, color: '#fff', weight: 700 });
+    fillRR(ctx, 60, 1150, 960, 240, 40, 'rgba(10,8,20,0.92)'); text(ctx, '+' + num(Math.floor(lerp(1200, 12400, easeOut(seg(t, 0, d))))), 540, 1240, { size: 120, color: C.cyan, weight: 900, glow: C.cyan, blur: 14 }); text(ctx, L.newVids, 540, 1345, { size: 44, color: '#fff', weight: 700 });
   } },
   { id: 'c6_millions', draw(ctx, t, d) {
     bgDark(ctx, '#0b0b14');
@@ -396,7 +396,7 @@ const SHOTS = [
     ctx.save(); ctx.translate(540, 940); ctx.scale(pk, pk); text(ctx, num(v), 0, 0, { size: 200, color: '#fff', weight: 900, glow: C.green, blur: 30 }); ctx.restore();
     ctx.save(); ctx.translate(90, 1330); ctx.strokeStyle = C.green; ctx.lineWidth = 10; ctx.beginPath(); for (let i = 0; i <= 50; i++) { const k = i / 50; ctx.lineTo(k * 900, -Math.pow(k, 3) * 260 * Math.min(1, v / 100000 + 0.1)); } ctx.stroke(); ctx.restore();
     ctx.restore();
-    if (t > t100) { const k = pop(t, t100 + 0.05, 0.35); ctx.save(); ctx.translate(540, 1560); ctx.rotate(-0.04); ctx.scale(k, k); ctx.shadowColor = C.red; ctx.shadowBlur = 50; fillRR(ctx, -480, -110, 960, 220, 30, C.red); ctx.shadowBlur = 0; text(ctx, '▲ YOUR VIDEO', 0, -38, { size: 72, color: '#fff', weight: 900 }); text(ctx, 'IS TRENDING!', 0, 50, { size: 72, color: C.yellow, weight: 900 }); ctx.restore(); }
+    if (t > t100) { const k = pop(t, t100 + 0.05, 0.35); ctx.save(); ctx.translate(540, 560); ctx.rotate(-0.04); ctx.scale(k, k); ctx.shadowColor = C.red; ctx.shadowBlur = 50; fillRR(ctx, -480, -110, 960, 220, 30, C.red); ctx.shadowBlur = 0; text(ctx, '▲ YOUR VIDEO', 0, -38, { size: 72, color: '#fff', weight: 900 }); text(ctx, 'IS TRENDING!', 0, 50, { size: 72, color: C.yellow, weight: 900 }); ctx.restore(); }
     particlesUp(ctx, t, 26, 21, [60, 700, 960, 900], (x, y, k, i) => { ctx.save(); ctx.globalAlpha = Math.sin(k * Math.PI) * 0.8; text(ctx, i % 2 ? '+1' : '♥', x, y, { size: 44, color: i % 2 ? C.green : C.pink, weight: 900 }); ctx.restore(); });
   } },
   // ===================== SCENE 6 — NEW GOAL =====================
@@ -405,7 +405,7 @@ const SHOTS = [
     roomV(ctx, t); ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.fillRect(0, 0, W, H);
     litHero(ctx, { x: 540, y: 880, R: 280, view: 'front', expr: 'surprised', body: 'bust', arms: 'down', bob: -10 * Math.abs(Math.sin(t * 9)) * Math.exp(-t * 2) }, { from: [540, 1900, 1000, 'rgba(90,255,170,0.22)'] });
     ctx.restore();
-    L.comments.forEach((s, i) => { const t0 = 0.15 + i * 0.25; if (t < t0) return; const k = pop(t, t0, 0.25); const x = i % 2 ? 560 : 60, y = 1380 + Math.floor(i / 2) * 120; if (y > 1760) return; ctx.save(); ctx.translate(x + 230, y + 45); ctx.scale(k, k); ctx.translate(-x - 230, -y - 45); fillRR(ctx, x, y, 460, 92, 22, 'rgba(18,16,30,0.92)'); circle(ctx, x + 44, y + 46, 26, [C.cyan, C.orange, C.purple, C.green, C.yellow][i]); text(ctx, s, x + 84, y + 47, { size: 30, align: 'left', color: '#fff', weight: 700 }); ctx.restore(); });
+    L.comments.forEach((s, i) => { const t0 = 0.15 + i * 0.25; if (t < t0) return; const k = pop(t, t0, 0.25); const x = i % 2 ? 560 : 60, y = 1180 + Math.floor(i / 2) * 115; if (y > 1450) return; ctx.save(); ctx.translate(x + 230, y + 45); ctx.scale(k, k); ctx.translate(-x - 230, -y - 45); fillRR(ctx, x, y, 460, 92, 22, 'rgba(18,16,30,0.92)'); circle(ctx, x + 44, y + 46, 26, [C.cyan, C.orange, C.purple, C.green, C.yellow][i]); text(ctx, s, x + 84, y + 47, { size: 30, align: 'left', color: '#fff', weight: 700 }); ctx.restore(); });
     particlesUp(ctx, t, 16, 31, [60, 200, 960, 1000], (x, y, k) => { ctx.save(); ctx.globalAlpha = Math.sin(k * Math.PI) * 0.8; text(ctx, '+1', x, y, { size: 44, color: C.green, weight: 900 }); ctx.restore(); });
   } },
   { id: 'g2_others', draw(ctx, t, d) {

@@ -29,3 +29,10 @@ Requirements: ffmpeg with libass, Node and Playwright (Chromium), Python with nu
 - `ZA_DEN_DO_GTA6_RU_preview_1080x1920.jpg`, `ZA_DEN_DO_GTA6_RU_subtitles.srt`
 - The Russian shots are generated from the English ones by `render/make_ru.py` (a string-by-string translation). Edit `shots_v.js`, and both languages pick up the change.
 - Build: `./render_ru.sh shots` then `SKIP_RENDER=1 ./build_ru.sh`
+
+## Episode 2 — «GTA 6 УЖЕ ВЫШЛА!» / GTA 6 IS FINALLY HERE! — `ep02/` (vertical 9:16, RU + EN)
+- `output_ru/GTA6_VYSHLA_RU_9x16.mp4` (1:30) and `output_en/GTA6_IS_HERE_EN_9x16.mp4` (1:20): ElevenLabs VO, big subtitles, previews and .srt files next to them
+- 32 shots, each its own clip of 1.3–5.7 s, quick 0.25 s transitions. Shot starts are synced per language to the VO (`audio/timing.py`)
+- `audio/make_vo.py` shortens pauses longer than 0.3 s; the speech itself is not changed
+- The score and SFX are built per language on the same timing (`audio/music.py`, instruments in `shared/synth.py`)
+- Build: `./build.sh ru` / `./build.sh en`
