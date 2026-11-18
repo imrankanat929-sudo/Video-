@@ -1,0 +1,6 @@
+THE_LISTENERS/build/
+THE_LISTENERS/assets/voices/*.onnx
+THE_LISTENERS/assets/voices/*.onnx.json
+THE_LISTENERS/scenes/*.mp4
+__pycache__/
+*.pyc
