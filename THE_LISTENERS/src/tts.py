@@ -89,12 +89,12 @@ def whisperize(x, sr, keep=0.12, seed=0):
         y = np.pad(y, (0, len(x) - len(y)))
     # match energy envelope
     def rms_env(s):
-        return np.sqrt(signal.convolve(s ** 2, np.ones(int(0.02 * sr)) / int(0.02 * sr), mode='same') + 1e-9)
+        return np.sqrt(np.maximum(signal.convolve(s ** 2, np.ones(int(0.02 * sr)) / int(0.02 * sr), mode='same'), 0) + 1e-9)
     ex, ey = rms_env(x), rms_env(y)
     y = y * np.clip(ex / ey, 0, 8)
     b, a = signal.butter(2, 120 / (sr / 2), 'high')
     xo = signal.lfilter(b, a, x)
-    return y * (1 - keep) + xo * keep
+    return np.nan_to_num(y * (1 - keep) + xo * keep).astype(np.float32)
 
 
 def norm_rms(x, target_db=-20.0):

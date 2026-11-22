@@ -206,7 +206,7 @@ def tint_begin(c, tint):
     if not tint:
         return False
     p = skia.Paint()
-    p.setColorFilter(skia.ColorFilters.Blend(C(tint), skia.BlendMode.kModulate))
+    p.setColorFilter(skia.ColorFilters.Blend(tint if isinstance(tint, int) else C(tint), skia.BlendMode.kModulate))
     c.saveLayer(None, p)
     return True
 

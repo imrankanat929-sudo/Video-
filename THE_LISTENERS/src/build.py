@@ -7,7 +7,9 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import skia
 from gfx import W, H, vignette, grain, paint, C, ease, lerp, seg
-import scenes as S
+import importlib
+S = importlib.import_module(os.environ.get('SCENES', 'scenes_v3'))
+import extvo
 import tts
 import audio as A
 
@@ -15,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD = os.path.join(ROOT, 'build')
 FPS = 25
 SR = A.SR
-SPEAKER_NAMES = {'A': 'Алекс', 'AN': 'Алекс', 'MOM': 'Голос', 'MIMA': 'Голос', 'TV': 'Радио', 'MIRA': 'Мира', 'VIK': 'Виктор', 'VIKL': 'Голос', 'MAN': 'Голос', 'FRIEND': 'Голос друга', 'MIMW': 'Голос'}
+SPEAKER_NAMES = {'A': 'Алекс', 'AN': 'Алекс', 'MOM': 'Голос', 'MIMA': 'Голос', 'TV': 'Радио', 'MIRA': 'Мира', 'VIK': 'Виктор', 'VIKL': 'Голос', 'MAN': 'Голос', 'FRIEND': 'Голос друга', 'MIMW': 'Голос', 'HOOK': 'Голос'}
 os.makedirs(BUILD, exist_ok=True)
 
 
@@ -33,12 +35,17 @@ def timeline():
     for s in S.SCENES:
         L, clips = [], []
         cur = s['lead']
-        for spk, text in s['vo']:
-            y = tts.synth(spk, text)
+        prev_src = None
+        for k, (spk, text, *src) in enumerate(s['vo']):
+            src = src[0] if src else None
+            if k and src and prev_src:
+                cur += min(1.0, max(0.12, src[0] - prev_src[1])) - s['gap']
+            y = voice(spk, text, src)
             d = len(y) / SR
             L.append((cur, cur + d))
-            clips.append((spk, text, cur, d))
+            clips.append((spk, text, cur, d, src))
             cur += d + s['gap']
+            prev_src = src
         end = (L[-1][1] if L else 0) + s['tail']
         dur = max(s['min_dur'], end)
         dur = math.ceil(dur * FPS) / FPS
@@ -47,6 +54,12 @@ def timeline():
     json.dump(tl, open(os.path.join(BUILD, 'timeline.json'), 'w'), ensure_ascii=False, indent=1)
     print(f'total {t:.1f}s = {t / 60:.2f} min, scenes {len(tl)}')
     return tl
+
+
+def voice(spk, text, src=None):
+    if src:
+        return extvo.clip(spk, src[0], src[1])
+    return tts.synth(spk, text)
 
 
 def load_tl():
@@ -138,8 +151,8 @@ def mix():
         s = scene_by_id(it['id'])
         st, d = it['start'], it['dur']
         # voice
-        for spk, text, at, dd in it['clips']:
-            y = tts.synth(spk, text)
+        for spk, text, at, dd, *src in it['clips']:
+            y = voice(spk, text, tuple(src[0]) if src and src[0] else None)
             A.place(vo, y, st + at)
         # music & ambience with crossfades
         a0 = max(0, st - XF / 2)
@@ -250,7 +263,7 @@ def subtitles():
     tl = load_tl()
     cues = []
     for it in tl:
-        for spk, text, at, d in it['clips']:
+        for spk, text, at, d, *_ in it['clips']:
             t0 = it['start'] + at
             name = SPEAKER_NAMES.get(spk)
             parts = split_sentences(text)
@@ -283,14 +296,14 @@ def scripts():
         f.write('Обозначения: [ДИКТОР] — низкий спокойный голос; [ДИКТОР, шёпот]; [АЛЕКС, шёпот]; [ГОЛОС] — имитация существа.\n')
         cur = None
         names = {'N': 'ДИКТОР', 'W': 'ДИКТОР, шёпот', 'A': 'АЛЕКС, шёпот', 'AN': 'АЛЕКС', 'MOM': 'ГОЛОС «МАМЫ» (существо)', 'MIMA': 'ГОЛОС АЛЕКСА (существо)',
-                 'TV': 'ЭКСТРЕННОЕ ВЕЩАНИЕ', 'MIRA': 'МИРА, шёпот', 'VIK': 'ВИКТОР, шёпот', 'VIKL': 'ГОЛОС «ВИКТОРА» (существо)', 'MAN': 'МУЖЧИНА / ГОЛОС', 'FRIEND': 'ГОЛОС ДРУГА (существо)', 'MIMW': 'ГОЛОС АЛЕКСА, шёпот (существо)'}
+                 'TV': 'ЭКСТРЕННОЕ ВЕЩАНИЕ', 'MIRA': 'МИРА, шёпот', 'VIK': 'ВИКТОР, шёпот', 'VIKL': 'ГОЛОС «ВИКТОРА» (существо)', 'MAN': 'МУЖЧИНА / ГОЛОС', 'FRIEND': 'ГОЛОС ДРУГА (существо)', 'MIMW': 'ГОЛОС АЛЕКСА, шёпот (существо)', 'HOOK': 'ГОЛОС АЛЕКСА (существо, хук)'}
         for it in tl:
             if it['part'] != cur:
                 cur = it['part']
                 f.write(f'\n\n===== ЧАСТЬ {cur} — {parts[cur]} =====\n')
             if it['clips']:
                 f.write(f'\n[Сцена {it["id"]:03d} · {fmt(it["start"])[:8]}]\n')
-            for spk, text, at, dd in it['clips']:
+            for spk, text, at, dd, *_ in it['clips']:
                 f.write(f'{names[spk]}: {text}\n')
     with open(os.path.join(d, 'timeline.txt'), 'w', encoding='utf-8') as f:
         f.write('scene\tstart\tend\tdur\tpart\tmusic\tambience\tfile\n')
