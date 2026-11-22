@@ -50,4 +50,5 @@ done
 
 # thumbnail
 (cd src && python3 thumbnail.py ../../deliverables/HUMAN_MIND_EP01_thumbnail.png)
+(cd src && python3 thumbnail_vertical.py ../../deliverables/HUMAN_MIND_EP01_thumbnail_9x16.png)
 echo "built ../deliverables"
