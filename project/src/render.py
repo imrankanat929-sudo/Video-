@@ -111,7 +111,8 @@ def frame_range(start, end):
 def render_segment(args):
     name, start, end = args
     os.makedirs(os.path.join(OUT, "scenes"), exist_ok=True)
-    path = os.path.join(OUT, "scenes", f"{name}.mp4")
+    final = os.path.join(OUT, "scenes", f"{name}.mp4")
+    path = final + f".tmp{os.getpid()}.mp4"
     cmd = ["ffmpeg", "-loglevel", "error", "-y", "-f", "rawvideo", "-pix_fmt", "gray",
            "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-c:v", "libx264",
            "-preset", "slow", "-crf", "16", "-tune", "animation",
@@ -120,8 +121,10 @@ def render_segment(args):
     for i in frame_range(start, end):
         p.stdin.write(render_frame(i / FPS).tobytes())
     p.stdin.close()
-    p.wait()
-    return path
+    if p.wait() != 0:
+        raise RuntimeError(f"ffmpeg failed for {name}")
+    os.replace(path, final)
+    return final
 
 
 def main():
