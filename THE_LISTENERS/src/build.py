@@ -39,7 +39,7 @@ def timeline():
         for k, (spk, text, *src) in enumerate(s['vo']):
             src = src[0] if src else None
             if k and src and prev_src:
-                cur += min(1.0, max(0.12, src[0] - prev_src[1])) - s['gap']
+                cur += max(0.0, src[0] - prev_src[1]) - s['gap']
             y = voice(spk, text, src)
             d = len(y) / SR
             L.append((cur, cur + d))

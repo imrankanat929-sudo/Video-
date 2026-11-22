@@ -365,14 +365,12 @@ def v_end2(c, t, T, q):
     black(c)
     a = seg(t, 0.8, 2.0)
     text(c, 'СЛУШАЮЩИЕ ВЕРНУТСЯ', W / 2, H / 2 + 10, 96, C('#ffffff', a), align='center')
-    text(c, 'THE LISTENERS WILL RETURN', W / 2, H / 2 + 90, 36, C('#e53935', seg(t, 2.5, 3.5)), FONT_XB, align='center')
 
 
 def v_title2(c, t, T, q):
     black(c)
     a = seg(t, 0.4, 1.6) * (1 - seg(t, T - 1.0, T - 0.2))
     listener(c, 1440, 1150, 1.25, turn=-0.25, t=t, glow=1.0, dark=0.2, alpha=a * 0.9)
-    text(c, 'THE LISTENERS · ЭПИЗОД 01', 120, 330, 38, C('#e53935', a), FONT_XB)
     text(c, '15 ПРАВИЛ,', 110, 470, 130, C('#ffd21e', a), stroke=14, stroke_col='#000000')
     text(c, 'ЧТОБЫ ВЫЖИТЬ', 110, 600, 110, C('#ffffff', a))
     text(c, 'СРЕДИ СЛУШАЮЩИХ', 114, 690, 64, C('#ffffff', a * 0.8), FONT_XB)
