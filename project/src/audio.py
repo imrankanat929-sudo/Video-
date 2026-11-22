@@ -399,8 +399,8 @@ def reverb(x, secs=2.4, wet=0.25):
     return x * (1 - wet) + out * wet * 1.6
 
 
-def load(path, start):
-    raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", path, "-f", "f32le",
+def load(path, start, skip=0.0):
+    raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-ss", f"{skip:.3f}", "-i", path, "-f", "f32le",
                           "-ac", "2", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
     a = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
     out = np.zeros((N, 2))
@@ -408,6 +408,26 @@ def load(path, start):
     n = min(len(a), N - i)
     out[i:i + n] = a[:n]
     return out
+
+
+DEFAULT_TRACK = os.path.join(ROOT, "assets", "music_good_man.mp3")
+TRACK_DROP = 10.42                       # drop inside the track (s)
+TRACK_SKIP = TRACK_DROP - T["ty_mozhesh"]  # drop -> start of scene 2
+
+
+def track_automation():
+    """Gain moves that cut the song to the edit."""
+    g = np.ones(N)
+    t = np.arange(N) / SR
+
+    def seg(a, b, lvl, fin, fout):
+        k = np.clip((t - a) / max(fin, 1e-3), 0, 1) * np.clip((b - t) / max(fout, 1e-3), 0, 1)
+        return 1 - (1 - lvl) * k
+    g *= seg(T["pochemu2"] - 0.03, T["delo"] + 0.1, 0.0, 0.03, 0.35)       # silence on «Почему?»
+    g *= seg(T["vot_chto_vazhno"] - 0.05, T["nevozmozhno"] + 0.6, db(-14), 0.08, 1.4)  # breath
+    g *= seg(FINAL_TEXT - 0.02, FINAL_TEXT + 1.0, db(-4), 0.02, 0.8)       # room for the boom
+    g *= np.clip((DURATION - 0.3 - t) / 3.5, 0, 1)                         # fade under logo
+    return g
 
 
 def envelope(x, attack=0.03, release=0.35):
@@ -444,10 +464,16 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     vo = load(os.path.join(ROOT, "assets", "voiceover_ru.mp3"), VO_OFFSET)
     vo = vo / (np.abs(vo).max() + 1e-9) * db(-3)
-    ext = os.environ.get("MUSIC_FILE")
+    ext = os.environ.get("MUSIC_FILE", DEFAULT_TRACK if os.path.exists(DEFAULT_TRACK) else "")
+    if os.environ.get("MUSIC") == "synth":
+        ext = ""
     if ext:
-        music = load(ext, 0.0)
-        music = music / (np.abs(music).max() + 1e-9) * db(-6)
+        # track starts TRACK_SKIP s in, so its drop lands on the scene-2 cut
+        skip = float(os.environ.get("MUSIC_SKIP", TRACK_SKIP if ext == DEFAULT_TRACK else 0))
+        music = load(ext, 0.0, skip)
+        body = music[int(8 * SR):int(90 * SR)]
+        music = music / (np.sqrt(np.mean(body ** 2)) + 1e-9) * db(-21)
+        music *= track_automation()[:, None]
     else:
         music = compose()
         music = reverb(music, 2.6, 0.32)

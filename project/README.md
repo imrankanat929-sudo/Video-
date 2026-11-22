@@ -35,10 +35,18 @@ pip install pycairo numpy pillow scipy      # + ffmpeg, Inter font
 python3 src/render.py still 55.7 frame.png  # preview any moment
 ```
 
-### Using a different music track
-Pass any licensed audio file you have:
+### Music
+The current master uses **LoVibe. – "A Good Man With A Broken Heart"**. The file is
+not stored in the repo (copyright), so put it at `assets/music_good_man.mp3` before you build.
+It is cut to the edit in `src/audio.py`:
+* the track starts 4.12 s in, so its intro plays under the hook and **the drop lands
+  on the scene-2 cut (0:06.3)**;
+* full silence on «Почему?» (0:22), back in with the next scene;
+* -14 dB breath on «Но вот что важно» (1:08), swelling back;
+* fades out under the logo; ducked under the narrator everywhere.
+
+Other options:
 ```bash
-MUSIC_FILE=/path/to/track.mp3 SKIP_RENDER=1 ./build.sh
+MUSIC=synth SKIP_RENDER=1 ./build.sh                      # original built-in score
+MUSIC_FILE=/path/track.mp3 MUSIC_SKIP=0 SKIP_RENDER=1 ./build.sh
 ```
-The built-in score is written to match the scene cuts. A track you swap in keeps
-the voice ducking, but its beats will not line up with the cuts.
