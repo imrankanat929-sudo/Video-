@@ -5,4 +5,4 @@
 
 Пересборка: `npm i && ./render_all.sh` (нужны node и ffmpeg).
 `timeline.js` — общий тайминг, `render.js` — анимация, `audio.js` — звуковые эффекты.
-Музыка (`music.mp3`) идёт с первой секунды, отчётливо слышна (≈ −21 LUFS), эффекты поверх неё.
+Основная версия — с треком LoVibe (`music_lovibe.mp3`), запасная `HUMAN_MIND_EP02_9x16_gravity.mp4` — с Gravity Eleven. Пересобрать только звук: `SKIP_VIDEO=1 ./render_all.sh`.
