@@ -6,7 +6,8 @@
 /* HUMAN MIND — EPISODE 01
    Frame renderer: window.frame(t) draws video time t (seconds) to #c.
    All timings are in video seconds. VO = offset of the voiceover start.     */
-const W = 1920, H = 1080;
+const VERT = new URLSearchParams(location.search).get('thumb') === 'v';   // 9:16 thumbnail
+const W = VERT ? 1080 : 1920, H = VERT ? 1920 : 1080;
 const VO = 3.7;            // voiceover starts here
 const DROP = 3.4;          // music beat drop (hook impact)
 const END = 105;
@@ -82,15 +83,16 @@ const BEAT = 60 / 92.3;
 const beatPhase = t => ((t - DROP) / BEAT) % 1;
 
 /* ---------- canvases ---------- */
-const C = document.getElementById('c'); const X = C.getContext('2d');
+const C = document.getElementById('c'); C.width = W; C.height = H; const X = C.getContext('2d');
 function mk(w = W, h = H) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 const L = mk(), LX = L.getContext('2d');                 // composited scene layer
 const S1 = mk(), S2 = mk();                                // per-scene layers (crossfades)
 const PL = mk(), PX = PL.getContext('2d');                 // person layer
-const G1 = mk(480, 270), G1X = G1.getContext('2d');
-const G2 = mk(480, 270), G2X = G2.getContext('2d');
-const G3 = mk(240, 135), G3X = G3.getContext('2d');
-const G4 = mk(240, 135), G4X = G4.getContext('2d');
+const GW = W / 4, GH = H / 4;
+const G1 = mk(GW, GH), G1X = G1.getContext('2d');
+const G2 = mk(GW, GH), G2X = G2.getContext('2d');
+const G3 = mk(GW / 2, GH / 2), G3X = G3.getContext('2d');
+const G4 = mk(GW / 2, GH / 2), G4X = G4.getContext('2d');
 const TMP = mk(), TX = TMP.getContext('2d');
 
 // static: grid, vignette, grain
@@ -425,7 +427,7 @@ function sHook(ctx, t) {
   const [shx, shy] = shake(t, .15, 18, .5);
   const [s2x, s2y] = shake(t, 1.35, 8, .35);
   const s = lerp(1.55, 1.95, eIO(seg(t, 0, 3.4)));
-  if (THUMB) cam(ctx, 1290, 640, 1.45, 0); else
+  if (VERT) cam(ctx, 960, 470, 1.5, 0); else if (THUMB) cam(ctx, 1290, 640, 1.45, 0); else
   cam(ctx, 960, 610, s, lerp(-.015, .01, seg(t, 0, 3.4)), shx + s2x, shy + s2y);
   const hx = 960, hy = 870 - 266;
   spotlight(ctx, 960, 200, 870, 520, seg(t, .1, .5) * .9);
@@ -1019,10 +1021,10 @@ function frame(t) {
   }
   // freeze: desaturate/dim world a little
   // bloom
-  G1X.clearRect(0, 0, 480, 270); G1X.drawImage(L, 0, 0, 480, 270);
-  G2X.clearRect(0, 0, 480, 270); G2X.filter = 'blur(3px)'; G2X.drawImage(G1, 0, 0); G2X.filter = 'none';
-  G3X.clearRect(0, 0, 240, 135); G3X.drawImage(G1, 0, 0, 240, 135);
-  G4X.clearRect(0, 0, 240, 135); G4X.filter = 'blur(5px)'; G4X.drawImage(G3, 0, 0); G4X.filter = 'none';
+  G1X.clearRect(0, 0, GW, GH); G1X.drawImage(L, 0, 0, GW, GH);
+  G2X.clearRect(0, 0, GW, GH); G2X.filter = 'blur(3px)'; G2X.drawImage(G1, 0, 0); G2X.filter = 'none';
+  G3X.clearRect(0, 0, GW / 2, GH / 2); G3X.drawImage(G1, 0, 0, GW / 2, GH / 2);
+  G4X.clearRect(0, 0, GW / 2, GH / 2); G4X.filter = 'blur(5px)'; G4X.drawImage(G3, 0, 0); G4X.filter = 'none';
   X.globalCompositeOperation = 'lighter';
   X.globalAlpha = .55; X.drawImage(G4, 0, 0, W, H);
   X.globalAlpha = .85; X.drawImage(G2, 0, 0, W, H);
@@ -1040,7 +1042,16 @@ function frame(t) {
       X.drawImage(TMP, 0, y, W, h, dx, y, W, h);
     }
   }
-  if (THUMB) {
+  if (VERT) {
+    const TT = LANG === 'ru' ? ['ТВОЙ МОЗГ', 'РЕШАЕТ', 'ЗА ТЕБЯ'] : ['YOUR BRAIN', 'DECIDES', 'FOR YOU'];
+    X.save(); X.shadowColor = 'rgba(255,255,255,.55)'; X.shadowBlur = 40;
+    txt(X, TT[0], W / 2, 250, { size: 128, weight: 800, sp: 4 });
+    txt(X, TT[1], W / 2, 400, { size: 128, weight: 800, sp: 4 });
+    txt(X, TT[2], W / 2, 550, { size: 128, weight: 300, sp: 6 });
+    X.restore();
+    pill(X, LANG === 'ru' ? 'БЫСТРОЕ VS МЕДЛЕННОЕ МЫШЛЕНИЕ' : 'FAST VS SLOW THINKING', W / 2, 1690, { size: 30 });
+    txt(X, 'HUMAN MIND · 01', W / 2, 1800, { size: 30, weight: 500, sp: 12, alpha: .7 });
+  } else if (THUMB) {
     const TT = LANG === 'ru' ? ['ТВОЙ МОЗГ', 'РЕШАЕТ', 'ЗА ТЕБЯ'] : ['YOUR BRAIN', 'DECIDES', 'FOR YOU'];
     X.save(); X.shadowColor = 'rgba(255,255,255,.55)'; X.shadowBlur = 40;
     txt(X, TT[0], 1010, 330, { size: 122, weight: 800, sp: 6, align: 'left' });

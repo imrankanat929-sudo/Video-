@@ -10,7 +10,8 @@
 | `scenes/01…06_*.mp4` | Individual scenes cut from the final video |
 | `audio/mix.flac` | Final mix |
 | `audio/voiceover.flac` · `music_edit.flac` · `sfx.flac` | Stems: VO, edited music, synthesized SFX |
-| `thumbnail_ru.png` | 1920×1080 thumbnail |
+| `thumbnail_ru.png` | 1920×1080 thumbnail (16:9) |
+| `thumbnail_ru_9x16.png` | 1080×1920 thumbnail (9:16, Shorts/Reels/TikTok) |
 
 ## Timeline
 | Time | Scene | On-screen text |
@@ -35,7 +36,8 @@ cd project
 python3 audio_mix.py ../deliverables/audio            # -> voiceover/music_edit/sfx/mix .wav
 node render.mjs --out video.mp4 --workers 4            # add --lang en for English text
 ffmpeg -i video.mp4 -i ../deliverables/audio/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k out.mp4
-node render.mjs --thumb 1 --stills 0.62 --dir thumbs   # thumbnail
+node render.mjs --thumb 1 --stills 0.62 --dir thumbs   # thumbnail 16:9
+node render.mjs --thumb v --stills 0.62 --dir thumbs   # thumbnail 9:16
 ```
 Requires Node + Playwright (Chromium), Python 3 with numpy and scipy, ffmpeg, and the Inter font.
 

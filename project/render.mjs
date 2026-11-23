@@ -9,7 +9,7 @@ import fs from 'fs'; import path from 'path'; import url from 'url';
 const args = Object.fromEntries(process.argv.slice(2).reduce((a, x, i, arr) => (x.startsWith('--') ? a.concat([[x.slice(2), arr[i + 1]]]) : a), []));
 const here = path.dirname(url.fileURLToPath(import.meta.url));
 const fps = +(args.fps || 30), from = +(args.from || 0), to = +(args.to || 105), workers = +(args.workers || 4), lang = args.lang || 'ru';
-const page_url = 'file://' + path.join(here, 'render.html') + '?lang=' + lang + (args.thumb ? '&thumb=1' : '');
+const page_url = 'file://' + path.join(here, 'render.html') + '?lang=' + lang + (args.thumb ? '&thumb=' + args.thumb : '');
 const browser = await chromium.launch({ args: ['--disable-gpu-vsync'] });
 async function newPage() { const p = await browser.newPage({ viewport: { width: 1920, height: 1080 } }); p.on('pageerror', e => console.error('PAGEERROR', e.message)); p.on('console', m => m.type() === 'error' && console.error('CONSOLE', m.text())); await p.goto(page_url); await p.evaluate(() => window.ready); return p; }
 const grab = (p, t) => p.evaluate(t => { window.frame(t); return document.getElementById('c').toDataURL('image/png'); }, t);
