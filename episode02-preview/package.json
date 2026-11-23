@@ -1,0 +1,1 @@
+{ "name": "human-mind-ep02-preview", "private": true, "dependencies": { "@napi-rs/canvas": "0.1.65" } }
