@@ -20,6 +20,7 @@ const T = {
   ru: {
     hook1: 'ТВОЙ МОЗГ ПРИНИМАЕТ РЕШЕНИЯ',
     hook2: 'РАНЬШЕ, ЧЕМ ТЫ ЭТО ОСОЗНАЁШЬ',
+    hk1: 'ЛЕВАЯ ИЛИ ПРАВАЯ?', hk2: 'ТЫ УЖЕ ВЫБРАЛ.', hk3: 'ТВОЙ МОЗГ РЕШИЛ ЗА ТЕБЯ',
     q: 'СКОЛЬКО РЕШЕНИЙ ТЫ ПРИНИМАЕШЬ КАЖДЫЙ ДЕНЬ?',
     auto: 'НА АВТОПИЛОТЕ',
     author: 'ДАНИЭЛЬ КАНЕМАН',
@@ -44,6 +45,7 @@ const T = {
   en: {
     hook1: 'YOUR BRAIN MAKES DECISIONS',
     hook2: 'BEFORE YOU REALIZE IT',
+    hk1: 'LEFT OR RIGHT?', hk2: 'YOU ALREADY CHOSE.', hk3: 'YOUR BRAIN DECIDED FOR YOU',
     q: 'HOW MANY DECISIONS DO YOU MAKE EVERY DAY?',
     auto: 'ON AUTOPILOT',
     author: 'DANIEL KAHNEMAN',
@@ -463,6 +465,66 @@ function sHook(ctx, t) {
   txt(ctx, T.hook2, 960, 235, { size: 62, weight: 300, sp: 7, reveal: seg(t, 1.3, 1.9), glitch: 1, t });
   // tiny label
   txt(ctx, 'HUMAN MIND · 01', 960, 1010, { size: 18, weight: 500, sp: 8, alpha: .55 * seg(t, .6, 1.2) });
+}
+
+/* HOOK v2 0 – 3.4: "Left or right?" — your brain has already chosen */
+const HIT = .95;   // the moment the brain picks the door
+function sHookDoors(ctx, t) {
+  const doorX = 1340, doorL = 580, gy = 860;
+  const push = lerp(1.0, 1.14, eIO(seg(t, 0, 2.5)));
+  const rush = eIn(seg(t, 2.6, 3.4));                       // fly into the open door
+  const s = push * (1 + rush * 6);
+  const k = eIO(seg(t, 2.35, 3.1));
+  const cx = lerp(960, doorX + 40, k), cy = lerp(560, gy - 140, k);
+  const [shx, shy] = shake(t, HIT, 22, .5); const [s2x, s2y] = shake(t, .02, 12, .3);
+  cam(ctx, cx, cy, s, lerp(0, .02, rush), shx + s2x, shy + s2y);
+  const open = eOut(seg(t, HIT, HIT + .4));
+  spotlight(ctx, 960, -40, gy, 460, .8 * (1 - open * .5));
+  ground(ctx, gy, -600, 2600, .5);
+  // light spilling from the chosen door
+  if (open > 0) {
+    ctx.save(); ctx.globalAlpha = open * .5;
+    const g = ctx.createLinearGradient(doorX, gy, doorX - 520, gy + 160);
+    g.addColorStop(0, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(doorX - 74, gy); ctx.lineTo(doorX + 74, gy); ctx.lineTo(doorX - 300, gy + 220); ctx.lineTo(doorX - 900, gy + 220); ctx.closePath(); ctx.fill();
+    ctx.restore();
+    glowDot(ctx, doorX, gy - 135, 460, open * (.5 + .1 * Math.sin(t * 9)));
+  }
+  // doors slam in
+  const dA = seg(t, 0, .22), dB = seg(t, .08, .3);
+  ctx.save(); setStroke(ctx, 5, 1);
+  ctx.save(); ctx.translate(doorL, gy); ctx.scale(eBack(dA), eBack(dA)); ctx.globalAlpha = clamp(dA * 2) * (1 - open * .55); iconDoor(ctx, 0); ctx.restore();
+  ctx.save(); ctx.translate(doorX, gy); ctx.scale(eBack(dB), eBack(dB)); ctx.globalAlpha = clamp(dB * 2); iconDoor(ctx, open * .95); ctx.restore();
+  ctx.restore();
+  // the person hesitates (looks left/right) — then the brain picks, and only later the hand goes up
+  const look = t > .3 && t < HIT ? (Math.floor((t - .3) / .17) % 2 ? -1 : 1) : 1;
+  const lift = eOut(seg(t, 2.0, 2.35));
+  const hx = 960, hy = gy - 266;
+  person(ctx, { x: 960, y: gy, dir: look, head: [look * 5, 0], alpha: seg(t, 0, .15),
+    armF: [lerp(.15, 2.55, lift), lerp(.15, 1.1, lift)], squash: pulse(t, HIT, .35) * .6 });
+  // the decision: a neural bolt zips from the head to the door
+  const z = seg(t, HIT - .1, HIT + .02), zf = 1 - seg(t, HIT + .3, HIT + 1.0);
+  if (z > 0 && zf > 0) {
+    ctx.save(); setStroke(ctx, 4, zf); ctx.beginPath(); ctx.moveTo(hx, hy);
+    const tx = doorX, ty = gy - 135, N = 10;
+    for (let i = 1; i <= N * z; i++) { const kk = i / N; const j = i < N ? (hash(i * 17 + Math.floor(t * 20)) - .5) * 60 : 0;
+      ctx.lineTo(lerp(hx, tx, kk), lerp(hy, ty, kk) + j); }
+    ctx.stroke(); ctx.restore();
+    glowDot(ctx, hx, hy, 150, zf * .9);
+  }
+  // "?" — awareness arrives late
+  const q = seg(t, 2.2, 2.45);
+  if (q > 0) { ctx.save(); ctx.globalAlpha = q * (1 - seg(t, 2.6, 2.85)); ctx.fillStyle = '#fff'; ctx.font = `600 ${70 * eBack(q)}px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('?', hx + 90, hy - 95); ctx.restore(); }
+  screen(ctx);
+  const tOut = 1 - seg(t, 2.8, 3.1);
+  // question + a 1-second countdown bar
+  const qa = 1 - seg(t, HIT - .05, HIT + .05);
+  txt(ctx, T.hk1, 960, 150, { size: 66, weight: 600, sp: 8, alpha: qa, reveal: seg(t, .05, .4), glitch: 1, t });
+  if (qa > 0 && t > .3) { const bw = 520 * (1 - seg(t, .35, HIT)); ctx.save(); ctx.globalAlpha = qa * .9; ctx.fillStyle = '#fff'; rrect(ctx, 960 - bw / 2, 210, bw, 5, 2.5); ctx.fill(); ctx.restore(); }
+  // answer
+  txt(ctx, T.hk2, 960, 150, { size: 96, weight: 800, sp: 6, alpha: (t > HIT ? 1 : 0) * tOut, reveal: seg(t, HIT, HIT + .3), glitch: 1, t });
+  txt(ctx, T.hk3, 960, 250, { size: 46, weight: 300, sp: 8, alpha: tOut, reveal: seg(t, 1.6, 2.1), glitch: 1, t });
+  txt(ctx, 'HUMAN MIND · 01', 960, 1010, { size: 18, weight: 500, sp: 8, alpha: .55 * seg(t, .6, 1.2) * tOut });
 }
 
 /* SCENE 1 — the hook room: decisions everywhere (3.4 – 28.2) */
@@ -971,7 +1033,7 @@ function sLogo(ctx, t) {
 
 /* ---------- scene table ---------- */
 const SCENES = [
-  { a: 0, b: DROP, fi: 0, fo: 0, f: sHook },
+  { a: 0, b: DROP, fi: 0, fo: 0, f: THUMB ? sHook : sHookDoors },
   { a: DROP, b: v(24.4), fi: 0, fo: .5, f: sRoom },
   { a: v(23.9), b: v(28.6), fi: .5, fo: .5, f: (c, t) => sBrainFast(c, t, 1) },
   { a: v(28.1), b: v(36.3), fi: .5, fo: .5, f: sStreet },
@@ -1032,7 +1094,7 @@ function frame(t) {
   X.drawImage(L, 0, 0);
 
   // glitch: horizontal slices
-  const gl = Math.max(glitch, pulse(t, 0.15, .25), pulse(t, v(53.58), .35) * .8, pulse(t, FREEZE, .3) * .6);
+  const gl = Math.max(glitch, pulse(t, THUMB ? .15 : HIT, .25), pulse(t, v(53.58), .35) * .8, pulse(t, FREEZE, .3) * .6);
   if (gl > .02) {
     TX.setTransform(1, 0, 0, 1, 0, 0); TX.clearRect(0, 0, W, H); TX.drawImage(C, 0, 0);
     const fr = Math.floor(t * 30);
@@ -1067,7 +1129,7 @@ function frame(t) {
   X.drawImage(GRAIN[Math.floor(t * 24) % GRAIN.length], 0, 0, W, H);
   X.globalCompositeOperation = 'source-over'; X.globalAlpha = 1;
   // flashes
-  const flash = Math.max(t < DROP ? seg(t, 3.05, DROP) ** 3 : 0, pulse(t, DROP, .7) * .9, pulse(t, .15, .25) * .5, pulse(t, v(33.02), .3) * .45);
+  const flash = Math.max(t < DROP ? seg(t, 3.05, DROP) ** 3 : 0, pulse(t, DROP, .7) * .9, pulse(t, THUMB ? .15 : HIT, .25) * .5, pulse(t, v(33.02), .3) * .45);
   if (flash > .003) { X.fillStyle = `rgba(255,255,255,${flash})`; X.fillRect(0, 0, W, H); }
   // fade from/to black
   const black = Math.max(1 - seg(t, 0, .12), seg(t, 103.9, END));

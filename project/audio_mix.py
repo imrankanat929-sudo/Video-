@@ -92,7 +92,7 @@ m *= (np.clip(.45 + .55 * ramp(tt, 0, DROP), 0, 1) * (1 - ramp(tt, 100.5, END - 
 vo_env = np.sqrt(lp(vo ** 2, 6, 2).clip(0))
 duck_amt = np.clip(vo_env / .05, 0, 1)
 duck_amt = lp(duck_amt, 2.5, 1)
-base = .23 * (1 + 1.0 * (1 - ramp(tt, 2.8, 3.6)))  # louder in the hook
+base = .145 * (1 + .9 * (1 - ramp(tt, 2.8, 3.6)))  # a little louder in the hook
 m *= (base * (1 - .45 * duck_amt))[:, None]
 
 # ---------------------------------------------------------------- SFX
@@ -205,16 +205,24 @@ BEAT = best[1]
 print('beat period', round(BEAT, 4))
 beats_v = DROP + np.arange(200) * BEAT
 
-# --- hook ---
-add(boom(2.0, 90, 30, .5), .15, .9)
-add(glitch_blips(.7, .22), .15, 1, -.3)
+# --- hook: "left or right?" -> the brain picks -> rush into the door ---
+HIT = .95
+add(boom(1.6, 90, 35, .35), 0.0, .8)
+add(boom(.6, 140, 60, .08), 0.0, .5, -.5); add(boom(.6, 140, 60, .08), 0.08, .5, .5)   # doors slam
+add(glitch_blips(.4, .18), .05, 1, -.2)
+for i, tk in enumerate(np.cumsum([.2, .16, .13, .11, .09, .08, .07]) + .25):          # accelerating clock
+    if tk < HIT - .02: add(tick(.55), tk, 1, .3 if i % 2 else -.3); add(blip(1100, .04, .1), tk)
+add(heartbeat(.6), .3)
 e, t = env_exp(1.0, .18)
-add(hp(rng.standard_normal(len(t)), 3000) * e * (rng.random(len(t)) > .985) * 2.5, .15, .5, .3)   # electric crackle
-add(glitch_blips(.55, .14), .3, 1, .2)
-add(glitch_blips(.6, .14), 1.3, 1, -.2)
-add(heartbeat(.7), 1.0)
-add(riser(2.0), DROP - 2.0, .55)
-add(blip(500, .25, .25, 900), 2.35)                  # "?" pops
+add(hp(rng.standard_normal(len(t)), 3000) * e * (rng.random(len(t)) > .985) * 2.5, HIT - .1, .6, .4)  # zap
+add(glitch_blips(.5, .25, 40), HIT, 1, .2)
+add(boom(2.2, 85, 30, .55), HIT, 1.0)
+add(whoosh(.6, True, 500, 6000), HIT - .3, .3, .4)
+add(bell(880, 1.6, .12), HIT + .05, 1, .4)
+add(glitch_blips(.45, .12), 1.6, 1, -.2)
+add(blip(500, .25, .25, 900), 2.2)                   # "?" pops
+add(riser(2.0), DROP - 2.0, .5)
+add(whoosh(.9, True, 300, 9000), DROP - .85, .5)     # rush into the door
 add(boom(3.0, 80, 28, .8), DROP, 1.0)                # the drop
 add(whoosh(1.2, False, 200, 6000), DROP, .45)
 # --- scene 1 ---

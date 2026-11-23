@@ -16,7 +16,7 @@
 ## Timeline
 | Time | Scene | On-screen text |
 |---|---|---|
-| 0:00–0:03.4 | **Hook**: a spark in the head comes before the "?" and the hand-raise; flash on the music drop | ТВОЙ МОЗГ ПРИНИМАЕТ РЕШЕНИЯ / РАНЬШЕ, ЧЕМ ТЫ ЭТО ОСОЗНАЁШЬ |
+| 0:00–0:03.4 | **Hook**: two doors, a 1-second countdown; the brain picks a door before the man raises his hand; the camera rushes into the lit doorway, with a flash on the music drop | ЛЕВАЯ ИЛИ ПРАВАЯ? → ТЫ УЖЕ ВЫБРАЛ. / ТВОЙ МОЗГ РЕШИЛ ЗА ТЕБЯ |
 | 0:03–0:27 | Decisions: shirt, clock, phone, two doors, autopilot ticks, Kahneman's book, two modes | СКОЛЬКО РЕШЕНИЙ ТЫ ПРИНИМАЕШЬ КАЖДЫЙ ДЕНЬ? |
 | 0:27–0:44 | System 1: fast brain network, street recognition, sudden sound → instant turn | СИСТЕМА 1 — БЫСТРОЕ МЫШЛЕНИЕ |
 | 0:44–1:01 | Hasty conclusions, the confident presenter ("ЗНАЕТ ВСЁ" → "ЗНАЕТ ВСЁ?", he becomes an outline) | ПЕРВОЕ ВПЕЧАТЛЕНИЕ МОЖЕТ ОБМАНУТЬ |
