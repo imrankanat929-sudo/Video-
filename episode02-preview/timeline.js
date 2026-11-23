@@ -1,7 +1,7 @@
 // Shared timeline for HUMAN MIND — Episode 02 vertical preview (9:16).
 // Used by both the frame renderer and the audio builder so picture and sound stay in sync.
 const FPS = 30;
-const DURATION = 95; // seconds — full length of the music track
+const DURATION = 102; // seconds — voiceover (95.4 s) + end card
 const FRAMES = Math.round(FPS * DURATION);
 
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -9,13 +9,14 @@ const seg = (t, a, b) => clamp((t - a) / (b - a));
 
 // Character walking: speed in world px/s.
 function speedAt(t) {
-  if (t < 6) return 92 * (1 - seg(t, 5.2, 6) ** 2 * 1) ;
-  if (t < 8) return 0;
-  if (t < 11.6) return 32 * seg(t, 8, 8.4) * (1 - seg(t, 11.0, 11.6));
+  // synced to the voiceover: "Ты останавливаешься" 5.1 s, "стоит подойти ближе?" 11.8 s
+  if (t < 5.1) return 92 * (1 - seg(t, 4.4, 5.1) ** 2);
+  if (t < 11.8) return 0;
+  if (t < 14.0) return 32 * seg(t, 11.8, 12.2) * (1 - seg(t, 13.5, 14.0));
   return 0;
 }
 
-const START_X = -540;
+const START_X = -460;
 const STRIDE = 70; // world px per half-cycle (one footstep)
 
 // Precompute per-frame character x and walk phase, plus footstep times.
@@ -41,9 +42,9 @@ const footsteps = [];
 // Heartbeats: start once he notices the figure, accelerate, stop at the reveal.
 const heartbeats = [];
 {
-  let t = 6.25;
+  let t = 6.9; // "Сердце начинает биться быстрее"
   let interval = 0.95;
-  while (t < 11.9) {
+  while (t < 14.1) {
     heartbeats.push(t);
     interval = Math.max(0.52, interval * 0.93);
     t += interval;
@@ -51,20 +52,20 @@ const heartbeats = [];
 }
 
 const TREE_X = 330;
-const REVEAL = { start: 11.95, end: 13.0 }; // silhouette -> tree morph, lamp switches on
+const REVEAL = { start: 14.2, end: 15.2 }; // "Это всего лишь дерево" // silhouette -> tree morph, lamp switches on
 
 // Scene boundaries (for whooshes / impacts in the audio).
 const CUTS = {
   hookPullBack: 2.0,
   reveal: REVEAL.start,
-  brain: 15.0,
-  cloud: 24.0,
-  dots: 32.0,
-  objects: [40, 47, 54],      // each object scene: 7 s, reveal at +3.6 s
-  explain: 61.0,
-  examine: 68.5,
-  question: 75.0,
-  logo: 86.0,
+  brain: 17.0,                // "твой мозг уже успел убедить тебя"
+  explain: 23.4,              // "Почему так происходит?"
+  cloud: 43.5,                // "Представь облако, похожее на лицо"
+  dots: 46.7,                 // "Или случайное совпадение…"
+  objects: [57.8, 64.8, 71.8],// Kahneman / fast thinking; each 7 s, reveal at +3.6 s
+  examine: 78.8,              // "В следующий раз… остановись"
+  question: 89.3,             // "Ты действительно видишь реальность?"
+  logo: 97.0,
 };
 const OBJ_REVEAL = 3.6;
 

@@ -60,8 +60,8 @@ for (const [fq, d] of [[523.25, 0], [659.25, 0.06], [783.99, 0.12], [1046.5, 0.1
 }
 // brain: soft electronic blips as the signal lines draw
 const blip = (t0, i) => add(t0, 0.25, (t) => Math.sin(2 * Math.PI * (880 + i * 220) * t) * Math.exp(-t * 18), 0.07, i % 2 ? 0.4 : -0.4);
-[16.5, 17.1, 17.7, 18.6].forEach(blip);
-[62.6, 63.4, 64.4].forEach((t0, i) => blip(t0, i));
+[18.4, 19.0, 19.6, 20.2].forEach(blip);
+[34.3, 35.1, 36.3].forEach((t0, i) => blip(t0, i));
 // dots popping: tiny ticks
 const D = C.dots - 21.5;
 for (let i = 0; i < 30; i++) add(D + 21.85 + (i / 30) * 1.6, 0.04, (t) => Math.sin(2 * Math.PI * 2400 * t) * Math.exp(-t * 160), 0.05, rnd() * 0.6);
@@ -72,11 +72,11 @@ function sting(t0, g = 0.05) {
 }
 C.objects.forEach((o) => sting(o + T.OBJ_REVEAL));
 // cloud face emerging: low swell
-add(26.3, 2.5, (t) => (Math.sin(2 * Math.PI * 110 * t) * 0.5 + Math.sin(2 * Math.PI * 164.8 * t) * 0.3) * Math.sin(Math.PI * t / 2.5) ** 2, 0.1);
+add(C.cloud + 0.6, 2.5, (t) => (Math.sin(2 * Math.PI * 110 * t) * 0.5 + Math.sin(2 * Math.PI * 164.8 * t) * 0.3) * Math.sin(Math.PI * t / 2.5) ** 2, 0.1);
 // face completes: low swell
-add(D + 25.4, 2.5, (t) => Math.sin(2 * Math.PI * 110 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.5 + Math.sin(2 * Math.PI * 164.8 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.3, 0.12);
+add(D + 27.4, 2.5, (t) => Math.sin(2 * Math.PI * 110 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.5 + Math.sin(2 * Math.PI * 164.8 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.3, 0.12);
 // tension drone during the approach (rises, cut at reveal)
-add(6.0, T.REVEAL.start - 6.0, (t) => { const len = T.REVEAL.start - 6; const env = (t / len) ** 1.5 * Math.min(1, (len - t) / 0.05); return (Math.sin(2 * Math.PI * 55 * t) + 0.5 * Math.sin(2 * Math.PI * 82.4 * t + Math.sin(t * 3))) * env; }, 0.12);
+add(6.9, T.REVEAL.start - 6.9, (t) => { const len = T.REVEAL.start - 6.9; const env = (t / len) ** 1.5 * Math.min(1, (len - t) / 0.05); return (Math.sin(2 * Math.PI * 55 * t) + 0.5 * Math.sin(2 * Math.PI * 82.4 * t + Math.sin(t * 3))) * env; }, 0.12);
 
 // write wav (16-bit)
 let peak = 0; for (let i = 0; i < N; i++) peak = Math.max(peak, Math.abs(L[i]), Math.abs(Rr[i]));

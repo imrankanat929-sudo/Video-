@@ -65,14 +65,14 @@ function vignette(strength) {
 const CAM = [
   [0.0, 330, -190, 2.15],
   [2.0, 330, -195, 2.45],
-  [3.4, 20, -330, 1.0],
-  [6.0, 90, -320, 1.05],
-  [8.0, 110, -300, 1.12],
-  [11.6, 210, -230, 1.6],
-  [12.4, 240, -330, 1.22],
-  [14.8, 240, -335, 1.2],
-  [16.2, 200, -470, 0.88],
-  [24.0, 200, -490, 0.8],
+  [3.4, 40, -330, 1.0],
+  [5.1, 80, -320, 1.05],
+  [11.8, 120, -295, 1.18],
+  [14.0, 210, -230, 1.6],
+  [14.7, 240, -330, 1.22],
+  [16.6, 240, -335, 1.2],
+  [17.8, 200, -470, 0.88],
+  [23.4, 200, -490, 0.8],
 ];
 function camAt(t) {
   for (let i = 0; i < CAM.length - 1; i++) {
@@ -415,8 +415,8 @@ function streetWorld(t, c, opt = {}) {
   // brain's guess overlay
   if (opt.ghost > 0) drawFigure(TREE_X, 0, 1.12, 0, { dashed: true, alpha: opt.ghost, lit: 1 });
   // character
-  const nervous = seg(t, 6.1, 6.6) * (1 - seg(t, 12.3, 13.2));
-  const relax = seg(t, 12.6, 13.4);
+  const nervous = seg(t, 5.2, 5.7) * (1 - seg(t, 14.5, 15.4));
+  const relax = seg(t, 14.8, 15.6);
   drawMan(x, 0, 1, { phase, walk, lean: -0.06 * nervous + 0.02 * relax, tremble: nervous > 0.01 ? t : 0, relax, lookUp: opt.lookUp || 0 });
   // heartbeat rings
   for (const hb of T.heartbeats) {
@@ -427,7 +427,7 @@ function streetWorld(t, c, opt = {}) {
     }
   }
   // relief "breath"
-  const br = seg(t, 13.0, 14.2);
+  const br = seg(t, 15.2, 16.4);
   if (br > 0 && br < 1) {
     ctx.save(); ctx.strokeStyle = `rgba(255,255,255,${Math.sin(br * Math.PI) * 0.7})`; ctx.lineWidth = 4; ctx.lineCap = 'round';
     for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(x + 46 + br * 40, -205 + (i - 1) * 16, 10 + i * 4, -0.7, 0.7); ctx.stroke(); }
@@ -452,26 +452,26 @@ function sceneStreet(t) {
   const bp = beatPulse(t);
   background(t, 0.75 + 0.25 * seg(t, REVEAL.start, REVEAL.start + 0.5));
   drawGround(c);
-  const ghost = win(t, 19.0, 23.8, 0.5, 0.4) * (0.55 + 0.3 * Math.sin(t * 6));
-  const { x } = streetWorld(t, c, { ghost, lookUp: seg(t, 15.2, 15.8) });
+  const ghost = win(t, 19.6, 23.3, 0.5, 0.4) * (0.55 + 0.3 * Math.sin(t * 6));
+  const { x } = streetWorld(t, c, { ghost, lookUp: seg(t, 17.2, 17.8) });
   vignette(0.55 + bp * 0.3 + (1 - seg(t, 0, 2.3)) * 0.15);
 
   // brain section (15 - 21.5)
-  if (t > 15.0) {
+  if (t > 16.9) {
     const bx = 200, by = -820;
     const [sx, sy] = toScreen(c, bx, by);
-    const rv = ease(seg(t, 15.2, 16.6));
-    const pulse = Math.max(0, Math.sin((t - 16.6) * 4)) * seg(t, 16.6, 17);
+    const rv = ease(seg(t, 17.1, 18.4));
+    const pulse = Math.max(0, Math.sin((t - 18.4) * 4)) * seg(t, 18.4, 18.8);
     drawBrain(sx, sy, c.z * 0.95, rv, pulse, 1);
     const [ex, ey] = toScreen(c, x + 14, -205);
     const [tx, ty] = toScreen(c, TREE_X, -330);
-    const k1 = ease(seg(t, 16.4, 17.2)), k2 = ease(seg(t, 17.0, 17.8));
+    const k1 = ease(seg(t, 18.3, 19.1)), k2 = ease(seg(t, 18.9, 19.7));
     signalLine(ex, ey, sx - 70 * c.z, sy + 90 * c.z, k1, t);
     signalLine(tx, ty, sx + 70 * c.z, sy + 90 * c.z, k2, t + 0.3);
     // small labels
-    const la = seg(t, 17.6, 18.0);
-    pill('ГЛАЗА', Math.max(150, ex - 10), ey - 90 * c.z - 40, 26, la * (1 - seg(t, 23.4, 23.8)), { inverted: true });
-    pill('ОПЫТ', sx, sy - 175 * c.z, 26, seg(t, 18.6, 19.0) * (1 - seg(t, 23.4, 23.8)), { inverted: true });
+    const la = seg(t, 19.3, 19.7);
+    pill('ГЛАЗА', Math.max(150, ex - 10), ey - 90 * c.z - 40, 26, la * (1 - seg(t, 22.9, 23.3)), { inverted: true });
+    pill('ОПЫТ', sx, sy - 175 * c.z, 26, seg(t, 19.9, 20.3) * (1 - seg(t, 22.9, 23.3)), { inverted: true });
   }
 
   // ---- texts ----
@@ -481,11 +481,13 @@ function sceneStreet(t) {
   textBlock(['ЕГО ТАМ', '*НЕТ.'], W / 2, 350, { t, start: 2.0, end: 4.7, size: 130, stagger: 0.16 });
   pill('ТВОЙ МОЗГ ДОРИСОВАЛ ЕГО САМ', W / 2, 640, 32, seg(t, 2.7, 3.1) * (1 - seg(t, 4.4, 4.7)));
   // captions
-  textBlock(['Тёмная улица.', 'Впереди кто-то стоит.'], W / 2, 1540, { t, start: 4.8, end: 7.7, size: 58, font: 'InterBold', stagger: 0.06 });
-  textBlock(['Сердце бьётся чаще.', 'Шаг. Ещё шаг…'], W / 2, 1540, { t, start: 7.9, end: 11.7, size: 58, font: 'InterBold', stagger: 0.12 });
-  textBlock(['ЭТО ПРОСТО', '*ДЕРЕВО.'], W / 2, 330, { t, start: 12.2, end: 15.0, size: 112, stagger: 0.12 });
-  textBlock(['Мозг не просто «видит».'], W / 2, 1600, { t, start: 15.3, end: 18.2, size: 56, font: 'InterBold', stagger: 0.07 });
-  textBlock(['Он *ДОСТРАИВАЕТ картинку', 'по опыту и ожиданиям.'], W / 2, 1570, { t, start: 18.35, end: 23.9, size: 54, font: 'InterBold', stagger: 0.07 });
+  textBlock(['Ты останавливаешься.'], W / 2, 1560, { t, start: 4.9, end: 6.8, size: 58, font: 'InterBold', stagger: 0.06 });
+  textBlock(['Сердце бьётся', 'быстрее.'], W / 2, 1540, { t, start: 6.9, end: 9.3, size: 58, font: 'InterBold', stagger: 0.1 });
+  textBlock(['Ты уверен:', 'там *человек.'], W / 2, 1540, { t, start: 9.4, end: 11.7, size: 58, font: 'InterBold', stagger: 0.1 });
+  textBlock(['Подойти ближе?'], W / 2, 1560, { t, start: 11.8, end: 14.1, size: 58, font: 'InterBold', stagger: 0.1 });
+  textBlock(['ЭТО ВСЕГО ЛИШЬ', '*ДЕРЕВО.'], W / 2, 330, { t, start: 14.3, end: 17.0, size: 104, stagger: 0.12 });
+  textBlock(['Мозг уже убедил тебя…'], W / 2, 1600, { t, start: 17.2, end: 20.3, size: 56, font: 'InterBold', stagger: 0.07 });
+  textBlock(['…в том, чего', '*не существовало.'], W / 2, 1570, { t, start: 20.4, end: 23.3, size: 56, font: 'InterBold', stagger: 0.07 });
 
   // flash on reveal
   const fl = (t > REVEAL.start && t < REVEAL.start + 0.5) ? (1 - (t - REVEAL.start) / 0.5) : 0;
@@ -516,9 +518,9 @@ function sceneDots(t) {
   const lt = t - 21.5;
   const zoom = 1 + lt * 0.012;
   ctx.save(); ctx.translate(540, 900); ctx.scale(zoom, zoom); ctx.translate(-540, -900);
-  const groups = { eyeL: [23.6, 24.3, true], eyeR: [24.0, 24.7, true], nose: [24.5, 25.0, false], mouth: [24.9, 25.8, false] };
-  const dimRand = seg(t, 25.4, 26.2);
-  const faceGlow = seg(t, 25.6, 26.3);
+  const groups = { eyeL: [25.6, 26.3, true], eyeR: [26.0, 26.7, true], nose: [26.5, 27.0, false], mouth: [26.9, 27.8, false] };
+  const dimRand = seg(t, 27.4, 28.2);
+  const faceGlow = seg(t, 27.6, 28.3);
   // connecting lines
   ctx.save(); ctx.strokeStyle = '#fff'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   for (const [g, [a, b, closed]] of Object.entries(groups)) {
@@ -552,19 +554,19 @@ function sceneDots(t) {
   // little observer
   drawMan(150, 1395, 0.62, { lookUp: 1, alpha: seg(t, 21.9, 22.4) });
   ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 2; ctx.setLineDash([6, 10]);
-  ctx.globalAlpha = seg(t, 23.4, 23.9) * (1 - seg(t, 29.0, 29.4));
+  ctx.globalAlpha = seg(t, 25.4, 25.9) * (1 - seg(t, 32.1, 32.5));
   ctx.beginPath(); ctx.moveTo(160, 1250); ctx.lineTo(380, 790); ctx.stroke(); ctx.restore();
   vignette(0.6);
-  pill('ПАРЕЙДОЛИЯ', W / 2, 400, 36, seg(t, 25.9, 26.3) * (1 - seg(t, 29.0, 29.4)));
-  textBlock(['Мозг ищет знакомое…'], W / 2, 1560, { t, start: 22.0, end: 24.8, size: 58, font: 'InterBold' });
-  textBlock(['…даже в случайных', 'точках.'], W / 2, 1530, { t, start: 24.9, end: 29.4, size: 58, font: 'InterBold' });
+  pill('ПАРЕЙДОЛИЯ', W / 2, 400, 36, seg(t, 30.4, 30.8) * (1 - seg(t, 32.1, 32.5)));
+  textBlock(['Случайное совпадение…'], W / 2, 1560, { t, start: 21.8, end: 25.6, size: 58, font: 'InterBold' });
+  textBlock(['…а мозг видит', 'в нём *смысл.'], W / 2, 1530, { t, start: 25.8, end: 32.5, size: 58, font: 'InterBold' });
 }
 
 // ---------- spotlight question ----------
 function sceneQuestion(t) {
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
   const lt = t - 28;
-  const z = 1 + ease(seg(t, 28, 39)) * 0.28;
+  const z = 1 + ease(seg(t, 28, 35.7)) * 0.25;
   ctx.save(); ctx.translate(540, 1050); ctx.scale(z, z); ctx.translate(-540, -1050);
   // cone
   const on = seg(t, 28.15, 28.5);
@@ -574,7 +576,7 @@ function sceneQuestion(t) {
   const fg = ctx.createRadialGradient(540, 1262, 10, 540, 1262, 300);
   fg.addColorStop(0, `rgba(255,255,255,${0.35 * on})`); fg.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.fillStyle = fg; ctx.save(); ctx.translate(540, 1262); ctx.scale(1, 0.18); ctx.beginPath(); ctx.arc(0, 0, 300, 0, 6.283); ctx.restore(); ctx.fill();
-  drawMan(540, 1262, 1.1, { alpha: on, lookUp: seg(t, 31.5, 32.3) });
+  drawMan(540, 1262, 1.1, { alpha: on, lookUp: seg(t, 31.0, 31.8) });
   ctx.restore();
   // dust in the beam
   for (let i = 0; i < 26; i++) {
@@ -583,8 +585,8 @@ function sceneQuestion(t) {
     const xr = 540 + (pr.x / W - 0.5) * (80 + y * 0.42);
     ctx.fillStyle = `rgba(255,255,255,${pr.a * on})`; ctx.beginPath(); ctx.arc(xr, y, pr.r, 0, 6.283); ctx.fill();
   }
-  textBlock(['ТЫ ВИДИШЬ', 'РЕАЛЬНОСТЬ?'], W / 2, 330, { t, start: 28.6, end: 38.9, size: 104, stagger: 0.14 });
-  textBlock(['ИЛИ ТО, ЧТО', '*ОЖИДАЕШЬ?'], W / 2, 1520, { t, start: 32.3, end: 38.9, size: 92, stagger: 0.14 });
+  textBlock(['ТЫ ВИДИШЬ', 'РЕАЛЬНОСТЬ?'], W / 2, 330, { t, start: 29.1, end: 35.6, size: 104, stagger: 0.14 });
+  textBlock(['ИЛИ ТО, ЧТО', '*ОЖИДАЕШЬ?'], W / 2, 1520, { t, start: 31.6, end: 35.6, size: 92, stagger: 0.14 });
 }
 
 // ---------- end card ----------
@@ -622,7 +624,7 @@ function sceneCloud(t) {
   const z = 1 + lt * 0.015;
   ctx.save(); ctx.translate(cx, cy); ctx.scale(z, z);
   const puffs = [[-230, 40, 110], [-120, -40, 150], [30, -90, 170], [180, -30, 150], [270, 50, 110], [-60, 80, 140], [110, 90, 140], [-300, 110, 80], [330, 120, 80]];
-  const fk = ease(seg(t, 26.3, 28.3)); // face emerges
+  const fk = ease(seg(t, 24.6, 26.0)); // face emerges
   ctx.fillStyle = 'rgba(235,235,235,0.92)'; glow(50, 0.6);
   ctx.beginPath(); for (const [x, y, r] of puffs) { ctx.moveTo(x + r, y); ctx.arc(x, y, r * (1 + 0.02 * Math.sin(t * 0.8 + x)), 0, 6.283); } ctx.fill(); noGlow();
   // darker hollows = eyes + mouth
@@ -630,7 +632,7 @@ function sceneCloud(t) {
   ctx.beginPath(); ctx.ellipse(-80, -40, 34, 44 * fk + 4, 0.1, 0, 6.283); ctx.ellipse(110, -45, 34, 44 * fk + 4, -0.1, 0, 6.283); ctx.fill();
   ctx.beginPath(); ctx.ellipse(20, 95, 95 * fk + 10, 34 * fk + 4, 0, 0, Math.PI); ctx.fill();
   // dashed outline once the viewer "sees" it
-  const ok = seg(t, 28.4, 29.0) * (1 - seg(t, 31.4, 31.8));
+  const ok = seg(t, 25.9, 26.3) * (1 - seg(t, 26.8, 27.2));
   if (ok > 0) {
     ctx.save(); ctx.globalAlpha = ok; ctx.strokeStyle = '#fff'; ctx.lineWidth = 4; ctx.setLineDash([12, 10]); ctx.lineDashOffset = -t * 30; glow(14, 0.9);
     ctx.beginPath(); ctx.ellipse(15, 10, 300, 240, 0, 0, 6.283); ctx.stroke(); ctx.restore();
@@ -642,9 +644,7 @@ function sceneCloud(t) {
   ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); ctx.restore();
   drawMan(190, gy, 0.7, { lookUp: 1, alpha: seg(t, 24.2, 24.7), lean: -0.05 });
   vignette(0.55);
-  textBlock(['Посмотри на облако.'], W / 2, 1560, { t, start: 24.5, end: 28.0, size: 58, font: 'InterBold' });
-  textBlock(['Видишь лицо?'], W / 2, 1530, { t, start: 28.2, end: 31.8, size: 58, font: 'InterBold' });
-  textBlock(['Его там тоже *нет.'], W / 2, 1620, { t, start: 29.4, end: 31.8, size: 58, font: 'InterBold' });
+  textBlock(['Облако,', 'похожее на *лицо.'], W / 2, 1530, { t, start: 24.2, end: 27.2, size: 58, font: 'InterBold' });
 }
 
 // ---------- objects that look like something else (40 - 61) ----------
@@ -751,30 +751,42 @@ function sceneObject(t, idx) {
   textBlock([fakes[idx]], W / 2, 340, { t: lt, start: 0.4, end: rv, size: 112 });
   textBlock(['*' + reals[idx]], W / 2, 340, { t: lt, start: rv + 0.25, end: 7.1, size: 112 });
   const caps = [
-    [['Первое впечатление…'], ['…бывает обманчивым.']],
-    [['Мозг спешит', 'с выводом…'], ['…а детали', 'дорисовывает сам.']],
-    [['Мозг ищет лица', 'повсюду.'], ['Даже на стене.']],
+    [['Быстрое мышление…'], ['…делает выводы', 'за долю секунды.']],
+    [['Мозг формирует', 'впечатление…'], ['…по той информации,', 'что *есть под рукой.']],
+    [['Мы даже не замечаем,'], ['как мало информации', 'у нас *на самом деле.']],
   ][idx];
+  if (idx === 0) {
+    const ka = seg(lt, 0.3, 0.8) * (1 - seg(lt, 5.0, 5.4));
+    pill('ДАНИЭЛЬ КАНЕМАН', W / 2, 545, 30, ka);
+    pill('«ДУМАЙ МЕДЛЕННО… РЕШАЙ БЫСТРО»', W / 2, 640, 26, ka, { inverted: true });
+  }
   textBlock(caps[0], W / 2, 1530, { t: lt, start: 0.7, end: rv, size: 58, font: 'InterBold' });
   textBlock(caps[1], W / 2, 1530, { t: lt, start: rv + 0.6, end: 7.1, size: 58, font: 'InterBold' });
 }
 
-// ---------- psychological explanation (61 - 68.5) ----------
+// ---------- psychological explanation (23.4 - 43.5) ----------
 function sceneExplain(t) {
   background(t, 0.6);
-  const lt = t - 61;
-  const bx = 540, by = 760;
-  const pulse = Math.max(0, Math.sin(lt * 3.2)) * seg(t, 64.6, 65.2);
-  drawBrain(bx, by, 1.75, ease(seg(t, 61.2, 62.6)), pulse);
-  const words = [['ОПЫТ', 250, 1130, 62.6], ['ОЖИДАНИЯ', 830, 1130, 63.4], ['ВОСПРИЯТИЕ', 540, 1330, 64.4]];
+  const glitch = win(t, 40.8, 43.3, 0.1, 0.3);
+  const jx = glitch > 0 ? (Math.sin(t * 71) > 0.6 ? 14 : 0) * glitch : 0;
+  const bx = 540 + jx, by = 780;
+  const pulse = Math.max(0, Math.sin((t - 29.5) * 3.2)) * seg(t, 29.5, 30.0) * (1 - glitch);
+  const flick = glitch > 0 && Math.sin(t * 53) > 0.7 ? 0.35 : 1;
+  drawBrain(bx, by, 1.7, ease(seg(t, 24.7, 26.3)), pulse, flick);
+  const words = [['ОПЫТ', 250, 1150, 34.3], ['ОЖИДАНИЯ', 830, 1150, 35.1], ['ЗНАКОМЫЕ ОБРАЗЫ', 540, 1340, 36.3]];
   for (const [w, x, y, ts] of words) {
-    const k = seg(t, ts, ts + 0.6);
-    signalLine(x, y - 40, bx + (x - bx) * 0.25, by + 170, ease(k), t);
-    pill(w, x, y, 34, easeOut(k));
+    const k = seg(t, ts, ts + 0.6) * (1 - seg(t, 40.6, 41.0));
+    if (k <= 0) continue;
+    signalLine(x, y - 40, bx + (x - bx) * 0.25, by + 165, ease(k), t, k);
+    pill(w, x, y, 32, easeOut(k));
   }
-  textBlock(['Ты видишь не только глазами.'], W / 2, 1560, { t, start: 61.5, end: 64.8, size: 52, font: 'InterBold' });
-  textBlock(['Мозг смешивает сигнал', 'с тем, что уже *знает.'], W / 2, 1540, { t, start: 65.0, end: 68.4, size: 52, font: 'InterBold' });
+  textBlock(['ПОЧЕМУ ТАК', 'ПРОИСХОДИТ?'], W / 2, 330, { t, start: 23.5, end: 26.6, size: 104, stagger: 0.12 });
+  textBlock(['НО ИНОГДА ОН', '*ОШИБАЕТСЯ.'], W / 2, 330, { t, start: 40.8, end: 43.4, size: 100, stagger: 0.12 });
+  textBlock(['Мозг не просто', 'смотрит на мир.'], W / 2, 1540, { t, start: 25.0, end: 29.4, size: 56, font: 'InterBold' });
+  textBlock(['Он постоянно пытается', '*объяснить то, что видит.'], W / 2, 1540, { t, start: 29.5, end: 33.4, size: 54, font: 'InterBold' });
+  textBlock(['…чтобы быстро понять', 'происходящее.'], W / 2, 1540, { t, start: 37.7, end: 40.6, size: 56, font: 'InterBold' });
   vignette(0.5);
+  if (glitch > 0 && Math.sin(t * 37) > 0.85) { ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(0, 0, W, H); }
 }
 
 // ---------- examining more carefully (68.5 - 75) ----------
@@ -789,10 +801,10 @@ function sceneExamine(t) {
   // dark ambiguous object (the "snake")
   ctx.save(); ctx.translate(640, gy); rope(0, 0); ctx.restore();
   const reach = ease(seg(t, 68.9, 69.7));
-  const mv = ease(seg(t, 69.8, 73.8));
+  const mv = ease(seg(t, 69.8, 76.5));
   const mx = lerp(200, 640, mv);
   const fx = ((mx - 200) / 70) * Math.PI;
-  const walking = (t > 69.8 && t < 73.8) ? 0.5 : 0;
+  const walking = (t > 69.8 && t < 76.5) ? 0.45 : 0;
   drawMan(mx, gy, 1.05, { lean: 0.12 * reach, reach, phase: fx, walk: walking, alpha: seg(t, 68.6, 69.0) });
   const hx = mx + 1.05 * 104, hy = gy - 1.05 * 152;
   const lx = hx + 95, ly = gy - 55;
@@ -809,24 +821,25 @@ function sceneExamine(t) {
   }
   ctx.restore();
   vignette(0.55);
-  textBlock(['Не спеши', 'с выводом.'], W / 2, 330, { t, start: 69.0, end: 74.8, size: 104 });
-  textBlock(['Посмотри ещё раз —', 'внимательнее.'], W / 2, 1560, { t, start: 70.2, end: 74.8, size: 56, font: 'InterBold' });
+  textBlock(['ВСЁ ПОНЯЛ', 'С ПЕРВОГО ВЗГЛЯДА?'], W / 2, 330, { t, start: 68.9, end: 72.8, size: 92 });
+  textBlock(['*ОСТАНОВИСЬ.'], W / 2, 380, { t, start: 72.9, end: 78.9, size: 112 });
+  textBlock(['Возможно, мозг просто', 'придумал самое', '*быстрое объяснение.'], W / 2, 1510, { t, start: 74.3, end: 78.9, size: 54, font: 'InterBold' });
 }
 
 function renderFrame(t) {
   ctx.save();
   ctx.globalAlpha = 1;
   const C = CUTS;
-  if (t < C.cloud) sceneStreet(t);
-  else if (t < C.dots) sceneCloud(t);
+  if (t < C.explain) sceneStreet(t);
+  else if (t < C.cloud) sceneExplain(t);
+  else if (t < C.dots) sceneCloud(t - (C.cloud - 24));
   else if (t < C.objects[0]) sceneDots(t - (C.dots - 21.5));
-  else if (t < C.explain) sceneObject(t, t < C.objects[1] ? 0 : t < C.objects[2] ? 1 : 2);
-  else if (t < C.examine) sceneExplain(t);
-  else if (t < C.question) sceneExamine(t);
+  else if (t < C.examine) sceneObject(t, t < C.objects[1] ? 0 : t < C.objects[2] ? 1 : 2);
+  else if (t < C.question) sceneExamine(t - (C.examine - 68.5));
   else if (t < C.logo) sceneQuestion(t - (C.question - 28));
   else sceneLogo(t - (C.logo - 34.5));
   ctx.restore();
-  const dips = [C.cloud, C.dots, ...C.objects, C.explain, C.examine, C.question, C.logo];
+  const dips = [C.explain, C.cloud, C.dots, ...C.objects, C.examine, C.question, C.logo];
   let d = 0;
   for (const c of dips) d = Math.max(d, 1 - Math.abs(t - c) / 0.3);
   d = Math.max(d, seg(t, T.DURATION - 1.2, T.DURATION));
