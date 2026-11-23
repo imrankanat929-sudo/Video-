@@ -1,7 +1,7 @@
 // Shared timeline for HUMAN MIND — Episode 02 vertical preview (9:16).
 // Used by both the frame renderer and the audio builder so picture and sound stay in sync.
 const FPS = 30;
-const DURATION = 38; // seconds
+const DURATION = 95; // seconds — full length of the music track
 const FRAMES = Math.round(FPS * DURATION);
 
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -55,13 +55,17 @@ const REVEAL = { start: 11.95, end: 13.0 }; // silhouette -> tree morph, lamp sw
 
 // Scene boundaries (for whooshes / impacts in the audio).
 const CUTS = {
-  hookPullBack: 2.35,
+  hookPullBack: 2.0,
   reveal: REVEAL.start,
   brain: 15.0,
-  dots: 21.5,
-  question: 28.0,
-  question2: 31.3,
-  logo: 34.5,
+  cloud: 24.0,
+  dots: 32.0,
+  objects: [40, 47, 54],      // each object scene: 7 s, reveal at +3.6 s
+  explain: 61.0,
+  examine: 68.5,
+  question: 75.0,
+  logo: 86.0,
 };
+const OBJ_REVEAL = 3.6;
 
-module.exports = { FPS, DURATION, FRAMES, clamp, seg, charX, walkAmt, footsteps, heartbeats, TREE_X, REVEAL, CUTS, STRIDE, START_X };
+module.exports = { OBJ_REVEAL, FPS, DURATION, FRAMES, clamp, seg, charX, walkAmt, footsteps, heartbeats, TREE_X, REVEAL, CUTS, STRIDE, START_X };

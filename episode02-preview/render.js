@@ -4,7 +4,7 @@
 const { createCanvas, GlobalFonts, Path2D } = require('@napi-rs/canvas');
 const { spawn } = require('child_process');
 const T = require('./timeline');
-const { FPS, clamp, seg, TREE_X, REVEAL } = T;
+const { FPS, clamp, seg, TREE_X, REVEAL, CUTS } = T;
 
 const W = 1080, H = 1920;
 const FONT_DIR = '/usr/share/fonts/opentype/inter/';
@@ -64,15 +64,15 @@ function vignette(strength) {
 // keys: [time, worldX, worldY, zoom] — world point (x,y) is placed at screen (W/2, H/2).
 const CAM = [
   [0.0, 330, -190, 2.15],
-  [2.35, 330, -195, 2.5],
-  [3.7, 20, -330, 1.0],
+  [2.0, 330, -195, 2.45],
+  [3.4, 20, -330, 1.0],
   [6.0, 90, -320, 1.05],
   [8.0, 110, -300, 1.12],
   [11.6, 210, -230, 1.6],
   [12.4, 240, -330, 1.22],
   [14.8, 240, -335, 1.2],
   [16.2, 200, -470, 0.88],
-  [21.5, 200, -480, 0.84],
+  [24.0, 200, -490, 0.8],
 ];
 function camAt(t) {
   for (let i = 0; i < CAM.length - 1; i++) {
@@ -87,7 +87,7 @@ function toScreen(c, x, y) { return [(x - c.x) * c.z + W / 2, (y - c.y) * c.z + 
 // ---------- stickman ----------
 // x = feet center, y = ground. Height ≈ 235 * s.
 function drawMan(x, y, s, o = {}) {
-  const { phase = 0, walk = 0, lean = 0, tremble = 0, relax = 0, alpha = 1, color = '#ffffff', glowAmt = 1, lookUp = 0 } = o;
+  const { phase = 0, walk = 0, lean = 0, tremble = 0, relax = 0, alpha = 1, color = '#ffffff', glowAmt = 1, lookUp = 0, reach = 0 } = o;
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.translate(x, y);
@@ -122,9 +122,9 @@ function drawMan(x, y, s, o = {}) {
   ctx.lineWidth = 14;
   const aa = -Math.sin(phase) * 0.4 * walk;
   for (const sgn of [1, -1]) {
-    const a = aa * sgn + (tremble > 0 ? 0.25 * sgn * 0 : 0);
+    const a = (sgn === 1 && reach > 0) ? lerp(aa, Math.PI / 2 * 0.95, reach) : aa * sgn;
     const ex = sgn * 30 + Math.sin(a) * 40, ey = shY + 10 + Math.cos(a) * 40;
-    const ha = a + 0.25 * walk + (1 - relax) * 0;
+    const ha = (sgn === 1 && reach > 0) ? lerp(a + 0.25 * walk, Math.PI / 2 * 1.05, reach) : a + 0.25 * walk;
     ctx.beginPath(); ctx.moveTo(sgn * 28, shY + 10); ctx.lineTo(ex, ey); ctx.lineTo(ex + Math.sin(ha) * 36, ey + Math.cos(ha) * 36); ctx.stroke();
   }
   // head
@@ -409,7 +409,7 @@ function streetWorld(t, c, opt = {}) {
   ctx.save(); applyCam(c);
   // far streetlamps (off, atmosphere)
   ctx.save(); ctx.globalAlpha = 0.35; drawLamp(-700, 0, 0); ctx.restore();
-  drawLamp(TREE_X + 250, 1, flick);
+  drawLamp(TREE_X + 330, 1, flick);
   // silhouette / tree
   drawFigure(TREE_X, 0, 1.12, m, { lit });
   // brain's guess overlay
@@ -452,7 +452,7 @@ function sceneStreet(t) {
   const bp = beatPulse(t);
   background(t, 0.75 + 0.25 * seg(t, REVEAL.start, REVEAL.start + 0.5));
   drawGround(c);
-  const ghost = win(t, 18.4, 21.6, 0.5, 0.4) * (0.55 + 0.3 * Math.sin(t * 6));
+  const ghost = win(t, 19.0, 23.8, 0.5, 0.4) * (0.55 + 0.3 * Math.sin(t * 6));
   const { x } = streetWorld(t, c, { ghost, lookUp: seg(t, 15.2, 15.8) });
   vignette(0.55 + bp * 0.3 + (1 - seg(t, 0, 2.3)) * 0.15);
 
@@ -470,21 +470,22 @@ function sceneStreet(t) {
     signalLine(tx, ty, sx + 70 * c.z, sy + 90 * c.z, k2, t + 0.3);
     // small labels
     const la = seg(t, 17.6, 18.0);
-    pill('ГЛАЗА', Math.max(150, ex - 10), ey - 90 * c.z - 40, 26, la * (1 - seg(t, 21.0, 21.4)), { inverted: true });
-    pill('ОПЫТ', sx, sy - 175 * c.z, 26, seg(t, 18.6, 19.0) * (1 - seg(t, 21.0, 21.4)), { inverted: true });
+    pill('ГЛАЗА', Math.max(150, ex - 10), ey - 90 * c.z - 40, 26, la * (1 - seg(t, 23.4, 23.8)), { inverted: true });
+    pill('ОПЫТ', sx, sy - 175 * c.z, 26, seg(t, 18.6, 19.0) * (1 - seg(t, 23.4, 23.8)), { inverted: true });
   }
 
   // ---- texts ----
   // HOOK (0 - 4.5)
-  textBlock(['КТО СТОИТ', 'В ТЕМНОТЕ?'], W / 2, 360, { t, start: -0.8, end: 2.35, size: 116, stagger: 0.12 });
-  textBlock(['ТАМ', '*НИКОГО', 'НЕТ.'], W / 2, 330, { t, start: 2.45, end: 4.7, size: 116, stagger: 0.14 });
-  pill('НО ТВОЙ МОЗГ ВИДИТ ЧЕЛОВЕКА', W / 2, 700, 30, seg(t, 3.0, 3.4) * (1 - seg(t, 4.4, 4.7)));
+  pill('СМОТРИ ВНИМАТЕЛЬНО', W / 2, 235, 30, 1 - seg(t, 1.7, 2.0), { inverted: true });
+  textBlock(['ТЫ ВИДИШЬ', 'ЧЕЛОВЕКА?'], W / 2, 370, { t, start: -0.8, end: 2.0, size: 124, stagger: 0.12 });
+  textBlock(['ЕГО ТАМ', '*НЕТ.'], W / 2, 350, { t, start: 2.0, end: 4.7, size: 130, stagger: 0.16 });
+  pill('ТВОЙ МОЗГ ДОРИСОВАЛ ЕГО САМ', W / 2, 640, 32, seg(t, 2.7, 3.1) * (1 - seg(t, 4.4, 4.7)));
   // captions
   textBlock(['Тёмная улица.', 'Впереди кто-то стоит.'], W / 2, 1540, { t, start: 4.8, end: 7.7, size: 58, font: 'InterBold', stagger: 0.06 });
   textBlock(['Сердце бьётся чаще.', 'Шаг. Ещё шаг…'], W / 2, 1540, { t, start: 7.9, end: 11.7, size: 58, font: 'InterBold', stagger: 0.12 });
   textBlock(['ЭТО ПРОСТО', '*ДЕРЕВО.'], W / 2, 330, { t, start: 12.2, end: 15.0, size: 112, stagger: 0.12 });
   textBlock(['Мозг не просто «видит».'], W / 2, 1600, { t, start: 15.3, end: 18.2, size: 56, font: 'InterBold', stagger: 0.07 });
-  textBlock(['Он *ДОСТРАИВАЕТ картинку', 'по опыту и ожиданиям.'], W / 2, 1570, { t, start: 18.35, end: 21.4, size: 54, font: 'InterBold', stagger: 0.07 });
+  textBlock(['Он *ДОСТРАИВАЕТ картинку', 'по опыту и ожиданиям.'], W / 2, 1570, { t, start: 18.35, end: 23.9, size: 54, font: 'InterBold', stagger: 0.07 });
 
   // flash on reveal
   const fl = (t > REVEAL.start && t < REVEAL.start + 0.5) ? (1 - (t - REVEAL.start) / 0.5) : 0;
@@ -551,19 +552,19 @@ function sceneDots(t) {
   // little observer
   drawMan(150, 1395, 0.62, { lookUp: 1, alpha: seg(t, 21.9, 22.4) });
   ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 2; ctx.setLineDash([6, 10]);
-  ctx.globalAlpha = seg(t, 23.4, 23.9) * (1 - seg(t, 27.4, 27.8));
+  ctx.globalAlpha = seg(t, 23.4, 23.9) * (1 - seg(t, 29.0, 29.4));
   ctx.beginPath(); ctx.moveTo(160, 1250); ctx.lineTo(380, 790); ctx.stroke(); ctx.restore();
   vignette(0.6);
-  pill('ПАРЕЙДОЛИЯ', W / 2, 400, 36, seg(t, 25.9, 26.3) * (1 - seg(t, 27.5, 27.9)));
+  pill('ПАРЕЙДОЛИЯ', W / 2, 400, 36, seg(t, 25.9, 26.3) * (1 - seg(t, 29.0, 29.4)));
   textBlock(['Мозг ищет знакомое…'], W / 2, 1560, { t, start: 22.0, end: 24.8, size: 58, font: 'InterBold' });
-  textBlock(['…даже в случайных', 'точках.'], W / 2, 1530, { t, start: 24.9, end: 27.9, size: 58, font: 'InterBold' });
+  textBlock(['…даже в случайных', 'точках.'], W / 2, 1530, { t, start: 24.9, end: 29.4, size: 58, font: 'InterBold' });
 }
 
 // ---------- spotlight question ----------
 function sceneQuestion(t) {
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
   const lt = t - 28;
-  const z = 1 + ease(seg(t, 28, 34.5)) * 0.22;
+  const z = 1 + ease(seg(t, 28, 39)) * 0.28;
   ctx.save(); ctx.translate(540, 1050); ctx.scale(z, z); ctx.translate(-540, -1050);
   // cone
   const on = seg(t, 28.15, 28.5);
@@ -573,7 +574,7 @@ function sceneQuestion(t) {
   const fg = ctx.createRadialGradient(540, 1262, 10, 540, 1262, 300);
   fg.addColorStop(0, `rgba(255,255,255,${0.35 * on})`); fg.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.fillStyle = fg; ctx.save(); ctx.translate(540, 1262); ctx.scale(1, 0.18); ctx.beginPath(); ctx.arc(0, 0, 300, 0, 6.283); ctx.restore(); ctx.fill();
-  drawMan(540, 1262, 1.1, { alpha: on, lookUp: seg(t, 30.5, 31.3) });
+  drawMan(540, 1262, 1.1, { alpha: on, lookUp: seg(t, 31.5, 32.3) });
   ctx.restore();
   // dust in the beam
   for (let i = 0; i < 26; i++) {
@@ -582,8 +583,8 @@ function sceneQuestion(t) {
     const xr = 540 + (pr.x / W - 0.5) * (80 + y * 0.42);
     ctx.fillStyle = `rgba(255,255,255,${pr.a * on})`; ctx.beginPath(); ctx.arc(xr, y, pr.r, 0, 6.283); ctx.fill();
   }
-  textBlock(['ТЫ ВИДИШЬ', 'РЕАЛЬНОСТЬ?'], W / 2, 330, { t, start: 28.6, end: 34.4, size: 104, stagger: 0.14 });
-  textBlock(['ИЛИ ТО, ЧТО', '*ОЖИДАЕШЬ?'], W / 2, 1520, { t, start: 31.3, end: 34.4, size: 92, stagger: 0.14 });
+  textBlock(['ТЫ ВИДИШЬ', 'РЕАЛЬНОСТЬ?'], W / 2, 330, { t, start: 28.6, end: 38.9, size: 104, stagger: 0.14 });
+  textBlock(['ИЛИ ТО, ЧТО', '*ОЖИДАЕШЬ?'], W / 2, 1520, { t, start: 32.3, end: 38.9, size: 92, stagger: 0.14 });
 }
 
 // ---------- end card ----------
@@ -602,51 +603,262 @@ function sceneLogo(t) {
   ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 3; glow(14, 0.8);
   ctx.beginPath(); ctx.moveTo(540 - 260 * lk, 1060); ctx.lineTo(540 + 260 * lk, 1060); ctx.stroke(); noGlow(); ctx.restore();
   pill('ЭПИЗОД 02', W / 2, 690, 30, seg(t, 35.2, 35.6));
-  textBlock(['Почему мозг видит', 'то, чего нет'], W / 2, 1170, { t, start: 35.5, end: 40, size: 50, font: 'InterSemi', glowA: 0.3 });
+  textBlock(['Почему мозг видит', 'то, чего нет'], W / 2, 1170, { t, start: 35.5, end: 99, size: 50, font: 'InterSemi', glowA: 0.3 });
   pill('ПОЛНЫЙ ВЫПУСК НА КАНАЛЕ', W / 2, 1420, 28, seg(t, 36.0, 36.4), { inverted: true });
 }
 
 function fadeBlack(a) { if (a > 0) { ctx.fillStyle = `rgba(0,0,0,${clamp(a)})`; ctx.fillRect(0, 0, W, H); } }
 
+// ---------- cloud that looks like a face (24 - 32) ----------
+function sceneCloud(t) {
+  background(t, 0.55);
+  const lt = t - 24;
+  // moon
+  ctx.save(); const mg = ctx.createRadialGradient(860, 330, 10, 860, 330, 260);
+  mg.addColorStop(0, 'rgba(255,255,255,0.35)'); mg.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(860, 330, 260, 0, 6.283); ctx.fill();
+  ctx.fillStyle = '#eee'; glow(40, 0.9); ctx.beginPath(); ctx.arc(860, 330, 46, 0, 6.283); ctx.fill(); noGlow(); ctx.restore();
+  const cx = 560 - lt * 9, cy = 820;
+  const z = 1 + lt * 0.015;
+  ctx.save(); ctx.translate(cx, cy); ctx.scale(z, z);
+  const puffs = [[-230, 40, 110], [-120, -40, 150], [30, -90, 170], [180, -30, 150], [270, 50, 110], [-60, 80, 140], [110, 90, 140], [-300, 110, 80], [330, 120, 80]];
+  const fk = ease(seg(t, 26.3, 28.3)); // face emerges
+  ctx.fillStyle = 'rgba(235,235,235,0.92)'; glow(50, 0.6);
+  ctx.beginPath(); for (const [x, y, r] of puffs) { ctx.moveTo(x + r, y); ctx.arc(x, y, r * (1 + 0.02 * Math.sin(t * 0.8 + x)), 0, 6.283); } ctx.fill(); noGlow();
+  // darker hollows = eyes + mouth
+  ctx.fillStyle = `rgba(20,20,20,${0.55 * fk})`;
+  ctx.beginPath(); ctx.ellipse(-80, -40, 34, 44 * fk + 4, 0.1, 0, 6.283); ctx.ellipse(110, -45, 34, 44 * fk + 4, -0.1, 0, 6.283); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(20, 95, 95 * fk + 10, 34 * fk + 4, 0, 0, Math.PI); ctx.fill();
+  // dashed outline once the viewer "sees" it
+  const ok = seg(t, 28.4, 29.0) * (1 - seg(t, 31.4, 31.8));
+  if (ok > 0) {
+    ctx.save(); ctx.globalAlpha = ok; ctx.strokeStyle = '#fff'; ctx.lineWidth = 4; ctx.setLineDash([12, 10]); ctx.lineDashOffset = -t * 30; glow(14, 0.9);
+    ctx.beginPath(); ctx.ellipse(15, 10, 300, 240, 0, 0, 6.283); ctx.stroke(); ctx.restore();
+  }
+  ctx.restore();
+  // observer
+  const gy = 1390;
+  ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 3; ctx.setLineDash([24, 14]);
+  ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); ctx.restore();
+  drawMan(190, gy, 0.7, { lookUp: 1, alpha: seg(t, 24.2, 24.7), lean: -0.05 });
+  vignette(0.55);
+  textBlock(['Посмотри на облако.'], W / 2, 1560, { t, start: 24.5, end: 28.0, size: 58, font: 'InterBold' });
+  textBlock(['Видишь лицо?'], W / 2, 1530, { t, start: 28.2, end: 31.8, size: 58, font: 'InterBold' });
+  textBlock(['Его там тоже *нет.'], W / 2, 1620, { t, start: 29.4, end: 31.8, size: 58, font: 'InterBold' });
+}
+
+// ---------- objects that look like something else (40 - 61) ----------
+function rope(k, lit) { // S-curve; k: 0 = snake, 1 = rope
+  const pts = [];
+  for (let i = 0; i <= 60; i++) { const u = i / 60; pts.push([-330 + u * 640, Math.sin(u * Math.PI * 2.2) * 55 * (1 - u * 0.3) - 6]); }
+  const shade = Math.round(lerp(70, 235, lit));
+  ctx.strokeStyle = `rgb(${shade},${shade},${shade})`; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  glow(lerp(10, 26, lit), lerp(0.2, 0.7, lit));
+  ctx.lineWidth = lerp(30, 20, k);
+  ctx.beginPath(); pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke(); noGlow();
+  const [hx, hy] = pts[pts.length - 1];
+  if (k < 1) { // snake head + tongue
+    ctx.save(); ctx.globalAlpha = 1 - k; ctx.fillStyle = `rgb(${shade},${shade},${shade})`;
+    ctx.beginPath(); ctx.ellipse(hx + 20, hy - 4, 34, 22, -0.2, 0, 6.283); ctx.fill();
+    ctx.fillStyle = '#fff'; glow(12, 1); ctx.beginPath(); ctx.arc(hx + 30, hy - 12, 4, 0, 6.283); ctx.fill(); noGlow();
+    ctx.strokeStyle = '#bbb'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(hx + 52, hy - 6); ctx.lineTo(hx + 72, hy - 10); ctx.lineTo(hx + 80, hy - 18); ctx.moveTo(hx + 72, hy - 10); ctx.lineTo(hx + 82, hy - 4); ctx.stroke();
+    ctx.restore();
+  }
+  if (k > 0) { // twist marks + frayed ends
+    ctx.save(); ctx.globalAlpha = k; ctx.strokeStyle = '#2a2a2a'; ctx.lineWidth = 3;
+    for (let i = 1; i < pts.length - 1; i += 2) { const [x, y] = pts[i]; ctx.beginPath(); ctx.moveTo(x - 5, y - 8); ctx.lineTo(x + 5, y + 8); ctx.stroke(); }
+    ctx.strokeStyle = '#ddd'; ctx.lineWidth = 3;
+    for (const [ex, ey, d] of [[pts[0][0], pts[0][1], -1], [hx, hy, 1]]) for (let j = -2; j <= 2; j++) { ctx.beginPath(); ctx.moveTo(ex, ey + j * 4); ctx.lineTo(ex + d * (16 + Math.abs(j) * 3), ey + j * 9); ctx.stroke(); }
+    ctx.restore();
+  }
+}
+function coat(k, lit) { // k: 0 = person standing in the dark, 1 = coat on a wall hook
+  const shade = Math.round(lerp(55, 225, lit));
+  const col = `rgb(${shade},${shade},${shade})`;
+  ctx.fillStyle = col; glow(lerp(14, 26, lit), lerp(0.2, 0.6, lit));
+  // hat
+  ctx.beginPath(); ctx.ellipse(0, -400, 62, 13, 0, 0, 6.283); ctx.fill(); roundRect(-38, -460, 76, 62, 14); ctx.fill();
+  // collar / "head" gap
+  ctx.beginPath(); ctx.ellipse(0, -372, 30, 26, 0, 0, 6.283); ctx.fill();
+  // coat body
+  ctx.beginPath(); ctx.moveTo(-36, -350); ctx.quadraticCurveTo(-92, -345, -96, -300); ctx.lineTo(-104, -110); ctx.lineTo(104, -110); ctx.lineTo(96, -300); ctx.quadraticCurveTo(92, -345, 36, -350); ctx.closePath(); ctx.fill();
+  // sleeves
+  ctx.lineCap = 'round'; ctx.strokeStyle = col; ctx.lineWidth = 30;
+  ctx.beginPath(); ctx.moveTo(-90, -310); ctx.lineTo(-104, -150); ctx.moveTo(90, -310); ctx.lineTo(104, -150); ctx.stroke();
+  // "legs" in the dark (shadow) -> disappear when lit
+  ctx.globalAlpha = 1 - k; ctx.lineWidth = 34;
+  ctx.beginPath(); ctx.moveTo(-40, -110); ctx.lineTo(-44, 0); ctx.moveTo(40, -110); ctx.lineTo(44, 0); ctx.stroke(); ctx.globalAlpha = 1;
+  noGlow();
+  if (k > 0) { // buttons, hook, hanger
+    ctx.save(); ctx.globalAlpha = k;
+    ctx.fillStyle = '#333'; for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.arc(0, -320 + i * 52, 7, 0, 6.283); ctx.fill(); }
+    ctx.strokeStyle = '#999'; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(-22, -470); ctx.lineTo(22, -470); ctx.moveTo(0, -470); ctx.lineTo(0, -500); ctx.arc(-14, -500, 14, 0, Math.PI, true); ctx.stroke();
+    ctx.fillStyle = '#888'; roundRect(-40, -478, 80, 16, 6); ctx.fill();
+    ctx.restore();
+  }
+}
+function socket(lit) {
+  ctx.fillStyle = `rgb(${Math.round(lerp(150, 235, lit))},${Math.round(lerp(150, 235, lit))},${Math.round(lerp(150, 235, lit))})`;
+  glow(30, 0.6); roundRect(-90, -90, 180, 180, 34); ctx.fill(); noGlow();
+  ctx.strokeStyle = 'rgba(0,0,0,0.35)'; ctx.lineWidth = 3; roundRect(-70, -70, 140, 140, 24); ctx.stroke();
+  ctx.fillStyle = '#0a0a0a';
+  roundRect(-38, -40, 14, 40, 6); ctx.fill(); roundRect(24, -40, 14, 40, 6); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(0, 42, 16, 12, 0, 0, 6.283); ctx.fill();
+}
+function sceneObject(t, idx) {
+  const t0 = CUTS.objects[idx], lt = t - t0, rv = T.OBJ_REVEAL;
+  const k = ease(seg(lt, rv, rv + 0.9));
+  const lit = seg(lt, rv - 0.05, rv + 0.35);
+  background(t, 0.45 + 0.4 * lit);
+  // spotlight on the object after reveal
+  const gy = 1300;
+  const flash = (lt > rv && lt < rv + 0.45) ? (1 - (lt - rv) / 0.45) : 0;
+  // camera: fake view = close + slightly tilted; real view = wider, level (perspective change)
+  let zoom, ox, rot;
+  if (idx === 2) { zoom = lerp(4.2, 1.0, ease(seg(lt, rv, rv + 1.3))) * (1 + lt * 0.01); ox = lerp(0, 120, k); rot = 0; }
+  else { zoom = lerp(1.35 + lt * 0.03, 1.0, k); ox = lerp(80, 0, k); rot = lerp(-0.05, 0, k); }
+  const objX = idx === 2 ? 640 : 600, objY = idx === 2 ? 820 : gy;
+  ctx.save();
+  ctx.translate(objX, objY - (idx === 2 ? 0 : 120)); ctx.rotate(rot); ctx.scale(zoom, zoom); ctx.translate(-objX + ox, -objY + (idx === 2 ? 0 : 120));
+  // floor / wall
+  ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 3; ctx.setLineDash([24, 14]);
+  ctx.beginPath(); ctx.moveTo(-600, gy); ctx.lineTo(W + 600, gy); ctx.stroke(); ctx.setLineDash([]);
+  // light pool
+  if (lit > 0) {
+    const g = ctx.createRadialGradient(objX, objY - 100, 20, objX, objY - 100, 520);
+    g.addColorStop(0, `rgba(255,255,255,${0.16 * lit})`); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(objX, objY - 100, 520, 0, 6.283); ctx.fill();
+  }
+  ctx.save(); ctx.translate(objX, objY);
+  if (idx === 0) rope(k, lit);
+  else if (idx === 1) { coat(k, lit); }
+  else {
+    socket(lit);
+    // plug + cord visible after zoom-out
+    ctx.globalAlpha = k; ctx.strokeStyle = '#cfcfcf'; ctx.lineWidth = 8; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-150, 160); ctx.bezierCurveTo(-200, 300, -320, 330, -330, gy - objY); ctx.stroke();
+    ctx.fillStyle = '#ddd'; roundRect(-180, 110, 60, 60, 12); ctx.fill(); ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+  // observer (startled, then relaxed)
+  const startle = seg(lt, 0.6, 1.0) * (1 - seg(lt, rv + 0.3, rv + 1.2));
+  drawMan(idx === 2 ? 230 : 170, gy, 0.95, { lean: -0.12 * startle, tremble: startle > 0.2 ? t : 0, relax: seg(lt, rv + 0.4, rv + 1.2), alpha: seg(lt, 0.1, 0.5) });
+  ctx.restore();
+  vignette(0.6 - 0.2 * lit);
+  if (flash > 0) { ctx.fillStyle = `rgba(255,255,255,${flash * 0.2})`; ctx.fillRect(0, 0, W, H); }
+  const fakes = ['ЗМЕЯ?', 'КТО-ТО СТОИТ?', 'ЛИЦО?'];
+  const reals = ['ВЕРЁВКА.', 'ПАЛЬТО.', 'РОЗЕТКА.'];
+  textBlock([fakes[idx]], W / 2, 340, { t: lt, start: 0.4, end: rv, size: 112 });
+  textBlock(['*' + reals[idx]], W / 2, 340, { t: lt, start: rv + 0.25, end: 7.1, size: 112 });
+  const caps = [
+    [['Первое впечатление…'], ['…бывает обманчивым.']],
+    [['Мозг спешит', 'с выводом…'], ['…а детали', 'дорисовывает сам.']],
+    [['Мозг ищет лица', 'повсюду.'], ['Даже на стене.']],
+  ][idx];
+  textBlock(caps[0], W / 2, 1530, { t: lt, start: 0.7, end: rv, size: 58, font: 'InterBold' });
+  textBlock(caps[1], W / 2, 1530, { t: lt, start: rv + 0.6, end: 7.1, size: 58, font: 'InterBold' });
+}
+
+// ---------- psychological explanation (61 - 68.5) ----------
+function sceneExplain(t) {
+  background(t, 0.6);
+  const lt = t - 61;
+  const bx = 540, by = 760;
+  const pulse = Math.max(0, Math.sin(lt * 3.2)) * seg(t, 64.6, 65.2);
+  drawBrain(bx, by, 1.75, ease(seg(t, 61.2, 62.6)), pulse);
+  const words = [['ОПЫТ', 250, 1130, 62.6], ['ОЖИДАНИЯ', 830, 1130, 63.4], ['ВОСПРИЯТИЕ', 540, 1330, 64.4]];
+  for (const [w, x, y, ts] of words) {
+    const k = seg(t, ts, ts + 0.6);
+    signalLine(x, y - 40, bx + (x - bx) * 0.25, by + 170, ease(k), t);
+    pill(w, x, y, 34, easeOut(k));
+  }
+  textBlock(['Ты видишь не только глазами.'], W / 2, 1560, { t, start: 61.5, end: 64.8, size: 52, font: 'InterBold' });
+  textBlock(['Мозг смешивает сигнал', 'с тем, что уже *знает.'], W / 2, 1540, { t, start: 65.0, end: 68.4, size: 52, font: 'InterBold' });
+  vignette(0.5);
+}
+
+// ---------- examining more carefully (68.5 - 75) ----------
+function sceneExamine(t) {
+  background(t, 0.55);
+  const lt = t - 68.5;
+  const gy = 1300;
+  const z = 1.15 + lt * 0.02;
+  ctx.save(); ctx.translate(540, 1100); ctx.scale(z, z); ctx.translate(-540, -1100);
+  ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 3; ctx.setLineDash([24, 14]);
+  ctx.beginPath(); ctx.moveTo(-200, gy); ctx.lineTo(W + 200, gy); ctx.stroke(); ctx.setLineDash([]);
+  // dark ambiguous object (the "snake")
+  ctx.save(); ctx.translate(640, gy); rope(0, 0); ctx.restore();
+  const reach = ease(seg(t, 68.9, 69.7));
+  const mv = ease(seg(t, 69.8, 73.8));
+  const mx = lerp(200, 640, mv);
+  const fx = ((mx - 200) / 70) * Math.PI;
+  const walking = (t > 69.8 && t < 73.8) ? 0.5 : 0;
+  drawMan(mx, gy, 1.05, { lean: 0.12 * reach, reach, phase: fx, walk: walking, alpha: seg(t, 68.6, 69.0) });
+  const hx = mx + 1.05 * 104, hy = gy - 1.05 * 152;
+  const lx = hx + 95, ly = gy - 55;
+  const r = 92 * seg(t, 69.4, 69.9);
+  if (r > 1) {
+    ctx.save(); ctx.beginPath(); ctx.arc(lx, ly, r, 0, 6.283); ctx.clip();
+    ctx.fillStyle = '#151515'; ctx.fillRect(lx - r, ly - r, r * 2, r * 2);
+    ctx.translate(640, gy); rope(1, 1); ctx.restore();
+    ctx.save(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 8; glow(22, 0.9);
+    ctx.beginPath(); ctx.arc(lx, ly, r, 0, 6.283); ctx.stroke();
+    ctx.lineWidth = 13; ctx.lineCap = 'round';
+    const a = Math.atan2(hy - ly, hx - lx);
+    ctx.beginPath(); ctx.moveTo(lx + Math.cos(a) * r, ly + Math.sin(a) * r); ctx.lineTo(hx, hy); ctx.stroke(); noGlow(); ctx.restore();
+  }
+  ctx.restore();
+  vignette(0.55);
+  textBlock(['Не спеши', 'с выводом.'], W / 2, 330, { t, start: 69.0, end: 74.8, size: 104 });
+  textBlock(['Посмотри ещё раз —', 'внимательнее.'], W / 2, 1560, { t, start: 70.2, end: 74.8, size: 56, font: 'InterBold' });
+}
+
 function renderFrame(t) {
   ctx.save();
   ctx.globalAlpha = 1;
-  if (t < 21.5) sceneStreet(t);
-  else if (t < 28) sceneDots(t);
-  else if (t < 34.5) sceneQuestion(t);
-  else sceneLogo(t);
+  const C = CUTS;
+  if (t < C.cloud) sceneStreet(t);
+  else if (t < C.dots) sceneCloud(t);
+  else if (t < C.objects[0]) sceneDots(t - (C.dots - 21.5));
+  else if (t < C.explain) sceneObject(t, t < C.objects[1] ? 0 : t < C.objects[2] ? 1 : 2);
+  else if (t < C.examine) sceneExplain(t);
+  else if (t < C.question) sceneExamine(t);
+  else if (t < C.logo) sceneQuestion(t - (C.question - 28));
+  else sceneLogo(t - (C.logo - 34.5));
   ctx.restore();
-  // dip-to-black transitions
-  const dips = [21.5, 28, 34.5];
+  const dips = [C.cloud, C.dots, ...C.objects, C.explain, C.examine, C.question, C.logo];
   let d = 0;
   for (const c of dips) d = Math.max(d, 1 - Math.abs(t - c) / 0.3);
-  d = Math.max(d, seg(t, 37.3, 38));
+  d = Math.max(d, seg(t, T.DURATION - 1.2, T.DURATION));
   fadeBlack(d);
-  // film grain-ish subtle noise lines
 }
 
 // ---------- cover (thumbnail 9:16) ----------
 function renderCover() {
   const t = 9.6;
-  background(t, 0.8);
-  const c = { x: 250, y: -420, z: 1.55 };
+  background(t, 0.7);
+  const c = { x: 210, y: -250, z: 1.75 };
   drawGround(c);
   ctx.save(); applyCam(c);
-  // moon-ish glow behind figure
-  const g = ctx.createRadialGradient(TREE_X, -220, 10, TREE_X, -220, 380);
-  g.addColorStop(0, 'rgba(255,255,255,0.22)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(TREE_X, -220, 380, 0, 6.283); ctx.fill();
-  drawFigure(TREE_X, 0, 1.2, 0.0, { lit: 0.12 });
-  drawMan(130, 0, 1.15, { lean: -0.06, phase: 0.6, walk: 0.3 });
+  // strong backlight behind the figure
+  const g = ctx.createRadialGradient(TREE_X, -240, 10, TREE_X, -240, 330);
+  g.addColorStop(0, 'rgba(255,255,255,0.55)'); g.addColorStop(0.45, 'rgba(255,255,255,0.14)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(TREE_X, -240, 330, 0, 6.283); ctx.fill();
+  drawFigure(TREE_X, 0, 1.1, 0, { lit: 0.0 });
+  drawMan(40, 0, 1.1, { lean: -0.1, phase: 0.7, walk: 0.45 });
   ctx.restore();
-  vignette(0.6);
-  // heartbeat ring
-  const [hx, hy] = toScreen(c, 140, -150);
-  ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 4; glow(16, 0.8);
-  for (const r of [70, 115]) { ctx.globalAlpha = r === 70 ? 0.7 : 0.35; ctx.beginPath(); ctx.arc(hx, hy, r, 0, 6.283); ctx.stroke(); }
+  // ground fog
+  const fg = ctx.createLinearGradient(0, 1150, 0, 1500);
+  fg.addColorStop(0, 'rgba(255,255,255,0)'); fg.addColorStop(0.5, 'rgba(255,255,255,0.06)'); fg.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = fg; ctx.fillRect(0, 1150, W, 350);
+  vignette(0.7);
+  const [hx, hy] = toScreen(c, 46, -130);
+  ctx.save(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 5; glow(18, 0.9);
+  for (const [r, a] of [[85, 0.75], [140, 0.4], [195, 0.18]]) { ctx.globalAlpha = a; ctx.beginPath(); ctx.arc(hx, hy, r, 0, 6.283); ctx.stroke(); }
   noGlow(); ctx.restore();
-  textBlock(['ТВОЙ МОЗГ', 'ТЕБЯ', '*ОБМАНЫВАЕТ?'], W / 2, 300, { t: 10, start: 0, end: 99, size: 124, stagger: 0 });
-  pill('HUMAN MIND · ЭПИЗОД 02', W / 2, 1700, 30, 1);
+  textBlock(['ТВОЙ МОЗГ', 'ТЕБЯ'], W / 2, 250, { t: 10, start: 0, end: 99, size: 150, stagger: 0 });
+  textBlock(['*ОБМАНЫВАЕТ?'], W / 2, 580, { t: 10, start: 0, end: 99, size: 112, stagger: 0 });
+  pill('HUMAN MIND · ЭПИЗОД 02', W / 2, 1760, 32, 1);
 }
 
 // ---------- main ----------

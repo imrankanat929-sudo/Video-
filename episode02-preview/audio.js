@@ -38,20 +38,20 @@ function whoosh(t0, len, g, rev = false) {
     return (y1 - y2) * 6 * Math.sin(Math.PI * u) ** 2;
   }, g);
 }
-whoosh(T.CUTS.hookPullBack - 0.2, 1.1, 0.35);
-whoosh(T.CUTS.brain - 0.1, 0.9, 0.25);
-whoosh(T.CUTS.dots - 0.45, 0.9, 0.3);
-whoosh(T.CUTS.question - 0.45, 0.9, 0.3);
-whoosh(T.CUTS.logo - 0.45, 0.9, 0.3);
+const C = T.CUTS;
+whoosh(C.hookPullBack - 0.2, 1.1, 0.35);
+whoosh(C.brain - 0.1, 0.9, 0.25);
+for (const c of [C.cloud, C.dots, ...C.objects, C.explain, C.examine, C.question, C.logo]) whoosh(c - 0.45, 0.9, 0.28);
 
 // sub impact
 function impact(t0, g) {
   const nz = lpNoise(400);
   add(t0, 2.2, (t) => (Math.sin(2 * Math.PI * (48 - 10 * t) * t) * 0.9 + nz() * 1.5) * Math.exp(-t * 2.6) * Math.min(1, t / 0.01), g);
 }
-impact(0.0, 0.45);          // cold open hit under the hook text
-impact(T.CUTS.question, 0.4);
-impact(T.CUTS.logo + 0.1, 0.45);
+impact(0.0, 0.5);           // cold open hit under the hook text
+impact(C.hookPullBack, 0.3); // "ЕГО ТАМ НЕТ."
+impact(C.question, 0.4);
+impact(C.logo + 0.1, 0.45);
 
 // reveal: lamp click + bright soft shimmer chord (relief)
 add(T.REVEAL.start - 0.15, 0.05, (t) => rnd() * Math.exp(-t * 120), 0.35);
@@ -59,11 +59,22 @@ for (const [fq, d] of [[523.25, 0], [659.25, 0.06], [783.99, 0.12], [1046.5, 0.1
   add(T.REVEAL.start + d, 3.0, (t) => Math.sin(2 * Math.PI * fq * t) * Math.exp(-t * 1.4) * Math.min(1, t / 0.03), 0.06, fq > 700 ? 0.3 : -0.3);
 }
 // brain: soft electronic blips as the signal lines draw
-[16.5, 17.1, 17.7, 18.6].forEach((t0, i) => add(t0, 0.25, (t) => Math.sin(2 * Math.PI * (880 + i * 220) * t) * Math.exp(-t * 18), 0.07, i % 2 ? 0.4 : -0.4));
+const blip = (t0, i) => add(t0, 0.25, (t) => Math.sin(2 * Math.PI * (880 + i * 220) * t) * Math.exp(-t * 18), 0.07, i % 2 ? 0.4 : -0.4);
+[16.5, 17.1, 17.7, 18.6].forEach(blip);
+[62.6, 63.4, 64.4].forEach((t0, i) => blip(t0, i));
 // dots popping: tiny ticks
-for (let i = 0; i < 30; i++) add(21.85 + (i / 30) * 1.6, 0.04, (t) => Math.sin(2 * Math.PI * 2400 * t) * Math.exp(-t * 160), 0.05, rnd() * 0.6);
+const D = C.dots - 21.5;
+for (let i = 0; i < 30; i++) add(D + 21.85 + (i / 30) * 1.6, 0.04, (t) => Math.sin(2 * Math.PI * 2400 * t) * Math.exp(-t * 160), 0.05, rnd() * 0.6);
+// object reveals: click + soft chord
+function sting(t0, g = 0.05) {
+  add(t0 - 0.05, 0.05, (t) => rnd() * Math.exp(-t * 120), 0.3);
+  for (const [fq, d] of [[523.25, 0], [659.25, 0.05], [783.99, 0.1]]) add(t0 + d, 2.2, (t) => Math.sin(2 * Math.PI * fq * t) * Math.exp(-t * 1.8) * Math.min(1, t / 0.03), g, fq > 600 ? 0.3 : -0.3);
+}
+C.objects.forEach((o) => sting(o + T.OBJ_REVEAL));
+// cloud face emerging: low swell
+add(26.3, 2.5, (t) => (Math.sin(2 * Math.PI * 110 * t) * 0.5 + Math.sin(2 * Math.PI * 164.8 * t) * 0.3) * Math.sin(Math.PI * t / 2.5) ** 2, 0.1);
 // face completes: low swell
-add(25.4, 2.5, (t) => Math.sin(2 * Math.PI * 110 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.5 + Math.sin(2 * Math.PI * 164.8 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.3, 0.12);
+add(D + 25.4, 2.5, (t) => Math.sin(2 * Math.PI * 110 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.5 + Math.sin(2 * Math.PI * 164.8 * t) * Math.sin(Math.PI * t / 2.5) ** 2 * 0.3, 0.12);
 // tension drone during the approach (rises, cut at reveal)
 add(6.0, T.REVEAL.start - 6.0, (t) => { const len = T.REVEAL.start - 6; const env = (t / len) ** 1.5 * Math.min(1, (len - t) / 0.05); return (Math.sin(2 * Math.PI * 55 * t) + 0.5 * Math.sin(2 * Math.PI * 82.4 * t + Math.sin(t * 3))) * env; }, 0.12);
 
