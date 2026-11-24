@@ -1,0 +1,7 @@
+build/
+__pycache__/
+# user-supplied audio and videos that embed it are kept out of git
+assets/ru_supplied_narration.mp3
+assets/music_*.mp3
+assets/ru_supplied_words.json
+output/*.mp4
