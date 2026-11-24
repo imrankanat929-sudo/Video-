@@ -35,7 +35,7 @@ VO = [
     ("a9", 41.29, 43.9, "This is called déjà vu.", None),
     ("a10", 44.21, 49.6, "And what happens in your brain in those seconds is far more interesting than it seems.", None),
     # SCENE 4 — the memory connection
-    ("b1", 50.4, 56.2, "Your brain constantly stores fragments of experience: shapes, faces, places, sounds.",
+    ("b1", 49.9, 56.2, "Your brain constantly stores fragments of experience: shapes, faces, places, sounds.",
                        "Мозг постоянно хранит фрагменты опыта: формы, лица, места, звуки."),
     ("b2", 56.6, 60.6, "When a new place resembles an old one — its layout, its light —",
                        "Когда новое место похоже на старое — планировкой, светом, —"),
@@ -43,10 +43,10 @@ VO = [
                        "мозг может сказать «знакомо»… не находя само воспоминание."),
     ("b4", 65.8, 68.4, "Familiarity is not recollection.",
                        "Знакомость — ещё не воспоминание."),
-    ("b5", 68.7, 72.2, "The moment feels known… but you can't say where from.",
+    ("b5", 68.7, 73.0, "The moment feels known… but you can't say where from.",
                        "Момент кажется знакомым… но ты не знаешь откуда."),
     # SCENE 5 — what science knows
-    ("c1", 73.0, 79.4, "Scientists have several explanations — memory, attention, and how the brain checks what it recognizes.",
+    ("c1", 73.2, 79.9, "Scientists have several explanations — memory, attention, and how the brain checks what it recognizes.",
                        "У учёных есть несколько объяснений: память, внимание, работа узнавания."),
     ("c2", 79.8, 84.0, "But the exact mechanism… is still being studied.",
                        "Но точный механизм… всё ещё изучается."),

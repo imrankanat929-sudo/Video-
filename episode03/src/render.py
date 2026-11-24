@@ -862,19 +862,19 @@ class Frame:
             c.restore()
             post["dim_bg"] = min(post.get("dim_bg", 1.0), 1 - out)
         # final question
-        a = window(t, 94.9, 99.9, 0.8, 0.7)
+        a = window(t, 95.5, 100.2, 0.8, 0.6)
         if a > 0.003:
             s = self.tx["final"]
             size = 62
             while text_width(s, size, "SemiBold", 0.08) > 1640: size -= 2
-            draw_text(c, s, 960, 520 - 8 * ease_out(seg(t, 94.9, 95.9)), size, a=a, track=0.08)
-            ln = 260 * ease_io(seg(t, 95.4, 96.6))
+            draw_text(c, s, 960, 520 - 8 * ease_out(seg(t, 95.5, 96.5)), size, a=a, track=0.08)
+            ln = 260 * ease_io(seg(t, 96.0, 97.2))
             c.drawLine(960 - ln, 600, 960 + ln, 600, stroke(2, 0.5 * a))
         # brand
-        a = window(t, 100.3, 103.9, 0.9, 0.9)
+        a = window(t, 100.6, 103.95, 0.9, 0.9)
         if a > 0.003:
             draw_text(c, self.tx["brand"], 960, 520, 84, a=a, weight="SemiBold", track=0.32)
-            pill(c, self.tx["ep"], 960, 625, size=20, a=a * smooth(seg(t, 100.9, 101.6)), track=0.2)
+            pill(c, self.tx["ep"], 960, 625, size=20, a=a * smooth(seg(t, 101.2, 101.9)), track=0.2)
             post["dim_bg"] = min(post.get("dim_bg", 1.0), 0.5)
         if t >= 94.0:
             post["dim_bg"] = min(post.get("dim_bg", 1.0), 0.5)

@@ -5,3 +5,5 @@ assets/ru_supplied_narration.mp3
 assets/music_*.mp3
 assets/ru_supplied_words.json
 output/*.mp4
+assets/ru_supplied_narration_part2.mp3
+assets/ru_supplied_part2_words.json

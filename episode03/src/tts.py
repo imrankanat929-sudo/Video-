@@ -6,6 +6,9 @@ sys.path.insert(0, os.path.dirname(__file__))
 from script import VO, VOICES, SUPPLIED_OFFSET, SUPPLIED_FIX
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PART2_AUDIO = os.path.join(ROOT, "assets", "ru_supplied_narration_part2.mp3")
+PART2_WORDS = os.path.join(ROOT, "assets", "ru_supplied_part2_words.json")
+PART2_MAP = {"b1": [0], "b2": [1], "b3": [2], "b4": [3], "b5": [4], "c1": [5, 6], "c2": [7], "d1": [8], "d2": [9], "d3": [10]}
 
 
 async def synth(text, cfg, mp3, boundary="WordBoundary"):
@@ -87,6 +90,25 @@ async def main(lang):
             print(f"{lang} {lid}: supplied {words[0]['s']:6.2f}-{prev_end:6.2f}")
             continue
         mp3 = os.path.join(out, f"{lid}.mp3"); wav = os.path.join(out, f"{lid}.wav")
+        if lang == "ru" and lid in PART2_MAP and os.path.exists(PART2_AUDIO):
+            # second supplied recording: cut this line out of it
+            p2 = json.load(open(PART2_WORDS))
+            idx = PART2_MAP[lid]
+            s0 = max(0.0, p2[idx[0]]["s"] - 0.08)
+            nxt = p2[idx[-1] + 1]["s"] if idx[-1] + 1 < len(p2) else p2[idx[-1]]["e"] + 0.6
+            e0 = min(p2[idx[-1]]["e"] + 0.25, nxt - 0.02)
+            subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", PART2_AUDIO, "-ss", f"{s0:.3f}", "-to", f"{e0:.3f}",
+                            "-ar", "48000", "-ac", "1", "-af", "afade=t=out:st=%.3f:d=0.05" % (e0 - s0 - 0.05), wav], check=True)
+            words = [dict(w=w["w"], s=w["s"] - s0, e=w["e"] - s0) for i in idx for w in p2[i]["words"]]
+            d = dur(wav)
+            st = max(start, prev_end + 0.22) - words[0]["s"]
+            speech_end = st + words[-1]["e"]
+            flag = "  <-- OVER" if speech_end > latest + 0.05 else ""
+            print(f"{lang} {lid}: part2 start {st:6.2f} speech_end {speech_end:6.2f} (latest {latest}){flag}")
+            words = [dict(w=w["w"], s=w["s"] + st, e=w["e"] + st) for w in words]
+            timing.append(dict(id=lid, start=st, dur=d, text=text, words=words, end=speech_end, supplied2=True))
+            prev_end = speech_end
+            continue
         try:
             words = await synth(text, cfg, mp3)
         except edge_tts.exceptions.NoAudioReceived:
