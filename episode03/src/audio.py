@@ -31,6 +31,8 @@ def place(buf, clip, t, gain=1.0):
 
 def rms_db(x):
     x = x[np.abs(x) > 1e-4]
+    if len(x) == 0:
+        raise ValueError("silent clip")
     return 20 * np.log10(np.sqrt(np.mean(x ** 2)) + 1e-9)
 
 

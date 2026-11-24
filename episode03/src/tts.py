@@ -97,7 +97,7 @@ async def main(lang):
             s0 = max(0.0, p2[idx[0]]["s"] - 0.08)
             nxt = p2[idx[-1] + 1]["s"] if idx[-1] + 1 < len(p2) else p2[idx[-1]]["e"] + 0.6
             e0 = min(p2[idx[-1]]["e"] + 0.25, nxt - 0.02)
-            subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", PART2_AUDIO, "-ss", f"{s0:.3f}", "-to", f"{e0:.3f}",
+            subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", f"{s0:.3f}", "-to", f"{e0:.3f}", "-i", PART2_AUDIO,
                             "-ar", "48000", "-ac", "1", "-af", "afade=t=out:st=%.3f:d=0.05" % (e0 - s0 - 0.05), wav], check=True)
             words = [dict(w=w["w"], s=w["s"] - s0, e=w["e"] - s0) for i in idx for w in p2[i]["words"]]
             d = dur(wav)
