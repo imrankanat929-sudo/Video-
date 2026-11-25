@@ -1,0 +1,10 @@
+build/chunks/
+build/stills*/
+build/*.wav
+build/sheet*.png
+build/concat_*.txt
+build/render.log
+build/jobs.txt
+__pycache__/
+build/master_*.mp4
+build/qc*
